@@ -1,14 +1,24 @@
 FRAMEWORKS
-	- REACT
-	 - Componenti:
+	- REACT (front-office)
+	    Componenti:
 	 	estendono la classe React.Component (class _componente_ extends React.Component).
 	 	Posso riferirmi al componente nella sua interezza con <componente />.
 	 	Un componente può ricordare il suo stato: this.state
 
-	- VUE
+	- VUE (game)
+	
+BACK-END: express
+
+API
+● Pubbliche: 			https://github.com/public-apis/public-apis
+● Fatti e immagini di animali: 	https://zoo-animal-api.herokuapp.com/
+● Immagini di cani: 		https://dog.ceo/dog-api/
+● Immagini di pesci: 		https://www.fishwatch.gov/developers
+● Generatore di Meme: 		https://imgflip.com/api 
 	
 	
 TEMPLATE
 	https://nicepage.com/it/css-templates/preview/formazione-moderna-basata-sulla-scienza-1176656?device=desktop
 	https://nicepage.com/it/css-templates/preview/abitudini-sane-del-cane-74332?device=desktop
 	https://nicepage.com/it/css-templates/preview/prenditi-cura-di-animali-domestici-e-animali-66646?device=desktop
+
