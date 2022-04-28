@@ -19,4 +19,3 @@ API
 	
 TEMPLATE
 	https://nicepage.com/it/css-templates/preview/formazione-moderna-basata-sulla-scienza-1176656?device=desktop
-
