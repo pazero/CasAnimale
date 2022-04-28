@@ -9,7 +9,7 @@ function log() {
 </script>
 
 <template>
-  <h1> HelloWorld </h1>
+  <h1 v-on:click="log()"> HelloWorld </h1>
 </template>
 
 <style>
