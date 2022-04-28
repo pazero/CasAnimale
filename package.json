@@ -1,0 +1,25 @@
+{
+  "name": "casanimale",
+  "version": "1.0.0",
+  "description": "tecweb project 21-22",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pazero/CasAnimale.git"
+  },
+  "keywords": [
+    "animal"
+  ],
+  "author": "Federica Grisendi, Gabriele Genovese, Paolo Ceroni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pazero/CasAnimale/issues"
+  },
+  "homepage": "https://github.com/pazero/CasAnimale#readme",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
