@@ -19,6 +19,4 @@ API
 	
 TEMPLATE
 	https://nicepage.com/it/css-templates/preview/formazione-moderna-basata-sulla-scienza-1176656?device=desktop
-	https://nicepage.com/it/css-templates/preview/abitudini-sane-del-cane-74332?device=desktop
-	https://nicepage.com/it/css-templates/preview/prenditi-cura-di-animali-domestici-e-animali-66646?device=desktop
 
