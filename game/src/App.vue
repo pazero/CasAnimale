@@ -1,9 +1,17 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 
-function log() {
-  console.log("ciao")
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    increment() {
+      // update component state
+      this.count++
+    }
+  }
 }
 
 </script>
@@ -17,7 +25,7 @@ function log() {
 		<title>CasAnimale</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="./index.css" />
+		<link rel="stylesheet" href="index.css" />
 		<!-- <noscript><link rel="stylesheet" href="css/noscript.css" /></noscript> -->
 	</head>
 	<body class="is-preload">
@@ -60,7 +68,8 @@ function log() {
 						<div class="inner">
 							<header>
 								<h1>h1 ... </h1>
-								<p>p ...</p>
+								<p>p cacca pupu</p>
+								<button>count is: {{ count }}</button>
 							</header>
 							<!-- caselle di gioco -->
 							<section class="tiles">
@@ -68,7 +77,7 @@ function log() {
 									<span class="image">
 										<img src="images/pic01.jpg" alt="" />
 									</span>
-									<a href="#">
+									<a href="components/quizGame.vue">
 										<h2>Gioco1</h2>
 										<div class="content">
 											<p>p visualizzato quando avviene l'hover sulla "casella"</p>
