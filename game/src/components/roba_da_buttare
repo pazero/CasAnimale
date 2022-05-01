@@ -1,0 +1,28 @@
+import { ref } from 'vue'
+
+const idx = ref(0);
+const selectedAnswer = ref("");
+const correctAnswers = ref(0);
+const wrongAnswers = ref(0);
+const count = ref(3);
+const questions = ref(
+  [
+    {
+      question:
+        "Rolex is a company that specializes in what type of product?",
+      answers: { a: "Bags", b: "Watches", c: "Shoes", d: "Laptops" },
+      correctAnswer: "b",
+    },
+    {
+      question: "When did Facebook launch?",
+      answers: { a: "2005", b: "2008", c: "2003", d: "2004" },
+      correctAnswer: "d",
+    },
+    {
+      question:
+        "Albert Einstein had trouble with mathematics when he was in school?",
+      answers: { a: "True", b: "False" },
+      correctAnswer: "b",
+    },
+  ]
+);

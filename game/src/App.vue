@@ -1,17 +1,12 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-
-function log() {
-  console.log("ciao")
-}
-
+import Prova from "./components/Prova.vue";
 </script>
 
 <template>
-  <h1 v-on:click="log()"> HelloWorld </h1>
+  <main>
+    <Prova />
+  </main>
 </template>
 
 <style>
-@import "./index.css"
 </style>
