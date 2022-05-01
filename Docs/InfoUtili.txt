@@ -10,12 +10,13 @@ FRAMEWORKS
 BACK-END: express
 
 API
-● Pubbliche: 			https://github.com/public-apis/public-apis
+● Pubbliche: 			        https://github.com/public-apis/public-apis
 ● Fatti e immagini di animali: 	https://zoo-animal-api.herokuapp.com/
-● Immagini di cani: 		https://dog.ceo/dog-api/
-● Immagini di pesci: 		https://www.fishwatch.gov/developers
-● Generatore di Meme: 		https://imgflip.com/api 
-	
+● Immagini di cani: 		    https://dog.ceo/dog-api/
+● Immagini di pesci: 		    https://www.fishwatch.gov/developers
+● Generatore di Meme: 		    https://imgflip.com/api 
+● Quiz e curiosità:             https://zoo-animal-api.herokuapp.com/animals/rand 
+
 	
 TEMPLATE
 	https://nicepage.com/it/css-templates/preview/formazione-moderna-basata-sulla-scienza-1176656?device=desktop
