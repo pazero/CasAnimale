@@ -1,10 +1,10 @@
 <script setup>
-import Prova from "./components/Prova.vue";
+import Quiz from "./components/Quiz.vue";
 </script>
 
 <template>
   <main>
-    <Prova />
+    <Quiz />
   </main>
 </template>
 
