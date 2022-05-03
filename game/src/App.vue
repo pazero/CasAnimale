@@ -1,5 +1,6 @@
 <script setup>
-import Quiz from "./components/Quiz.vue";
+
+import Quiz from "./components/Quiz/Quiz.vue";
 </script>
 
 <template>
@@ -8,5 +9,6 @@ import Quiz from "./components/Quiz.vue";
   </main>
 </template>
 
-<style>
+<style scoped>
+
 </style>

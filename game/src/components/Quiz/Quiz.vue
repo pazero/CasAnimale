@@ -6,6 +6,7 @@
         type="button"
         id="get-quiz"
         @click="getQuestion"
+        class="getQuizButton"
       >
         Get some questions!
       </button>
@@ -95,7 +96,6 @@
 </template>
 
 <script>
-import { ref } from "vue"; /* eslint-disable indent */
 export default {
   data() {
     return {
@@ -253,4 +253,24 @@ export default {
 
 <style>
 @import "./style.css";
+
+.getQuizButton {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #4338CA;
+  border-radius: 25px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 </style>
