@@ -24,18 +24,11 @@
             <p class="text-2xl font-bold">{{ questions[idx]["question"] }}</p>
             <label
               v-for="(answer, index) in questions[idx].answers"
+              ref="items"
               :key="index"
               :for="index"
               class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg"
-              :class="
-                ({ 'hover:bg-gray-100 cursor-pointer': selectedAnswer == '' },
-                {
-                  'bg-green-200':
-                    index == questions[idx].correctAnswer &&
-                    selectedAnswer != '',
-                },
-                { 'bg-red-200': selectedAnswer == index })
-              "
+              :class="({ 'bg-red-200': selectedAnswer == index })"
             >
               <input
                 :id="index"
@@ -51,14 +44,32 @@
               <button
                 @click="nextQuestion"
                 v-show="selectedAnswer != '' && idx < count - 1"
-                class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2"
+                class="
+                  float-right
+                  bg-indigo-600
+                  text-white text-sm
+                  font-bold
+                  tracking-wide
+                  rounded-full
+                  px-5
+                  py-2
+                "
               >
                 Next &gt;
               </button>
               <button
                 @click="showResults"
                 v-show="selectedAnswer != '' && idx == count - 1"
-                class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2"
+                class="
+                  float-right
+                  bg-indigo-600
+                  text-white text-sm
+                  font-bold
+                  tracking-wide
+                  rounded-full
+                  px-5
+                  py-2
+                "
               >
                 Finish
               </button>
@@ -83,7 +94,16 @@
             <div class="mt-6 flow-root">
               <button
                 @click="resetQuiz"
-                class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2"
+                class="
+                  float-right
+                  bg-indigo-600
+                  text-white text-sm
+                  font-bold
+                  tracking-wide
+                  rounded-full
+                  px-5
+                  py-2
+                "
               >
                 Play again
               </button>
@@ -96,6 +116,7 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 export default {
   data() {
     return {
@@ -109,27 +130,27 @@ export default {
       questions: [
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
       ],
@@ -141,8 +162,7 @@ export default {
       await fetch(
         "https://opentdb.com/api.php?amount=" +
           this.count +
-          "&category=27&type=multiple&difficulty=" +
-          this.difficulty
+          "&category=27&type=multiple"
       )
         .then((response) => {
           if (response.ok) {
@@ -154,42 +174,41 @@ export default {
           }
         })
         .then((response) => {
+          console.log(response.results);
           //adjust every question
           for (let i = 0; i < this.count; i++) {
             let q = response.results[i];
             this.questions[i].question = q.question; // set questions
             switch (Math.floor(Math.random() * 4)) {
               case 0:
-                this.questions[i].answers.a = q.correct_answer;
-                this.questions[i].answers.b = q.incorrect_answers.shift();
-                this.questions[i].answers.c = q.incorrect_answers.shift();
-                this.questions[i].answers.d = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = "a";
+                this.questions[i].answers[0] = q.correct_answer;
+                this.questions[i].answers[1] = q.incorrect_answers.shift();
+                this.questions[i].answers[2] = q.incorrect_answers.shift();
+                this.questions[i].answers[3] = q.incorrect_answers.shift();
+                this.questions[i].correctAnswer = 0;
                 break;
               case 1:
-                this.questions[i].answers.a = q.incorrect_answers.shift();
-                this.questions[i].answers.b = q.correct_answer;
-                this.questions[i].answers.c = q.incorrect_answers.shift();
-                this.questions[i].answers.d = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = "b";
+                this.questions[i].answers[0] = q.incorrect_answers.shift();
+                this.questions[i].answers[1] = q.correct_answer;
+                this.questions[i].answers[2] = q.incorrect_answers.shift();
+                this.questions[i].answers[3] = q.incorrect_answers.shift();
+                this.questions[i].correctAnswer = 1;
                 break;
               case 2:
-                this.questions[i].answers.a = q.incorrect_answers.shift();
-                this.questions[i].answers.b = q.incorrect_answers.shift();
-                this.questions[i].answers.c = q.correct_answer;
-                this.questions[i].answers.d = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = "c";
+                this.questions[i].answers[0] = q.incorrect_answers.shift();
+                this.questions[i].answers[1] = q.incorrect_answers.shift();
+                this.questions[i].answers[2] = q.correct_answer;
+                this.questions[i].answers[3] = q.incorrect_answers.shift();
+                this.questions[i].correctAnswer = 2;
                 break;
               case 3:
-                this.questions[i].answers.a = q.incorrect_answers.shift();
-                this.questions[i].answers.b = q.incorrect_answers.shift();
-                this.questions[i].answers.c = q.incorrect_answers.shift();
-                this.questions[i].answers.d = q.correct_answer;
-                this.questions[i].correctAnswer = "d";
+                this.questions[i].answers[0] = q.incorrect_answers.shift();
+                this.questions[i].answers[1] = q.incorrect_answers.shift();
+                this.questions[i].answers[2] = q.incorrect_answers.shift();
+                this.questions[i].answers[3] = q.correct_answer;
+                this.questions[i].correctAnswer = 3;
                 break;
             }
-
-            console.log(this.questions);
           }
           this.fetchDone = true;
         })
@@ -199,6 +218,7 @@ export default {
     },
     answered(e) {
       this.selectedAnswer = e.target.value;
+      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = "lightgreen";
       if (this.selectedAnswer == this.questions[this.idx].correctAnswer) {
         this.correctAnswers++;
       } else {
@@ -206,6 +226,8 @@ export default {
       }
     },
     nextQuestion() {
+      this.$refs.items[this.selectedAnswer].style.backgroundColor = "";
+      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = "";
       this.idx++;
       this.selectedAnswer = "";
       document.querySelectorAll("input").forEach((el) => (el.checked = false));
@@ -221,27 +243,27 @@ export default {
       this.questions = [
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
         {
           question: "",
-          answers: { a: "", b: "", c: "", d: "" },
+          answers: { 0: "", 1: "", 2: "", 3: "" },
           correctAnswer: "",
         },
       ];
@@ -261,7 +283,7 @@ export default {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-color: #4338CA;
+  background-color: #4338ca;
   border-radius: 25px;
   border: none;
   color: white;
@@ -272,5 +294,4 @@ export default {
   font-size: 16px;
   cursor: pointer;
 }
-
 </style>
