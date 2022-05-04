@@ -27,28 +27,28 @@ import { ref } from 'vue'
 									</ul>
 								</nav>
 
+							<!-- Menu -->
+								<nav id="menu">
+									<h2>Menu</h2>
+									<ul>
+										<li><a href="index.html">Home</a></li>
+										<li><a href="#">Ipsum veroeros</a></li>
+										<li><a href="#">Tempus etiam</a></li>
+										<li><a href="#">Consequat dolor</a></li>
+										<li><a href="#">Elements</a></li>
+									</ul>
+								</nav>
 						</div>
 					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="#">Ipsum veroeros</a></li>
-							<li><a href="#">Tempus etiam</a></li>
-							<li><a href="#">Consequat dolor</a></li>
-							<li><a href="#">Elements</a></li>
-						</ul>
-					</nav>
 
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<header>
+							<header>		<!-- PageDescription -->
 								<h1>h1 ... </h1>
 								<p>p ...</p>
-							</header>
+							</header>		<!--------------------->
+							
 							<!-- caselle di gioco -->
 							<section class="tiles">
 								<article class="style1">
