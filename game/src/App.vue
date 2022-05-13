@@ -1,7 +1,6 @@
 <script setup>
-
-import Quiz from "./components/Quiz/Quiz.vue";
-import Mainpage from "./components/Mainpage.vue";
+import Quiz from './components/Quiz/Quiz.vue'
+import Mainpage from './components/Mainpage.vue'
 </script>
 
 <template>
@@ -10,6 +9,4 @@ import Mainpage from "./components/Mainpage.vue";
   </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

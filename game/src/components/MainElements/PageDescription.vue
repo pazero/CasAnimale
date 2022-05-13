@@ -3,15 +3,13 @@
 import { ref } from 'vue'
 </script>
 
-
 <template>
-    <header>
-        <h1>h1 ...</h1>
-        <p>p ...</p>
-      </header>
+  <header>
+    <h1>h1 ...</h1>
+    <p>p ...</p>
+  </header>
 </template>
 
-
 <style scoped>
-@import "../template/index.css";
+@import '../template/index.css';
 </style>

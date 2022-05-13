@@ -1,13 +1,11 @@
 // components API
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 </script>
-
 
 <template>
   <div id="main">
     <div class="inner">
-      
       <!-- PageDescription -->
 
       <section class="tiles">
@@ -49,7 +47,6 @@ import { ref } from "vue";
   </div>
 </template>
 
-
 <style scoped>
-@import "../template/index.css";
+@import '../template/index.css';
 </style>
