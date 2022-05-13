@@ -9,6 +9,7 @@
     "format": "eslint --fix & prettier --write './**/*.{js,jsx,ts,tsx,css,md,json,vue}' --config ./.prettierrc"
   },
   "dependencies": {
+    "tailwind": "^4.0.0",
     "vue": "^3.2.33"
   },
   "devDependencies": {

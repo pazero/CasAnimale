@@ -6,7 +6,9 @@ import Mainpage from './components/Mainpage.vue'
 <template>
   <main>
     <Quiz />
+    <p class="bg-green-200">Ciao</p>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

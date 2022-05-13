@@ -226,7 +226,6 @@ export default {
 </script>
 
 <style>
-@import './style.css';
 
 .getQuizButton {
   margin: 0;
