@@ -6,14 +6,16 @@ import Navbar from "./components/navbar/Navbar"
 
 const App = () => {
     
-    const [backendData, setBackendData] = useState([{}])
+    const [users, setUsers] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:5000/api").then(
-            (response) => response.json()
-        ).then(
-            data => {
-                setBackendData(data)
+        fetch("/users/").then( res => {
+            if(res.ok)  {
+                return res.json()
+            }
+        }).then(
+            jsonRes => {
+                setUsers(jsonRes.users)
             }
         )
     }, [])
@@ -24,6 +26,10 @@ const App = () => {
             <Navbar />
             <h1>CasAnimale</h1>
             <h5>Dove il tuo amico animale si sente a casa</h5>
+            
+            <div>
+                {users.map((user) => <li>{user}</li>)}
+            </div>
             <Footer />
         </>
     )
