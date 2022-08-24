@@ -226,7 +226,6 @@ export default {
 </script>
 
 <style>
-
 .getQuizButton {
   margin: 0;
   position: absolute;

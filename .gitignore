@@ -1,4 +1,4 @@
-front-office/node_modules
-game/node_modules
-node_modules
-game/.vscode
+client/front-office/node_modules
+client/game/node_modules
+client/game/.vscode
+server/node_modules
