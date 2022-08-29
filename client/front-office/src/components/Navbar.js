@@ -4,7 +4,7 @@ import React from "react";
 const manageMenu = () => {
   const vis = document.querySelector('#menu').style.visibility
   console.log(vis)
-  if(vis == 'visibile') {
+  if(vis == 'visible') {
     console.log("Lo rendo invisibile")
     document.querySelector('#menu').style.visibility = 'hidden'
   } else {

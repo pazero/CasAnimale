@@ -18,7 +18,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div data-theme="cupcake" className="App">
       <Navbar />
       <h1>CasAnimale</h1>
       <h5>Dove il tuo amico animale si sente a casa</h5>
