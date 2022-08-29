@@ -9,6 +9,12 @@ app.get('/status', (req, res) => {
     })
 })
 
+app.get('/users', (req, res) => {
+    res.send({
+        users: ["Fede", "Geno", "Paolo"],
+    })
+})
+
 app.use(cors())
 
-app.listen(8083, console.log("Serving on port 8083!"))
+app.listen(5000, console.log("Serving on port 5000!"))
