@@ -1,14 +1,9 @@
 <script setup>
-import Quiz from './components/Quiz/Quiz.vue'
-import Mainpage from './components/Mainpage.vue'
+import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <main>
-    <Quiz />
-    <p class="bg-green-200">Ciao</p>
-  </main>
+  <RouterView />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
