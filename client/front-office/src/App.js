@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from "react"
-import Header from "./components/header/Header"
-import Footer from "./components/footer/Footer"
-import Navbar from "./components/navbar/Navbar"
-
+import React, { useEffect, useState } from "react";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 const App = () => {
-    
-    const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-        fetch("/users/").then( res => {
-            if(res.ok)  {
-                return res.json()
-            }
-        }).then(
-            jsonRes => {
-                setUsers(jsonRes.users)
-            }
-        )
-    }, [])
+  useEffect(() => {
+    fetch("/users")
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((jsonRes) => {
+        setUsers(jsonRes.users);
+      });
+  }, []);
 
-    return (
-        <>
-            <Header />
-            <Navbar />
-            <h1>CasAnimale</h1>
-            <h5>Dove il tuo amico animale si sente a casa</h5>
-            
-            <div>
-                {users.map((user) => <li>{user}</li>)}
-            </div>
-            <Footer />
-        </>
-    )
-}
+  return (
+    <div className="App">
+      <Navbar />
+      <h1>CasAnimale</h1>
+      <h5>Dove il tuo amico animale si sente a casa</h5>
 
-export default App
+      <div>
+        <ul className="list-inside list-disc">
+          {users.map((user, key) => (
+            <li id={key.toString()}>{user}</li>
+          ))}
+        </ul>
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
