@@ -1,7 +1,4 @@
 client/front-office/node_modules
-client/front-office/package-lock.json
 client/game/node_modules
 client/game/.vscode
-client/game/package-lock.json
 server/node_modules
-server/package-lock.json
