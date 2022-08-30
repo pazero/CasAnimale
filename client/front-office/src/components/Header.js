@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <div class="bg-tipacane hero min-h-screen">
       <div class="hero-content flex-col lg:flex-row-reverse">
-        <div class="p-5 text-center rounded-lg bg-gradient-to-r from-gray-300 text-black lg:text-left">
+        <div class="p-5 text-center rounded-lg bg-gray-300 bg-opacity-50 text-black lg:text-left">
           <h1 class="text-5xl font-bold">Registrati ora!</h1>
           <p class="text-xl py-6">
             E usufruisci dei tanti servizi che forniamo per te e per tutti i tuoi amici animali.
@@ -39,7 +39,7 @@ const Navbar = () => {
                 </a>
               </label>
             </div>
-            <div class="mt-6">
+            <div>
               <button class="btn btn-primary m-1">Login</button>
               <a href="" class="btn btn-primary">Registrati</a>
             </div>
