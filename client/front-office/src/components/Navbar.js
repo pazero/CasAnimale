@@ -17,16 +17,15 @@ const Navbar = () => {
   return (
     <div class="navbar bg-blue-100">
       <div class="flex-1">
-        <a href="http://localhost:3000" class="btn btn-ghost normal-case text-xl">CasAnimale</a>
+        <a
+          href="http://localhost:3000"
+          class="btn btn-ghost normal-case text-xl"
+        >
+          CasAnimale
+        </a>
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal p-0">
-          <li>
-            <a href="http://localhost:5173" target="_blank">Area giochi</a>
-          </li>
-          <li>
-            <a>Area riservata</a>
-          </li>
           <li tabindex="0">
             <a>
               Servizi
@@ -53,7 +52,12 @@ const Navbar = () => {
             </ul>
           </li>
           <li>
-            <a>Registrati</a>
+            <a href="http://localhost:5173" target="_blank">
+              Area giochi
+            </a>
+          </li>
+          <li>
+            <a>Area riservata</a>
           </li>
         </ul>
       </div>

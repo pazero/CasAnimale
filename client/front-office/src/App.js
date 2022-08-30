@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 
 const App = () => {
@@ -20,8 +21,7 @@ const App = () => {
   return (
     <div data-theme="cupcake" className="App">
       <Navbar />
-      <h1>CasAnimale</h1>
-      <h5>Dove il tuo amico animale si sente a casa</h5>
+      <Header />
 
       <div>
         <ul className="list-inside list-disc">
