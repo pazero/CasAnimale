@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "proxy": "http://localhost/5000",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 4173",

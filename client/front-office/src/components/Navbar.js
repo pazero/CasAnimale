@@ -1,18 +1,5 @@
 import React from "react";
 
-// non va, da controllare
-const manageMenu = () => {
-  const vis = document.querySelector("#menu").style.visibility;
-  console.log(vis);
-  if (vis === "visible") {
-    console.log("Lo rendo invisibile");
-    document.querySelector("#menu").style.visibility = "hidden";
-  } else {
-    console.log("Lo rendo visibile");
-    document.querySelector("#menu").style.visibility = "visible";
-  }
-};
-
 const Navbar = () => {
   return (
     <div class="navbar bg-blue-100">

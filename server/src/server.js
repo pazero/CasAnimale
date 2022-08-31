@@ -3,6 +3,13 @@ const cors = require('cors')
 
 const app = express()
 
+
+app.get('/', (req, res) => {
+    res.send({
+        message: "Bella"
+    })
+})
+
 app.get('/status', (req, res) => {
     res.send({
         message: "Ciao da express"
