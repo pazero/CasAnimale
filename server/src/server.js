@@ -1,33 +1,11 @@
-const express = require('express')
-const cors = require('cors')
+const express = require("express");
+const cors = require("cors");
 
-const app = express()
+const app = express();
 
-app.use(cors())
+app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send({
-        message: "Bella"
-    })
-})
+require("./api")(app);
 
-app.post('/register', (req, res) => {
-    res.send({
-        message: `Registrazione effettuata!`
-    })
-})
-
-app.post('/login', (req, res) => {
-    res.json({
-        message: `Login effettuato!`
-    })
-})
-
-app.get('/users', (req, res) => {
-    res.send({
-        users: ["Fede", "Geno", "Paolo"],
-    })
-})
-
-
-app.listen(5000, console.log("Serving on port 5000!"))
+app.listen(5000, console.log("Serving on port 5000!"));
