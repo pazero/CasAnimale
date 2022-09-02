@@ -3,6 +3,7 @@ const cors = require('cors')
 
 const app = express()
 
+app.use(cors())
 
 app.get('/', (req, res) => {
     res.send({
@@ -10,9 +11,15 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/status', (req, res) => {
+app.post('/register', (req, res) => {
     res.send({
-        message: "Ciao da express"
+        message: `Registrazione effettuata!`
+    })
+})
+
+app.post('/login', (req, res) => {
+    res.json({
+        message: `Login effettuato!`
     })
 })
 
@@ -22,6 +29,5 @@ app.get('/users', (req, res) => {
     })
 })
 
-app.use(cors())
 
 app.listen(5000, console.log("Serving on port 5000!"))
