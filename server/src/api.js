@@ -1,3 +1,5 @@
+const User = require("./models/User.js");
+
 module.exports = (app) => {
   app.get("/", (req, res) => {
     res.json({
@@ -6,10 +8,17 @@ module.exports = (app) => {
   });
 
   /* POST to add a user to db */
-  app.post("/register", (req, res) => {
-    res.json({
-      message: `Registrazione di ${req.body.email} effettuata!`,
+  app.post("/register", async (req, res) => {
+    const user = new User({
+      name: req.body.name,
+      surname: req.body.surname,
+      birth: req.body.birth,
+      email: req.body.email,
+      password: req.body.password,
+      favanimal: req.body.favanimal,
     });
+    const newUser = await user.save();
+    res.json(newUser);
   });
 
   /* POST to login a user */
