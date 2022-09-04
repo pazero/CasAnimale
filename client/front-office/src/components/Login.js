@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Authentication from "../services/Authentication";
+import UserManage from "../services/UserManage";
 
 async function loginUser(credentials) {
-  return Authentication.login(credentials);
+  return UserManage.login(credentials);
 }
 
 const Navbar = () => {
@@ -23,47 +23,47 @@ const Navbar = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <div class="card-body">
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">Email</span>
+      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card-body">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email</span>
             </label>
             <input
               type="text"
               placeholder="example@email.org"
-              class="input input-bordered"
+              className="input input-bordered"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">Password</span>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Password</span>
             </label>
             <input
               type="password"
               placeholder="password"
-              class="input input-bordered"
+              className="input input-bordered"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <label class="label">
+            <label className="label">
               <button
                 onClick={() => {
                   navigate("/restore");
                 }}
-                class="label-text-alt link link-hover"
+                className="label-text-alt link link-hover"
               >
                 Forgot password?
               </button>
             </label>
           </div>
           <div>
-            <button class="btn btn-primary m-1">Login</button>
+            <button className="btn btn-primary m-1">Login</button>
             <button
               onClick={() => {
                 navigate("/register");
               }}
-              class="btn btn-primary"
+              className="btn btn-primary"
             >
               Registrati
             </button>
