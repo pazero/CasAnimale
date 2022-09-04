@@ -17,24 +17,41 @@ API
 ● Generatore di Meme: 		    https://imgflip.com/api 
 ● Quiz e curiosità:             https://zoo-animal-api.herokuapp.com/animals/rand 
 
-	
-DOMANDE / RICHIESTE:
-- Fare un esercizio anche molto banale che possa aiutarci a comprendere la struttura di Vue (soprattutto l'utilizzo dei components)
-- Come si gestiscono gli href? Posso fare i collegamenti ai file .vue che implementano definitivamente la pagina? (es collegamento a Quiz.vue)
-
 
 TO DO:
 - MainComponents
 	[ ] Header			(CREATO MA da sistemare gli href obv)
 	[ ] PageDescription	(CREATO MA non so come gestire il testo: value)
 	[ ] Footer			(CREATO MA da aggiungere lo ShortButton del form e da sistemare gli href obv)
-	[ ] GameList		(CREATO MA da aggiungere la GapeDescription)
-	[ ] ShortButton		(CREATO MA non so come gestire l'href relativo e il testo: value)
-	[ ] FitButton
-	[ ] 
 - Pagine
 	- Game
-		[x] Quiz		(CREATO MA da sistemare il css)
-		[ ] facoltativi
-		[ ] main page
-		[ ] 
+		Obbligatori:
+		[ ] Home page
+		[x] Quiz
+		[ ] Curiosità sugli animali come i miei
+		[ ] Curiosità sugli animali in generale
+		[ ] Informazioni utili sanitarie e legali
+		[ ] Video buffi ed interessanti da yt
+		Facoltativi
+		[ ] Memory
+		[ ] Impiccato
+	- front office
+		Obbligatori:
+		[/] Home page (da modificare il css)
+		[ ] Servizi di comunità
+		[ ] eCommerce
+		[ ] Servizi in presenza
+		Facoltativi
+		[ ] Servizi online
+	- back office
+		Obbligatori:
+		[ ] Home page
+		[ ] Anagrafica clienti
+		[ ] Servizi di comunità
+		[ ] Gestione eCommerce
+		[ ] Servizi in presenza
+		Facoltativi
+		[ ] Servizi online
+- Database
+	[ ] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
+	[ ] criptare le password per fare in modo che non siano in chiaro sul db

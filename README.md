@@ -9,11 +9,9 @@ Progetto del corso di Tecnologie Web dell'anno academico 2021/2022
 3. `npm start` e/o `npm run dev` su front-office o game
 
 # Per aggiungere utenti al db
-`curl --header "Content-Type: application/json" -X POST -i http://localhost:5000/register --data '{
-  "name": "Giorgio",
-  "surname": "Stromboli",
-  "birth": "15/10/2000",
-  "email": "giostro@gmail.com",
-  "password": "ciao1234",
-  "favanimal": "Cane"
-}'`
+
+`curl -X POST --header "Content-Type: application/json" -i http://localhost:5000/register --data '{ "name": "Giorgio", "surname": "Stromboli", "birth": "15/10/2000", "email": "giostro@gmail.com", "password": "ciao1234", "favanimal": "Cane" }'`
+
+# Per aggiornare un utente (importante usare PATH)
+
+`curl -X PATCH -H 'Content-Type: application/json' -i http://localhost:5000/user/:id --data '{"password":"ciao123456","favanimal":"falco", altri valori}'`
