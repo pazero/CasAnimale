@@ -14,4 +14,4 @@ Progetto del corso di Tecnologie Web dell'anno academico 2021/2022
 
 # Per aggiornare un utente (importante usare PATH)
 
-`curl -X PATCH -H 'Content-Type: application/json' -i http://localhost:5000/user/:id --data '{"password":"ciao123456","favanimal":"falco", altri valori}'`
+`curl -X PUT -H 'Content-Type: application/json' -i http://localhost:5000/user/:id --data '{"password":"ciao123456","favanimal":"falco", altri valori}'`
