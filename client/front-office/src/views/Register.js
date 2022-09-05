@@ -4,7 +4,7 @@ import UserManage from "../services/UserManage";
 const Footer = () => {
   const sendData = async (data) => {
     data.preventDefault();
-    UserManage.register(data).then((res) => {
+    UserManage.addUser(data).then((res) => {
       console.log(res);
     });
   };
