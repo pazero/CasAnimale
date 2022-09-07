@@ -8,7 +8,7 @@ const Home = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    UserManage.getAllUsers().then((res) => {
+    UserManage.getUsers().then((res) => {
       setUsers(res.data);
     });
   }, []);

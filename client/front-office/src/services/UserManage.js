@@ -1,32 +1,32 @@
 import Api from "./Api.js";
 
-const s = "user/";
+const base = "users/";
 
 const Authentication = {
-  getAllUsers() {
-    return Api().get(`${s}getAllUsers`);
-  },
+  // if data is empty, return all users
   getUsers(data) {
-    return Api().get(
-      `${s}/getUsers?${data.map((value, key) => {
-        return `${key}=${value}&`.slice(0, -1);
-      })}`
-    );
+    return data === undefined
+      ? Api().get(base)
+      : Api().get(
+          `${base}?${data.map((value, key) => {
+            return `${key}=${value}&`;
+          })}`
+        );
   },
   getUser(id) {
-    return Api().get(`${s}${id}`);
+    return Api().get(`${base}${id}`);
   },
   addUser(data) {
-    return Api().put(`${s}addUser`, data);
+    return Api().put(`${base}addUser`, data);
   },
   deleteUser(id) {
-    return Api().delete(`${s}${id}`);
+    return Api().delete(`${base}${id}`);
   },
   updateUser(id, data) {
-    return Api().put(`${s}${id}`, data);
+    return Api().post(`${base}${id}`, data);
   },
   login(credential) {
-    return Api().post(`${s}login`, credential);
+    return Api().post(`${base}login`, credential);
   },
 };
 

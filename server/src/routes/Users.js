@@ -2,20 +2,8 @@ const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
 
-/* ATTENZIONE: seguire l'architettura CRUD */
-
-/* Get the list of all Users */
-router.get("/getAllUsers", async (req, res) => {
-  try {
-    const allUser = await User.find();
-    res.json(allUser);
-  } catch (e) {
-    res.json({ message: e });
-  }
-});
-
-/* Get user list with a query */
-router.get("/getUsers", async (req, res) => {
+/* Get user list (optional query) */
+router.get("", async (req, res) => {
   try {
     const users = await User.find(req.query);
     res.json(users);
@@ -24,7 +12,7 @@ router.get("/getUsers", async (req, res) => {
   }
 });
 
-/* Get a specific User */
+/* Get an user by id */
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -34,7 +22,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// da controllare: usare PUT o POST
 /* Create a new user */
 router.put("/addUser", async (req, res) => {
   const user = new User({
@@ -59,9 +46,8 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// da controllare: usare PUT o POST
 /* Update user's personal datas */
-router.put("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
   try {
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.params.id },

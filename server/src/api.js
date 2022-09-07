@@ -6,5 +6,5 @@ module.exports = (app) => {
       message: "Questo è un server express",
     });
   });
-  app.use("/user", userRoute); /* user routing middleware */
+  app.use("/users", userRoute); /* user routing middleware */
 };
