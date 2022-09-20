@@ -14,13 +14,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div data-theme="cupcake" className="App">
+    <div data-theme="" className="App">
       <Navbar />
       <Header />
       <div>
         <ul className="list-inside list-disc">
           {users.map((user) => (
-            <li key={user._id}>{user.name} {user.surname}</li>
+            <li key={user._id}>
+              {user.name} {user.surname}
+            </li>
           ))}
         </ul>
       </div>

@@ -4,9 +4,18 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "tipacane": "url('./assets/tipa_con_cane.jpg')",
+        tipacane: "url('./assets/tipa_con_cane.jpg')",
       },
     },
+  },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#FFFFFF",
+        },
+      },
+    ],
   },
   plugins: [require("daisyui")],
 };
