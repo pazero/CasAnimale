@@ -24,34 +24,33 @@ TO DO:
 	[ ] PageDescription	(CREATO MA non so come gestire il testo: value)
 	[ ] Footer			(CREATO MA da aggiungere lo ShortButton del form e da sistemare gli href obv)
 - Pagine
-	- Game
-		Obbligatori:
+	- GAME
 		[ ] Home page
+		[ ] Curiosità miei/generali				|   form sul
+		[ ]	Info utili (sanitarie e legali)		| tuo animale
+		[ ] Video buffi yt
 		[x] Quiz
-		[ ] Curiosità sugli animali come i miei
-		[ ] Curiosità sugli animali in generale
-		[ ] Informazioni utili sanitarie e legali
-		[ ] Video buffi ed interessanti da yt
-		Facoltativi
-		[ ] Memory
-		[ ] Impiccato
-	- front office
-		Obbligatori:
+		[ ] Classifica (login)
+		[ ] Adv servizi offerti
+		[ ] -fac- Memory / impiccato
+	- FRONT OFFICE
 		[/] Home page (da modificare il css)
-		[ ] Servizi di comunità
+		[ ] Leadboard						|
+		[ ] Bacheca "eccolo qua"			| comunità
+		[ ] -fac- Bacheca "cerco partner"	|
 		[ ] eCommerce
-		[ ] Servizi in presenza
-		Facoltativi
-		[ ] Servizi online
+		[ ] Veterinario			|
+		[ ] Dog-sitter			| servizi in
+		[ ] -fac- Toelettatura	|  presenza
+		[ ] -fac- Psicologo		|
+		[ ] -fac- Videochiamata		| servizi(o) online
 	- back office
-		Obbligatori:
 		[ ] Home page
-		[ ] Anagrafica clienti
-		[ ] Servizi di comunità
-		[ ] Gestione eCommerce
-		[ ] Servizi in presenza
-		Facoltativi
-		[ ] Servizi online
+		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
+		[ ] Gestione servizi di comunità (bacheche)
+		[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...)
+		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
+		[ ] -fac- Gestione servizi online
 - Database
 	[ ] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
 	[ ] criptare le password per fare in modo che non siano in chiaro sul db
