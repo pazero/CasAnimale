@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div data-theme="" className="App">
+    <div data-theme="autumn" className="App">
       <Navbar />
       <Header />
       <div>

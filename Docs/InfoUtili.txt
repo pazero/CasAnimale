@@ -26,7 +26,7 @@ TO DO:
 - Pagine
 	- GAME
 		[ ] Home page
-		[ ] Curiosità miei/generali				|   form sul
+		[ ] Curiosità miei/generali				|  form sul
 		[ ]	Info utili (sanitarie e legali)		| tuo animale
 		[ ] Video buffi yt
 		[x] Quiz
@@ -54,3 +54,6 @@ TO DO:
 - Database
 	[ ] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
 	[ ] criptare le password per fare in modo che non siano in chiaro sul db
+- Altro
+	[ ] Inserire controlli sulla password
+	[ ] API per pagina login per avere tutte le a
