@@ -22,8 +22,8 @@ const Navbar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <form data-theme="lemonade" onSubmit={handleSubmit} className="flex h-screen">
+      <div className="m-auto card w-full max-w-sm shadow-2xl bg-base-100">
         <div className="card-body text-center">
           <div className="card-title justify-center">Sign up!</div>
           <div className="form-control">

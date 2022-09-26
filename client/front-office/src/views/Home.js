@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Heros from "../components/Heros";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
@@ -14,10 +14,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div data-theme="autumn" className="App">
+    <div data-theme="lemonade" className="App">
       <Navbar />
-      <Header />
-      <div>
+      <Heros />
+      {/* <div>
         <ul className="list-inside list-disc">
           {users.map((user) => (
             <li key={user._id}>
@@ -25,7 +25,9 @@ const Home = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */
+      
+      }
       <Footer />
     </div>
   );

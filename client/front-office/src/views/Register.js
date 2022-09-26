@@ -9,7 +9,7 @@ const Footer = () => {
       data.preventDefault();
       await UserManage.addUser(data).then((res) => {
         console.log(res);
-        alert(res);
+        alert(res.message);
       });
     }
     else{
@@ -24,7 +24,7 @@ const Footer = () => {
   const [email, setEmail] = useState([]);
 
   return (
-    <div data-theme="autumn" className="flex justify-center">
+    <div data-theme="lemonade" className="flex justify-center">
       <div>
         <form onSubmit={sendData}>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
