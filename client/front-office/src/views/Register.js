@@ -24,13 +24,13 @@ const Footer = () => {
   const [email, setEmail] = useState([]);
 
   return (
-    <div data-theme="lemonade" className="flex justify-center">
-      <div>
-        <form onSubmit={sendData}>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div data-theme="lemonade" className="flex flex-1 justify-center">
+      <div className="flex justify-center" style={{flex:"0 1 70%",alignItems:"center"}}>
+        <form className="flex justify-center" style={{flex:"1 0 auto"}} onSubmit={sendData}>
+          <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
             <div className="card-body text-center">
               <div className="card-title justify-center">Sign in!</div>
-              <div className="form-control">
+              <div className="form-control flex flex-row">
                 <label className="label">
                   <span className="label-text">Name</span>
                 </label>
@@ -39,9 +39,8 @@ const Footer = () => {
                   placeholder="Mario"
                   className="input input-bordered"
                   onChange={(e) => setName(e.target.value)}
+                  style={{flex:"1 0 auto"}}
                 />
-              </div>
-              <div className="form-control">
                 <label className="label">
                   <span className="label-text">Surname</span>
                 </label>
@@ -50,7 +49,20 @@ const Footer = () => {
                   placeholder="Draghi"
                   className="input input-bordered"
                   onChange={(e) => setSurname(e.target.value)}
+                  style={{flex:"1 0 auto"}}
                 />
+
+              </div>
+              <div className="form-control">
+                {/* <label className="label">
+                  <span className="label-text">Surname</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Draghi"
+                  className="input input-bordered"
+                  onChange={(e) => setSurname(e.target.value)}
+                /> */}
               </div>
               <div className="form-control">
                 <label className="label">
