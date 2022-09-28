@@ -123,11 +123,12 @@ export default function CaptionCarousel() {
                 maxW={'lg'}
                 position="absolute"
                 top="50%"
-                transform="translate(0, -50%)">
+                transform="translate(0, -50%)"
+                className="bg-gray-300 bg-opacity-60 p-2 rounded text-black">
                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black">
                   {card.title}
                 </Heading>
-                <Text className="bg-gray-300 bg-opacity-60 p-2 rounded text-black" fontSize={{ base: 'md', lg: 'lg' }}>
+                <Text fontSize={{ base: 'md', lg: 'lg' }}>
                   {card.text}
                 </Text>
               </Stack>
