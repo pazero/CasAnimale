@@ -24,34 +24,37 @@ const Footer = () => {
   const [email, setEmail] = useState([]);
 
   return (
-    <div data-theme="lemonade" className="flex flex-1 justify-center">
-      <div className="flex justify-center" style={{flex:"0 1 70%",alignItems:"center"}}>
+    <div data-theme="lemonade" className="flex flex-1 justify-center" style={{height:"100%"}}>
+      <div className="flex justify-center" style={{flex:"0 1 55%",alignItems:"center"}}>
         <form className="flex justify-center" style={{flex:"1 0 auto"}} onSubmit={sendData}>
           <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
             <div className="card-body text-center">
               <div className="card-title justify-center">Sign in!</div>
               <div className="form-control flex flex-row">
-                <label className="label">
-                  <span className="label-text">Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Mario"
-                  className="input input-bordered"
-                  onChange={(e) => setName(e.target.value)}
-                  style={{flex:"1 0 auto"}}
-                />
-                <label className="label">
-                  <span className="label-text">Surname</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Draghi"
-                  className="input input-bordered"
-                  onChange={(e) => setSurname(e.target.value)}
-                  style={{flex:"1 0 auto"}}
-                />
-
+                <div className="flex mr-2" style={{flex:"1 0 auto",flexDirection:"column"}}>
+                  <label className="label">
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Mario"
+                    className="input input-bordered"
+                    onChange={(e) => setName(e.target.value)}
+                    style={{flex:"1 0 auto"}}
+                  />
+                </div>
+                <div className="flex ml-2" style={{flex:"1 0 auto",flexDirection:"column"}}>
+                  <label className="label">
+                    <span className="label-text">Surname</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Draghi"
+                    className="input input-bordered"
+                    onChange={(e) => setSurname(e.target.value)}
+                    style={{flex:"1 0 auto"}}
+                  />
+                </div>
               </div>
               <div className="form-control">
                 {/* <label className="label">
@@ -64,19 +67,34 @@ const Footer = () => {
                   onChange={(e) => setSurname(e.target.value)}
                 /> */}
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Birth Date</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="31/12/2000"
-                  className="input input-bordered"
-                  onChange={(e) => setBithDate(e.target.value)}
-                />
+              <div className="form-control flex flex-row">
+                <div className="flex mr-2" style={{flex:"1 0 auto",flexDirection:"column"}}>
+                  <label className="label">
+                    <span className="label-text">Birth Date</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="31/12/2000"
+                    className="input input-bordered"
+                    onChange={(e) => setBithDate(e.target.value)}
+                    style={{flex:"1 0 auto"}}
+                  />
+                </div>
+                <div className="flex ml-2" style={{flex:"1 0 auto",flexDirection:"column"}}>
+                  <label className="label">
+                    <span className="label-text">Favourite animal</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="platypus"
+                    className="input input-bordered"
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={{flex:"1 0 auto"}}
+                  />
+                </div>
               </div>
               <div className="form-control">
-                <label className="label">
+                {/*<label className="label">
                   <span className="label-text">Favourite animal</span>
                 </label>
                 <input
@@ -84,7 +102,7 @@ const Footer = () => {
                   placeholder="platypus"
                   className="input input-bordered"
                   onChange={(e) => setEmail(e.target.value)}
-                />
+                />*/}
               </div>
               <div className="form-control">
                 <label className="label">

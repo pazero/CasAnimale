@@ -127,7 +127,7 @@ export default function CaptionCarousel() {
                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black">
                   {card.title}
                 </Heading>
-                <Text className="bg-gray-300 bg-opacity-40 p-2 rounded text-black" fontSize={{ base: 'md', lg: 'lg' }}>
+                <Text className="bg-gray-300 bg-opacity-60 p-2 rounded text-black" fontSize={{ base: 'md', lg: 'lg' }}>
                   {card.text}
                 </Text>
               </Stack>
