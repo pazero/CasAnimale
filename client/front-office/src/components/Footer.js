@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content">
+    <footer className="footer p-10 bg-neutral text-neutral-content flex flex-1" style={{maxHeight:"20%"}}>
       <div>
         <svg
           width="50"
@@ -23,7 +23,7 @@ const Footer = () => {
       </div>
       <div>
         <span className="footer-title">Social</span>
-        <div className="grid grid-flow-col gap-4">
+        <div className="flex flex-1">
           <a href="http://twitter.com">
             <svg
               xmlns="http://www.w3.org/2000/svg"

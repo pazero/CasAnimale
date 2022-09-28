@@ -24,7 +24,7 @@ const Footer = () => {
   const [email, setEmail] = useState([]);
 
   return (
-    <div data-theme="lemonade" className="flex flex-1 justify-center" style={{height:"100%"}}>
+    <div data-theme="lemonade" className="flex flex-1 justify-center flex-direction-column" style={{height:"100%"}}>
       <div className="flex justify-center" style={{flex:"0 1 55%",alignItems:"center"}}>
         <form className="flex justify-center" style={{flex:"1 0 auto"}} onSubmit={sendData}>
           <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
