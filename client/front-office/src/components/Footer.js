@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content flex flex-1" style={{maxHeight:"20%"}}>
+    <footer className="footer p-10 bg-neutral text-neutral-content flex flex-1" style={{maxHeight:"100%"}}>
       <div>
         <svg
           width="50"

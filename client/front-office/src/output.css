@@ -2759,6 +2759,12 @@ html {
   border-bottom-left-radius: inherit;
 }
 
+.mockup-phone .display {
+  overflow: hidden;
+  border-radius: 40px;
+  margin-top: -25px;
+}
+
 @-webkit-keyframes progress-loading {
   50% {
     left: 107%;
@@ -3126,6 +3132,10 @@ html {
 
 .fill-current {
   fill: currentColor;
+}
+
+.object-fill {
+  object-fit: fill;
 }
 
 .p-10 {
