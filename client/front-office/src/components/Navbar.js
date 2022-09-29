@@ -58,15 +58,15 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">CasAnimale</a>
+        <a href="http://localhost:3000/" className="btn btn-ghost normal-case text-xl">CasAnimale</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5237">Area Giochi</a>
+            <a href="http://localhost:5173/">Area Giochi</a>
           </li>
           <li tabIndex={0}>
-            <a className="justify-between">
+            <a href="#" className="justify-between">
               Servizi
               <svg
                 className="fill-current"
@@ -83,7 +83,19 @@ const Navbar = () => {
                 <a>eCommerce</a>
               </li>
               <li>
-                <a>Psicologo</a>
+                <a>Veterinario</a>
+              </li>
+              <li>
+                <a>PetSitter</a>
+              </li>
+              <li>
+                <a>Leaderbord</a>
+              </li>
+              <li>
+                <a>EccoloQua!</a>
+              </li>
+              <li>
+                <a>CercoParter</a>
               </li>
             </ul>
           </li>
