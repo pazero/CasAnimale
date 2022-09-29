@@ -28,6 +28,9 @@ const Authentication = {
   login(credential) {
     return Api().post(`${base}login`, credential);
   },
+  restore(credential) {
+    return Api().post(`${base}restore`, credential);
+  },
 };
 
 export default Authentication;

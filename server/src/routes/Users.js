@@ -19,6 +19,13 @@ router.post("/login", (req, res) => {
   });
 });
 
+/* Restore user's password */
+router.post("/restore", (req, res) => {
+  res.json({
+    message: `Questa è la tua password temporanea: ciao1234!`,
+  });
+});
+
 /* Get an user by id */
 router.get("/:id", async (req, res) => {
   try {
