@@ -11,7 +11,7 @@ const Home = () => {
         <Navbar />
       </div>
       <div className="flex flex-1" style={{height:"78%"}}>
-        <Heros />
+        <Heros style={{display:'flex', height:'100%'}} />
       </div>
       <div className="flex flex-1" style={{minHeight:"16%"}}>
         <Footer />
