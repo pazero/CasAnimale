@@ -32,8 +32,8 @@ router.put("/addUser", async (req, res) => {
     password: req.body.password,
     favanimal: req.body.favanimal,
   });
-  const newUser = await user.save();
-  res.json(newUser);
+  await user.save();
+  res.json({ message: "Utente aggiunto correttamente" });
 });
 
 /* Delete an user */
