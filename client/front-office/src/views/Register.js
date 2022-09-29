@@ -4,24 +4,24 @@ import '../output.css'
 
 const Footer = () => {
   const sendData = async (data) => {
-    data.preventDefault();
-    const msg = await UserManage.addUser({
-      name,
-      surname,
-      birthDate,
-      email,
-      password,
-      favanimal,
-    })
-    alert(msg.data.message);
+    if (data) {
+      console.log(data);
+      data.preventDefault();
+      await UserManage.addUser(data).then((res) => {
+        console.log(res);
+        alert(res.message);
+      });
+    }
+    else{
+      console.log("caconi");
+    }
   };
 
   const [name, setName] = useState([]);
   const [surname, setSurname] = useState([]);
+  const [password, setPassword] = useState([]);
   const [birthDate, setBithDate] = useState([]);
   const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
-  const [favanimal, setFavAnimal] = useState([]);
 
   return (
     <div data-theme="lemonade" className="flex flex-1 justify-center flex-direction-column" style={{height:"100%"}}>
@@ -88,7 +88,7 @@ const Footer = () => {
                     type="text"
                     placeholder="platypus"
                     className="input input-bordered"
-                    onChange={(e) => setFavAnimal(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     style={{flex:"1 0 auto"}}
                   />
                 </div>
