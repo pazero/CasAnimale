@@ -33,7 +33,7 @@ router.put("/addUser", async (req, res) => {
     favanimal: req.body.favanimal,
   });
   const newUser = await user.save();
-  res.json(newUser);
+  res.json({ message: "Registrazione effettuata con successo!" });
 });
 
 /* Delete an user */
