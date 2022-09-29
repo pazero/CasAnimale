@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 
-async function loginUser(credentials) {
-  return UserManage.login(credentials);
-}
-
 const Navbar = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
@@ -13,7 +9,7 @@ const Navbar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const msg = await loginUser({
+    const msg = await UserManage.login({
       email,
       password,
     });

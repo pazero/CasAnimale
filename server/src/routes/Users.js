@@ -12,6 +12,13 @@ router.get("", async (req, res) => {
   }
 });
 
+/* Login user */
+router.post("/login", (req, res) => {
+  res.json({
+    message: `Login di ${req.body.email} effettuato!`,
+  });
+});
+
 /* Get an user by id */
 router.get("/:id", async (req, res) => {
   try {
@@ -64,13 +71,6 @@ router.post("/:id", async (req, res) => {
   } catch (e) {
     res.json({ message: e });
   }
-});
-
-/* Login user */
-router.post("/login", (req, res) => {
-  res.json({
-    message: `Login di ${req.body.email} effettuato!`,
-  });
 });
 
 module.exports = router;
