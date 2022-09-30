@@ -6,3 +6,7 @@ html, body, #root {
 #footerSpace{
     justify-content:space-between;
 }
+
+.bg-opacity-85 {
+    --tw-bg-opacity: 0.85;
+  }
