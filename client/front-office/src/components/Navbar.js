@@ -5,7 +5,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="navbar bg-violet-200" style={{minHeight:"5%"}}>
+    <div className="navbar bg-blue-200" style={{minHeight:"5%"}}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -93,22 +93,54 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a
-          onClick={() => {
-            navigate("/login");
-          }}
-          className="btn btn-primary mr-2"
-        >
-          Login
-        </a>
-        <a
-          onClick={() => {
-            navigate("/register");
-          }}
-          className="btn btn-primary"
-        >
-          Registrati
-        </a>
+        <div className="hidden md:flex lg:flex">
+          <a
+            onClick={() => {
+              navigate("/login");
+            }}
+            className="btn btn-ghost mr-2"
+          >
+            sign in
+          </a>
+          <a
+            onClick={() => {
+              navigate("/register");
+            }}
+            className="btn btn-primary"
+            style={{}}
+          >
+            sign up
+          </a>
+        </div>
+        <div className="dropdown md:hidden lg:hidden sm:flex">
+          <label tabIndex={0} className="btn btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a>Sign in</a>
+            </li>
+            <li>
+              <a>Sign up</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

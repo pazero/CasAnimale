@@ -19,7 +19,7 @@ const settings = {
   arrows: false,
   fade: true,
   infinite: true,
-  autoplay: false,
+  autoplay: true,
   speed: 500,
   autoplaySpeed: 5000,
   slidesToShow: 1,
@@ -117,7 +117,7 @@ export default function CaptionCarousel() {
             backgroundImage={`url(${card.image})`}>
             {/* This is the block you need to change, to customize the caption */}
             <Container display={"flex"} alignItems={"center"} size="container.lg" height="75vh" position="relative">
-              <div position="absolute" top="50vh" className="bg-gray-300 bg-opacity-85 p-2 rounded">
+              <div transform="translate(0, -50%)" position="absolute" top="50vh" className="bg-gray-300 bg-opacity-85 p-2 rounded">
                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black pb-6" style={{color:"black"}}>
                   {card.title}
                 </Heading>
