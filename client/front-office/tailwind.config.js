@@ -25,6 +25,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         tipacane: "url('./assets/tipa_con_cane.jpg')",
+        registerbg: "url('register-bg.jpg')",
+        loginbg: "url('login-bg.jpg')", 
       },
     },
   },

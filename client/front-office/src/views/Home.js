@@ -5,30 +5,17 @@ import Heros from "../components/Heros";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    UserManage.getUsers().then((res) => {
-      setUsers(res.data);
-    });
-  }, []);
-
   return (
-    <div data-theme="lemonade" className="App">
-      <Navbar />
-      <Heros />
-      {/* <div>
-        <ul className="list-inside list-disc">
-          {users.map((user) => (
-            <li key={user._id}>
-              {user.name} {user.surname}
-            </li>
-          ))}
-        </ul>
-      </div> */
-      
-      }
-      <Footer />
+    <div data-theme="lemonade" className="App flex h-screen flex-1" style={{flexDirection:"column", justifyContent:"space-between", maxHeight:"100%"}}>
+      <div className="flex flex-1" style={{height:"4rem",maxHeight:"4rem"}}>
+        <Navbar />
+      </div>
+      <div className="flex flex-1" style={{height:"auto"}}>
+        <Heros style={{display:'flex', height:'100%'}} />
+      </div>
+      <div className="flex flex-1" style={{height:"auto"}}>
+        <Footer />
+      </div>
     </div>
   );
 };

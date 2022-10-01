@@ -15,7 +15,7 @@ import Slider from 'react-slick';
 
 // Settings for the slider
 const settings = {
-  dots: true,
+  dots: false,
   arrows: false,
   fade: true,
   infinite: true,
@@ -44,28 +44,28 @@ export default function CaptionCarousel() {
       text:
         "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:
-      'cane-veterinario.jpg',
+      'vet3.jpg',
     },
     {
-      title: 'Design Projects 2',
+      title: 'Psychologist service',
       text:
         "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:
-        'https://images.unsplash.com/photo-1438183972690-6d4658e3290e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2274&q=80',
+        'p2.jpg',
     },
     {
-      title: 'Design Projects 3',
+      title: 'Pet equipment shop',
       text:
         "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:
-        'https://images.unsplash.com/photo-1507237998874-b4d52d1dd655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+        "pet_toys.jpg",
     },
   ];
 
   return (
     <Box
       position={'relative'}
-      height={'600px'}
+      height={'100%'}
       width={'full'}
       overflow={'hidden'}>
       {/* CSS files for react-slick */}
@@ -116,21 +116,15 @@ export default function CaptionCarousel() {
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}>
             {/* This is the block you need to change, to customize the caption */}
-            <Container size="container.lg" height="600px" position="relative">
-              <Stack
-                spacing={6}
-                w={'full'}
-                maxW={'lg'}
-                position="absolute"
-                top="50%"
-                transform="translate(0, -50%)">
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black">
+            <Container display={"flex"} alignItems={"center"} size="container.lg" height="75vh" position="relative">
+              <div transform="translate(0, -50%)" position="absolute" top="50vh" className="bg-gray-300 bg-opacity-85 p-2 rounded">
+                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black pb-6" style={{color:"black"}}>
                   {card.title}
                 </Heading>
-                <Text className="bg-gray-300 bg-opacity-40 p-2 rounded text-black" fontSize={{ base: 'md', lg: 'lg' }}>
+                <Text fontSize={{ base: 'md', lg: 'lg' }} className="text-black">
                   {card.text}
                 </Text>
-              </Stack>
+              </div>
             </Container>
           </Box>
         ))}
@@ -138,3 +132,20 @@ export default function CaptionCarousel() {
     </Box>
   );
 }
+{/*
+<Stack
+    spacing={6}
+    width={'100vh'}
+    maxW={'lg'}
+    position="absolute"
+    top="50%"
+    transform="translate(0, -50%)"
+    className="bg-gray-300 bg-opacity-60 p-2 rounded text-black">
+    <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black">
+      {card.title}
+    </Heading>
+    <Text fontSize={{ base: 'md', lg: 'lg' }}>
+      {card.text}
+    </Text>
+  </Stack>
+*/ }

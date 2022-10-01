@@ -1,0 +1,18 @@
+html, body, #root {
+    height: 100%;
+    width: 100%;
+}
+
+#footerSpace{
+    justify-content:space-between;
+}
+
+.bg-opacity-85 {
+    --tw-bg-opacity: 0.85;
+}
+
+.bg-secondary-green{
+    --tw-bg-opacity: 1;
+    background-color:rgb(156 209 101 / var(--tw-bg-opacity));
+    border-color: rgb(156 209 101 / var(--tw-bg-opacity));   
+}
