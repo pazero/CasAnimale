@@ -27,9 +27,13 @@ const Footer = () => {
     <div
       data-theme="lemonade"
       className="flex flex-1 justify-start flex-direction-column"
-      style={{ height: "100%", backgroundImage: "url('register-bg.jpg')", backgroundColor:"#ffac14", backgroundSize:"100%", backgroundRepeat:"no-repeat", backgroundPosition:"bottom" }}
+      style={{ height: "100%"}}
       
     >
+      <div
+        className=" hidden lg:flex flex-1 justify-start flex-direction-column"
+        style={{ height: "100%", backgroundImage: "url('register-bg.jpg')", backgroundColor:"#ffac14", backgroundSize:"100%", backgroundRepeat:"no-repeat", backgroundPosition:"bottom" }}
+      >
         <div
           className="flex justify-center"
           style={{ flex: "0 1 45%", alignItems: "center", marginLeft:"3.5rem" }}
@@ -160,6 +164,7 @@ const Footer = () => {
           </form>
         </div>
       </div>
+    </div>
   );
 };
 

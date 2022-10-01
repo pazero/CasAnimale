@@ -16,8 +16,3 @@ html, body, #root {
     background-color:rgb(156 209 101 / var(--tw-bg-opacity));
     border-color: rgb(156 209 101 / var(--tw-bg-opacity));   
 }
-
-.hover\:bg-.bg-secondary-green{
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  }
