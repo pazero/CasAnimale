@@ -93,7 +93,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <div className="hidden md:flex lg:flex">
+        <div className="hidden sm:flex">
           <a
             onClick={() => {
               navigate("/login");
@@ -112,32 +112,31 @@ const Navbar = () => {
             sign up
           </a>
         </div>
-        <div className="dropdown md:hidden lg:hidden sm:flex">
-          <label tabIndex={0} className="btn btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+        <div className="dropdown sm:hidden">
+          <label tabIndex={0} className="btn btn-primary mr-2">
+            <span>login</span>
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
           >
             <li>
-              <a>Sign in</a>
+              <a
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Sign in
+              </a>
             </li>
             <li>
-              <a>Sign up</a>
+              <a
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                Sign up
+              </a>
             </li>
           </ul>
         </div>

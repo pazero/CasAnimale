@@ -54,7 +54,7 @@ export default function CaptionCarousel() {
         'p2.jpg',
     },
     {
-      title: 'Pet shop',
+      title: 'Pet equipment shop',
       text:
         "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:
