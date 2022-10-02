@@ -13,15 +13,16 @@ const Navbar = () => {
       email,
       password,
     });
-    console.log(msg.data.message);
-    //setToken(token);
+    alert(msg.data.message);
+    if (msg.data.token) document.cookie = `token=${msg.data.token}`;
+    navigate("/");
   };
 
   return (
     <div
       data-theme="lemonade"
       className="flex flex-1 justify-center flex-direction-column"
-      style={{ height: "100%", backgroundColor: "#01a2b4", }}
+      style={{ height: "100%", backgroundColor: "#01a2b4" }}
     >
       <div
         className=" hidden sm:flex flex-1 justify-end flex-direction-column"
@@ -36,9 +37,17 @@ const Navbar = () => {
       >
         <div
           className="flex justify-center"
-          style={{ flex: "0 1 45%", alignItems: "center", marginLeft:"3.5rem" }}
+          style={{
+            flex: "0 1 45%",
+            alignItems: "center",
+            marginLeft: "3.5rem",
+          }}
         >
-          <form onSubmit={handleSubmit} className="flex h-screen justify-center" style={{marginRight:"20%"}}>
+          <form
+            onSubmit={handleSubmit}
+            className="flex h-screen justify-center"
+            style={{ marginRight: "20%" }}
+          >
             <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body text-center">
                 <div className="card-title justify-center">
@@ -107,9 +116,12 @@ const Navbar = () => {
       >
         <div
           className="flex justify-center"
-          style={{ flex: "0 1 auto", alignItems: "center", margin:"3.5rem" }}
+          style={{ flex: "0 1 auto", alignItems: "center", margin: "3.5rem" }}
         >
-          <form onSubmit={handleSubmit} className="flex h-screen justify-center">
+          <form
+            onSubmit={handleSubmit}
+            className="flex h-screen justify-center"
+          >
             <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body text-center">
                 <div className="card-title justify-center">

@@ -1,6 +1,28 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
+
+function generateAccessToken(username) {
+  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
+}
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    console.log(err);
+
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+
+    next();
+  });
+}
 
 /* Get user list (optional query) */
 router.get("", async (req, res) => {
@@ -13,10 +35,19 @@ router.get("", async (req, res) => {
 });
 
 /* Login user */
-router.post("/login", (req, res) => {
-  res.json({
-    message: `Login di ${req.body.email} effettuato!`,
-  });
+router.post("/login", async (req, res) => {
+  const user = await User.find(req.body);
+  if (user && Object.keys(user).length !== 0 && Object.getPrototypeOf(user) !== Object.prototype) {
+    const token = generateAccessToken({ email: req.body.email });
+    res.json({
+      message: `Login di ${req.body.email} effettuato!`,
+      token: `${token}`,
+    });
+  } else {
+    res.json({
+      message: `Wrong mail or password.`,
+    });
+  }
 });
 
 /* Restore user's password */

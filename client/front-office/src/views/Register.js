@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
+import Cookies from "js-cookie";
 
 const Footer = () => {
   const navigate = useNavigate();
+
 
   const sendData = async (data) => {
     data.preventDefault();
@@ -16,6 +18,7 @@ const Footer = () => {
       favanimal,
     });
     alert(msg.data.message);
+    navigate("/login");
   };
 
   const [name, setName] = useState([]);
@@ -29,16 +32,26 @@ const Footer = () => {
     <div
       data-theme="lemonade"
       className="flex flex-1 justify-start flex-direction-column"
-      style={{ height: "100%"}}
-      
+      style={{ height: "100%" }}
     >
       <div
         className=" hidden sm:flex flex-1 justify-start flex-direction-column"
-        style={{ height: "100%", backgroundImage: "url('register-bg.jpg')", backgroundColor:"#ffac14", backgroundSize:"100%", backgroundRepeat:"no-repeat", backgroundPosition:"bottom" }}
+        style={{
+          height: "100%",
+          backgroundImage: "url('register-bg.jpg')",
+          backgroundColor: "#ffac14",
+          backgroundSize: "100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "bottom",
+        }}
       >
         <div
           className="flex justify-center"
-          style={{ flex: "0 1 45%", alignItems: "center", marginLeft:"3.5rem" }}
+          style={{
+            flex: "0 1 45%",
+            alignItems: "center",
+            marginLeft: "3.5rem",
+          }}
         >
           <form
             className="flex justify-center"
@@ -47,7 +60,9 @@ const Footer = () => {
           >
             <div className="card flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
               <div className="card-body text-center hidden sm:flex">
-                <div className="card-title justify-center">Sign up to CasAnimale!</div>
+                <div className="card-title justify-center">
+                  Sign up to CasAnimale!
+                </div>
                 <div className="form-control flex flex-row">
                   <div
                     className="flex mr-2"
@@ -157,11 +172,17 @@ const Footer = () => {
 
       <div
         className=" sm:hidden justify-start"
-        style={{ height: "100%", width: "100%", backgroundColor:"#ffac14", backgroundSize:"100%", backgroundPosition:"bottom"}}
+        style={{
+          height: "100%",
+          width: "100%",
+          backgroundColor: "#ffac14",
+          backgroundSize: "100%",
+          backgroundPosition: "bottom",
+        }}
       >
         <div
           className="flex justify-center"
-          style={{ flex: "0 1 auto", alignItems: "center", margin:"3.5rem" }}
+          style={{ flex: "0 1 auto", alignItems: "center", margin: "3.5rem" }}
         >
           <form
             className="flex justify-center"
@@ -170,7 +191,9 @@ const Footer = () => {
           >
             <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
               <div className="card-body text-center">
-              <div className="card-title justify-center">Sign up to CasAnimale!</div>
+                <div className="card-title justify-center">
+                  Sign up to CasAnimale!
+                </div>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name</span>
