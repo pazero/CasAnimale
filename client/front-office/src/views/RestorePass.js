@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
+import Cookies from "js-cookie";
 
 import {
   Button,
@@ -13,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 
 export default function ForgotPasswordForm() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState([]);
 
   const sendMail = async (e) => {

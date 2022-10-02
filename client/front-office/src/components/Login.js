@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const navigate = useNavigate();
