@@ -46,16 +46,28 @@ const Navbar = () => {
               </a>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
-                  <a>eCommerce</a>
+                  <a onClick={() => { navigate("/"); }}>eCommerce</a>
                 </li>
                 <li>
-                  <a>Psicologo</a>
+                  <a onClick={() => { navigate("/"); }}>Vet</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/"); }}>PetSitter</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/"); }}>Leaderbord</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/myAnimalSC"); }}>My Animal Showcase</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/"); }}>Looking4Partner Showcase</a>
                 </li>
               </ul>
             </li>
             <li>
-              <a>Area riservata</a>
-            </li>
+            <a onClick={() => { navigate("/"); }}>Your profile</a>
+          </li>
           </ul>
         </div>
         <a href="http://localhost:3000/" className="btn btn-ghost normal-case text-xl">CasAnimale</a>
@@ -80,47 +92,36 @@ const Navbar = () => {
             </a>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <a>eCommerce</a>
+                <a onClick={() => { navigate("/"); }}>eCommerce</a>
               </li>
               <li>
-                <a>Veterinario</a>
+                <a onClick={() => { navigate("/"); }}>Vet</a>
               </li>
               <li>
-                <a>PetSitter</a>
+                <a onClick={() => { navigate("/"); }}>PetSitter</a>
               </li>
               <li>
-                <a>Leaderbord</a>
+                <a onClick={() => { navigate("/"); }}>Leaderbord</a>
               </li>
               <li>
-                <a>EccoloQua!</a>
+                <a onClick={() => { navigate("/myAnimalSC"); }}>My Animal Showcase</a>
               </li>
               <li>
-                <a>CercoParter</a>
+                <a onClick={() => { navigate("/"); }}>Looking4Partner Showcase</a>
               </li>
             </ul>
           </li>
           <li>
-            <a>Area riservata</a>
+            <a onClick={() => { navigate("/"); }}>Your profile</a>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
         <div className="hidden sm:flex">
-          <a
-            onClick={() => {
-              navigate("/login");
-            }}
-            className="btn btn-ghost mr-2"
-          >
+          <a onClick={() => { navigate("/login"); }} className="btn btn-ghost mr-2">
             sign in
           </a>
-          <a
-            onClick={() => {
-              navigate("/register");
-            }}
-            className="btn btn-primary"
-            style={{}}
-          >
+          <a onClick={() => { navigate("/register"); }} className="btn btn-primary">
             sign up
           </a>
         </div>
@@ -133,20 +134,12 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
           >
             <li>
-              <a
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
+              <a onClick={() => { navigate("/login"); }}>
                 Sign in
               </a>
             </li>
             <li>
-              <a
-                onClick={() => {
-                  navigate("/register");
-                }}
-              >
+              <a onClick={() => { navigate("/register"); }}>
                 Sign up
               </a>
             </li>
