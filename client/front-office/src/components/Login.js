@@ -79,18 +79,14 @@ const Navbar = () => {
                 <div>
                   <button className="btn btn-secondary m-1">sign in</button>
                 </div>
-                <label className="label" size="lg">
-                  <span className="label-text">
-                    Or if you don't have an account 
-                  </span>
+                <label className="label">
                   <button
                     onClick={() => {
                       navigate("/register");
                     }}
-                    size="sm"
-                    className="btn btn-primary"
+                    className="label-text-alt link link-hover"
                   >
-                    sign up
+                    Or if you don't have an account SIGN UP
                   </button>
                 </label>
               </div>
@@ -154,18 +150,14 @@ const Navbar = () => {
                 <div>
                   <button className="btn btn-secondary m-1">sign in</button>
                 </div>
-                <label className="label" size="lg">
-                  <span className="label-text">
-                    Or if you don't have an account 
-                  </span>
+                <label className="label">
                   <button
                     onClick={() => {
                       navigate("/register");
                     }}
-                    size="sm"
-                    className="btn btn-primary"
+                    className="label-text-alt link link-hover"
                   >
-                    sign up
+                    Or if you don't have an account SIGN UP
                   </button>
                 </label>
               </div>

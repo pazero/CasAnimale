@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
-import "../output.css";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const sendData = async (data) => {
     data.preventDefault();
     const msg = await UserManage.addUser({
@@ -43,7 +45,7 @@ const Footer = () => {
             style={{ flex: "1 0 auto" }}
             onSubmit={sendData}
           >
-            <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
+            <div className="card flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
               <div className="card-body text-center hidden sm:flex">
                 <div className="card-title justify-center">Sign up to CasAnimale!</div>
                 <div className="form-control flex flex-row">
@@ -137,6 +139,16 @@ const Footer = () => {
                     sign up
                   </button>
                 </div>
+                <label className="label justify-center">
+                  <button
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                    className="label-text-alt link link-hover"
+                  >
+                    If you already have an account SIGN IN
+                  </button>
+                </label>
               </div>
             </div>
           </form>
@@ -231,6 +243,16 @@ const Footer = () => {
                     sign up
                   </button>
                 </div>
+                <label className="label justify-center">
+                  <button
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                    className="label-text-alt link link-hover"
+                  >
+                    If you already have an account SIGN IN
+                  </button>
+                </label>
               </div>
             </div>
           </form>

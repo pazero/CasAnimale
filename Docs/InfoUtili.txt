@@ -20,9 +20,9 @@ API
 
 TO DO:
 - MainComponents
-	[ ] Header			(CREATO MA da sistemare gli href obv)
+	[x] Header
 	[ ] PageDescription	(CREATO MA non so come gestire il testo: value)
-	[ ] Footer			(CREATO MA da aggiungere lo ShortButton del form e da sistemare gli href obv)
+	[x] Footer
 - Pagine
 	- GAME
 		[ ] Home page
@@ -34,7 +34,9 @@ TO DO:
 		[ ] Adv servizi offerti
 		[ ] -fac- Memory / impiccato
 	- FRONT OFFICE
-		[/] Home page (da modificare il css)
+		[x] Home page
+		[x] Login page
+		[x] Registrazione page
 		[ ] Leadboard						|
 		[ ] Bacheca "eccolo qua"			| comunità
 		[ ] -fac- Bacheca "cerco partner"	|
