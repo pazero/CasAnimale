@@ -24,11 +24,11 @@ const Navbar = () => {
   return (
     <div
       data-theme="lemonade"
-      className="flex flex-1 justify-start flex-direction-column"
-      style={{ height: "100%" }}
+      className="flex flex-1 justify-center flex-direction-column"
+      style={{ height: "100%", backgroundColor: "#01a2b4", }}
     >
       <div
-        className=" hidden lg:flex flex-1 justify-end flex-direction-column"
+        className=" hidden sm:flex flex-1 justify-end flex-direction-column"
         style={{
           height: "100%",
           backgroundImage: "url('login-bg.jpg')",
@@ -38,64 +38,144 @@ const Navbar = () => {
           backgroundPosition: "bottom",
         }}
       >
-        <form onSubmit={handleSubmit} className="flex h-screen" style={{marginRight:"20%"}}>
-          <div className="m-auto card w-full max-w-sm shadow-2xl bg-base-100">
-            <div className="card-body text-center">
-              <div className="card-title justify-center">
-                Sign in to CasAnimale!
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="example@email.org"
-                  className="input input-bordered"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <label className="label">
+        <div
+          className="flex justify-center"
+          style={{ flex: "0 1 45%", alignItems: "center", marginLeft:"3.5rem" }}
+        >
+          <form onSubmit={handleSubmit} className="flex h-screen justify-center" style={{marginRight:"20%"}}>
+            <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
+              <div className="card-body text-center">
+                <div className="card-title justify-center">
+                  Sign in to CasAnimale!
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="example@email.org"
+                    className="input input-bordered"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="password"
+                    className="input input-bordered"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <label className="label">
+                    <button
+                      onClick={() => {
+                        navigate("/restore");
+                      }}
+                      className="label-text-alt link link-hover"
+                    >
+                      Forgot password?
+                    </button>
+                  </label>
+                </div>
+                <div>
+                  <button className="btn btn-secondary m-1">sign in</button>
+                </div>
+                <label className="label" size="lg">
+                  <span className="label-text">
+                    Or if you don't have an account 
+                  </span>
                   <button
                     onClick={() => {
-                      navigate("/restore");
+                      navigate("/register");
                     }}
-                    className="label-text-alt link link-hover"
+                    size="sm"
+                    className="btn btn-primary"
                   >
-                    Forgot password?
+                    sign up
                   </button>
                 </label>
               </div>
-              <div>
-                <button className="btn btn-secondary m-1">sign in</button>
-              </div>
-              <label className="label" size="lg">
-                <span className="label-text">
-                  Or if you don't have an account
-                </span>
-                <button
-                  onClick={() => {
-                    navigate("/register");
-                  }}
-                  size="sm"
-                  className="btn btn-primary"
-                >
-                  sign up
-                </button>
-              </label>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
+
+      <div
+        className=" sm:hidden justify-center"
+        style={{
+          height: "100%",
+          backgroundColor: "#01a2b4",
+          backgroundSize: "100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "bottom",
+        }}
+      >
+        <div
+          className="flex justify-center"
+          style={{ flex: "0 1 auto", alignItems: "center", margin:"3.5rem" }}
+        >
+          <form onSubmit={handleSubmit} className="flex h-screen justify-center">
+            <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
+              <div className="card-body text-center">
+                <div className="card-title justify-center">
+                  Sign in to CasAnimale!
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="example@email.org"
+                    className="input input-bordered"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="password"
+                    className="input input-bordered"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <label className="label">
+                    <button
+                      onClick={() => {
+                        navigate("/restore");
+                      }}
+                      className="label-text-alt link link-hover"
+                    >
+                      Forgot password?
+                    </button>
+                  </label>
+                </div>
+                <div>
+                  <button className="btn btn-secondary m-1">sign in</button>
+                </div>
+                <label className="label" size="lg">
+                  <span className="label-text">
+                    Or if you don't have an account 
+                  </span>
+                  <button
+                    onClick={() => {
+                      navigate("/register");
+                    }}
+                    size="sm"
+                    className="btn btn-primary"
+                  >
+                    sign up
+                  </button>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

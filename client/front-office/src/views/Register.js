@@ -31,7 +31,7 @@ const Footer = () => {
       
     >
       <div
-        className=" hidden lg:flex flex-1 justify-start flex-direction-column"
+        className=" hidden sm:flex flex-1 justify-start flex-direction-column"
         style={{ height: "100%", backgroundImage: "url('register-bg.jpg')", backgroundColor:"#ffac14", backgroundSize:"100%", backgroundRepeat:"no-repeat", backgroundPosition:"bottom" }}
       >
         <div
@@ -44,7 +44,7 @@ const Footer = () => {
             onSubmit={sendData}
           >
             <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
-              <div className="card-body text-center">
+              <div className="card-body text-center hidden sm:flex">
                 <div className="card-title justify-center">Sign up to CasAnimale!</div>
                 <div className="form-control flex flex-row">
                   <div
@@ -77,17 +77,6 @@ const Footer = () => {
                       style={{ flex: "1 0 auto" }}
                     />
                   </div>
-                </div>
-                <div className="form-control">
-                  {/* <label className="label">
-                    <span className="label-text">Surname</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Draghi"
-                    className="input input-bordered"
-                    onChange={(e) => setSurname(e.target.value)}
-                  /> */}
                 </div>
                 <div className="form-control flex flex-row">
                   <div
@@ -122,15 +111,98 @@ const Footer = () => {
                   </div>
                 </div>
                 <div className="form-control">
-                  {/*<label className="label">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="example@email.org"
+                    className="input input-bordered"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="password"
+                    className="input input-bordered"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button className="btn btn-primary m-1" type="submit">
+                    sign up
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div
+        className=" sm:hidden justify-start"
+        style={{ height: "100%", width: "100%", backgroundColor:"#ffac14", backgroundSize:"100%", backgroundPosition:"bottom"}}
+      >
+        <div
+          className="flex justify-center"
+          style={{ flex: "0 1 auto", alignItems: "center", margin:"3.5rem" }}
+        >
+          <form
+            className="flex justify-center"
+            style={{ flex: "1 0 auto" }}
+            onSubmit={sendData}
+          >
+            <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
+              <div className="card-body text-center">
+              <div className="card-title justify-center">Sign up to CasAnimale!</div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Mario"
+                    className="input input-bordered"
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Surname</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Draghi"
+                    className="input input-bordered"
+                    onChange={(e) => setSurname(e.target.value)}
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Birth Date</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="31/12/2000"
+                    className="input input-bordered"
+                    onChange={(e) => setBithDate(e.target.value)}
+                    style={{ flex: "1 0 auto" }}
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
                     <span className="label-text">Favourite animal</span>
                   </label>
                   <input
                     type="text"
                     placeholder="platypus"
                     className="input input-bordered"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />*/}
+                    onChange={(e) => setFavAnimal(e.target.value)}
+                  />
                 </div>
                 <div className="form-control">
                   <label className="label">
