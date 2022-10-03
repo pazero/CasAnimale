@@ -5,6 +5,13 @@ import Cookies from "js-cookie";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const token = Cookies.get("token");
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   const sendData = async (data) => {
     data.preventDefault();

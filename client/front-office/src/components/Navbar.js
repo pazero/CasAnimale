@@ -1,11 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
+  function logout() {
+    Cookies.remove("token", { path: "" });
+    navigate("/"); // reload della pagina, spero di farlo meglio
+  }
+
+  const token = Cookies.get("token");
+
   return (
-    <div className="navbar bg-blue-200" style={{minHeight:"5%"}}>
+    <div className="navbar bg-blue-200" style={{ minHeight: "5%" }}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -58,7 +66,12 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a href="http://localhost:3000/" className="btn btn-ghost normal-case text-xl">CasAnimale</a>
+        <a
+          href="http://localhost:3000/"
+          className="btn btn-ghost normal-case text-xl"
+        >
+          CasAnimale
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
@@ -104,55 +117,64 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        <div className="hidden sm:flex">
-          <a
-            onClick={() => {
-              navigate("/login");
-            }}
-            className="btn btn-ghost mr-2"
-          >
-            sign in
-          </a>
-          <a
-            onClick={() => {
-              navigate("/register");
-            }}
-            className="btn btn-primary"
-            style={{}}
-          >
-            sign up
-          </a>
+      {token ? (
+        <div className="navbar-end">
+          <div className="btn">Profile</div>
+          <div className="btn" onClick={logout}>
+            Log out
+          </div>
         </div>
-        <div className="dropdown sm:hidden">
-          <label tabIndex={0} className="btn btn-primary mr-2">
-            <span>login</span>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
-          >
-            <li>
-              <a
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                Sign in
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => {
-                  navigate("/register");
-                }}
-              >
-                Sign up
-              </a>
-            </li>
-          </ul>
+      ) : (
+        <div className="navbar-end">
+          <div className="hidden sm:flex">
+            <a
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="btn btn-ghost mr-2"
+            >
+              sign in
+            </a>
+            <a
+              onClick={() => {
+                navigate("/register");
+              }}
+              className="btn btn-primary"
+              style={{}}
+            >
+              sign up
+            </a>
+          </div>
+          <div className="dropdown sm:hidden">
+            <label tabIndex={0} className="btn btn-primary mr-2">
+              <span>login</span>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
+            >
+              <li>
+                <a
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Sign in
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    navigate("/register");
+                  }}
+                >
+                  Sign up
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
