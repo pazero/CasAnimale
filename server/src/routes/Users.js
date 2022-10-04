@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
+function generateAccessToken(id) {
+  return jwt.sign(id, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
 }
 
 function authenticateToken(req, res, next) {
@@ -13,12 +13,12 @@ function authenticateToken(req, res, next) {
 
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, id) => {
     console.log(err);
 
     if (err) return res.sendStatus(403);
 
-    req.user = user;
+    req.userid = id;
 
     next();
   });
@@ -37,10 +37,14 @@ router.get("", async (req, res) => {
 /* Login user */
 router.post("/login", async (req, res) => {
   const user = await User.find(req.body);
-  if (user && Object.keys(user).length !== 0 && Object.getPrototypeOf(user) !== Object.prototype) {
-    const token = generateAccessToken({ email: req.body.email });
+  if (
+    user &&
+    Object.keys(user).length !== 0 &&
+    Object.getPrototypeOf(user) !== Object.prototype
+  ) {
+    const token = generateAccessToken({ id: req.body._id });
     res.json({
-      message: `Login di ${req.body.email} effettuato!`,
+      message: `Login of ${req.body.email} done!`,
       token: `${token}`,
     });
   } else {
@@ -92,20 +96,24 @@ router.delete("/:id", async (req, res) => {
 });
 
 /* Update user's personal datas */
-router.post("/:id", async (req, res) => {
+router.post("/update", async (req, res) => {
   try {
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        name: req.body.name,
-        surname: req.body.surname,
-        birth: req.body.birth,
-        email: req.body.email,
-        password: req.body.password,
-        favanimal: req.body.favanimal,
-      }
-    );
-    res.json(updatedUser);
+    const id = authenticateToken(req, res, cont);
+
+    async function cont() {
+      await User.findOneAndUpdate(
+        { _id: req.userid },
+        {
+          name: req.body.name,
+          surname: req.body.surname,
+          birth: req.body.birth,
+          email: req.body.email,
+          password: req.body.password,
+          favanimal: req.body.favanimal,
+        }
+      );
+      res.json({ message: "Update done!" });
+    }
   } catch (e) {
     res.json({ message: e });
   }

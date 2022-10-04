@@ -22,8 +22,8 @@ const Authentication = {
   deleteUser(id) {
     return Api().delete(`${base}${id}`);
   },
-  updateUser(id, data) {
-    return Api().post(`${base}${id}`, data);
+  updateUser(data) {
+    return Api().post(`${base}update`, data);
   },
   login(credential) {
     return Api().post(`${base}login`, credential);

@@ -119,7 +119,14 @@ const Navbar = () => {
       </div>
       {token ? (
         <div className="navbar-end">
-          <div className="btn">Profile</div>
+          <div
+            className="btn"
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
+            Profile
+          </div>
           <div className="btn" onClick={logout}>
             Log out
           </div>
