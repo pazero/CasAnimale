@@ -1,4 +1,5 @@
 const userRoute = require("./routes/Users");
+const postRoute = require("./routes/Post");
 
 module.exports = (app) => {
   app.get("/", (req, res) => {
@@ -7,4 +8,5 @@ module.exports = (app) => {
     });
   });
   app.use("/users", userRoute); /* user routing middleware */
+  app.use("/posts", postRoute); /* user routing middleware */
 };

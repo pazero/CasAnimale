@@ -3055,6 +3055,14 @@ html {
   margin-left: 0.5rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
 .block {
   display: block;
 }
@@ -3089,6 +3097,10 @@ html {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
 }
 
 .flex-1 {
@@ -3176,8 +3188,8 @@ html {
   padding-bottom: 1.5rem;
 }
 
-.pr-2 {
-  padding-right: 0.5rem;
+.pt-2 {
+  padding-top: 0.5rem;
 }
 
 .text-center {
