@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: String,
   surname: String,
-  birth: String, // da cambiare in Date
+  birth: Date,
   email: String,
   password: String,
   favanimal: String,
