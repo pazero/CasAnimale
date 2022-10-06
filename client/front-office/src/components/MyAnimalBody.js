@@ -5,49 +5,28 @@ import { useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
-  Link,
-  Image,
   Text,
-  Divider,
   HStack,
-  Tag,
-  Wrap,
-  WrapItem,
-  SpaceProps,
-  useColorModeValue,
   Container,
-  VStack,
 } from '@chakra-ui/react';
-
-
-
-const BlogTags = (props) => {
-  return (
-    <HStack spacing={2} marginTop={props.marginTop}>
-      {props.tags.map((tag) => {
-        return (
-          <Tag size={'md'} variant="solid" colorScheme="orange" key={tag}>
-            {tag}
-          </Tag>
-        );
-      })}
-    </HStack>
-  );
-};
-
 
 const ArticleList = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    PostManage.getPosts().then((res) => {
-      setPosts(res.data);
-    });
+
+  useEffect(async () => {
+    const { data: posts } = await PostManage.getPosts();
+    setPosts(await Promise.all(posts.map(async(post,i) => 
+      {
+        const { data: author } = await UserManage.getUser(post.userid);
+
+        return{...post,author}   /** crea un nuovo oggetto con tutto il contenuto di post e la chiave users con valore dell'author */
+      }
+    )))
   }, []);
 
-  const [user, setUser] = useState([]);  /** user */
-
+  console.log(posts);
 
   return (
     <Container maxW="100%">
@@ -56,14 +35,9 @@ const ArticleList = () => {
       </a>
       <Container maxW={'7xl'} p="12" pt="0">
         <Heading as="h1">Posts</Heading>
-        {posts.map((post) => {        /** post */
-
-          UserManage.getUser(post.userid).then((res) => {
-            setUser(res.data);
-          });
-
-          return (
-            <Box
+        {posts.map((post) =>         /** post */
+          (
+            <Box key={post._id}
               marginTop={{ base: '1', sm: '5' }}
               display="flex"
               flexDirection={{ base: 'column', sm: 'row' }}
@@ -81,19 +55,18 @@ const ArticleList = () => {
                   flexDirection="column"
                   justifyContent="center"
                   marginTop={{ base: '3', sm: '0' }}>
-                  <BlogTags tags={['Cat', 'Brown']} />
                   <Heading marginTop="1">
-                    <div key={post._id}>{post.title}</div>
+                    <div>{post.title}</div>
                   </Heading>
                   <Text
                     as="p"
                     marginTop="2"
                     /*color={useColorModeValue('gray.700', 'gray.200')}*/
                     fontSize="lg">
-                    <div key={post._id}>{post.description}</div>
+                    <div>{post.description}</div>
                   </Text>
                   <HStack marginTop="2" spacing="2" display="flex" alignItems="center">
-                    <Text fontWeight="medium">{user.name} {user.surname}</Text>
+                    <Text fontWeight="medium">{post.author.name} {post.author.surname}</Text>
                     <Text>—</Text>
                     <Text>{post.date}</Text>
                   </HStack>
@@ -101,7 +74,7 @@ const ArticleList = () => {
               </Box>
             </Box>
           )
-        })}
+        )}
       </Container>
     </Container>
   );

@@ -16,7 +16,7 @@ router.get("", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    res.json(user);
+    res.json(post);
   } catch (e) {
     res.json({ message: e });
   }
@@ -47,10 +47,10 @@ router.delete("/:id", async (req, res) => {
 /* Update post's infos */
 router.post("/:id", async (req, res) => {
   try {
-    const updatedPost = await User.findOneAndUpdate(
+    const updatedPost = await Post.findOneAndUpdate(
       { _id: req.params.id },
       {
-        user_id: req.body.usrid,
+        user_id: req.body.userid,
         title: req.body.title,
         description: req.body.description,
         date: new Date(),

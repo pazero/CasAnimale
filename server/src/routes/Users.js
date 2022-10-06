@@ -46,7 +46,7 @@ router.put("/addUser", async (req, res) => {
     password: req.body.password,
     favanimal: req.body.favanimal,
   });
-  const newUser = await user.save();
+  await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
 });
 
