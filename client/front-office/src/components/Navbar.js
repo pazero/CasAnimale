@@ -66,7 +66,7 @@ const Navbar = () => {
               </ul>
             </li>
             <li>
-            <a onClick={() => { navigate("/"); }}>Your profile</a>
+            <a onClick={() => { navigate("/profile"); }}>Your profile</a>
           </li>
           </ul>
         </div>
@@ -112,7 +112,7 @@ const Navbar = () => {
             </ul>
           </li>
           <li>
-            <a onClick={() => { navigate("/"); }}>Your profile</a>
+            <a onClick={() => { navigate("/profile"); }}>Your profile</a>
           </li>
         </ul>
       </div>

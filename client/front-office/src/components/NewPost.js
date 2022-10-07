@@ -6,26 +6,17 @@ const NewPost = () => {
     return(
     <div
       data-theme="lemonade"
-      className="flex flex-1 justify-center flex-direction-column"
-      style={{ height: "100%", backgroundColor: "#01a2b4", }}
+      className="flex flex-1 justify-center"
     >
       <div
-        className=" hidden sm:flex flex-1 justify-center flex-direction-column w-full"
-        style={{
-          height: "100%",
-          backgroundImage: "",
-          backgroundColor: "",
-          backgroundSize: "100%",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "bottom",
-        }}
+        className=" hidden sm:flex flex-1 justify-center"
       >
         <div
           className="flex justify-center"
-          style={{ flex: "0 1 auto", alignItems: "center"}}
+          style={{ width: "90%", flex: "0 1 auto", alignItems: "center"}}
         >
-          <form /*onSubmit={}*/ className="flex h-screen justify-center w-full">
-            <div className="m-auto card justify-center w-full shadow-2xl bg-base-100">
+          <form /*onSubmit={}*/ className="flex justify-center w-full">
+            <div className="m-auto card justify-center w-full ">
               <div className="card-body text-center">
                 <div className="card-title justify-center">
                   Create a new post!
@@ -44,11 +35,8 @@ const NewPost = () => {
                   <label className="label">
                     <span className="label-text">Type the description of the post</span>
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Type the text"
-                    className="input input-bordered"
-                  />
+                  <textarea className="input input-bordered w-full" placeholder="Type the text" >
+                  </textarea>
                 </div>
                 <div>
                   <button className="btn btn-secondary m-1">Post</button>

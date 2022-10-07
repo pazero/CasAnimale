@@ -5,6 +5,8 @@ import RestorePass from "./views/RestorePass";
 import Login from "./components/Login";
 import MyAnimalShowcase from "./views/MyAnimalShowcase";
 import NewPost from "./components/NewPost";
+import ChangeProfile from "./components/ChangeProfile";
+import Profile from "./components/Profile";
 
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/myAnimalSC" element={<MyAnimalShowcase />} />
             <Route path="/newpost" element={<NewPost />} />
+            <Route path="/changeProfile" element={<ChangeProfile />} />
+            <Route path="/Profile" element={<Profile />} />
         </Routes>
       </Router>
     </>
