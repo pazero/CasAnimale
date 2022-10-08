@@ -54,16 +54,28 @@ const Navbar = () => {
               </a>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
-                  <a>eCommerce</a>
+                  <a onClick={() => { navigate("/"); }}>eCommerce</a>
                 </li>
                 <li>
-                  <a>Psicologo</a>
+                  <a onClick={() => { navigate("/"); }}>Vet</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/"); }}>PetSitter</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/"); }}>Leaderbord</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/myAnimalSC"); }}>My Animal Showcase</a>
+                </li>
+                <li>
+                  <a onClick={() => { navigate("/"); }}>Looking4Partner Showcase</a>
                 </li>
               </ul>
             </li>
             <li>
-              <a>Area riservata</a>
-            </li>
+            <a onClick={() => { navigate("/"); }}>Your profile</a>
+          </li>
           </ul>
         </div>
         <a
@@ -93,27 +105,27 @@ const Navbar = () => {
             </a>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <a>eCommerce</a>
+                <a onClick={() => { navigate("/"); }}>eCommerce</a>
               </li>
               <li>
-                <a>Veterinario</a>
+                <a onClick={() => { navigate("/"); }}>Vet</a>
               </li>
               <li>
-                <a>PetSitter</a>
+                <a onClick={() => { navigate("/"); }}>PetSitter</a>
               </li>
               <li>
-                <a>Leaderbord</a>
+                <a onClick={() => { navigate("/"); }}>Leaderbord</a>
               </li>
               <li>
-                <a>EccoloQua!</a>
+                <a onClick={() => { navigate("/myAnimalSC"); }}>My Animal Showcase</a>
               </li>
               <li>
-                <a>CercoParter</a>
+                <a onClick={() => { navigate("/"); }}>Looking4Partner Showcase</a>
               </li>
             </ul>
           </li>
           <li>
-            <a>Area riservata</a>
+            <a onClick={() => { navigate("/"); }}>Your profile</a>
           </li>
         </ul>
       </div>
