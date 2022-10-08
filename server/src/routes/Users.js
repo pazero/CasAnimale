@@ -8,18 +8,17 @@ function generateAccessToken(id) {
 }
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers.cookie;
+  const token = authHeader && authHeader.split("=")[1];
 
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, id) => {
-    console.log(err);
-
-    if (err) return res.sendStatus(403);
-
-    req.userid = id;
-
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(403);
+    }
+    req.userid = data.id;
     next();
   });
 }
@@ -42,7 +41,7 @@ router.post("/login", async (req, res) => {
     Object.keys(user).length !== 0 &&
     Object.getPrototypeOf(user) !== Object.prototype
   ) {
-    const token = generateAccessToken({ id: req.body._id });
+    const token = generateAccessToken({ id: user[0]._id });
     res.json({
       message: `Login of ${req.body.email} done!`,
       token: `${token}`,
@@ -98,7 +97,7 @@ router.delete("/:id", async (req, res) => {
 /* Update user's personal datas */
 router.post("/update", async (req, res) => {
   try {
-    const id = authenticateToken(req, res, cont);
+    authenticateToken(req, res, cont);
 
     async function cont() {
       await User.findOneAndUpdate(

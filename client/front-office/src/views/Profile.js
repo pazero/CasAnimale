@@ -15,11 +15,11 @@ const Home = () => {
   const [favanimal, setFavanimal] = useState();
   const token = Cookies.get("token");
 
-  //   useEffect(() => {
-  //     if (token) {
-  //       navigate("/");
-  //     }
-  //   }, []);
+    useEffect(() => {
+      if (!token) {
+        navigate("/");
+      }
+    });
 
 
   const handleSubmit = async (e) => {
@@ -31,7 +31,6 @@ const Home = () => {
       email,
       password,
       favanimal,
-      withCredentials: true,
     });
     alert(msg.data.message);
   };
