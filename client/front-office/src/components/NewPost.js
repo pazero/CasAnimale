@@ -1,8 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import PostManage from "../services/PostManage";
 
 const NewPost = () => {
-    const navigate = useNavigate();
+  const sendData = async (data) => {
+      data.preventDefault();
+      const msg = await PostManage.addPost({
+        userid: '633571693fe3081bc6c74ee0',
+        title,
+        description
+      });
+      alert(msg.data.message);
+      window.location.reload();
+    };
+  
+    const [userid, setUsrId] = useState([]);    /* come trovo l'id dell'utente loggato? */
+    const [title, setTitle] = useState([]);
+    const [description, setDescription] = useState([]);
+
     return(
     <div
       data-theme="lemonade"
@@ -15,7 +29,7 @@ const NewPost = () => {
           className="flex justify-center"
           style={{ width: "90%", flex: "0 1 auto", alignItems: "center"}}
         >
-          <form /*onSubmit={}*/ className="flex justify-center w-full">
+          <form onSubmit={sendData} className="flex justify-center w-full">
             <div className="m-auto card justify-center w-full ">
               <div className="card-body text-center">
                 <div className="card-title justify-center">
@@ -29,13 +43,14 @@ const NewPost = () => {
                     type="text"
                     placeholder="Title"
                     className="input input-bordered"
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Type the description of the post</span>
                   </label>
-                  <textarea className="input input-bordered w-full" placeholder="Type the text" >
+                  <textarea className="input input-bordered w-full" placeholder="Type the text" onChange={(e) => setDescription(e.target.value)}>
                   </textarea>
                 </div>
                 <div>
