@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <div
       data-theme="lemonade"
-      className="App flex h-screen flex-1"
+      className="flex h-screen flex-1"
       style={{
         flexDirection: "column",
         justifyContent: "space-between",

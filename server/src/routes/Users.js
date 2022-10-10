@@ -1,27 +1,7 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const jwt = require("../services/jwrUtils")
 const router = express.Router();
-
-function generateAccessToken(id) {
-  return jwt.sign(id, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
-}
-
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers.cookie;
-  const token = authHeader && authHeader.split("=")[1];
-
-  if (token == null) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.sendStatus(403);
-    }
-    req.userid = data.id;
-    next();
-  });
-}
 
 /* Get user list (optional query) */
 router.get("", async (req, res) => {
@@ -41,7 +21,7 @@ router.post("/login", async (req, res) => {
     Object.keys(user).length !== 0 &&
     Object.getPrototypeOf(user) !== Object.prototype
   ) {
-    const token = generateAccessToken({ id: user[0]._id });
+    const token = jwt.generateAccessToken({ id: user[0]._id });
     res.json({
       message: `Login of ${req.body.email} done!`,
       token: `${token}`,
@@ -79,6 +59,8 @@ router.put("/addUser", async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     favanimal: req.body.favanimal,
+    is_company: false,
+    company_type: "",
   });
   const newUser = await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
@@ -97,7 +79,7 @@ router.delete("/:id", async (req, res) => {
 /* Update user's personal datas */
 router.post("/update", async (req, res) => {
   try {
-    authenticateToken(req, res, cont);
+    jwt.authenticateToken(req, res, cont);
 
     async function cont() {
       await User.findOneAndUpdate(
@@ -109,6 +91,8 @@ router.post("/update", async (req, res) => {
           email: req.body.email,
           password: req.body.password,
           favanimal: req.body.favanimal,
+          is_company: req.body.is_company,
+          company_type: req.body.company_type,
         }
       );
       res.json({ message: "Update done!" });

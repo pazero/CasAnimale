@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import UserManage from "../services/UserManage";
+import React from "react";
 import Footer from "../components/Footer";
 import Blog from "../components/MyAnimalBody";
 import Navbar from "../components/Navbar";

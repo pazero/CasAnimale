@@ -40,7 +40,7 @@ const Navbar = () => {
               <a href="http://localhost:5237">Area Giochi</a>
             </li>
             <li tabIndex={0}>
-              <a className="justify-between">
+              <a href="/" className="justify-between">
                 Servizi
                 <svg
                   className="fill-current"
@@ -54,28 +54,70 @@ const Navbar = () => {
               </a>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
-                  <a onClick={() => { navigate("/"); }}>eCommerce</a>
+                  <button
+                    onClick={() => {
+                      navigate("/compra");
+                    }}
+                  >
+                    eCommerce
+                  </button>
                 </li>
                 <li>
-                  <a onClick={() => { navigate("/"); }}>Vet</a>
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    Vet
+                  </button>
                 </li>
                 <li>
-                  <a onClick={() => { navigate("/"); }}>PetSitter</a>
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    PetSitter
+                  </button>
                 </li>
                 <li>
-                  <a onClick={() => { navigate("/"); }}>Leaderbord</a>
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    Leaderbord
+                  </button>
                 </li>
                 <li>
-                  <a onClick={() => { navigate("/myAnimalSC"); }}>My Animal Showcase</a>
+                  <button
+                    onClick={() => {
+                      navigate("/myAnimalSC");
+                    }}
+                  >
+                    My Animal Showcase
+                  </button>
                 </li>
                 <li>
-                  <a onClick={() => { navigate("/"); }}>Looking4Partner Showcase</a>
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    Looking4Partner Showcase
+                  </button>
                 </li>
               </ul>
             </li>
             <li>
-            <a onClick={() => { navigate("/"); }}>Your profile</a>
-          </li>
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Your profile
+              </button>
+            </li>
           </ul>
         </div>
         <a
@@ -88,10 +130,10 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5173/">Area Giochi</a>
+            <a href="http://localhost:5237">Area Giochi</a>
           </li>
           <li tabIndex={0}>
-            <a href="#" className="justify-between">
+            <a href="/" className="justify-between">
               Servizi
               <svg
                 className="fill-current"
@@ -105,56 +147,98 @@ const Navbar = () => {
             </a>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <a onClick={() => { navigate("/"); }}>eCommerce</a>
+                <button
+                  onClick={() => {
+                    navigate("/compra");
+                  }}
+                >
+                  eCommerce
+                </button>
               </li>
               <li>
-                <a onClick={() => { navigate("/"); }}>Vet</a>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Vet
+                </button>
               </li>
               <li>
-                <a onClick={() => { navigate("/"); }}>PetSitter</a>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  PetSitter
+                </button>
               </li>
               <li>
-                <a onClick={() => { navigate("/"); }}>Leaderbord</a>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Leaderbord
+                </button>
               </li>
               <li>
-                <a onClick={() => { navigate("/myAnimalSC"); }}>My Animal Showcase</a>
+                <button
+                  onClick={() => {
+                    navigate("/myAnimalSC");
+                  }}
+                >
+                  My Animal Showcase
+                </button>
               </li>
               <li>
-                <a onClick={() => { navigate("/"); }}>Looking4Partner Showcase</a>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Looking4Partner Showcase
+                </button>
               </li>
             </ul>
           </li>
           <li>
-            <a onClick={() => { navigate("/"); }}>Your profile</a>
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Your profile
+            </button>
           </li>
         </ul>
       </div>
       {token ? (
         <div className="navbar-end">
-          <div
+          <button
             className="btn"
             onClick={() => {
               navigate("/profile");
             }}
           >
             Profile
-          </div>
-          <div className="btn" onClick={logout}>
+          </button>
+          <button className="btn" onClick={logout}>
             Log out
-          </div>
+          </button>
         </div>
       ) : (
         <div className="navbar-end">
           <div className="hidden sm:flex">
-            <a
+            <button
               onClick={() => {
                 navigate("/login");
               }}
               className="btn btn-ghost mr-2"
             >
               sign in
-            </a>
-            <a
+            </button>
+            <button
               onClick={() => {
                 navigate("/register");
               }}
@@ -162,7 +246,7 @@ const Navbar = () => {
               style={{}}
             >
               sign up
-            </a>
+            </button>
           </div>
           <div className="dropdown sm:hidden">
             <label tabIndex={0} className="btn btn-primary mr-2">
@@ -173,22 +257,22 @@ const Navbar = () => {
               className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
             >
               <li>
-                <a
+                <button
                   onClick={() => {
                     navigate("/login");
                   }}
                 >
                   Sign in
-                </a>
+                </button>
               </li>
               <li>
-                <a
+                <button
                   onClick={() => {
                     navigate("/register");
                   }}
                 >
                   Sign up
-                </a>
+                </button>
               </li>
             </ul>
           </div>

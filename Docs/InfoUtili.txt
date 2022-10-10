@@ -21,7 +21,7 @@ API
 TO DO:
 - MainComponents
 	[x] Header
-	[ ] PageDescription	(CREATO MA non so come gestire il testo: value)
+	[/] Carosello
 	[x] Footer
 - Pagine
 	- GAME
@@ -34,13 +34,13 @@ TO DO:
 		[ ] Adv servizi offerti
 		[ ] -fac- Memory / impiccato
 	- FRONT OFFICE
-		[x] Home page
-		[x] Login page
-		[x] Registrazione page
+		[x] Home page (da finire il carosello)
+		[x] Login
+		[x] Registrazione
 		[ ] Leadboard						|
-		[ ] Bacheca "eccolo qua"			| comunità
+		[/] Bacheca "eccolo qua" (wip)      | comunità
 		[ ] -fac- Bacheca "cerco partner"	|
-		[ ] eCommerce
+		[/] eCommerce (iniziato)
 		[ ] Veterinario			|
 		[ ] Dog-sitter			| servizi in
 		[ ] -fac- Toelettatura	|  presenza

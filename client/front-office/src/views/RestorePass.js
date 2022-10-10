@@ -16,8 +16,14 @@ import {
 
 export default function ForgotPasswordForm() {
   const navigate = useNavigate();
-
+  const token = Cookies.get("token");
   const [email, setEmail] = useState([]);
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   const sendMail = async (e) => {
     e.preventDefault();
