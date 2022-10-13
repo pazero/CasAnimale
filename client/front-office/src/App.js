@@ -6,7 +6,6 @@ import Profile from "./views/Profile";
 import Login from "./components/Login";
 import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
-import NewPost from "./components/NewPost";
 
 const App = () => {
   return (

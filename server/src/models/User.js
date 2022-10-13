@@ -9,9 +9,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   favanimal: String,
-  is_company: Boolean,
-  company_type: String, //vet, vendor, petsitting, general service, private
-  // da aggiungere altri campi?
+  company: Number,   // id company
 });
 
 module.exports = mongoose.model("User", userSchema);

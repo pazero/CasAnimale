@@ -26,7 +26,7 @@ router.get("/:id", async (req, res) => {
 /* Create a new post */
 router.put("/addPost", async (req, res) => {
   jwt.authenticateToken(req, res, cont);
-  
+
   async function cont() {
     const post = new Post({
       userid: req.userid,

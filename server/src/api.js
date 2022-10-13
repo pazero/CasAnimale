@@ -9,7 +9,7 @@ module.exports = (app) => {
       message: "Questo è un server express",
     });
   });
-  app.use("/users", userRoute);       /* user routing middleware    */
+  app.use("/users", userRoute); /* user routing middleware    */
   app.use("/products", productRoute); /* product routing middleware */
-  app.use("/posts", postRoute);       /* post routing middleware    */
+  app.use("/posts", postRoute); /* post routing middleware    */
 };

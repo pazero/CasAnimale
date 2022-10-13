@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
-const jwt = require("../services/jwrUtils")
+const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
 /* Get user list (optional query) */

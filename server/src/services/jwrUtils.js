@@ -6,7 +6,7 @@ const authJwt = {
   },
 
   authenticateToken(req, res, next) {
-    const authHeader = req.headers.cookie;  // todo: controllare perche'
+    const authHeader = req.headers.cookie; // todo: controllare perche'
     const token = authHeader && authHeader.split("=")[1];
 
     if (token == null) return res.sendStatus(401);
