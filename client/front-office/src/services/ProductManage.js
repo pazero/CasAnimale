@@ -1,10 +1,10 @@
 import Api from "./Api.js";
 
-const BASE = "users/";
+const BASE = "products/";
 
-const Authentication = {
+const prodManage = {
   // if data is empty, return all users
-  getUsers(data) {
+  getProducts(data) {
     return data === undefined
       ? Api().get(BASE)
       : Api().get(
@@ -13,24 +13,18 @@ const Authentication = {
           })}`
         );
   },
-  getUser(id) {
+  getProduct(id) {
     return Api().get(BASE + id);
   },
-  addUser(data) {
-    return Api().put(BASE + "addUser", data);
+  newProduct(data) {
+    return Api().put(BASE + "newProduct", data);
   },
-  deleteUser(id) {
+  deleteProduct(id) {
     return Api().delete(BASE + id);
   },
-  updateUser(data) {
+  updateProduct(data) {
     return Api().post(BASE + "update", data);
-  },
-  login(credential) {
-    return Api().post(BASE + "login", credential);
-  },
-  restore(credential) {
-    return Api().post(BASE + "restore", credential);
   },
 };
 
-export default Authentication;
+export default prodManage;

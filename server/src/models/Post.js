@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-/* User schema fields */
+/* Post schema fields */
 const postSchema = new Schema({
   user_id: Number,
   title: String,

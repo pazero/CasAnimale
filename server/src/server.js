@@ -1,12 +1,12 @@
 /* Import packages and inizialize */
 const express = require("express");
 const cors = require("cors");
-const mongoose = require('mongoose');
-require('dotenv').config()  // this line imports .env file
+const mongoose = require("mongoose");
+require("dotenv").config(); // this line imports .env file
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 
 /* Connect to DB */

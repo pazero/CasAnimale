@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
+const jwt = require("../services/jwrUtils")
 const router = express.Router();
 
 /* Get user list (optional query) */
@@ -13,10 +14,23 @@ router.get("", async (req, res) => {
 });
 
 /* Login user */
-router.post("/login", (req, res) => {
-  res.json({
-    message: `Login di ${req.body.email} effettuato!`,
-  });
+router.post("/login", async (req, res) => {
+  const user = await User.find(req.body);
+  if (
+    user &&
+    Object.keys(user).length !== 0 &&
+    Object.getPrototypeOf(user) !== Object.prototype
+  ) {
+    const token = jwt.generateAccessToken({ id: user[0]._id });
+    res.json({
+      message: `Login of ${req.body.email} done!`,
+      token: `${token}`,
+    });
+  } else {
+    res.json({
+      message: `Wrong mail or password.`,
+    });
+  }
 });
 
 /* Restore user's password */
@@ -45,6 +59,8 @@ router.put("/addUser", async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     favanimal: req.body.favanimal,
+    is_company: false,
+    company_type: "",
   });
   const newUser = await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
@@ -61,20 +77,26 @@ router.delete("/:id", async (req, res) => {
 });
 
 /* Update user's personal datas */
-router.post("/:id", async (req, res) => {
+router.post("/update", async (req, res) => {
   try {
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        name: req.body.name,
-        surname: req.body.surname,
-        birth: req.body.birth,
-        email: req.body.email,
-        password: req.body.password,
-        favanimal: req.body.favanimal,
-      }
-    );
-    res.json(updatedUser);
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      await User.findOneAndUpdate(
+        { _id: req.userid },
+        {
+          name: req.body.name,
+          surname: req.body.surname,
+          birth: req.body.birth,
+          email: req.body.email,
+          password: req.body.password,
+          favanimal: req.body.favanimal,
+          is_company: req.body.is_company,
+          company_type: req.body.company_type,
+        }
+      );
+      res.json({ message: "Update done!" });
+    }
   } catch (e) {
     res.json({ message: e });
   }
