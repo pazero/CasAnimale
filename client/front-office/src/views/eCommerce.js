@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       await ProdManage.getProducts().then((res) => {
-        setProducts(res);
+        setProducts(res.data);
       });
     }
     fetchData();
@@ -36,7 +36,7 @@ const Home = () => {
       {products.map((product, key) => (
         <Product
           id={key.toString()}
-          title={product.title.toString()}
+          title={product.name.toString()}
           description={product.description.toString()}
           price={product.price.toString()}
         />
