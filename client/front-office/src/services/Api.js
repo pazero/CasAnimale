@@ -5,7 +5,7 @@ const baseURL = "http://localhost:5000/";
 const Api = () => {
   return axios.create({
     baseURL,
-    withCredentials: true
+    withCredentials: true,
   });
 };
 

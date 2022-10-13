@@ -1,6 +1,6 @@
 const express = require("express");
 const Product = require("../models/Product");
-const jwt = require("../services/jwrUtils")
+const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
 router.get("", async (req, res) => {
@@ -55,12 +55,12 @@ router.post("/update", async (req, res) => {
       await User.findOneAndUpdate(
         { _id: req.body.prod_id }, // attenzione: inserire prod_id nel body della richiesta
         {
-            name: req.body.name,
-            image: req.body.image,
-            description: req.body.description,
-            price: req.body.price,
-            quantity: req.body.quantity,
-            seller: req.body.seller,
+          name: req.body.name,
+          image: req.body.image,
+          description: req.body.description,
+          price: req.body.price,
+          quantity: req.body.quantity,
+          seller: req.body.seller,
         }
       );
       res.json({ message: "Update done!" });

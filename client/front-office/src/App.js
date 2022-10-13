@@ -8,20 +8,18 @@ import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
 import NewPost from "./components/NewPost";
 
-
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/restore" element={<RestorePass />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/forum" element={<Forum />} />
-            <Route path="/compra" element={<ECommerce />} />
-            <Route path="/newpost" element={<NewPost />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/restore" element={<RestorePass />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/compra" element={<ECommerce />} />
         </Routes>
       </Router>
     </>

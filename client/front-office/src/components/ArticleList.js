@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
 import PostManage from "../services/PostManage";
 import NewPost from "./NewPost";
@@ -7,8 +8,9 @@ import { Box, Heading, Text, HStack, Container } from "@chakra-ui/react";
 const ArticleList = () => {
   const [posts, setPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const token = Cookies.get("token");
 
-  useEffect(async () => {
+  useEffect(() => {
     async function fetchData() {
       const { data: posts } = await PostManage.getPosts();
       /* crea un nuovo oggetto con tutto il contenuto di post e la chiave users con valore dell'author */
@@ -29,14 +31,16 @@ const ArticleList = () => {
 
   return (
     <Container maxW="100%">
-      <button
-        onClick={() => {
-          setShowModal(true);
-        }}
-        className="btn btn-secondary mt-2 mb-4"
-      >
-        New post
-      </button>
+      {token ? (
+        <button
+          onClick={() => {
+            setShowModal(true);
+          }}
+          className="btn btn-secondary mt-2 mb-4"
+        >
+          New post
+        </button>
+      ) : null}
 
       {showModal ? (
         <>

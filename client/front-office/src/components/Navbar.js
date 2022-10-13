@@ -4,13 +4,12 @@ import Cookies from "js-cookie";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const token = Cookies.get("token");
 
   function logout() {
     Cookies.remove("token", { path: "" });
     navigate("/");
   }
-
-  const token = Cookies.get("token");
 
   return (
     <div className="navbar bg-blue-200" style={{ minHeight: "5%" }}>
@@ -104,7 +103,7 @@ const Navbar = () => {
                       navigate("/");
                     }}
                   >
-                    Looking4Partner Showcase
+                    Looking4Partner
                   </button>
                 </li>
               </ul>
@@ -188,7 +187,7 @@ const Navbar = () => {
                     navigate("/forum");
                   }}
                 >
-                  Forum2222
+                  Forum
                 </button>
               </li>
               <li>
@@ -197,7 +196,7 @@ const Navbar = () => {
                     navigate("/");
                   }}
                 >
-                  Looking4Partner Showcase
+                  Looking4Partner
                 </button>
               </li>
             </ul>

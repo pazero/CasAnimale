@@ -1,5 +1,6 @@
 const express = require("express");
 const Post = require("../models/Post");
+const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
 /* get posts list */
@@ -24,14 +25,18 @@ router.get("/:id", async (req, res) => {
 
 /* Create a new post */
 router.put("/addPost", async (req, res) => {
-  const post = new Post({
-    userid: req.body.userid,
-    title: req.body.title,
-    description: req.body.description,
-    date: new Date(),
-  });
-  const newPost = await post.save();
-  res.json({ message: "Post created succesfully!" });
+  jwt.authenticateToken(req, res, cont);
+  
+  async function cont() {
+    const post = new Post({
+      userid: req.userid,
+      title: req.body.title,
+      description: req.body.description,
+      date: new Date(),
+    });
+    await post.save();
+    res.json({ message: "Post created succesfully!" });
+  }
 });
 
 /* Delete a post */
