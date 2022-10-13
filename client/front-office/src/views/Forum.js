@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Blog from "../components/MyAnimalBody";
+import Blog from "../components/ArticleList";
 import Navbar from "../components/Navbar";
 
 const MyAnimalShowcase = () => {

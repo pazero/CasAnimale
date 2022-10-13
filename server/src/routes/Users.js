@@ -62,7 +62,7 @@ router.put("/addUser", async (req, res) => {
     is_company: false,
     company_type: "",
   });
-  const newUser = await user.save();
+  await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
 });
 

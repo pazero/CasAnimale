@@ -4,8 +4,10 @@ import Register from "./views/Register";
 import RestorePass from "./views/RestorePass";
 import Profile from "./views/Profile";
 import Login from "./components/Login";
-import Board from "./views/MyAnimalShowcase";
+import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
+import NewPost from "./components/NewPost";
+
 
 const App = () => {
   return (
@@ -17,8 +19,9 @@ const App = () => {
             <Route path="/restore" element={<RestorePass />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/board" element={<Board />} />
+            <Route path="/forum" element={<Forum />} />
             <Route path="/compra" element={<ECommerce />} />
+            <Route path="/newpost" element={<NewPost />} />
         </Routes>
       </Router>
     </>

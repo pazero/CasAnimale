@@ -7,7 +7,7 @@ const Navbar = () => {
 
   function logout() {
     Cookies.remove("token", { path: "" });
-    navigate("/"); // reload della pagina, spero di farlo meglio
+    navigate("/");
   }
 
   const token = Cookies.get("token");
@@ -92,10 +92,10 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/myAnimalSC");
+                      navigate("/forum");
                     }}
                   >
-                    My Animal Showcase
+                    Forum
                   </button>
                 </li>
                 <li>
@@ -185,10 +185,10 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/myAnimalSC");
+                    navigate("/forum");
                   }}
                 >
-                  My Animal Showcase
+                  Forum2222
                 </button>
               </li>
               <li>

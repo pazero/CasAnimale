@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 /* Post schema fields */
 const postSchema = new Schema({
-  user_id: Number,
+  userid: String,
   title: String,
   description: String,
   date: Date,
