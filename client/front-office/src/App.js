@@ -4,7 +4,7 @@ import Register from "./views/Register";
 import RestorePass from "./views/RestorePass";
 import Profile from "./views/Profile";
 import Login from "./components/Login";
-import MyAnimalShowcase from "./views/MyAnimalShowcase";
+import Board from "./views/MyAnimalShowcase";
 import ECommerce from "./views/eCommerce";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
             <Route path="/restore" element={<RestorePass />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/myAnimalSC" element={<MyAnimalShowcase />} />
+            <Route path="/board" element={<Board />} />
             <Route path="/compra" element={<ECommerce />} />
         </Routes>
       </Router>

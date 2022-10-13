@@ -115,7 +115,7 @@ const Navbar = () => {
                   navigate("/");
                 }}
               >
-                Your profile
+                Area Riservata
               </button>
             </li>
           </ul>
@@ -208,7 +208,7 @@ const Navbar = () => {
                 navigate("/");
               }}
             >
-              Your profile
+              Area Riservata
             </button>
           </li>
         </ul>
