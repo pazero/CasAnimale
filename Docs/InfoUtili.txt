@@ -35,12 +35,13 @@ TO DO:
 		[ ] -fac- Memory / impiccato
 	- FRONT OFFICE
 		[x] Home page (da finire il carosello)
-		[x] Login
+		[x] Login     (da correggere: se premo invio fa nel recupero pass)
 		[x] Registrazione
+		[/] Recupero pass (da implementare api)
+		[/] eCommerce (da fare: frontend, poter comprare oggetti, metter in vendita nuovi prodotti)
+		[/] Bacheca "eccolo qua" (wip)      |
+		[ ] -fac- Bacheca "cerco partner"	| comunità
 		[ ] Leadboard						|
-		[/] Bacheca "eccolo qua" (wip)      | comunità
-		[ ] -fac- Bacheca "cerco partner"	|
-		[/] eCommerce (iniziato)
 		[ ] Veterinario			|
 		[ ] Dog-sitter			| servizi in
 		[ ] -fac- Toelettatura	|  presenza
