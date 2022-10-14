@@ -112,24 +112,24 @@ const Home = () => {
                     />
                   </dd>
                 </div>
-                {/*<div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Birthday</dt>
                   <dd className="text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    <span hidden={false} className="actualInfo ml-1">{actualBirth}</span>
+                    <span hidden={false} className="actualInfo ml-1">{actualBirth.toString().substring(0,10)}</span>
                     <input
                       hidden={true}
                       type="date"
                       name="new-birth"
                       id="newBirth"
                       //da modificare
-                      defaultValue={actualBirth}
+                      //defaultValue={actualBirth.substring(0,10)}
+                      //defaultValue={actualBirth}
                       placeholder="Type your new birthday here"
                       className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       onChange={(e) => setBirth(e.target.value)}
                     />
                   </dd>
                 </div>
-                */}
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Email</dt>
                   <dd className="text-sm text-gray-900 sm:col-span-2 sm:mt-0">
