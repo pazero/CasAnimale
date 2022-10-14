@@ -34,8 +34,8 @@ TO DO:
 		[ ] Adv servizi offerti
 		[ ] -fac- Memory / impiccato
 	- FRONT OFFICE
-		[x] Home page (da finire il carosello)
-		[x] Login     (da correggere: se premo invio fa nel recupero pass)
+		[x] Home page
+		[x] Login
 		[x] Registrazione
 		[/] Recupero pass (da implementare api)
 		[/] eCommerce (da fare: frontend, poter comprare oggetti, metter in vendita nuovi prodotti)

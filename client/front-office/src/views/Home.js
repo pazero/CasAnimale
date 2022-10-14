@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Heros from "../components/Heros";
+import Heros from "../components/Carousel";
 import Navbar from "../components/Navbar";
 
 const Home = () => {

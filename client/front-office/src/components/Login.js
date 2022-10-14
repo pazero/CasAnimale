@@ -82,6 +82,9 @@ const Navbar = () => {
                     className="input input-bordered"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <div>
+                    <button className="btn btn-secondary m-1">sign in</button>
+                  </div>
                   <label className="label">
                     <button
                       onClick={() => {
@@ -92,9 +95,6 @@ const Navbar = () => {
                       Forgot password?
                     </button>
                   </label>
-                </div>
-                <div>
-                  <button className="btn btn-secondary m-1">sign in</button>
                 </div>
                 <label className="label">
                   <button
@@ -156,6 +156,9 @@ const Navbar = () => {
                     className="input input-bordered"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <div>
+                    <button className="btn btn-secondary m-1">sign in</button>
+                  </div>
                   <label className="label">
                     <button
                       onClick={() => {
@@ -166,9 +169,6 @@ const Navbar = () => {
                       Forgot password?
                     </button>
                   </label>
-                </div>
-                <div>
-                  <button className="btn btn-secondary m-1">sign in</button>
                 </div>
                 <label className="label">
                   <button

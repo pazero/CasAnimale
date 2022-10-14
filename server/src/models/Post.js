@@ -7,7 +7,7 @@ const postSchema = new Schema({
   title: String,
   description: String,
   date: Date,
-  comments: [Number], // id of another post
+  comments: [String], // id of another post
 });
 
 module.exports = mongoose.model("Post", postSchema);

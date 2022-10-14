@@ -24,16 +24,20 @@ router.get("/:id", async (req, res) => {
 
 /* Create a new user */
 router.put("/newProduct", async (req, res) => {
-  const product = new Product({
-    name: req.body.name,
-    image: req.body.image,
-    description: req.body.description,
-    price: req.body.price,
-    quantity: req.body.quantity,
-    seller: req.body.seller,
-  });
-  await product.save();
-  res.json({ message: "New product created!" });
+  jwt.authenticateToken(req, res, cont);
+
+  async function cont() {
+    const product = new Product({
+      name: req.body.name,
+      image: "test.png",
+      description: req.body.description,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      seller: req.userid,
+    });
+    await product.save();
+    res.json({ message: "New product created!" });
+  }
 });
 
 /* Delete a product */
