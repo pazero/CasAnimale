@@ -40,11 +40,15 @@ router.post("/restore", (req, res) => {
   });
 });
 
-/* Get an user by id */
-router.get("/:id", async (req, res) => {
+/* Get an user's information */
+router.get("/getUserInfo", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    res.json(user);
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      const user = await User.findById(req.userid);
+      res.json(user);
+    }
   } catch (e) {
     res.json({ message: e });
   }

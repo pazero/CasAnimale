@@ -215,18 +215,24 @@ const Navbar = () => {
       </div>
       {token ? (
         <div className="navbar-end">
-          <button
-            className="btn"
-            onClick={() => {
-              navigate("/profile");
-            }}
-          >
-            Profile
-          </button>
-          <button className="btn" onClick={logout}>
-            Log out
-          </button>
+          <div className="hidden sm:flex">
+            <button
+              className="btn btn-primary mr-2"
+              onClick={() => {
+                navigate("/profile");
+              }}
+            >
+              Profile
+            </button>
+            <button
+              className="btn btn-ghost"
+              onClick={logout}
+            >
+              Log out
+            </button>
+          </div>
         </div>
+
       ) : (
         <div className="navbar-end">
           <div className="hidden sm:flex">
