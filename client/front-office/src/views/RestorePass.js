@@ -23,7 +23,7 @@ export default function ForgotPasswordForm() {
     if (token) {
       navigate("/");
     }
-  }, []);
+  });
 
   const sendMail = async (e) => {
     e.preventDefault();

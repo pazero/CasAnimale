@@ -11,7 +11,7 @@ const Footer = () => {
     if (token) {
       navigate("/");
     }
-  }, []);
+  });
 
   const sendData = async (data) => {
     data.preventDefault();
