@@ -115,6 +115,7 @@ const Home = () => {
                 <div className="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Birthday</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                    {/*<span hidden={false} className="actualInfo ml-1">{actualBirth}</span>*/}
                     <span hidden={false} className="actualInfo ml-1">{actualBirth?actualBirth.substring(5,7)+"/"+actualBirth.substring(8,10)+"/"+actualBirth.substring(0,4):actualBirth}</span>
                     <input
                       hidden={true}
