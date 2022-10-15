@@ -40,7 +40,7 @@ router.post("/restore", (req, res) => {
   });
 });
 
-/* Get an user's information */
+/* Get an user's information (with email and paswd) */
 router.get("/getUserInfo", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
@@ -54,10 +54,11 @@ router.get("/getUserInfo", async (req, res) => {
   }
 });
 
+/* Get an user's information (without email and paswd) */
 router.get("/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.userid);
-    res.json(user);
+    const user = await User.findById(req.params.id);
+    res.json({"_id":user._id,"name":user.name,"surname":user.surname,"favanimal":user.favanimal});
   } catch (e) {
     res.json({ message: e });
   }
