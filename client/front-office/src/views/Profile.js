@@ -4,7 +4,6 @@ import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
-import { PaperClipIcon } from '@heroicons/react/20/solid'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -92,14 +91,14 @@ const Home = () => {
         <form className="flex flex-1" style={{ height: "auto"}} onSubmit={handleSubmit}>
           <div className="overflow-hidden bg-white shadow" style={{width: "100%"}}>
             <div className="px-4 py-5 px-6 bg-indigo-400">
-              <h3 className="text-lg font-medium leading-6 text-black font-bold">Your Profile Information</h3>
-              <p className="mt-1 max-w-2xl text-sm text-indigo-900">Personal details</p>
+              <h3 className="text-lg font-medium leading-6 text-black font-bold" style={{fontSize:"200%"}}>Your Profile Information</h3>
+              <p className="mt-1 max-w-2xl text-lg text-indigo-900">Personal details</p>
             </div>
             <div className="border-t border-gray-200">
               <dl>
                 <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                  <dt className="text-sm font-medium text-gray-500">Name</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                  <dt className="text-lg font-medium text-gray-500">Name</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualName}</span>
                       <input
                         hidden={true}
@@ -108,14 +107,14 @@ const Home = () => {
                         name="new-name"
                         defaultValue={actualName}
                         placeholder="Type your new name here"
-                        className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                         onChange={(e) => setName(e.target.value)}
                       />
                   </dd>
                 </div>
                 <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                  <dt className="text-sm font-medium text-gray-500">Surname</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                  <dt className="text-lg font-medium text-gray-500">Surname</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualSurname}</span>
                     <input
                       hidden={true}
@@ -124,33 +123,31 @@ const Home = () => {
                       id="newSurname"
                       defaultValue={actualSurname}
                       placeholder="Type your new surname here"
-                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                       onChange={(e) => setSurname(e.target.value)}
                     />
                   </dd>
                 </div>
                 <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                  <dt className="text-sm font-medium text-gray-500">Birthday</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
-                    {/*<span hidden={false} className="actualInfo ml-1">{actualBirth}</span>*/}
+                  <dt className="text-lg font-medium text-gray-500">Birthday</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualBirth?actualBirth.substring(5,7)+"/"+actualBirth.substring(8,10)+"/"+actualBirth.substring(0,4):actualBirth}</span>
                     <input
                       hidden={true}
                       type="date"
                       name="new-birth"
                       id="newBirth"
-                      //da modificare
                       defaultValue={actualBirth?actualBirth.substring(0,10):actualBirth}
                       placeholder="Type your new birthday here"
                       style={{fontSize:"98%", minHeight:"0px"}}
-                      className="changeInfo bg-indigo-50 px-1 py-0 m-0 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="changeInfo bg-indigo-50 px-1 py-0 m-0 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                       onChange={(e) => setBirth(e.target.value)}
                     />
                   </dd>
                 </div>
                 <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                  <dt className="text-sm font-medium text-gray-500">Email</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                  <dt className="text-lg font-medium text-gray-500">Email</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualEmail}</span>
                     <input
                       hidden={true}
@@ -159,14 +156,14 @@ const Home = () => {
                       id="newEmail"
                       defaultValue={actualEmail}
                       placeholder="Type your new email here"
-                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </dd>
                 </div>
                 <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                  <dt className="text-sm font-medium text-gray-500">Password</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                  <dt className="text-lg font-medium text-gray-500">Password</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualPassword?'*'.repeat(actualPassword.length):actualPassword}</span>
                     <input
                       hidden={true}
@@ -175,14 +172,14 @@ const Home = () => {
                       id="newPassword"
                       defaultValue={actualPassword}
                       placeholder="Type your new password here"
-                      className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </dd>
                 </div>
                 <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                  <dt className="text-sm font-medium text-gray-500">Favourite Animal</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                  <dt className="text-lg font-medium text-gray-500">Favourite Animal</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualFavanimal}</span>
                     <input
                       hidden={true}
@@ -191,22 +188,14 @@ const Home = () => {
                       id="newFavanimal"
                       defaultValue={actualFavanimal}
                       placeholder="Type your new favourite animal here"
-                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                       onChange={(e) => setFavanimal(e.target.value)}
                     />
                   </dd>
                 </div>
               </dl>
-              <div className="flex flex-1 flex-auto justify-center my-2">
+              <div className="flex flex-1 flex-auto justify-center my-4">
                 <button hidden={true} id="saveBtn" type="submit" className="btn btn-primary" onClick={()=>{
-                  //ho commentato queste righe perche tanto se non si ricarica la pagina non si vedono i dati aggiornati
-                  //document.querySelector("#saveBtn").hidden = true;
-                  //document.querySelector("#changeInfoBtn").hidden = false;
-
-                  //var changeElements = document.querySelectorAll(".changeInfo");
-                  //changeElements.forEach(element => {element.hidden = true});
-                  //var actualElements = document.querySelectorAll(".actualInfo");
-                  //actualElements.forEach(element => {element.hidden = false});
                   window.location.reload();
                 }}>save</button>
 
@@ -224,7 +213,6 @@ const Home = () => {
                 <input hidden={true} defaultValue="reset" id="resetInfoBtn" type="button" className="btn btn-ghost ml-4 bg-indigo-100" onClick={()=>{
                   console.log({actualName});
                   resetData();
-                  //document.querySelector("#newName").value = {actualName};
                 }}/>
               </div>
             </div>
@@ -232,7 +220,7 @@ const Home = () => {
         </form>
       </div>
 
-      <div className="flex flex-1" style={{ maxHeight: "11rem" }}>
+      <div className="flex flex-1" style={{ height: "auto" }}>
         <Footer />
       </div>
     </div>
