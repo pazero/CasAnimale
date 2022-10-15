@@ -41,6 +41,23 @@ const Home = () => {
       console.log(res.data);
     })
   }
+  async function resetData() {
+    await UserManage.getUser().then(  (res) => {
+      const user = res.data;
+      document.querySelector("#newName").value = user.name;
+      setName(user.name);
+      document.querySelector("#newSurname").value = user.surname;
+      setSurname(user.surname);
+      document.querySelector("#newBirth").value = (user.birth).substring(0,10);
+      setBirth((user.birth).substring(0,10));
+      document.querySelector("#newEmail").value = user.email;
+      setEmail(user.email);
+      document.querySelector("#newPassword").value = user.password;
+      setPassword(user.password);
+      document.querySelector("#newFavanimal").value = user.favanimal;
+      setFavanimal(user.favanimal);
+    })
+  }
 
   fetchData();
 
@@ -72,15 +89,15 @@ const Home = () => {
       </div>
 
       <div className="flex flex-1" style={{ height: "auto" }}>
-        <form className="flex flex-1" style={{ height: "auto" }} onSubmit={handleSubmit}>
-          <div className="overflow-hidden bg-white shadow rounded-lg" style={{width: "100%"}}>
-            <div className="px-4 py-5 px-6">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">Your Profile Information</h3>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details</p>
+        <form className="flex flex-1" style={{ height: "auto"}} onSubmit={handleSubmit}>
+          <div className="overflow-hidden bg-white shadow" style={{width: "100%"}}>
+            <div className="px-4 py-5 px-6 bg-indigo-400">
+              <h3 className="text-lg font-medium leading-6 text-black font-bold">Your Profile Information</h3>
+              <p className="mt-1 max-w-2xl text-sm text-indigo-900">Personal details</p>
             </div>
             <div className="border-t border-gray-200">
               <dl>
-                <div className="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Name</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualName}</span>
@@ -91,12 +108,12 @@ const Home = () => {
                         name="new-name"
                         defaultValue={actualName}
                         placeholder="Type your new name here"
-                        className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                         onChange={(e) => setName(e.target.value)}
                       />
                   </dd>
                 </div>
-                <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Surname</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualSurname}</span>
@@ -112,7 +129,7 @@ const Home = () => {
                     />
                   </dd>
                 </div>
-                <div className="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Birthday</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
                     {/*<span hidden={false} className="actualInfo ml-1">{actualBirth}</span>*/}
@@ -125,12 +142,13 @@ const Home = () => {
                       //da modificare
                       defaultValue={actualBirth?actualBirth.substring(0,10):actualBirth}
                       placeholder="Type your new birthday here"
-                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      style={{fontSize:"98%", minHeight:"0px"}}
+                      className="changeInfo bg-indigo-50 px-1 py-0 m-0 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                       onChange={(e) => setBirth(e.target.value)}
                     />
                   </dd>
                 </div>
-                <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Email</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualEmail}</span>
@@ -146,7 +164,7 @@ const Home = () => {
                     />
                   </dd>
                 </div>
-                <div className="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Password</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualPassword?'*'.repeat(actualPassword.length):actualPassword}</span>
@@ -157,12 +175,12 @@ const Home = () => {
                       id="newPassword"
                       defaultValue={actualPassword}
                       placeholder="Type your new password here"
-                      className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </dd>
                 </div>
-                <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Favourite Animal</dt>
                   <dd className="text-sm text-gray-900 col-span-2 mt-0">
                     <span hidden={false} className="actualInfo ml-1">{actualFavanimal}</span>
@@ -192,8 +210,9 @@ const Home = () => {
                   window.location.reload();
                 }}>save</button>
 
-                <input hidden={false} defaultValue="change information" id="changeInfoBtn" className="btn btn-secondary" onClick={()=>{
+                <input hidden={false} defaultValue="change information" id="changeInfoBtn" type="button" className="btn btn-secondary" onClick={()=>{
                   document.querySelector("#saveBtn").hidden = false;
+                  document.querySelector("#resetInfoBtn").hidden = false;
                   document.querySelector("#changeInfoBtn").hidden = true;
 
                   var changeElements = document.querySelectorAll(".changeInfo");
@@ -201,13 +220,19 @@ const Home = () => {
                   var actualElements = document.querySelectorAll(".actualInfo");
                   actualElements.forEach(element => {element.hidden = true});
                 }}/>
+
+                <input hidden={true} defaultValue="reset" id="resetInfoBtn" type="button" className="btn btn-ghost ml-4 bg-indigo-100" onClick={()=>{
+                  console.log({actualName});
+                  resetData();
+                  //document.querySelector("#newName").value = {actualName};
+                }}/>
               </div>
             </div>
           </div>
         </form>
       </div>
 
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex flex-1" style={{ maxHeight: "11rem" }}>
         <Footer />
       </div>
     </div>
