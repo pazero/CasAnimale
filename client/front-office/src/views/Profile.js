@@ -148,8 +148,8 @@ const Home = () => {
                 </div>
                 <div className="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-sm font-medium text-gray-500">Password</dt>
-                  <dd className="text-sm text-gray-900 col-span-2 mt-0">{/*'*'.repeat(actualPassword.len)*/}
-                    <span hidden={false} className="actualInfo ml-1">******</span>
+                  <dd className="text-sm text-gray-900 col-span-2 mt-0">
+                    <span hidden={false} className="actualInfo ml-1">{actualPassword?'*'.repeat(actualPassword.length):actualPassword}</span>
                     <input
                       hidden={true}
                       type="text"
