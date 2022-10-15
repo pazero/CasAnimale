@@ -18,6 +18,7 @@ const ArticleList = () => {
         await Promise.all(
           posts.map(async (post, i) => {
             const { data: author } = await UserManage.getUser(post.userid);
+            console.log(author);
             return {
               ...post,
               author,

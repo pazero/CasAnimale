@@ -54,6 +54,15 @@ router.get("/getUserInfo", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.userid);
+    res.json(user);
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
 /* Create a new user */
 router.put("/addUser", async (req, res) => {
   const user = new User({

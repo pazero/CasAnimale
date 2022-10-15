@@ -13,8 +13,10 @@ const Authentication = {
           })}`
         );
   },
-  getUser() {
-    return Api().get(BASE + "getUserInfo");
+  getUser(id) {
+    return id === undefined
+      ? Api().get(BASE + "getUserInfo")
+      : Api().get(BASE + id);
   },
   addUser(data) {
     return Api().put(BASE + "addUser", data);
