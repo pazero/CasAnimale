@@ -24,34 +24,36 @@ const BookVetVisit = () => {
           <form /*onSubmit={}*/ className="flex justify-center w-full">
             <div className="m-auto card justify-center w-full ">
               <div className="card-body text-center">
-                <div className="card-title justify-center">
-                  Create a new post!
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Choose the location:</span>
+                    </label>
+                    <select className="locationList bg-white input input-bordered">
+                        <option value="corticella">Corticella</option>
+                        <option value="bologna">Bologna</option>
+                    </select>
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Type the title</span>
+                    <span className="label-text">Choose the date:</span>
                   </label>
                   <input
-                    type="text"
-                    placeholder="Title"
+                    type="date"
                     className="input input-bordered"
                     //onChange={}
                   />
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">
-                      Type the description of the post
-                    </span>
+                    <span className="label-text">Choose the time:</span>
                   </label>
-                  <textarea
-                    className="input input-bordered w-full"
-                    placeholder="Type the text"
-                    //onChange={}
-                  ></textarea>
+                  <select className="locationList bg-white input input-bordered">
+                        <option value="09-00">9:00</option>
+                        <option value="11-00">11:00</option>
+                    </select>
                 </div>
                 <div>
-                  <button className="btn btn-secondary m-1">Post</button>
+                  <button className="btn btn-secondary m-1">Book</button>
                 </div>
               </div>
             </div>
