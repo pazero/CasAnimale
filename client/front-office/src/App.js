@@ -6,6 +6,7 @@ import Profile from "./views/Profile";
 import Login from "./components/Login";
 import MyAnimalShowcase from "./views/MyAnimalShowcase";
 import ECommerce from "./views/eCommerce";
+import SingleVet from "./views/singleVet";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/myAnimalSC" element={<MyAnimalShowcase />} />
             <Route path="/compra" element={<ECommerce />} />
+            <Route path="/singleVet" element={<SingleVet />} />
         </Routes>
       </Router>
     </>

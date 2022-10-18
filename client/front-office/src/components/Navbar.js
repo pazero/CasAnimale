@@ -65,7 +65,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/");
+                      navigate("/singleVet");
                     }}
                   >
                     Vet
@@ -158,7 +158,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/singleVet");
                   }}
                 >
                   Vet
