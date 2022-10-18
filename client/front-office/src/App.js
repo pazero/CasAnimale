@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import MyAnimalShowcase from "./views/MyAnimalShowcase";
 import ECommerce from "./views/eCommerce";
 import SingleVet from "./views/singleVet";
+import BookVetVisit from "./views/bookVetVisit";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/myAnimalSC" element={<MyAnimalShowcase />} />
             <Route path="/compra" element={<ECommerce />} />
             <Route path="/singleVet" element={<SingleVet />} />
+            <Route path="/bookVetVisit" element={<BookVetVisit/>} />
         </Routes>
       </Router>
     </>

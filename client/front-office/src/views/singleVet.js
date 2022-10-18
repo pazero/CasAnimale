@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
 
 const SingleVet = () => {
+    const navigate = useNavigate();
     return(
         <div
             data-theme="lemonade"
@@ -57,7 +58,7 @@ const SingleVet = () => {
                     </ul>
                 </div>
                 <div id="bookBtn" className="flex flex-1 justify-center">
-                    <button className="btn btn-primary">Book a visit</button>
+                    <button className="btn btn-primary" onClick={navigate("/bookVetVisit")}>Book a visit</button>
                 </div>
             </div>
             <div className="flex flex-1" style={{ height: "auto" }}>
