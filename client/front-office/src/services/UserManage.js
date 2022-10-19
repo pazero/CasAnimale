@@ -5,13 +5,11 @@ const BASE = "users/";
 const Authentication = {
   // if data is empty, return all users
   getUsers(data) {
-    return data === undefined
-      ? Api().get(BASE)
-      : Api().get(
-          `${BASE}?${data.map((value, key) => {
-            return `${key}=${value}&`;
-          })}`
-        );
+    return Api().get(
+      `${BASE}?${data.map((value, key) => {
+        return `${key}=${value}&`;
+      })}`
+    );
   },
   getUser(id) {
     return id === undefined

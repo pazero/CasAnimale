@@ -17,6 +17,17 @@ API
 ● Generatore di Meme: 		    https://imgflip.com/api 
 ● Quiz e curiosità:             https://zoo-animal-api.herokuapp.com/animals/rand 
 
+TO DO URGENTI/FONDAMENTALI:
+UserDipendente =! UserNormale =! Affiliato
+- USER
+	[ ] Campo dipendente nello user
+	[ ] Differenziare clienti vip e normali
+	[ ] Possibilità di inserire un animale allo user (nome, specie, razza)
+	[ ] Possibilità di eliminare un animale allo user (poverino è morto)
+- DIPENDENTE di CasAnimale
+	[ ] Possibilità di creare un account per un affiliato
+- AFFILIATI (veterinari, per-sitter, ... che lavorano attraverso casa animale)
+	[ ] Modificare le proprie informazioni
 
 TO DO:
 - MainComponents
@@ -39,7 +50,7 @@ TO DO:
 		[x] Registrazione
 		[/] Recupero pass (da implementare api)
 		[/] eCommerce (da fare: frontend, poter comprare oggetti, metter in vendita nuovi prodotti)
-		[/] Bacheca "eccolo qua" (wip)      |
+		[/] Bacheca "eccolo qua" (wip)      |	(Possibilità di cancellare un post)
 		[ ] -fac- Bacheca "cerco partner"	| comunità
 		[ ] Leadboard						|
 		[ ] Veterinario			|
@@ -47,7 +58,7 @@ TO DO:
 		[ ] -fac- Toelettatura	|  presenza
 		[ ] -fac- Psicologo		|
 		[ ] -fac- Videochiamata		| servizi(o) online
-	- back office
+	- BACK OFFICE
 		[ ] Home page
 		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
 		[ ] Gestione servizi di comunità (bacheche)

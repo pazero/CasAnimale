@@ -3,7 +3,7 @@ const User = require("../models/User");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
-/* Get user list (optional query) */
+/* Temporary  query for debugging */
 router.get("", async (req, res) => {
   try {
     const users = await User.find(req.query);

@@ -23,7 +23,7 @@ class Product extends Component {
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
-        <Button>Buy it!</Button>
+        <Button>Add to chart!</Button>
         </div>
       </Box>
     );

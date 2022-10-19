@@ -7,8 +7,11 @@ const companySchema = new Schema({
   type: String,  // veterinaio, pet sitter, etc...
   description: String,
   cost_per_hour: String,
-  owner: Number, // id of user
-  prenotation: [Number],
+  owner: String,
+  cities: [String], // città in cui opera
+  prenotation: [Number], // id della prenotazione
+  email: String,
+  password: String,
 });
 
 module.exports = mongoose.model("Company", companySchema);

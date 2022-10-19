@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const prenotationSchema = new Schema({
     company: Number,  // id company
     start: Date,
-    duration: Number,
+    duration: Number, // facciamo durata fissa di un'ora?
 });
 
 module.exports = mongoose.model("Prenotation", prenotationSchema);
