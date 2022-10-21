@@ -1,10 +1,15 @@
-<script>
+
+<script setup>
+import NavBar from '../components/NavBar.vue';
 console.log("Ciao dalla console!");
 </script>
 
 <template>
-  <h5>Benvenuti su</h5>
-  <h1>CasAnimale Games</h1>
+  <div>
+    <NavBar/>
+    ciao
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
