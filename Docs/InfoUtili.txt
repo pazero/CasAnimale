@@ -20,13 +20,13 @@ API
 TO DO URGENTI/FONDAMENTALI:
 UserDipendente =! UserNormale =! Affiliato
 - USER
-	[ ] Campo dipendente nello user
 	[ ] Differenziare clienti vip e normali
 	[ ] Possibilità di inserire un animale allo user (nome, specie, razza)
 	[ ] Possibilità di eliminare un animale allo user (poverino è morto)
 - DIPENDENTE di CasAnimale
+	[ ] Campo dipendete nello user !!!
 	[ ] Possibilità di creare un account per un affiliato
-- AFFILIATI (veterinari, per-sitter, ... che lavorano attraverso casa animale)
+- COMPANY (veterinari, per-sitter, ... che lavorano attraverso casa animale)
 	[ ] Modificare le proprie informazioni
 
 TO DO:
