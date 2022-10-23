@@ -2,7 +2,13 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{html,js,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {  /** portebbero servire */
+        homebg: "url('#')",
+        quizbg: "url('quiz.png')",
+        hangmanbg: "url('hangman.png')", 
+      },
+    },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 }

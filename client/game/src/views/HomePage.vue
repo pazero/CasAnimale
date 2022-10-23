@@ -2,12 +2,50 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
 console.log("Ciao dalla console!");
+
+const games = [
+  {
+    id: 1,
+    name: 'Quiz about animals',
+    href: 'quiz',
+    imageSrc: 'quiz.png',
+    imageAlt: 'quiz word icon',
+  },
+  {
+    id: 2,
+    name: 'Hangman',
+    href: '#',
+    imageSrc: 'hangman.png',
+    imageAlt: 'hangman game icon',
+  },
+  /*{
+    id: 3,
+    name: 'Game3',
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
+    imageAlt: 'img alt.',
+  },*/
+]
 </script>
 
 <template>
   <div>
     <NavBar/>
-    
+
+    <div data-theme="lemonade" class="bg-white">
+    <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
+      <h1 class="py-4">GAMES</h1>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <a v-for="game in games" :key="game.id" :href="game.href" class="card">
+            <div class="card-body bg-gray-100" style="padding:2rem; margin:1rem;">
+              <p class="card-title hidden" >{{ game.name }}</p>
+              <img :src="game.imageSrc" :alt="game.imageAlt" class=" h-full w-full object-cover object-center group-hover:opacity-75" />
+            </div>
+        </a>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
