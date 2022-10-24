@@ -2,7 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config(); // this line imports .env file
+// imports the .env file
+require("dotenv").config(); 
 
 const app = express();
 
