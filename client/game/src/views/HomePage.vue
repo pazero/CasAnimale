@@ -1,6 +1,6 @@
 
 <script setup>
-import NavBar from '../components/NavBar.vue';
+import NavBar from "../components/NavBar.vue";
 console.log("Ciao dalla console!");
 
 const games = [
@@ -34,7 +34,7 @@ const games = [
 
     <div data-theme="lemonade" class="bg-white">
     <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
-      <h1 class="py-4">GAMES</h1>
+      <div class="py-4 pl-3 font-semibold normal-case text-xl">GAMES</div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">
