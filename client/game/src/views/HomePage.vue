@@ -26,26 +26,48 @@ const games = [
     imageAlt: 'img alt.',
   },*/
 ]
+
+const adsLeft = [
+  { name: 'First - site', href: 'http://localhost:3000', bg:'bg-black', height:"height: 33%;", current: false},
+  { name: 'Second - quiz', href: 'http://localhost:5173/quiz', bg:'bg-blue-800', height:"height: 34%;", current: false},
+  { name: 'Third - hangman', href: 'http://localhost:5173/hangman', bg:'bg-indigo-300', height:"height: 33%;", current: false},
+]
+
+const adsRight = [
+  { name: 'First - site', href: 'http://localhost:3000', bg:'bg-black', height:"height: 33%;", current: false},
+  { name: 'Second - quiz', href: 'http://localhost:5173/quiz', bg:'bg-blue-800', height:"height: 34%;", current: false},
+  { name: 'Third - hangman', href: 'http://localhost:5173/hangman', bg:'bg-indigo-300', height:"height: 33%;", current: false},
+]
 </script>
 
 <template>
-  <div>
-    <NavBar/>
+  <div class="flex flex-1 flex-auto flex-col h-screen" data-theme="lemonade">
+    <NavBar />
 
-    <div data-theme="lemonade" class="bg-white">
-    <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
-      <div class="py-4 pl-3 font-semibold normal-case text-xl">GAMES</div>
+    <div class="flex flex-1 flex-auto bg-white flex-row h-full">
+      <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
+        <a v-for="item in adsLeft" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0']" :aria-current="undefined">{{ item.name }}</a>
+      </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <a v-for="game in games" :key="game.id" :href="game.href" class="card">
+      <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="py-4 pl-3 font-semibold normal-case text-xl">
+          GAMES
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <a v-for="game in games" :key="game.id" :href="game.href" class="card">
             <div class="card-body bg-gray-100" style="padding:2rem; margin:1rem;">
               <p class="card-title hidden" >{{ game.name }}</p>
               <img :src="game.imageSrc" :alt="game.imageAlt" class=" h-full w-full object-cover object-center group-hover:opacity-75" />
             </div>
-        </a>
+          </a>
+        </div>
+      </div>
+      
+      <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
+        <a v-for="item in adsLeft" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0']" :aria-current="undefined">{{ item.name }}</a>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
