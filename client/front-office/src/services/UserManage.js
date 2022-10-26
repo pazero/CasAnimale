@@ -16,8 +16,8 @@ const Authentication = {
       ? Api().get(BASE + "getUserInfo")
       : Api().get(BASE + id);
   },
-  addUser(data) {
-    return Api().put(BASE + "addUser", data);
+  newUser(data) {
+    return Api().put(BASE + "newUser", data);
   },
   deleteUser(id) {
     return Api().delete(BASE + id);

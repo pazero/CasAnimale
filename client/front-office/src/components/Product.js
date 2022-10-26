@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import ProductManage from "../services/ProductManage";
 import {
   NumberInput,
   NumberInputField,
@@ -8,26 +9,44 @@ import {
 } from "@chakra-ui/react";
 import { Box, Heading, Text, Button, Badge } from "@chakra-ui/react";
 
-class Product extends Component {
-  render() {
-    return (
-      <Box className="p-2 m-2 rounded" backgroundColor={"lightblue"}>
-        <Heading as="h2">{this.props.title}</Heading>
-        <Text>{this.props.description}</Text>
-        <Badge className="m-2" colorScheme={"red"} fontSize={"md"}>{this.props.price} €</Badge>
-        <div className="flex flex-1">
-        <NumberInput className="mr-2 rounded" backgroundColor={"white"} size="md" maxW={24} defaultValue={0} min={0} max={this.props.quantity}>
+const Product = (props) => {
+  async function AddCart() {
+    const msg = await ProductManage.addToCart(props.id, document.getElementById("Number"+props.id).value);
+    alert(msg.data.message);
+  }
+
+  return (
+    <Box
+      id={props.id}
+      className="p-2 m-2 rounded"
+      backgroundColor={"lightblue"}
+    >
+      <Heading as="h2">{props.title}</Heading>
+      <Text>{props.description}</Text>
+      <Badge className="m-2" colorScheme={"red"} fontSize={"md"}>
+        {props.price} €
+      </Badge>
+      <div className="flex flex-1">
+        <NumberInput
+          id={"Number"+props.id}
+          className="mr-2 rounded"
+          backgroundColor={"white"}
+          size="md"
+          maxW={24}
+          defaultValue={0}
+          min={0}
+          max={props.quantity}
+        >
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
-        <Button>Add to chart!</Button>
-        </div>
-      </Box>
-    );
-  }
-}
+        <Button onClick={AddCart}>Add to cart!</Button>
+      </div>
+    </Box>
+  );
+};
 
 export default Product;

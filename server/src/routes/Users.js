@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
+const Product = require("../models/Product");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
@@ -64,6 +65,31 @@ router.get("/:id", async (req, res) => {
       surname: user.surname,
       favanimal: user.favanimal,
     });
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+/* Buy things in user's cart */
+router.post("/cart/:id/buy", async (req, res) => {
+  try {
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      const user = await User.findById(req.params.id);
+      const userCart = user.cart;
+      for (const [id, n] of Object.entries(userCart)) {
+        const product = await Product.findById(id);
+        const remain = product.quantity - n;
+        if (remain <= 0) {
+          await User.deleteOne(id);
+        } else {
+          await User.findOneAndUpdate(id, {
+            quantity: remain,
+          });
+        }
+      }
+    }
   } catch (e) {
     res.json({ message: e });
   }

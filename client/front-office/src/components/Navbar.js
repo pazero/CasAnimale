@@ -218,20 +218,24 @@ const Navbar = () => {
             <button
               className="btn btn-primary mr-2"
               onClick={() => {
+                navigate("/cart");
+              }}
+            >
+              Cart
+            </button>
+            <button
+              className="btn btn-primary mr-2"
+              onClick={() => {
                 navigate("/profile");
               }}
             >
               Profile
             </button>
-            <button
-              className="btn btn-ghost"
-              onClick={logout}
-            >
+            <button className="btn btn-ghost" onClick={logout}>
               Log out
             </button>
           </div>
         </div>
-
       ) : (
         <div className="navbar-end">
           <div className="hidden sm:flex">

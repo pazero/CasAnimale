@@ -7,7 +7,7 @@ import NewProduct from "../components/NewProduct";
 import { Button, Grid } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
-const Home = () => {
+const ECommerce = () => {
   const [products, setProducts] = useState([]);
   const token = Cookies.get("token");
   const [showModal, setShowModal] = useState(false);
@@ -84,6 +84,7 @@ const Home = () => {
       <Grid templateColumns="repeat(3, 1fr)" gap={5}>
         {products.map((product) => (
           <Product
+            key={product._id}
             padding="1fr"
             id={product._id}
             title={product.name}
@@ -101,4 +102,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ECommerce;

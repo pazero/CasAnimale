@@ -1,5 +1,6 @@
 const express = require("express");
 const Product = require("../models/Product");
+const User = require("../models/User");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
@@ -69,7 +70,7 @@ router.post("/update", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      await User.findOneAndUpdate(
+      await Product.findOneAndUpdate(
         { _id: req.body.prod_id }, // todo: attenzione, inserire prod_id nel body della richiesta
         {
           name: req.body.name,
@@ -79,6 +80,38 @@ router.post("/update", async (req, res) => {
           quantity: req.body.quantity,
           seller: req.body.seller,
         }
+      );
+      res.json({ message: "Update done!" });
+    }
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+/* Add a product to user's cart */
+router.post("/addToCart/:id/:quantity", async (req, res) => {
+  try {
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      var user = await User.find({ _id: req.userid });
+      var alreadyExist = false;
+      user = user[0];
+      if (user.cart == undefined) {
+        user.cart = [];
+      }
+      user.cart.forEach((value, i) => {
+        if (value.id == req.params.id) {
+          user.cart[i].quantity = req.params.quantity;
+          alreadyExist = true;
+        }
+      });
+      if (!alreadyExist) {
+        user.cart.push({ id: req.params.id, quantity: req.params.quantity });
+      }
+      await User.findOneAndUpdate(
+        { _id: req.userid }, // todo: attenzione, inserire prod_id nel body della richiesta
+        { cart: user.cart }
       );
       res.json({ message: "Update done!" });
     }

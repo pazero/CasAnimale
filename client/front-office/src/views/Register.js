@@ -15,7 +15,7 @@ const Footer = () => {
 
   const sendData = async (data) => {
     data.preventDefault();
-    const msg = await UserManage.addUser({
+    const msg = await UserManage.newUser({
       name,
       surname,
       birthDate,

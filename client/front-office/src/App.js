@@ -6,6 +6,7 @@ import Profile from "./views/Profile";
 import Login from "./components/Login";
 import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
+import Cart from "./views/Cart";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/compra" element={<ECommerce />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
     </>
