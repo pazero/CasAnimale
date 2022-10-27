@@ -2,12 +2,14 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config(); // this line imports .env file
+// imports the .env file
+require("dotenv").config(); 
 
 const app = express();
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
+app.use(express.static(__dirname + "/back-office"));
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);

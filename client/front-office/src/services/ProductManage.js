@@ -25,6 +25,9 @@ const prodManage = {
   updateProduct(data) {
     return Api().post(BASE + "update", data);
   },
+  updateCart(id, quantity) {
+    return Api().post(BASE + "updateCart/" + id + "/" + quantity);
+  },
 };
 
 export default prodManage;

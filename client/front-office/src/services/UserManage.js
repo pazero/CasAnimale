@@ -16,8 +16,8 @@ const Authentication = {
       ? Api().get(BASE + "getUserInfo")
       : Api().get(BASE + id);
   },
-  addUser(data) {
-    return Api().put(BASE + "addUser", data);
+  newUser(data) {
+    return Api().put(BASE + "newUser", data);
   },
   deleteUser(id) {
     return Api().delete(BASE + id);
@@ -30,6 +30,9 @@ const Authentication = {
   },
   restore(credential) {
     return Api().post(BASE + "restore", credential);
+  },
+  buyUserCart() {
+    return Api().post(BASE + "/cart/buy");
   },
 };
 

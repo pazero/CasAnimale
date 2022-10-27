@@ -1,8 +1,9 @@
 const express = require("express");
-const Product = require("../models/Pet");
+const Pet = require("../models/Pet");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
+/* Get all pet list */
 router.get("", async (req, res) => {
   try {
     const pets = await Pet.find(req.query);
@@ -22,53 +23,55 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-/* Create a new user */
-router.put("/newProduct", async (req, res) => {
-  jwt.authenticateToken(req, res, cont);
-
-  async function cont() {
-    const product = new Product({
-      name: req.body.name,
-      image: "test.png",
-      description: req.body.description,
-      price: req.body.price,
-      quantity: req.body.quantity,
-      seller: req.userid,
-    });
-    await product.save();
-    res.json({ message: "New product created!" });
-  }
-});
-
-/* Delete a product */
-router.delete("/:id", async (req, res) => {
+/* Create a new pet */
+router.put("/newPet", async (req, res) => {
   try {
-    const removeProduct = await Product.deleteOne({ _id: req.params.id });
-    res.json(removeProduct);
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      const product = new Product({
+        name: req.body.name,
+        species: req.body.species,
+        owner: req.userid, // id of user
+      });
+      await product.save();
+      res.json({ message: "New pet created!" });
+    }
   } catch (e) {
     res.json({ message: e });
   }
 });
 
-/* Update product's personal datas */
-router.post("/update", async (req, res) => {
+/* Delete a pet */
+router.delete("/:id", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      await User.findOneAndUpdate(
-        { _id: req.body.prod_id }, // attenzione: inserire prod_id nel body della richiesta
-        {
-          name: req.body.name,
-          image: req.body.image,
-          description: req.body.description,
-          price: req.body.price,
-          quantity: req.body.quantity,
-          seller: req.body.seller,
-        }
-      );
-      res.json({ message: "Update done!" });
+      const removedPet = await Pet.findById(req.params.id);
+      if (req.userid == removedPet.owner) {
+        // TODO da testare
+        const msg = await Post.deleteOne({ _id: req.params.id });
+        res.json(msg);
+      }
     }
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+/* Update pet's infos */
+router.post("/update", async (req, res) => {
+  try {
+    const updatedPet = await Post.findOneAndUpdate(
+      { _id: req.body.pet_id },
+      {
+        name: req.body.name,
+        species: req.body.species,
+        owner: req.userid,
+      }
+    );
+    res.json(updatedPet);
   } catch (e) {
     res.json({ message: e });
   }
