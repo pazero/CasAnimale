@@ -102,11 +102,15 @@ router.post("/addToCart/:id/:quantity", async (req, res) => {
       }
       user.cart.forEach((value, i) => {
         if (value.id == req.params.id) {
-          user.cart[i].quantity = req.params.quantity;
           alreadyExist = true;
+          if (req.params.quantity == 0) {
+            user.cart.splice(i, 1);
+          } else {
+            user.cart[i].quantity = req.params.quantity;
+          }
         }
       });
-      if (!alreadyExist) {
+      if (!alreadyExist && req.params.quantity != 0) {
         user.cart.push({ id: req.params.id, quantity: req.params.quantity });
       }
       await User.findOneAndUpdate(
