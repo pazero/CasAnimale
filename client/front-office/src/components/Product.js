@@ -11,7 +11,7 @@ import { Box, Heading, Text, Button, Badge } from "@chakra-ui/react";
 
 const Product = (props) => {
   async function AddCart() {
-    const msg = await ProductManage.addToCart(props.id, document.getElementById("Number"+props.id).value);
+    const msg = await ProductManage.updateCart(props.id, document.getElementById("Number"+props.id).value);
     alert(msg.data.message);
   }
 

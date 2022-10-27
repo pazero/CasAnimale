@@ -88,8 +88,8 @@ router.post("/update", async (req, res) => {
   }
 });
 
-/* Add a product to user's cart */
-router.post("/addToCart/:id/:quantity", async (req, res) => {
+/* Add/remove/update a product to user's cart */
+router.post("/updateCart/:id/:quantity", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 

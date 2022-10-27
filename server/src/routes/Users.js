@@ -71,24 +71,31 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Buy things in user's cart */
-router.post("/cart/:id/buy", async (req, res) => {
+router.post("/cart/buy", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.userid);
       const userCart = user.cart;
-      for (const [id, n] of Object.entries(userCart)) {
-        const product = await Product.findById(id);
-        const remain = product.quantity - n;
+      for (const [n, item] of Object.entries(userCart)) {
+        const product = await Product.findById(item.id);
+        const remain = product.quantity - item.quantity;
         if (remain <= 0) {
-          await User.deleteOne(id);
+          await Product.deleteOne({_id: item.id});
         } else {
-          await User.findOneAndUpdate(id, {
+          await Product.findOneAndUpdate(item.id, {
             quantity: remain,
           });
         }
       }
+      await User.findOneAndUpdate(
+        { _id: req.userid },
+        {
+          cart: [],
+        }
+      );
+      res.json({message:"You just boght everything"})
     }
   } catch (e) {
     res.json({ message: e });

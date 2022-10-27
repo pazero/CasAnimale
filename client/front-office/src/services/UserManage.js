@@ -31,6 +31,9 @@ const Authentication = {
   restore(credential) {
     return Api().post(BASE + "restore", credential);
   },
+  buyUserCart() {
+    return Api().post(BASE + "/cart/buy");
+  },
 };
 
 export default Authentication;
