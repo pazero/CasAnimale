@@ -6,7 +6,6 @@ import { Box, Heading, Text, Container, Button } from "@chakra-ui/react";
 async function buy() {
   const msg = await UserManage.buyUserCart();
   alert(msg.data.message);
-  window.location.reload();
 }
 
 async function deleteProductFromCart(id) {

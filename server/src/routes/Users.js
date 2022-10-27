@@ -111,6 +111,7 @@ router.put("/newUser", async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     favanimal: req.body.favanimal,
+    cart: [],
   });
   await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
