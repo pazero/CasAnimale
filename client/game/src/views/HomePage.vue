@@ -13,7 +13,7 @@ const games = [
   {
     id: 2,
     name: 'Hangman',
-    href: '#',
+    href: 'hangman',
     imageSrc: 'hangman.png',
     imageAlt: 'hangman game icon',
   },
