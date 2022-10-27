@@ -1,10 +1,98 @@
-<script>
+<script setup>
+import NavBar from "../components/NavBar.vue";
 console.log("Ciao dalla console!");
+
+const games = [
+  {
+    id: 1,
+    name: 'Quiz about animals',
+    href: 'quiz',
+    imageSrc: 'quiz.png',
+    imageAlt: 'quiz word icon',
+  },
+  {
+    id: 2,
+    name: 'Hangman',
+    href: '#',
+    imageSrc: 'hangman.png',
+    imageAlt: 'hangman game icon',
+  },
+  /*{
+    id: 3,
+    name: 'Game3',
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
+    imageAlt: 'img alt.',
+  },*/
+]
+
+const adsLeft = [
+  { name: 'First - site', href: 'http://localhost:3000', bg:'bg-black', height:"height: 33%;", current: false},
+  { name: 'Second - quiz', href: 'http://localhost:5173/quiz', bg:'bg-blue-800', height:"height: 34%;", current: false},
+  { name: 'Third - hangman', href: 'http://localhost:5173/hangman', bg:'bg-indigo-300', height:"height: 33%;", current: false},
+]
+
+const adsRight = [
+  { name: 'First - site', href: 'http://localhost:3000', bg:'bg-black', height:"height: 33%;", current: false},
+  { name: 'Second - quiz', href: 'http://localhost:5173/quiz', bg:'bg-blue-800', height:"height: 34%;", current: false},
+  { name: 'Third - hangman', href: 'http://localhost:5173/hangman', bg:'bg-indigo-300', height:"height: 33%;", current: false},
+]
 </script>
 
 <template>
-  <h5>Benvenuti su</h5>
-  <h1>CasAnimale Games</h1>
+  <div class="flex flex-1 flex-auto flex-col h-screen" data-theme="lemonade">
+    <NavBar />
+
+    <div class="flex flex-1 flex-auto bg-white flex-row h-full">
+      <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
+        <a v-for="item in adsLeft" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0']" :aria-current="undefined">{{ item.name }}</a>
+      </div>
+      
+      <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="py-4 pl-3 font-semibold normal-case text-xl">
+          GAMES
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <a v-for="game in games" :key="game.id" :href="game.href" class="card">
+            <div class="card-body bg-gray-100" style="padding:2rem; margin:1rem;">
+              <p class="card-title hidden" >{{ game.name }}</p>
+              <img :src="game.imageSrc" :alt="game.imageAlt" class=" h-full w-full object-cover object-center group-hover:opacity-75" />
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
+        <a v-for="item in adsLeft" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0']" :aria-current="undefined">{{ item.name }}</a>
+      </div>
+    </div>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
+
+
+<!--
+  - applicazione a se stante
+  - scopo: presentare l'azienda
+  - offre momenti di svago e istruzione ai proprietari degli animali
+  - deve invogliare ad usare i servizi a pagamento!
+
+  TODO LIST:
+  
+  -  NO autenticazione obbligatoria
+
+  - permettere all'utente di descrivere i propri pet con specie, nome, sesso, età, eventuali condizioni mediche. Non solo cani e gatti!
+
+  - ampia disponibilità di semplici giochi a tema animale
+
+  - pagine informative e di curiosità specifiche sugli animali dell'utente (API REST)
+
+  - pagine di visualizzazione dei prodotti di e-commerce acquistabili
+  
+  - pagine di visualizzazione dei servizi commerciali offerti da CasAnimale
+
+  - permette di passare velocemente all'app front-office per accedere ai servizi e all'e-commerce
+-->
