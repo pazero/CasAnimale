@@ -1,41 +1,33 @@
 const express = require("express");
 const Prenotation = require("../models/Prenotation");
-const Company = require("../models/Company");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
-/* Get all prenotation list */
-router.get("", async (req, res) => {
+/* Get a prenotation by company id */
+router.get("/company", async (req, res) => {
   try {
-    const posts = await Prenotation.find(req.query);
-    res.json(posts);
-  } catch (e) {
-    res.json({ message: e });
-  }
-});
+    jwt.authenticateToken(req, res, cont);
 
-/* Get a prenotation by id */
-router.get("/:id", async (req, res) => {
-  try {
-    const prenotation = await Prenotation.findById(req.params.id);
-    res.json(prenotation);
+    async function cont() {
+      const prenotation = await Prenotation.find({ company: req.userid });
+      res.json(prenotation);
+    }
   } catch (e) {
     res.json({ message: e });
   }
 });
 
 /* Create a new prenotation */
-router.put("/addPrenotation", async (req, res) => {
+router.put("/new", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const company = await Company.findById(req.userid);
-      
       const prenotation = new Prenotation({
         company: req.userid,
         start: req.body.start,
         duration: req.body.duration,
+        user: req.body.user,
       });
       await prenotation.save();
       res.json({ message: "Prenotation created succesfully!" });
@@ -53,11 +45,13 @@ router.delete("/:id", async (req, res) => {
     async function cont() {
       const removedPrenotation = await Prenotation.findById(req.params.id);
       if (req.userid == removedPrenotation.company) {
-        // TODO da testare
         const msg = await Prenotation.deleteOne({ _id: req.params.id });
         res.json(msg);
+      } else {
+        res.json({message:"You cannot eliminate this prenotation"})
       }
     }
+    res.json({message:"Prenotation eliminated"})
   } catch (e) {
     res.json({ message: e });
   }
@@ -71,6 +65,7 @@ router.post("/update", async (req, res) => {
       {
         start: req.body.start,
         duration: req.body.duration,
+        user: req.body.user,
       }
     );
     res.json(updatedPrenotation);

@@ -47,7 +47,7 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Create a new company */
-router.put("/newCompany", async (req, res) => {
+router.put("/new", async (req, res) => {
   try {
     const company = new Company({
       name: req.body.name,
@@ -56,7 +56,6 @@ router.put("/newCompany", async (req, res) => {
       cost_per_hour: req.body.cost_per_hour,
       owner: req.body.owner,
       cities: req.body.cities,
-      prenotation: [],
       email: req.body.email,
       password: req.body.password,
     });
