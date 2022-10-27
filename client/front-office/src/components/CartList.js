@@ -1,41 +1,56 @@
 import React, { useState, useEffect } from "react";
 import UserManage from "../services/UserManage";
 import ProductManage from "../services/ProductManage";
-import { Box, Heading, Text, HStack, Container } from "@chakra-ui/react";
+import { Box, Heading, Text, Container } from "@chakra-ui/react";
 
 const CartItem = () => {
-  const [cart, setCart] = useState([]);
-  var prodList = [];
-  var total = 0;
+  const [prodList, setProdList] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    async function fetchCart() {
+    async function fetchData() {
       const ret = await UserManage.getUser();
       const cart = ret.data.cart;
-      setCart(cart);
+      setProdList(
+        await Promise.all(
+          cart.map(async (item) => {
+            const { data: prod } = await ProductManage.getProduct(item.id);
+            setTotal((total) => total + prod.price * item.quantity);
+            return {
+              ...item,
+              prod,
+            };
+          })
+        )
+      );
     }
-    async function fetchItems() {
-      cart.forEach(async (el) => {
-        const prod = await ProductManage.getProduct(el.id);
-        prodList.push(prod.data);
-        total += prod.data.price * el.quantity;
-      });
-    }
-    fetchCart().then(fetchItems()).then(console.log(prodList));
+    fetchData();
   }, []);
 
   return (
-    <Container maxW={"7xl"} p="12" pt="0">
+    <Container
+      maxW={"7xl"}
+      p="10"
+      className="m-2 rounded"
+      backgroundColor={"lightblue"}
+    >
       <Heading as="h1">Cart</Heading>
       <Text>
-        {prodList.forEach((item, i) => (
-          <div>
-            <div>Nome: {item.name}</div>
-            <div>Quantità: {cart[i].quantity} </div>
-          </div>
+        {prodList.map((item, i) => (
+          <Box
+            key={i}
+            p="5"
+            className="m-2 rounded"
+            backgroundColor={"lightgreen"}
+          >
+            <div className="font-bold">{item.prod.name}</div>
+            <div>Quantità: {item.quantity}</div>
+            <div>Costo al pezzo {item.prod.price}</div>
+            <div>Costo totale: {item.prod.price * item.quantity} </div>
+          </Box>
         ))}
       </Text>
-      <Text>Prezzo totale: {total}</Text>
+      <Text>Prezzo totale: {total.toFixed(2)}</Text>
     </Container>
   );
 };

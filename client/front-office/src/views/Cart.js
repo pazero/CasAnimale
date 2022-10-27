@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import CartItem from "../components/CartItem";
+import CartList from "../components/CartList";
 import Cookies from "js-cookie";
 
 const Cart = () => {
@@ -32,7 +32,7 @@ const Cart = () => {
         <Navbar />
       </div>
       <div className="flex flex-1" style={{ height: "auto" }}>
-        <CartItem />
+        <CartList />
       </div>
       <div className="flex flex-1" style={{ height: "auto" }}>
         <Footer />
