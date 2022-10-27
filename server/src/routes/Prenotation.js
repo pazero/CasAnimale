@@ -1,5 +1,6 @@
 const express = require("express");
 const Prenotation = require("../models/Prenotation");
+const Company = require("../models/Company");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
@@ -29,6 +30,8 @@ router.put("/addPrenotation", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
+      const company = await Company.findById(req.userid);
+      
       const prenotation = new Prenotation({
         company: req.userid,
         start: req.body.start,

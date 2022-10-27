@@ -36,7 +36,7 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="http://localhost:5237">Area Giochi</a>
+              <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
               <a href="/" className="justify-between">
@@ -129,7 +129,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5237">Area Giochi</a>
+            <a href="http://localhost:5173/">Area Giochi</a>
           </li>
           <li tabIndex={0}>
             <a href="/" className="justify-between">

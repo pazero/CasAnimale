@@ -4,12 +4,12 @@ const { Schema } = mongoose;
 /* Company schema fields */
 const companySchema = new Schema({
   name: String,
-  type: String,  // veterinaio, pet sitter, etc...
+  type: String, // veterinaio, pet sitter, etc...
   description: String,
   cost_per_hour: String,
   owner: String,
   cities: [String], // città in cui opera
-  prenotation: [Number], // id della prenotazione
+  prenotationList: [String], // id della prenotazione
   email: String,
   password: String,
 });

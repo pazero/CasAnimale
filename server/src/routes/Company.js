@@ -49,23 +49,19 @@ router.get("/:id", async (req, res) => {
 /* Create a new company */
 router.put("/newCompany", async (req, res) => {
   try {
-    jwt.authenticateToken(req, res, cont);
-
-    async function cont() {
-      const company = new Company({
-        name: req.body.name,
-        type: req.body.type,
-        description: req.body.description,
-        cost_per_hour: req.body.cost_per_hour,
-        owner: req.body.owner,
-        cities: req.body.cities,
-        prenotation: req.body.prenotation,
-        email: req.body.email,
-        password: req.body.password,
-      });
-      await company.save();
-      res.json({ message: "New company created!" });
-    }
+    const company = new Company({
+      name: req.body.name,
+      type: req.body.type,
+      description: req.body.description,
+      cost_per_hour: req.body.cost_per_hour,
+      owner: req.body.owner,
+      cities: req.body.cities,
+      prenotation: [],
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await company.save();
+    res.json({ message: "New company created!" });
   } catch (e) {
     res.json({ message: e });
   }
