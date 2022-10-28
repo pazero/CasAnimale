@@ -64,7 +64,7 @@
     </div>
   </template>
   
-  <script>
+  <script scoped>
     import NavBar from "./NavBar.vue";
     export default {
       name: 'hangman',
