@@ -22,22 +22,24 @@ const Home = () => {
   const token = Cookies.get("token");
 
   useEffect(() => {
+    async function fetchData() {
+      await UserManage.getUser().then((res) => {
+        const user = res.data;
+        setActualName(user.name);
+        setActualSurname(user.surname);
+        setActualBirth(user.birth);
+        setActualEmail(user.email);
+        setActualPassword(user.password);
+        setActualFavanimal(user.favanimal);
+      });
+    }
     if (!token) {
       navigate("/");
+    } else {
+      fetchData();
     }
-  });
+  }, [token, navigate]);
 
-  async function fetchData() {
-    await UserManage.getUser().then((res) => {
-      const user = res.data;
-      setActualName(user.name);
-      setActualSurname(user.surname);
-      setActualBirth(user.birth);
-      setActualEmail(user.email);
-      setActualPassword(user.password);
-      setActualFavanimal(user.favanimal);
-    });
-  }
   async function resetData() {
     await UserManage.getUser().then((res) => {
       const user = res.data;
@@ -45,8 +47,8 @@ const Home = () => {
       setName(user.name);
       document.querySelector("#newSurname").value = user.surname;
       setSurname(user.surname);
-      //document.querySelector("#newBirth").value = (user.birth).substring(0,10);
-      //setBirth((user.birth).substring(0,10));
+      document.querySelector("#newBirth").value = actualBirth.substring(0, 10);
+      setBirth(user.birth);
       document.querySelector("#newEmail").value = user.email;
       setEmail(user.email);
       document.querySelector("#newPassword").value = user.password;
@@ -56,9 +58,7 @@ const Home = () => {
     });
   }
 
-  fetchData();
-
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     const msg = await UserManage.updateUser({
       name,
@@ -69,7 +69,8 @@ const Home = () => {
       favanimal,
     });
     alert(msg.data.message);
-  };
+    window.location.reload();
+  }
 
   return (
     <div
@@ -92,7 +93,7 @@ const Home = () => {
         <form
           className="flex flex-1"
           style={{ height: "auto" }}
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <div
             className="overflow-hidden bg-white shadow"
@@ -243,9 +244,6 @@ const Home = () => {
                   id="saveBtn"
                   type="submit"
                   className="btn btn-primary"
-                  onClick={() => {
-                    window.location.reload();
-                  }}
                 >
                   save
                 </button>

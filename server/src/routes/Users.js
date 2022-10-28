@@ -109,8 +109,9 @@ router.put("/newUser", async (req, res) => {
     surname: req.body.surname,
     birth: req.body.birth,
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.password,  
     favanimal: req.body.favanimal,
+    petOwned: req.body.petOwned,
     cart: [],
   });
   await user.save();

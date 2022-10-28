@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
 
-const Footer = () => {
+const Register = () => {
   const navigate = useNavigate();
   const token = Cookies.get("token");
 
@@ -11,14 +11,14 @@ const Footer = () => {
     if (token) {
       navigate("/");
     }
-  });
+  }, [token, navigate]);
 
-  const sendData = async (data) => {
+  async function sendData(data) {
     data.preventDefault();
     const msg = await UserManage.newUser({
       name,
       surname,
-      birthDate,
+      birth,
       email,
       password,
       favanimal,
@@ -29,7 +29,7 @@ const Footer = () => {
 
   const [name, setName] = useState([]);
   const [surname, setSurname] = useState([]);
-  const [birthDate, setBithDate] = useState([]);
+  const [birth, setBirth] = useState([]);
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
   const [favanimal, setFavAnimal] = useState([]);
@@ -110,10 +110,10 @@ const Footer = () => {
                       <span className="label-text">Birth Date</span>
                     </label>
                     <input
-                      type="text"
-                      placeholder="31/12/2000"
+                      type="date"
+                      placeholder="01/01/1900"
                       className="input input-bordered"
-                      onChange={(e) => setBithDate(e.target.value)}
+                      onChange={(e) => setBirth(e.target.value)}
                       style={{ flex: "1 0 auto" }}
                     />
                   </div>
@@ -195,7 +195,7 @@ const Footer = () => {
             style={{ flex: "1 0 auto" }}
             onSubmit={sendData}
           >
-            <div className=" flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
+            <div className="flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
               <div className="card-body text-center">
                 <div className="card-title justify-center">
                   Sign up to CasAnimale!
@@ -230,7 +230,7 @@ const Footer = () => {
                     type="text"
                     placeholder="31/12/2000"
                     className="input input-bordered"
-                    onChange={(e) => setBithDate(e.target.value)}
+                    onChange={(e) => setBirth(e.target.value)}
                     style={{ flex: "1 0 auto" }}
                   />
                 </div>
@@ -291,4 +291,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Register;

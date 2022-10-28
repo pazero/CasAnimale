@@ -10,6 +10,7 @@ const companySchema = new Schema({
   owner: String,
   cities: [String], // città in cui opera
   prenotationList: [String], // id della prenotazione
+  business_hours: { start: String, end: String },
   email: String,
   password: String,
 });
