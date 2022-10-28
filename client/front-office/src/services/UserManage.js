@@ -5,11 +5,7 @@ const BASE = "user/";
 const Authentication = {
   // if data is empty, return all users
   getUsers(data) {
-    return Api().get(
-      `${BASE}?${data.map((value, key) => {
-        return `${key}=${value}&`;
-      })}`
-    );
+    return Api().get(BASE, { params: data });
   },
   getUser(id) {
     return id === undefined
@@ -23,7 +19,7 @@ const Authentication = {
     return Api().delete(BASE + id);
   },
   updateUser(data) {
-    console.log("zioporco",data);
+    console.log("zioporco", data);
     return Api().post(BASE + "update", data);
   },
   login(credential) {

@@ -5,13 +5,7 @@ const BASE = "pet/";
 const PostManage = {
   // if data is empty, return all users
   getPets(data) {
-    return data === undefined
-      ? Api().get(BASE)
-      : Api().get(
-          `${BASE}?${data.map((value, key) => {
-            return `${key}=${value}&`;
-          })}`
-        );
+    return Api().get(BASE, { params: data });
   },
   getPets(id) {
     return Api().get(BASE + id);

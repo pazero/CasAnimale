@@ -5,13 +5,7 @@ const BASE = "company/";
 const PostManage = {
   // if data is empty, return all users
   getCompanies(data) {
-    return data === undefined
-      ? Api().get(BASE)
-      : Api().get(
-          `${BASE}?${data.map((value, key) => {
-            return `${key}=${value}&`;
-          })}`
-        );
+    return Api().get(BASE, { params: data });
   },
   getCompany(id) {
     return Api().get(BASE + id);

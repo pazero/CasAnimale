@@ -3,11 +3,25 @@ const Company = require("../models/Company");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
 
-/* Get all company list (todo: remove) */
+/* Get all company list with query */
 router.get("", async (req, res) => {
   try {
     const companies = await Company.find(req.query);
-    res.json(companies);
+    var comp = [];
+    companies.forEach((c) =>
+      comp.push({
+        _id: c._id,
+        name: c.name,
+        type: c.type,
+        description: c.description,
+        cost_per_hour: c.cost_per_hour,
+        owner: c.owner,
+        cities: c.cities,
+        prenotation: c.prenotation,
+        business_hours: c.business_hours,
+      })
+    );
+    res.json(comp);
   } catch (e) {
     res.json({ message: e });
   }
@@ -19,7 +33,7 @@ router.get("/getInfo", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const company = await Company.findById(req.userid);
+      const company = await Company.find({ _id: req.userid });
       res.json(company);
     }
   } catch (e) {
@@ -27,7 +41,7 @@ router.get("/getInfo", async (req, res) => {
   }
 });
 
-/* Get an company's information (without email and passwd) */
+/* Get an company's information by id (without email and passwd) */
 router.get("/:id", async (req, res) => {
   try {
     const company = await Company.findById(req.params.id);
@@ -40,6 +54,7 @@ router.get("/:id", async (req, res) => {
       owner: company.owner,
       cities: company.cities,
       prenotation: company.prenotation,
+      business_hours: company.business_hours,
     });
   } catch (e) {
     res.json({ message: e });
