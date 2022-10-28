@@ -9,8 +9,7 @@ const companySchema = new Schema({
   cost_per_hour: String,
   owner: String,
   cities: [String], // città in cui opera
-  prenotationList: [String], // id della prenotazione
-  business_hours: { start: String, end: String },
+  business_hours: { start: Number, end: Number },
   email: String,
   password: String,
 });

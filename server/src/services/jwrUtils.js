@@ -2,11 +2,11 @@ const jwt = require("jsonwebtoken");
 
 const authJwt = {
   generateAccessToken(data) {
-    return jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
+    return jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: "2h" });
   },
 
   authenticateToken(req, res, next) {
-    const authHeader = req.headers.cookie; // todo: controllare perche'
+    const authHeader = req.headers.cookie; // todo: controllare perche' si
     const token = authHeader && authHeader.split("=")[1];
 
     if (token == null) return res.sendStatus(401);

@@ -1,29 +1,29 @@
 import Api from "./Api.js";
 
-const base = "posts/";
+const BASE = "post/";
 
 const PostManage = {
   // if data is empty, return all users
   getPosts(data) {
     return data === undefined
-      ? Api().get(base)
+      ? Api().get(BASE)
       : Api().get(
-          `${base}?${data.map((value, key) => {
+          `${BASE}?${data.map((value, key) => {
             return `${key}=${value}&`;
           })}`
         );
   },
   getPost(id) {
-    return Api().get(`${base}${id}`);
+    return Api().get(BASE + id);
   },
   addPost(data) {
-    return Api().put(`${base}addPost`, data);
+    return Api().put(BASE + "new", data);
   },
   deletePost(id) {
-    return Api().delete(`${base}${id}`);
+    return Api().delete(BASE + id);
   },
   updatePost(id, data) {
-    return Api().post(`${base}${id}`, data);
+    return Api().post(BASE + id, data);
   },
 };
 

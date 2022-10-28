@@ -12,9 +12,9 @@ module.exports = (app) => {
       message: "Questo è un server express",
     });
   });
-  app.use("/api/users", userRoute);               /* user routing middleware        */
-  app.use("/api/products", productRoute);         /* product routing middleware     */
-  app.use("/api/posts", postRoute);               /* post routing middleware        */
+  app.use("/api/user", userRoute);               /* user routing middleware        */
+  app.use("/api/product", productRoute);         /* product routing middleware     */
+  app.use("/api/post", postRoute);               /* post routing middleware        */
   app.use("/api/pet", petRoute);                  /* pet routing middleware         */
   app.use("/api/company", companyRoute);          /* company routing middleware     */
   app.use("/api/prenotation", prenotationRoute);  /* prenotation routing middleware */

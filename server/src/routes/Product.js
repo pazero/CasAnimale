@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Create a new product */
-router.put("/newProduct", async (req, res) => {
+router.put("/new", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 

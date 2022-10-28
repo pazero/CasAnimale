@@ -1,10 +1,10 @@
 import Api from "./Api.js";
 
-const BASE = "product/";
+const BASE = "pet/";
 
-const prodManage = {
+const PostManage = {
   // if data is empty, return all users
-  getProducts(data) {
+  getPets(data) {
     return data === undefined
       ? Api().get(BASE)
       : Api().get(
@@ -13,21 +13,18 @@ const prodManage = {
           })}`
         );
   },
-  getProduct(id) {
+  getPets(id) {
     return Api().get(BASE + id);
   },
-  newProduct(data) {
+  addPet(data) {
     return Api().put(BASE + "new", data);
   },
-  deleteProduct(id) {
+  deletePet(id) {
     return Api().delete(BASE + id);
   },
-  updateProduct(data) {
-    return Api().post(BASE + "update", data);
-  },
-  updateCart(id, quantity) {
-    return Api().post(BASE + "updateCart/" + id + "/" + quantity);
+  updatePet(id, data) {
+    return Api().post(BASE + id, data);
   },
 };
 
-export default prodManage;
+export default PostManage;

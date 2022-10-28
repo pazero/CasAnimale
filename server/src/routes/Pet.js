@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Create a new pet */
-router.put("/newPet", async (req, res) => {
+router.put("/new", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 

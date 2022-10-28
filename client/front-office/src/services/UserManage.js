@@ -1,6 +1,6 @@
 import Api from "./Api.js";
 
-const BASE = "users/";
+const BASE = "user/";
 
 const Authentication = {
   // if data is empty, return all users
@@ -13,11 +13,11 @@ const Authentication = {
   },
   getUser(id) {
     return id === undefined
-      ? Api().get(BASE + "getUserInfo")
+      ? Api().get(BASE + "getInfo")
       : Api().get(BASE + id);
   },
   newUser(data) {
-    return Api().put(BASE + "newUser", data);
+    return Api().put(BASE + "new", data);
   },
   deleteUser(id) {
     return Api().delete(BASE + id);
@@ -33,7 +33,7 @@ const Authentication = {
     return Api().post(BASE + "restore", credential);
   },
   buyUserCart() {
-    return Api().post(BASE + "/cart/buy");
+    return Api().post(BASE + "cart/buy");
   },
 };
 

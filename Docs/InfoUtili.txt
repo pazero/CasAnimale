@@ -49,6 +49,7 @@ TO DO:
 		[x] Login
 		[x] Registrazione
 		[/] Login e registrazione di nuove aziende (manca frontend)
+		[/] Poter inserire i propri pets e animali preferiti
 		[/] Recupero pass (da implementare api)
 		[/] eCommerce (manca: elinare prodotti in vendita, rendere possibile solo alle azienda di tipo seller di poter vendere)
 		[/] Bacheca "eccolo qua" (wip)      |	(Possibilità di cancellare un post)

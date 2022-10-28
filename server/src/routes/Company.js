@@ -14,7 +14,7 @@ router.get("", async (req, res) => {
 });
 
 /* Get an company's information with token (with email and passwd) */
-router.get("/getCompanyInfo", async (req, res) => {
+router.get("/getInfo", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
@@ -56,6 +56,7 @@ router.put("/new", async (req, res) => {
       cost_per_hour: req.body.cost_per_hour,
       owner: req.body.owner,
       cities: req.body.cities,
+      business_hours: req.body.business_hours,
       email: req.body.email,
       password: req.body.password,
     });
