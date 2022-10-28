@@ -1,5 +1,7 @@
 <template>
     <div id="hangman">
+      <div class="" data-theme="lemonade">
+      <NavBar />
       <!-- end play popup-->
       <div v-if="end" class="popup flex flex-1 flex-auto flex-col h-full w-full">
         <div class="popup-inner rounded-md">
@@ -58,11 +60,12 @@
       </template>
 
       <button type="button" class="btn m-2" @click="initialize()" aria-label="newGame" style="display: inline-block;">New Game</button>
-      <button type="button" class="btn m-2" @click="games()" aria-label="exit" style="display: inline-block;">Exit</button>
+    </div>
     </div>
   </template>
   
   <script>
+    import NavBar from "./NavBar.vue";
     export default {
       name: 'hangman',
       data: function () {
