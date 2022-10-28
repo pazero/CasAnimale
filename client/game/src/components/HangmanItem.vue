@@ -32,7 +32,7 @@
           <line v-if="strikes > 10" x1="230" y1="170" x2="210" y2="200" style="stroke:black;fill:none;stroke-width:2px;" />
         </svg>
       </div>
-      
+
       <!-- letters undescore -->
       <div class = "mt-2">
         <div class="letter" v-for="(letter,index) in wordDisplayLetters"  v-bind:key="index">
@@ -57,7 +57,8 @@
         </div>
       </template>
 
-      <button class="btn m-4" @click="initialize()">New Game</button>
+      <button type="button" class="btn m-2" @click="initialize()" aria-label="newGame" style="display: inline-block;">New Game</button>
+      <button type="button" class="btn m-2" @click="games()" aria-label="exit" style="display: inline-block;">Exit</button>
     </div>
   </template>
   
