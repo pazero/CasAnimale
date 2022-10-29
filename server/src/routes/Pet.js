@@ -31,6 +31,7 @@ router.put("/new", async (req, res) => {
     async function cont() {
       const product = new Product({
         name: req.body.name,
+        photo: req.body.photo,
         species: req.body.species,
         owner: req.userid, // id of user
       });
@@ -67,6 +68,7 @@ router.post("/update", async (req, res) => {
       { _id: req.body.pet_id },
       {
         name: req.body.name,
+        photo: req.body.photo,
         species: req.body.species,
         owner: req.userid,
       }

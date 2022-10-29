@@ -19,7 +19,7 @@ const Company = (props) => {
       </Badge>
       <Text>{props.owner}</Text>
       <Text>Opening hour {props.business_hours.start}</Text>
-      <Text>Closing hour 2{props.business_hours.end}</Text>
+      <Text>Closing hour {props.business_hours.end}</Text>
       <Text>Cities:</Text>
       <ul>
         {props.cities.map((item) => (

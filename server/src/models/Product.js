@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 /* Product schema fields */
 const productSchema = new Schema({
   name: String,
-  image: String,
+  photo: String,
   description: String,
   price: String,
   quantity: Number,

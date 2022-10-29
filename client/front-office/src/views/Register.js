@@ -18,6 +18,7 @@ const Register = () => {
     const msg = await UserManage.newUser({
       name,
       surname,
+      "photo":"",
       birth,
       email,
       password,
@@ -29,6 +30,7 @@ const Register = () => {
 
   const [name, setName] = useState([]);
   const [surname, setSurname] = useState([]);
+  // const [photo, setPhoto] = useState([]);
   const [birth, setBirth] = useState([]);
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);

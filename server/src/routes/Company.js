@@ -13,6 +13,7 @@ router.get("", async (req, res) => {
         _id: c._id,
         name: c.name,
         type: c.type,
+        photo: c.photo,
         description: c.description,
         cost_per_hour: c.cost_per_hour,
         owner: c.owner,
@@ -49,6 +50,7 @@ router.get("/:id", async (req, res) => {
       _id: company._id,
       name: company.name,
       type: company.type,
+      photo: company.photo,
       description: company.description,
       cost_per_hour: company.cost_per_hour,
       owner: company.owner,
@@ -67,6 +69,7 @@ router.put("/new", async (req, res) => {
     const company = new Company({
       name: req.body.name,
       type: req.body.type,
+      photo: req.body.photo,
       description: req.body.description,
       cost_per_hour: req.body.cost_per_hour,
       owner: req.body.owner,
@@ -108,6 +111,7 @@ router.post("/update", async (req, res) => {
       {
         name: req.body.name,
         type: req.body.type,
+        photo: req.body.photo,
         description: req.body.description,
         cost_per_hour: req.body.cost_per_hour,
         owner: req.body.owner,

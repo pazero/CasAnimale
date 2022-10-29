@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
 import PostManage from "../services/PostManage";
 import NewPost from "./NewPost";
-import { Box, Heading, Text, HStack, Container } from "@chakra-ui/react";
+import { Image, Box, Heading, Text, HStack, Container } from "@chakra-ui/react";
 
 const ArticleList = () => {
   const [posts, setPosts] = useState([]);
@@ -107,6 +107,7 @@ const ArticleList = () => {
                 <Text as="p" marginTop="2" fontSize="lg">
                   <div>{post.description}</div>
                 </Text>
+                <Image src={post.photo} boxSize="fill" />
                 <HStack
                   marginTop="2"
                   spacing="2"

@@ -32,6 +32,7 @@ router.put("/new", async (req, res) => {
       const post = new Post({
         userid: req.userid,
         title: req.body.title,
+        photo: req.body.photo,
         description: req.body.description,
         date: new Date(),
       });
@@ -69,6 +70,7 @@ router.post("/update", async (req, res) => {
       {
         user_id: req.body.userid,
         title: req.body.title,
+        photo: req.body.photo,
         description: req.body.description,
         date: new Date(),
       }

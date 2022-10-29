@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 /* Company schema fields */
 const companySchema = new Schema({
   name: String,
+  photo: String,
   type: String, // veterinaio, pet sitter, etc...
   description: String,
   cost_per_hour: String,

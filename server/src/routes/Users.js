@@ -63,6 +63,7 @@ router.get("/:id", async (req, res) => {
       _id: user._id,
       name: user.name,
       surname: user.surname,
+      photo: user.photo,
       favanimal: user.favanimal,
     });
   } catch (e) {
@@ -110,6 +111,7 @@ router.put("/new", async (req, res) => {
   const user = new User({
     name: req.body.name,
     surname: req.body.surname,
+    photo: req.body.photo,
     birth: req.body.birth,
     email: req.body.email,
     password: req.body.password,
@@ -146,6 +148,7 @@ router.post("/update", async (req, res) => {
         {
           name: req.body.name,
           surname: req.body.surname,
+          photo: req.body.photo,
           birth: req.body.birth,
           email: req.body.email,
           password: req.body.password,
