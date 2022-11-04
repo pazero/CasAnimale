@@ -2,6 +2,8 @@ const express = require("express");
 const Pet = require("../models/Pet");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
+//import Cookies from "js-cookie";
+//const token = Cookies.get("token");
 
 /* Get all pet list */
 router.get("", async (req, res) => {
@@ -26,17 +28,19 @@ router.get("/:id", async (req, res) => {
 /* Create a new pet */
 router.put("/newPet", async (req, res) => {
   try {
-    jwt.authenticateToken(req, res, cont);
+    //jwt.authenticateToken(req, res, cont);
 
-    async function cont() {
-      const product = new Product({
+    //async function cont() {
+      const pet = new Pet({
         name: req.body.name,
         species: req.body.species,
+        breed: req.body.breed,
+        birth: req.body.birth,
         owner: req.userid, // id of user
       });
-      await product.save();
+      await pet.save();
       res.json({ message: "New pet created!" });
-    }
+    //}
   } catch (e) {
     res.json({ message: e });
   }
@@ -68,6 +72,8 @@ router.post("/update", async (req, res) => {
       {
         name: req.body.name,
         species: req.body.species,
+        breed: req.body.breed,
+        birth: req.body.birth,
         owner: req.userid,
       }
     );

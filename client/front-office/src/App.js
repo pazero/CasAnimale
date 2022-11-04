@@ -3,10 +3,12 @@ import Home from "./views/Home";
 import Register from "./views/Register";
 import RestorePass from "./views/RestorePass";
 import Profile from "./views/Profile";
+import ProfilePets from "./views/ProfilePets";
 import Login from "./components/Login";
 import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
 import Cart from "./views/Cart";
+
 
 const App = () => {
   return (
@@ -18,6 +20,7 @@ const App = () => {
           <Route path="/restore" element={<RestorePass />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/pets" element={<ProfilePets />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/compra" element={<ECommerce />} />
           <Route path="/cart" element={<Cart />} />

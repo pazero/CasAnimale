@@ -5,6 +5,8 @@ const { Schema } = mongoose;
 const petSchema = new Schema({
     name: String,
     species: String,
+    breed: String,     // razza (può essere NULL)
+    birth: Date,
     owner: Number,    // id of user
 });
 
