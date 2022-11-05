@@ -4,13 +4,18 @@ import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
+import { Image } from "@chakra-ui/react";
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
 
-const Home = () => {
+const Profile = () => {
   const navigate = useNavigate();
   const [name, setName] = useState();
   const [actualName, setActualName] = useState();
   const [surname, setSurname] = useState();
   const [actualSurname, setActualSurname] = useState();
+  const [photo, setPhoto] = useState();
+  const [actualPhoto, setActualPhoto] = useState();
   const [birth, setBirth] = useState();
   const [actualBirth, setActualBirth] = useState();
   const [email, setEmail] = useState();
@@ -21,23 +26,34 @@ const Home = () => {
   const [actualFavanimal, setActualFavanimal] = useState();
   const token = Cookies.get("token");
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/");
-    }
+  const uploader = Uploader({
+    // Get production API keys from Upload.io
+    apiKey: "free",
   });
 
-  async function fetchData() {
-    await UserManage.getUser().then((res) => {
-      const user = res.data;
-      setActualName(user.name);
-      setActualSurname(user.surname);
-      setActualBirth(user.birth);
-      setActualEmail(user.email);
-      setActualPassword(user.password);
-      setActualFavanimal(user.favanimal);
-    });
-  }
+  const options = { multi: false };
+
+  useEffect(() => {
+    async function fetchData() {
+      await UserManage.getUser().then((res) => {
+        const user = res.data;
+        setActualName(user.name);
+        setActualSurname(user.surname);
+        setActualPhoto(user.photo);
+        setPhoto(user.photo);
+        setActualBirth(user.birth);
+        setActualEmail(user.email);
+        setActualPassword(user.password);
+        setActualFavanimal(user.favanimal);
+      });
+    }
+    if (!token) {
+      navigate("/");
+    } else {
+      fetchData();
+    }
+  }, [token, navigate]);
+
   async function resetData() {
     await UserManage.getUser().then((res) => {
       const user = res.data;
@@ -45,8 +61,8 @@ const Home = () => {
       setName(user.name);
       document.querySelector("#newSurname").value = user.surname;
       setSurname(user.surname);
-      //document.querySelector("#newBirth").value = (user.birth).substring(0,10);
-      //setBirth((user.birth).substring(0,10));
+      document.querySelector("#newBirth").value = actualBirth.substring(0, 10);
+      setBirth(user.birth);
       document.querySelector("#newEmail").value = user.email;
       setEmail(user.email);
       document.querySelector("#newPassword").value = user.password;
@@ -56,20 +72,20 @@ const Home = () => {
     });
   }
 
-  fetchData();
-
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     const msg = await UserManage.updateUser({
       name,
       surname,
+      photo,
       birth,
       email,
       password,
       favanimal,
     });
     alert(msg.data.message);
-  };
+    window.location.reload();
+  }
 
   return (
     <div
@@ -92,7 +108,7 @@ const Home = () => {
         <form
           className="flex flex-1"
           style={{ height: "auto" }}
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <div
             className="overflow-hidden bg-white shadow"
@@ -111,6 +127,54 @@ const Home = () => {
             </div>
             <div className="border-t border-gray-200">
               <dl>
+                <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                  <dt className="text-lg font-medium text-gray-500">Photo</dt>
+                  <dd className="text-lg text-gray-900 col-span-2 mt-0">
+                    <Image
+                      hidden={false}
+                      src={actualPhoto}
+                      borderRadius="full"
+                      className="actualInfo"
+                      boxSize="150px"
+                      alt="propic"
+                    />
+
+                    <UploadButton
+                      uploader={uploader} // Required.
+                      options={options} // Optional.
+                      onComplete={(files) => {
+                        // Optional.
+                        if (files.length === 0) {
+                          console.log("No files selected.");
+                        } else {
+                          console.log("Files uploaded:");
+                          console.log(files.map((f) => setPhoto(f.fileUrl)));
+                        }
+                      }}
+                    >
+                      {({ onClick }) => (
+                        <div className="flex flex-1">
+                          <button
+                            hidden={true}
+                            className="changeInfo"
+                            onClick={onClick}
+                          >
+                            <Image
+                              id="newPhoto"
+                              hidden={true}
+                              src={photo}
+                              borderRadius="full"
+                              className="changeInfo"
+                              boxSize="150px"
+                              alt="propic"
+                              opacity={"0.5"}
+                            />
+                          </button>
+                        </div>
+                      )}
+                    </UploadButton>
+                  </dd>
+                </div>
                 <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
                   <dt className="text-lg font-medium text-gray-500">Name</dt>
                   <dd className="text-lg text-gray-900 col-span-2 mt-0">
@@ -243,9 +307,6 @@ const Home = () => {
                   id="saveBtn"
                   type="submit"
                   className="btn btn-primary"
-                  onClick={() => {
-                    window.location.reload();
-                  }}
                 >
                   save
                 </button>
@@ -297,4 +358,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;

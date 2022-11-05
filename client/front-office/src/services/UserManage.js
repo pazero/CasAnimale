@@ -1,28 +1,25 @@
 import Api from "./Api.js";
 
-const BASE = "users/";
+const BASE = "user/";
 
 const Authentication = {
   // if data is empty, return all users
   getUsers(data) {
-    return Api().get(
-      `${BASE}?${data.map((value, key) => {
-        return `${key}=${value}&`;
-      })}`
-    );
+    return Api().get(BASE, { params: data });
   },
   getUser(id) {
     return id === undefined
-      ? Api().get(BASE + "getUserInfo")
+      ? Api().get(BASE + "getInfo")
       : Api().get(BASE + id);
   },
   newUser(data) {
-    return Api().put(BASE + "newUser", data);
+    return Api().put(BASE + "new", data);
   },
   deleteUser(id) {
     return Api().delete(BASE + id);
   },
   updateUser(data) {
+    console.log("zioporco", data);
     return Api().post(BASE + "update", data);
   },
   login(credential) {
@@ -32,7 +29,7 @@ const Authentication = {
     return Api().post(BASE + "restore", credential);
   },
   buyUserCart() {
-    return Api().post(BASE + "/cart/buy");
+    return Api().post(BASE + "cart/buy");
   },
 };
 

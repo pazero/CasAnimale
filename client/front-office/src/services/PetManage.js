@@ -1,22 +1,22 @@
 import Api from "./Api.js";
 
-const BASE = "post/";
+const BASE = "pet/";
 
 const PostManage = {
   // if data is empty, return all users
-  getPosts(data) {
+  getPets(data) {
     return Api().get(BASE, { params: data });
   },
-  getPost(id) {
+  getPets(id) {
     return Api().get(BASE + id);
   },
-  addPost(data) {
+  addPet(data) {
     return Api().put(BASE + "new", data);
   },
-  deletePost(id) {
+  deletePet(id) {
     return Api().delete(BASE + id);
   },
-  updatePost(id, data) {
+  updatePet(id, data) {
     return Api().post(BASE + id, data);
   },
 };

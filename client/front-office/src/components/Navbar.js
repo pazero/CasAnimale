@@ -64,7 +64,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/");
+                      navigate("/vet");
                     }}
                   >
                     Vet
@@ -73,7 +73,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/");
+                      navigate("/petsitter");
                     }}
                   >
                     PetSitter
@@ -157,7 +157,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/vet");
                   }}
                 >
                   Vet
@@ -166,7 +166,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/petsitter");
                   }}
                 >
                   PetSitter

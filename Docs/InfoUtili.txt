@@ -37,31 +37,34 @@ UserDipendente =! UserNormale =! Affiliato
 TO DO:
 - MainComponents
 	[x] Header
-	[/] Carosello
+	[/] Carosello (da finire con tutti i servizi)
 	[x] Footer
 - Pagine
 	- GAME
-		[ ] Home page
+		[/] Home page
 		[ ] Curiosità miei/generali				|  form sul
 		[ ]	Info utili (sanitarie e legali)		| tuo animale
 		[ ] Video buffi yt
 		[x] Quiz
 		[ ] Classifica (login)
-		[ ] Adv servizi offerti
-		[ ] -fac- Memory / impiccato
+		[/] Adv servizi offerti
+		[/] -fac- Memory / impiccato
 	- FRONT OFFICE
 		[x] Home page
 		[x] Login
 		[x] Registrazione
+		[/] Login e registrazione di nuove aziende (manca frontend)
+		[/] Poter inserire i propri pets e animali preferiti
 		[/] Recupero pass (da implementare api)
-		[/] eCommerce (da fare: frontend, poter comprare oggetti, metter in vendita nuovi prodotti)
+		[/] eCommerce (manca: elinare prodotti in vendita, rendere possibile solo alle azienda di tipo seller di poter vendere)
 		[/] Bacheca "eccolo qua" (wip)      |	(Possibilità di cancellare un post)
-		[ ] -fac- Bacheca "cerco partner"	| comunità
+		[/] -fac- Bacheca "cerco partner"	| comunità
 		[ ] Leadboard						|
-		[ ] Veterinario			|
-		[ ] Dog-sitter			| servizi in
-		[ ] -fac- Toelettatura	|  presenza
-		[ ] -fac- Psicologo		|
+		[/] Veterinario			|
+		[/] Dog-sitter			| servizi in
+		[/] -fac- Toelettatura	|  presenza
+		[/] -fac- Psicologo		|
+		[ ] Gestione delle prenotazioni
 		[ ] -fac- Videochiamata		| servizi(o) online
 	- BACK OFFICE
 		[ ] Home page
@@ -71,8 +74,8 @@ TO DO:
 		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
 		[ ] -fac- Gestione servizi online
 - Database
-	[ ] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
+	[/] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
 	[ ] criptare le password per fare in modo che non siano in chiaro sul db
 - Altro
-	[ ] Inserire controlli sulla password
+	[ ] Inserire controlli sulla password e controlli sulle mail
 	[ ] API per pagina login per avere tutte le a

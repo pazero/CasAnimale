@@ -1,22 +1,22 @@
 import Api from "./Api.js";
 
-const BASE = "post/";
+const BASE = "prenotation/";
 
 const PostManage = {
   // if data is empty, return all users
-  getPosts(data) {
+  getPrenotations(data) {
     return Api().get(BASE, { params: data });
   },
-  getPost(id) {
+  getPrenotation(id) {
     return Api().get(BASE + id);
   },
-  addPost(data) {
+  addPrenotation(data) {
     return Api().put(BASE + "new", data);
   },
-  deletePost(id) {
+  deletePrenotation(id) {
     return Api().delete(BASE + id);
   },
-  updatePost(id, data) {
+  updatePrenotation(id, data) {
     return Api().post(BASE + id, data);
   },
 };

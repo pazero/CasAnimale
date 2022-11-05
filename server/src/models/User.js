@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: String,
   surname: String,
+  photo: String,
   birth: Date,
   email: String,
   password: String,
   favanimal: [String],
-  petOwned: [String],
   cart: [{ id: String, quantity: Number }], // product's id and quantity
 });
 

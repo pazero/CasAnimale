@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import PostManage from "../services/PostManage";
+import {Image} from "@chakra-ui/react"
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
 
 const NewPost = () => {
   const sendData = async (data) => {
     data.preventDefault();
     const msg = await PostManage.addPost({
       title,
+      photo,
       description,
     });
     alert(msg.data.message);
@@ -13,7 +17,15 @@ const NewPost = () => {
   };
 
   const [title, setTitle] = useState([]);
-  const [description, setDescription] = useState([]);
+  const [photo, setPhoto] = useState("");
+  const [description, setDescription] = useState("");
+
+  const uploader = Uploader({
+    // Get production API keys from Upload.io
+    apiKey: "free",
+  });
+
+  const options = { multi: false };
 
   return (
     <div data-theme="lemonade" className="flex flex-1 justify-center">
@@ -33,6 +45,7 @@ const NewPost = () => {
                     <span className="label-text">Type the title</span>
                   </label>
                   <input
+                    required
                     type="text"
                     placeholder="Title"
                     className="input input-bordered"
@@ -50,6 +63,38 @@ const NewPost = () => {
                     placeholder="Type the text"
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Set a photo</span>
+                  </label>
+                  <UploadButton
+                    uploader={uploader} // Required.
+                    options={options} // Optional.
+                    onComplete={(files) => {
+                      // Optional.
+                      if (files.length === 0) {
+                        console.log("No files selected.");
+                      } else {
+                        console.log("Files uploaded");
+                        console.log(files.map((f) => setPhoto(f.fileUrl)));
+                      }
+                    }}
+                  >
+                    {({ onClick }) => (
+                      <div className="m-auto">
+                        <button className="" onClick={onClick}>
+                          <Image
+                            id="changephoto"
+                            src={photo}
+                            className=""
+                            boxSize="fill"
+                            alt="Click here to upload a photo"
+                          />
+                        </button>
+                      </div>
+                    )}
+                  </UploadButton>
                 </div>
                 <div>
                   <button className="btn btn-secondary m-1">Post</button>

@@ -3,9 +3,10 @@ const { Schema } = mongoose;
 
 /* Prenotation schema fields */
 const prenotationSchema = new Schema({
-    company: Number,  // id company
-    start: Date,
-    duration: Number, // facciamo durata fissa di un'ora?
+  company: String, // id company
+  start: Date,
+  duration: Number, // ore di prenotazione
+  user: String, // id dell'utente che lo prenota
 });
 
 module.exports = mongoose.model("Prenotation", prenotationSchema);

@@ -88,6 +88,7 @@ const ECommerce = () => {
             padding="1fr"
             id={product._id}
             title={product.name}
+            photo={product.photo}
             description={product.description}
             price={product.price}
             quantity={product.quantity}
