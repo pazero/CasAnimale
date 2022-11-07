@@ -21,18 +21,26 @@ const ProfilePets = () => {
         maxHeight: "100%",
       }}
     >
-      <div
-        className="flex flex-1"
-        style={{ height: "4rem", maxHeight: "4rem" }}
-      >
+      <div className="flex flex-1" style={{ height: "4rem", maxHeight: "4rem" }}>
         <Navbar />
       </div>
-      <div class="static inline-flex">
+
+      <div class="hidden sm:flex static inline-flex">
         <div class="inline-block">
           <Sidebar />
         </div>
 
         <div className="flex flex-1 inline-block" style={{ height: "auto" }}>
+          <PetsList />
+        </div>
+      </div>
+
+      <div class="sm:hidden flex flex-col">
+        <div class="flex w-full justify-evenly">
+          <Sidebar />
+        </div>
+
+        <div className="flex w-full" style={{ height: "auto" }}>
           <PetsList />
         </div>
       </div>

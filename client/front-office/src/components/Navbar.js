@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { TbUserCircle, TbShoppingCart } from 'react-icons/tb';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -31,15 +32,12 @@ const Navbar = () => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          >
+          <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
-              <a href="/" className="justify-between">
+              <a href="#" className="justify-between">
                 Servizi
                 <svg
                   className="fill-current"
@@ -53,55 +51,49 @@ const Navbar = () => {
               </a>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/compra");
-                    }}
+                  <button onClick={() => {
+                            navigate("/compra");
+                          }}
                   >
                     eCommerce
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/");
-                    }}
+                  <button onClick={() => {
+                            navigate("/");
+                          }}
                   >
                     Vet
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/");
-                    }}
+                  <button onClick={() => {
+                            navigate("/");
+                          }}
                   >
                     PetSitter
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/");
-                    }}
+                  <button onClick={() => {
+                            navigate("/");
+                          }}
                   >
                     Leaderbord
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/forum");
-                    }}
+                  <button onClick={() => {
+                            navigate("/forum");
+                          }}
                   >
                     Forum
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/");
-                    }}
+                  <button onClick={() => {
+                            navigate("/");
+                          }}
                   >
                     Looking4Partner
                   </button>
@@ -109,20 +101,16 @@ const Navbar = () => {
               </ul>
             </li>
             <li>
-              <button
-                onClick={() => {
-                  navigate("/");
-                }}
+              <button onClick={() => {
+                        navigate("/");
+                      }}
               >
                 Area Riservata
               </button>
             </li>
           </ul>
         </div>
-        <a
-          href="http://localhost:3000/"
-          className="btn btn-ghost normal-case text-xl"
-        >
+        <a href="http://localhost:3000/" className="btn btn-ghost normal-case text-xl" >
           CasAnimale
         </a>
       </div>
@@ -146,55 +134,49 @@ const Navbar = () => {
             </a>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/compra");
-                  }}
+                <button onClick={() => {
+                          navigate("/compra");
+                        }}
                 >
                   eCommerce
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                <button onClick={() => {
+                          navigate("/");
+                        }}
                 >
                   Vet
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                <button onClick={() => {
+                          navigate("/");
+                        }}
                 >
                   PetSitter
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                <button onClick={() => {
+                          navigate("/");
+                        }}
                 >
                   Leaderbord
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/forum");
-                  }}
+                <button onClick={() => {
+                          navigate("/forum");
+                        }}
                 >
                   Forum
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                <button onClick={() => {
+                          navigate("/");
+                        }}
                 >
                   Looking4Partner
                 </button>
@@ -202,10 +184,9 @@ const Navbar = () => {
             </ul>
           </li>
           <li>
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
+            <button onClick={() => {
+                      navigate("/");
+                    }}
             >
               Area Riservata
             </button>
@@ -215,70 +196,75 @@ const Navbar = () => {
       {token ? (
         <div className="navbar-end">
           <div className="hidden sm:flex">
-            <button
-              className="btn btn-primary mr-2"
+            <label tabIndex={0} className="btn btn-primary mr-2"
               onClick={() => {
                 navigate("/cart");
               }}
             >
-              Cart
-            </button>
-            <button
-              className="btn btn-primary mr-2"
+              <TbShoppingCart class="block h-6 w-6" alt="cart icon" />
+            </label>
+            
+            <button className="btn btn-primary mr-2"
               onClick={() => {
                 navigate("/profile");
               }}
             >
+              <TbUserCircle class="block h-6 w-6 mr-1" alt="user icon" />
               Profile
             </button>
             <button className="btn btn-ghost" onClick={logout}>
               Log out
             </button>
           </div>
+          <div className="sm:hidden"> 
+            <label tabIndex={0} className="btn btn-primary"
+              onClick={() => {
+                navigate("/cart");
+              }}
+            >
+              <TbShoppingCart class="block h-6 w-6" alt="cart icon" />
+            </label>
+            <div className="dropdown">
+              <label tabIndex={0} className="btn btn-primary m-2">
+                <TbUserCircle class="block h-6 w-6" alt="user icon" />
+              </label>
+              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full">
+                <li>
+                  <button onClick={() => {
+                    navigate("/profile");
+                  }}
+                  >
+                    Profile
+                  </button>
+                </li>
+                <li>
+                  <button onClick={logout} >
+                    Log out
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="navbar-end">
-          <div className="hidden sm:flex">
-            <button
-              onClick={() => {
-                navigate("/login");
-              }}
-              className="btn btn-ghost mr-2"
-            >
-              sign in
-            </button>
-            <button
-              onClick={() => {
-                navigate("/register");
-              }}
-              className="btn btn-primary"
-              style={{}}
-            >
-              sign up
-            </button>
-          </div>
-          <div className="dropdown sm:hidden">
+          <div className="dropdown">
             <label tabIndex={0} className="btn btn-primary mr-2">
               <span>login</span>
             </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
-            >
+            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full">
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/login");
-                  }}
+                <button onClick={() => {
+                          navigate("/login");
+                        }}
                 >
                   Sign in
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/register");
-                  }}
+                <button onClick={() => {
+                          navigate("/register");
+                        }}
                 >
                   Sign up
                 </button>

@@ -35,8 +35,8 @@ router.put("/newPet", async (req, res) => {
         name: req.body.name,
         species: req.body.species,
         breed: req.body.breed,
+        owner: req.body.owner, // id of user
         birth: req.body.birth,
-        owner: req.userid, // id of user
       });
       await pet.save();
       res.json({ message: "New pet created!" });
@@ -74,7 +74,7 @@ router.post("/update", async (req, res) => {
         species: req.body.species,
         breed: req.body.breed,
         birth: req.body.birth,
-        owner: req.userid,
+        owner: req.body.owner,
       }
     );
     res.json(updatedPet);

@@ -82,18 +82,22 @@ const Home = () => {
         maxHeight: "100%",
       }}
     >
-      <div
-        className="flex flex-1"
-        style={{ height: "4rem", maxHeight: "4rem" }}
-      >
+      <div className="flex flex-1" style={{ height: "4rem", maxHeight: "4rem" }}>
         <Navbar />
       </div>
-      <div class="static inline-flex">
-        <div class="inline-block">
+      
+      <div class="sm:hidden flex flex-col">
+        <div class="flex w-full justify-evenly">
+          <Sidebar />
+        </div>
+      </div>
+
+      <div class="sm:flex sm:static sm:inline-flex">
+        <div class="hidden sm:flex inline-block">
           <Sidebar />
         </div>
 
-        <div className="flex flex-1 inline-block" style={{ height: "auto" }}>
+        <div className="sm:flex sm:flex-1 sm:inline-block" style={{ height: "auto" }}>
           <form
             className="flex flex-1"
             style={{ height: "auto" }}
@@ -153,9 +157,7 @@ const Home = () => {
                     </dd>
                   </div>
                   <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">
-                      Birthday
-                    </dt>
+                    <dt className="text-lg font-medium text-gray-500">Birthday</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {actualBirth
@@ -166,8 +168,7 @@ const Home = () => {
                             actualBirth.substring(0, 4)
                           : actualBirth}
                       </span>
-                      <input
-                        hidden={true}
+                      <input hidden={true}
                         type="date"
                         name="new-birth"
                         id="newBirth"
