@@ -16,13 +16,13 @@ const games = [
     imageSrc: 'hangman.png',
     imageAlt: 'hangman game icon',
   },
-  /*{
+  {
     id: 3,
-    name: 'Game3',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-    imageAlt: 'img alt.',
-  },*/
+    name: 'Video divertenti',
+    href: 'videos',
+    imageSrc: 'https://pixy.org/src/80/806433.jpg',
+    imageAlt: 'funny video img',
+  },
 ]
 
 const adsLeft = [
