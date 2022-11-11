@@ -13,6 +13,7 @@
     "@headlessui/vue": "^1.7.3",
     "@heroicons/vue": "^2.0.12",
     "@tailwindcss/typography": "^0.5.7",
+    "@heroicons/react": "^2.0.12",
     "bootstrap": "^5.2.0",
     "daisyui": "^2.24.0",
     "tailwind": "^4.0.0",

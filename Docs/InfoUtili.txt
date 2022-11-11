@@ -1,3 +1,8 @@
+COMANDI UTILI
+Per creare branch locali collegate alle branch remote (tutte) <3
+	git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+
+
 FRAMEWORKS
 	- REACT (front-office)
 	    Componenti:
@@ -17,36 +22,51 @@ API
 ● Generatore di Meme: 		    https://imgflip.com/api 
 ● Quiz e curiosità:             https://zoo-animal-api.herokuapp.com/animals/rand 
 
+TO DO URGENTI/FONDAMENTALI:
+UserDipendente =! UserNormale =! Affiliato
+- USER
+	[ ] Differenziare clienti vip e normali
+	[ ] Possibilità di inserire un animale allo user (nome, specie, razza)
+	[ ] Possibilità di eliminare un animale allo user (poverino è morto)
+- DIPENDENTE di CasAnimale
+	[ ] Campo dipendete nello user !!!
+	[ ] Possibilità di creare un account per un affiliato
+- COMPANY (veterinari, per-sitter, ... che lavorano attraverso casa animale)
+	[ ] Modificare le proprie informazioni
 
 TO DO:
 - MainComponents
 	[x] Header
-	[/] Carosello
+	[/] Carosello (da finire con tutti i servizi)
 	[x] Footer
 - Pagine
 	- GAME
-		[ ] Home page
+		[/] Home page
 		[ ] Curiosità miei/generali				|  form sul
 		[ ]	Info utili (sanitarie e legali)		| tuo animale
-		[ ] Video buffi yt
+		[x] Video buffi yt
 		[x] Quiz
 		[ ] Classifica (login)
-		[ ] Adv servizi offerti
-		[ ] -fac- Memory / impiccato
+		[/] Adv servizi offerti
+		[/] -fac- Memory / impiccato
 	- FRONT OFFICE
-		[x] Home page (da finire il carosello)
+		[x] Home page
 		[x] Login
 		[x] Registrazione
+		[/] Login e registrazione di nuove aziende (manca frontend)
+		[/] Poter inserire i propri pets e animali preferiti
+		[/] Recupero pass (da implementare api)
+		[/] eCommerce (manca: elinare prodotti in vendita, rendere possibile solo alle azienda di tipo seller di poter vendere)
+		[/] Bacheca "eccolo qua" (wip)      |	(Possibilità di cancellare un post)
+		[/] -fac- Bacheca "cerco partner"	| comunità
 		[ ] Leadboard						|
-		[/] Bacheca "eccolo qua" (wip)      | comunità
-		[ ] -fac- Bacheca "cerco partner"	|
-		[/] eCommerce (iniziato)
-		[ ] Veterinario			|
-		[ ] Dog-sitter			| servizi in
-		[ ] -fac- Toelettatura	|  presenza
-		[ ] -fac- Psicologo		|
+		[/] Veterinario			|
+		[/] Dog-sitter			| servizi in
+		[/] -fac- Toelettatura	|  presenza
+		[/] -fac- Psicologo		|
+		[ ] Gestione delle prenotazioni
 		[ ] -fac- Videochiamata		| servizi(o) online
-	- back office
+	- BACK OFFICE
 		[ ] Home page
 		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
 		[ ] Gestione servizi di comunità (bacheche)
@@ -54,8 +74,8 @@ TO DO:
 		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
 		[ ] -fac- Gestione servizi online
 - Database
-	[ ] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
+	[/] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
 	[ ] criptare le password per fare in modo che non siano in chiaro sul db
 - Altro
-	[ ] Inserire controlli sulla password
+	[ ] Inserire controlli sulla password e controlli sulle mail
 	[ ] API per pagina login per avere tutte le a

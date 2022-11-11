@@ -15,7 +15,7 @@ const navigation = [
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
           <!-- Mobile menu button-->
-          <DisclosureButton class="inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:text-white">
+          <DisclosureButton class="inline-flex items-center justify-center m-0 rounded-md p-2 text-gray-500 hover:text-white">
             <span class="sr-only">Open main menu</span>
             <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
             <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
@@ -36,7 +36,7 @@ const navigation = [
           <!-- Profile dropdown -->
           <Menu as="div" class="relative ml-3">
             <div>
-              <MenuButton class="flex rounded-full text-sm text-gray-500 hover:text-white">
+              <MenuButton class="flex m-0 rounded-full text-sm text-gray-500 hover:text-white">
                 <span class="sr-only">Open user menu</span>
                 <UserIcon class="block h-7 w-7" aria-hidden="true" />
               </MenuButton>

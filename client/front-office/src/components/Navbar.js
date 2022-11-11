@@ -4,13 +4,12 @@ import Cookies from "js-cookie";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const token = Cookies.get("token");
 
   function logout() {
     Cookies.remove("token", { path: "" });
-    navigate("/"); // reload della pagina, spero di farlo meglio
+    navigate("/");
   }
-
-  const token = Cookies.get("token");
 
   return (
     <div className="navbar bg-blue-200" style={{ minHeight: "5%" }}>
@@ -37,7 +36,7 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="http://localhost:5173">Area Giochi</a>
+              <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
               <a href="/" className="justify-between">
@@ -65,7 +64,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/singleVet");
+                      navigate("/vet");
                     }}
                   >
                     Vet
@@ -74,7 +73,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/");
+                      navigate("/petsitter");
                     }}
                   >
                     PetSitter
@@ -92,10 +91,10 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/myAnimalSC");
+                      navigate("/forum");
                     }}
                   >
-                    My Animal Showcase
+                    Forum
                   </button>
                 </li>
                 <li>
@@ -104,7 +103,7 @@ const Navbar = () => {
                       navigate("/");
                     }}
                   >
-                    Looking4Partner Showcase
+                    Looking4Partner
                   </button>
                 </li>
               </ul>
@@ -115,7 +114,7 @@ const Navbar = () => {
                   navigate("/");
                 }}
               >
-                Your profile
+                Area Riservata
               </button>
             </li>
           </ul>
@@ -130,7 +129,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5173">Area Giochi</a>
+            <a href="http://localhost:5173/">Area Giochi</a>
           </li>
           <li tabIndex={0}>
             <a href="/" className="justify-between">
@@ -158,7 +157,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/singleVet");
+                    navigate("/vet");
                   }}
                 >
                   Vet
@@ -167,7 +166,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/petsitter");
                   }}
                 >
                   PetSitter
@@ -185,10 +184,10 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/myAnimalSC");
+                    navigate("/forum");
                   }}
                 >
-                  My Animal Showcase
+                  Forum
                 </button>
               </li>
               <li>
@@ -197,7 +196,7 @@ const Navbar = () => {
                     navigate("/");
                   }}
                 >
-                  Looking4Partner Showcase
+                  Looking4Partner
                 </button>
               </li>
             </ul>
@@ -208,7 +207,7 @@ const Navbar = () => {
                 navigate("/");
               }}
             >
-              Your profile
+              Area Riservata
             </button>
           </li>
         </ul>
@@ -219,20 +218,24 @@ const Navbar = () => {
             <button
               className="btn btn-primary mr-2"
               onClick={() => {
+                navigate("/cart");
+              }}
+            >
+              Cart
+            </button>
+            <button
+              className="btn btn-primary mr-2"
+              onClick={() => {
                 navigate("/profile");
               }}
             >
               Profile
             </button>
-            <button
-              className="btn btn-ghost"
-              onClick={logout}
-            >
+            <button className="btn btn-ghost" onClick={logout}>
               Log out
             </button>
           </div>
         </div>
-
       ) : (
         <div className="navbar-end">
           <div className="hidden sm:flex">

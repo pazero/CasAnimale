@@ -1,6 +1,4 @@
-
 <script setup>
-import NavBar from "../components/NavBar.vue";
 console.log("Ciao dalla console!");
 
 const games = [
@@ -14,17 +12,17 @@ const games = [
   {
     id: 2,
     name: 'Hangman',
-    href: '#',
+    href: 'hangman',
     imageSrc: 'hangman.png',
     imageAlt: 'hangman game icon',
   },
-  /*{
+  {
     id: 3,
-    name: 'Game3',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-    imageAlt: 'img alt.',
-  },*/
+    name: 'Video divertenti',
+    href: 'videos',
+    imageSrc: 'https://pixy.org/src/80/806433.jpg',
+    imageAlt: 'funny video img',
+  },
 ]
 
 const adsLeft = [
@@ -41,10 +39,7 @@ const adsRight = [
 </script>
 
 <template>
-  <div class="flex flex-1 flex-auto flex-col h-screen" data-theme="lemonade">
-    <NavBar />
-
-    <div class="flex flex-1 flex-auto bg-white flex-row h-full">
+  <div class="flex flex-row h-full" style="flex:1 1 auto;" data-theme="lemonade">
       <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
         <a v-for="item in adsLeft" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0']" :aria-current="undefined">{{ item.name }}</a>
       </div>
@@ -67,7 +62,6 @@ const adsRight = [
       <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
         <a v-for="item in adsLeft" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0']" :aria-current="undefined">{{ item.name }}</a>
       </div>
-    </div>
   </div>
 </template>
 

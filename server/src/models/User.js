@@ -5,13 +5,12 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: String,
   surname: String,
+  photo: String,
   birth: Date,
   email: String,
   password: String,
-  favanimal: String,
-  is_company: Boolean,
-  company_type: String, //vet, vendor, petsitting, general service, private
-  // da aggiungere altri campi?
+  favanimal: [String],
+  cart: [{ id: String, quantity: Number }], // product's id and quantity
 });
 
 module.exports = mongoose.model("User", userSchema);
