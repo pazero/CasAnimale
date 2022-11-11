@@ -1,7 +1,7 @@
 <template>
   <div id="funny-video">
     <div class="pt-10 flex flex-row">
-      <div class="basis-1/4 place-self-center flex justify-left"  @click="prev">
+      <div class="basis-1/4 place-self-center flex justify-left" @click="prev">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -16,7 +16,6 @@
       </div>
 
       <div id="video" class="basis-1/2 place-self-center flex justify-center">
-
         <button class="btn btn-primary" @click="updateVideo">Click me!</button>
       </div>
       <div class="basis-1/4 place-self-center flex justify-end" @click="next">
