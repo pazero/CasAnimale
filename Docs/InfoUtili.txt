@@ -44,7 +44,7 @@ TO DO:
 		[/] Home page
 		[ ] Curiosità miei/generali				|  form sul
 		[ ]	Info utili (sanitarie e legali)		| tuo animale
-		[ ] Video buffi yt
+		[x] Video buffi yt
 		[x] Quiz
 		[ ] Classifica (login)
 		[/] Adv servizi offerti
