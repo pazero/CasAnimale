@@ -1,15 +1,17 @@
 <template class="antialiased text-gray-700 bg-gray-100">
-  <div>
+  <div class="">
     <div v-if="!fetchDone">
-      <button
-        v-if="!fetchDone"
-        type="button"
-        id="get-quiz"
-        @click="getQuestion"
-        class="getQuizButton"
-      >
-        Get some questions!
-      </button>
+      <div class="flex items-center justify-center h-[calc(100vh-4rem)]">
+        <button
+          class="btn btn-primary"
+          v-if="!fetchDone"
+          type="button"
+          id="get-quiz"
+          @click="getQuestion"
+        >
+          Get some questions!
+        </button>
+      </div>
     </div>
     <div v-else class="flex w-full h-screen justify-center items-center">
       <div class="w-full max-w-xl p-3">
@@ -149,7 +151,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response.results);
           //adjust every question
           for (let i = 0; i < this.count; i++) {
             let q = response.results[i];
@@ -253,22 +254,6 @@ export default {
 </script>
 
 <style>
-.getQuizButton {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background-color: #4338ca;
-  border-radius: 25px;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-}
+/* .getQuizButton {
+} */
 </style>

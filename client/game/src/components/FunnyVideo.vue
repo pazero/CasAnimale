@@ -16,7 +16,10 @@
       </div>
 
       <div id="video" class="place-self-center flex-auto">
-        <button class="btn btn-primary mx-auto place-self-center flex justify-center" @click="updateVideo">
+        <button
+          class="btn btn-primary mx-auto place-self-center flex justify-center"
+          @click="updateVideo"
+        >
           Watch a video!
         </button>
       </div>

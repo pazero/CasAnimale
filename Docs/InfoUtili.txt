@@ -42,10 +42,10 @@ TO DO:
 - Pagine
 	- GAME
 		[/] Home page
-		[ ] Curiosità miei/generali				|  form sul
+		[/] Curiosità miei/generali				|  form sul
 		[ ]	Info utili (sanitarie e legali)		| tuo animale
 		[x] Video buffi yt
-		[x] Quiz
+		[/] Quiz
 		[ ] Classifica (login)
 		[/] Adv servizi offerti
 		[/] -fac- Memory / impiccato
