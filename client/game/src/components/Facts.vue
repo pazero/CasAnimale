@@ -7,27 +7,35 @@
         <div
           class="h-96 bg-cover"
           v-bind:style="{
-            'background-image': 'url(' + animal.image_link + ')',
+            'background-image': 'url(' + animal_fact.image_link + ')',
             'background-position': 'center center',
           }"
         ></div>
         <div class="mx-6 my-4 border-b border-gray-light text-black">
           <div class="font-medium text-xl text-gray-darker mb-4">
-            Discover the {{ animal.name }}! (latin name:
-            {{ animal.latin_name }})
+            Discover the {{ animal_fact.name }}! (latin name:
+            {{ animal_fact.latin_name }})
           </div>
           <p class="font-normal text-gray-dark text-sm mb-2">
-            This animal is a {{ animal.animal_type.toLowerCase() }}. It's a
-            {{ animal.active_time.toLowerCase() }} animal. Its length is between
-            {{ Math.round(animal.length_min * 0.304 * 100) / 100 }} and
-            {{ Math.round(animal.length_max * 0.304 * 100) / 100 }} meters. Its
-            weight is between
-            {{ Math.round(animal.weight_min * 0.45359237 * 100) / 100 }} and
-            {{ Math.round(animal.weight_max * 0.45359237 * 100) / 100 }} kg. Its
-            lifespan is {{ animal.lifespan }} years. Its natural habitat are the
-            {{ animal.habitat.toLowerCase() }}. Its diet is formed by
-            {{ animal.diet.toLowerCase() }}. Its tipical locations are
-            {{ animal.geo_range }}.
+            This animal is a {{ animal_fact.animal_type.toLowerCase() }}. It's a
+            {{ animal_fact.active_time.toLowerCase() }} animal. Its length is
+            between
+            {{ Math.round(animal_fact.length_min * 0.3048 * 100) / 100 }} and
+            {{
+              Math.round(animal_fact.length_max * 0.3048 * 100) / 100
+            }}
+            meters. Its weight is between
+            {{
+              Math.round(animal_fact.weight_min * 0.45359237 * 100) / 100
+            }}
+            and
+            {{
+              Math.round(animal_fact.weight_max * 0.45359237 * 100) / 100
+            }}
+            kg. Its lifespan is {{ animal_fact.lifespan }} years. Its natural
+            habitat are the {{ animal_fact.habitat.toLowerCase() }}. Its diet is
+            formed by {{ animal_fact.diet.toLowerCase() }}. Its tipical
+            locations are {{ animal_fact.geo_range }}.
           </p>
         </div>
       </div>
@@ -48,7 +56,7 @@
             Did you know?
           </div>
           <p class="font-normal text-gray-dark text-sm mb-2">
-            {{ animal }}
+            {{ animal_fact }}
           </p>
         </div>
       </div>
@@ -75,14 +83,14 @@ export default {
     return {
       catimg: "",
       api: [
-        "https://zoo-animal-api.herokuapp.com/animals/rand", // fornisce informazioni su un animale randomico
+        "2https://zoo-animal-api.herokuapp.com/animals/rand", // fornisce informazioni su un animale randomico
         "https://meowfacts.herokuapp.com/", // fornisce una curiosità sui gatti
         "https://cataas.com/cat?json=true", // fornisce foto di gatti casuali
       ],
       fetchDone: false,
       fetchCat: false,
       // data layout
-      animal: {
+      animal_fact: {
         name: "",
         latin_name: "",
         animal_type: "",
@@ -113,12 +121,30 @@ export default {
           }
         })
         .then((response) => {
-          this.animal = response;
+          this.animal_fact = response;
           this.fetchDone = true;
           this.fetchCat = false;
         });
     },
     getCatFact() {
+      fetch("https://meowfacts.herokuapp.com")
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            alert(
+              "Server returned " + response.status + " : " + response.statusText
+            );
+          }
+        })
+        .then((response) => {
+          this.getCatImage();
+          this.animal_fact = response.data[0];
+          this.fetchDone = true;
+          this.fetchCat = true;
+        });
+    },
+    getCatImage() {
       fetch("https://cataas.com/cat?json=true")
         .then((response) => {
           if (response.ok) {
@@ -131,22 +157,6 @@ export default {
         })
         .then((response) => {
           this.catimg = "https://cataas.com" + response.url;
-        });
-
-      fetch("https://meowfacts.herokuapp.com")
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            alert(
-              "Server returned " + response.status + " : " + response.statusText
-            );
-          }
-        })
-        .then((response) => {
-          this.animal = response.data[0];
-          this.fetchDone = true;
-          this.fetchCat = true;
         });
     },
   },
