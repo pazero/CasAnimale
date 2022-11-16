@@ -205,6 +205,8 @@ export default {
   name: "hangman",
   data: function () {
     return {
+      playerName: "",
+      totalPoints: 0,
       strikes: 0,
       word: "HANGMAN",
       wordLetters: ["H", "A", "N", "G", "M", "A", "N"],
@@ -328,6 +330,21 @@ export default {
       setTimeout(() => {
         console.log("timeout finished!");
       }, ms);
+    },
+
+    sendResult() {
+      fetch("http://localhost:5000/api/leaderbord/hangman/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          name: this.playerName,
+          points: this.totalPoints,
+          userid: "",
+        }),
+      });
     },
   },
 };

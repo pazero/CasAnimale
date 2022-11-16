@@ -31,7 +31,7 @@ router.post("/:game/add", async (req, res) => {
     var game = await Leaderbord.find({ game: req.params.game });
     game = game[0];
     if (game.scores == undefined) {
-        game.scores = []
+      game.scores = [];
     }
     game.scores.push({
       name: req.body.name,

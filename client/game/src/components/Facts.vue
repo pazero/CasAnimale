@@ -1,62 +1,22 @@
 <template>
   <div id="facts" class="">
-    <div v-if="fetchDone && !fetchCat" class="flex justify-center items-center">
+    <div v-if="fetchDone" class="flex justify-center items-center">
       <div
         class="max-w-md rounded-md overflow-hidden shadow-lg m-16 bg-white border border-black border-2"
       >
         <div
           class="h-96 bg-cover"
           v-bind:style="{
-            'background-image': 'url(' + animal_fact.image_link + ')',
+            'background-image': 'url(' + fact.image + ')',
             'background-position': 'center center',
           }"
         ></div>
         <div class="mx-6 my-4 border-b border-gray-light text-black">
           <div class="font-medium text-xl text-gray-darker mb-4">
-            Discover the {{ animal_fact.name }}! (latin name:
-            {{ animal_fact.latin_name }})
+            {{ fact.title }}
           </div>
           <p class="font-normal text-gray-dark text-sm mb-2">
-            This animal is a {{ animal_fact.animal_type.toLowerCase() }}. It's a
-            {{ animal_fact.active_time.toLowerCase() }} animal. Its length is
-            between
-            {{ Math.round(animal_fact.length_min * 0.3048 * 100) / 100 }} and
-            {{
-              Math.round(animal_fact.length_max * 0.3048 * 100) / 100
-            }}
-            meters. Its weight is between
-            {{
-              Math.round(animal_fact.weight_min * 0.45359237 * 100) / 100
-            }}
-            and
-            {{
-              Math.round(animal_fact.weight_max * 0.45359237 * 100) / 100
-            }}
-            kg. Its lifespan is {{ animal_fact.lifespan }} years. Its natural
-            habitat are the {{ animal_fact.habitat.toLowerCase() }}. Its diet is
-            formed by {{ animal_fact.diet.toLowerCase() }}. Its tipical
-            locations are {{ animal_fact.geo_range }}.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div v-if="fetchCat" class="flex justify-center items-center">
-      <div
-        class="max-w-md rounded-md overflow-hidden shadow-lg m-16 bg-white border border-black border-2"
-      >
-        <div
-          class="h-96 bg-cover"
-          v-bind:style="{
-            'background-image': 'url(' + catimg + ')',
-            'background-position': 'center center',
-          }"
-        ></div>
-        <div class="mx-6 my-4 border-b border-gray-light text-black">
-          <div class="font-medium text-xl text-gray-darker mb-4">
-            Did you know?
-          </div>
-          <p class="font-normal text-gray-dark text-sm mb-2">
-            {{ animal_fact }}
+            {{ fact.body }}
           </p>
         </div>
       </div>
@@ -81,31 +41,17 @@
 export default {
   data() {
     return {
-      catimg: "",
+      fact: {
+        title: "",
+        body: "",
+        image: "",
+      },
       api: [
-        "2https://zoo-animal-api.herokuapp.com/animals/rand", // fornisce informazioni su un animale randomico
+        "https://zoo-animal-api.herokuapp.com/animals/rand", // fornisce informazioni su un animale randomico
         "https://meowfacts.herokuapp.com/", // fornisce una curiosità sui gatti
         "https://cataas.com/cat?json=true", // fornisce foto di gatti casuali
       ],
       fetchDone: false,
-      fetchCat: false,
-      // data layout
-      animal_fact: {
-        name: "",
-        latin_name: "",
-        animal_type: "",
-        active_time: "",
-        length_min: "",
-        length_max: "",
-        weight_min: "",
-        weight_max: "",
-        lifespan: "",
-        habitat: "",
-        diet: "",
-        geo_range: "",
-        image_link: "",
-        id: 0,
-      },
     };
   },
   methods: {
@@ -115,15 +61,37 @@ export default {
           if (response.ok) {
             return response.json();
           } else {
-            alert(
-              "Server returned " + response.status + " : " + response.statusText
-            );
+            alert("Status " + response.status + " : " + response.statusText);
           }
         })
         .then((response) => {
+          /*
+            data_layout: {
+              name: "",
+              latin_name: "",
+              animal_type: "",
+              active_time: "",
+              length_min: "",
+              length_max: "",
+              weight_min: "",
+              weight_max: "",
+              lifespan: "",
+              habitat: "",
+              diet: "",
+              geo_range: "",
+              image_link: "",
+              id: 0,
+            }
+          */
+          this.fact.title = `Discover the ${response.name}! (latin name: ${response.latin_name})`;
+          this.fact.body = `This animal is a ${response.animal_type.toLowerCase()}. It's a ${response.active_time.toLowerCase()} animal. Its length is between
+            ${Math.round(response.length_min * 0.3048 * 100) / 10} and ${Math.round(response.length_max * 0.3048 * 100) / 100} meters. Its weight is between
+            ${Math.round(response.weight_min * 0.45359237 * 100) / 100} and ${Math.round(response.weight_max * 0.45359237 * 100) / 100} kg. Its lifespan is
+            ${response.lifespan} years. Its natural habitat are the ${response.habitat.toLowerCase()}. Its diet is formed by ${response.diet.toLowerCase()}.
+            Its tipical locations are ${response.geo_range}.`;
+          this.fact.image = response.image_link;
           this.animal_fact = response;
           this.fetchDone = true;
-          this.fetchCat = false;
         });
     },
     getCatFact() {
@@ -138,10 +106,10 @@ export default {
           }
         })
         .then((response) => {
-          this.getCatImage();
-          this.animal_fact = response.data[0];
+          this.fact.image = this.getCatImage();
+          this.fact.body = response.data[0];
+          this.fact.title = "Did you know?";
           this.fetchDone = true;
-          this.fetchCat = true;
         });
     },
     getCatImage() {
@@ -156,7 +124,7 @@ export default {
           }
         })
         .then((response) => {
-          this.catimg = "https://cataas.com" + response.url;
+          this.fact.image = "https://cataas.com" + response.url;
         });
     },
   },
