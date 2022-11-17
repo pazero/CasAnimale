@@ -109,6 +109,12 @@
                   wrongAnswers
                 }}</span>
               </p>
+              <p>
+                Points:
+                <span class="text-2xl text-blue-700 font-bold">{{
+                  totalPoints
+                }}</span>
+              </p>
             </div>
             <div class="mt-6 flow-root">
               <button
@@ -131,6 +137,7 @@ export default {
     return {
       playerName: "",
       timer: "",
+      token: "",
       totalPoints: 0,
       fetchDone: false,
       idx: 0,
@@ -144,7 +151,13 @@ export default {
   },
   methods: {
     isLoggedIn() {
-      // TODO: get token cookie
+      let name = "token";
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        this.token = parts.pop().split(";").shift();
+        return true;
+      } 
       return false;
     },
     async getQuestion() {
@@ -243,7 +256,7 @@ export default {
           body: JSON.stringify({
             name: this.playerName,
             points: this.totalPoints,
-            userid: "",
+            token: this.token,
           }),
         });
       }

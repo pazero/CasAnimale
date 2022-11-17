@@ -1,6 +1,7 @@
 const express = require("express");
 const Leaderboard = require("../models/Leaderboard");
 const router = express.Router();
+const jwt = require("../services/jwrUtils");
 
 /* Get all pet list */
 router.get("", async (req, res) => {
@@ -33,11 +34,23 @@ router.post("/:game/add", async (req, res) => {
     if (game.scores == undefined) {
       game.scores = [];
     }
-    game.scores.push({
-      name: req.body.name,
-      points: req.body.points,
-      userid: req.body.userid,
-    });
+    if (req.body.token != "") {
+      jwt.authenticateToken(req, res, cont);
+
+      function cont() {
+        game.scores.push({
+          name: "",
+          points: req.body.points,
+          userid: req.userid,
+        });
+      }
+    } else {
+      game.scores.push({
+        name: req.body.name,
+        points: req.body.points,
+        userid: "",
+      });
+    }
 
     await Leaderboard.findOneAndUpdate(game);
     res.json({ message: "Success!" });
