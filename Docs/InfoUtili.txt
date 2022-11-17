@@ -59,7 +59,7 @@ TO DO:
 		[/] eCommerce (manca: elinare prodotti in vendita, rendere possibile solo alle azienda di tipo seller di poter vendere)
 		[/] Bacheca "eccolo qua" (wip)      |	(Possibilità di cancellare un post)
 		[/] -fac- Bacheca "cerco partner"	| comunità
-		[ ] Leadboard						|
+		[/] Leadboard						|
 		[/] Veterinario			|
 		[/] Dog-sitter			| servizi in
 		[/] -fac- Toelettatura	|  presenza

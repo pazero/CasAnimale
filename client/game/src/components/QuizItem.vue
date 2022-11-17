@@ -158,7 +158,9 @@ export default {
           if (response.ok) {
             return response.json();
           } else {
-            console.log("Status " + response.status + " : " + response.statusText);
+            console.log(
+              "Status " + response.status + " : " + response.statusText
+            );
           }
         })
         .then((response) => {
@@ -230,18 +232,21 @@ export default {
       }
     },
     sendResult() {
-      fetch("http://localhost:5000/api/leaderbord/quiz/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          name: this.playerName,
-          points: this.totalPoints,
-          userid: "",
-        }),
-      });
+      if (this.totalPoints > 0) {
+        fetch("http://localhost:5000/api/leaderboard/quiz/add", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            name: this.playerName,
+            points: this.totalPoints,
+            userid: "",
+          }),
+        });
+      }
     },
   },
 };

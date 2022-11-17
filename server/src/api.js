@@ -19,5 +19,5 @@ module.exports = (app) => {
   app.use("/api/pet", petRoute);                  /* pet routing middleware         */
   app.use("/api/company", companyRoute);          /* company routing middleware     */
   app.use("/api/prenotation", prenotationRoute);  /* prenotation routing middleware */
-  app.use("/api/leaderbord", leaderboardRoute);   /* prenotation routing middleware */
+  app.use("/api/leaderboard", leaderboardRoute);   /* prenotation routing middleware */
 };

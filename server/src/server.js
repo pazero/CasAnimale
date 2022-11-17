@@ -3,11 +3,16 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 // imports the .env file
-require("dotenv").config(); 
+require("dotenv").config();
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: "*" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["*", "http://localhost:5173", "http://localhost:3000"],
+  })
+);
 app.use(express.json());
 app.use(express.static(__dirname + "/back-office"));
 

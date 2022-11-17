@@ -82,10 +82,10 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/");
+                      navigate("/boards");
                     }}
                   >
-                    Leaderbord
+                    Leaderboard
                   </button>
                 </li>
                 <li>
@@ -175,10 +175,10 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/boards");
                   }}
                 >
-                  Leaderbord
+                  Leaderboard
                 </button>
               </li>
               <li>

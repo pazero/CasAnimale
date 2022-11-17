@@ -333,7 +333,7 @@ export default {
     },
 
     sendResult() {
-      fetch("http://localhost:5000/api/leaderbord/hangman/add", {
+      fetch("http://localhost:5000/api/leaderboard/hangman/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
