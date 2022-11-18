@@ -2,8 +2,6 @@ const express = require("express");
 const Pet = require("../models/Pet");
 const jwt = require("../services/jwrUtils");
 const router = express.Router();
-//import Cookies from "js-cookie";
-//const token = Cookies.get("token");
 
 /* Get all pet list */
 router.get("", async (req, res) => {
@@ -28,19 +26,19 @@ router.get("/:id", async (req, res) => {
 /* Create a new pet */
 router.put("/newPet", async (req, res) => {
   try {
-    //jwt.authenticateToken(req, res, cont);
+    jwt.authenticateToken(req, res, cont);
 
-    //async function cont() {
+    async function cont() {
       const pet = new Pet({
         name: req.body.name,
         species: req.body.species,
         breed: req.body.breed,
-        owner: req.body.owner, // id of user
+        owner: req.userid, // id of user
         birth: req.body.birth,
       });
       await pet.save();
-      res.json({ message: "New pet created!" });
-    //}
+      res.json({ message: "Pet added succesfully!" });
+    }
   } catch (e) {
     res.json({ message: e });
   }

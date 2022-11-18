@@ -9,7 +9,6 @@ const userSchema = new Schema({
   email: String,
   password: String,
   favanimal: [String],
-  petOwned: [String],
   cart: [{ id: String, quantity: Number }], // product's id and quantity
 });
 

@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import UserManage from "../services/UserManage";
 import PetManage from "../services/PetManage";
-import { Box, Heading, Text, HStack, Container } from "@chakra-ui/react";
+import { Box, Heading, Text, Container } from "@chakra-ui/react";
 
 const PetsList = () => {
-  const [pets, setPetList] = useState([]);
-  const [isPetEmpty, setIsPetEmpty] = useState(true);
+  const [petsList, setPetList] = useState([]);
+  const [isPetEmpty, setIsPetEmpty] = useState();
 
   useEffect(() => {
     async function fetchData() {
-      const ret = await UserManage.getUser();
-      const pet = ret.data.pet;
+      const ret = await PetManage.getPets();
+      const ptList = ret.data;
       setPetList(
         await Promise.all(
-          pet.map(async (item) => {
-            const { data: prod } = await PetManage.getPet(item.id);
-            setIsPetEmpty(false);
+          ptList.map((item) => {    // item = pet
+            console.log(item);
+            setIsPetEmpty(true);
             return {
               ...item,
-              prod,
             };
           })
         )
@@ -29,10 +27,10 @@ const PetsList = () => {
 
   return (
     <Container maxW="100%">
-      <Container maxW={"7xl"} p="12" pt="0">
-        <Heading as="h1">Pets</Heading>
+      <Container maxW={"7xl"} p="15" pt="10" mt="4">
+        <Heading as="h1">Your pets</Heading>
         <Text>
-          {pets.map((item, i) => (
+          {petsList.map((item, i) => (
             <Box
               key = {i}
               marginTop={{ base: "1", sm: "5" }}
@@ -58,14 +56,20 @@ const PetsList = () => {
                   backgroundColor="gray.50"
                   borderRadius="md"
                 >
-                  <Heading marginTop="1">
+                  <Heading as="h2" marginTop="1">
                     <div>{item.name}</div>
                   </Heading>
                   <Text as="p" marginTop="2" fontSize="lg">
                     <ul>
                       <li>Species: {item.species}</li>
                       <li>Breed: {item.breed}</li>
-                      <li>Birth: {item.birth}</li>
+                      <li>Birth: {item.birth
+                                  ? item.birth.substring(5, 7) +
+                                  "/" +
+                                  item.birth.substring(8, 10) +
+                                  "/" +
+                                  item.birth.substring(0, 4)
+                                    : item.birth}</li>
                     </ul>
                   </Text>
                 </Box>
@@ -75,7 +79,7 @@ const PetsList = () => {
         </Text>
         {isPetEmpty ? null : (
           <Text>
-            No animals founded!
+            No animals founded, add one!
           </Text>
         )}
       </Container>

@@ -1,6 +1,6 @@
 import Api from "./Api.js";
 
-const BASE = "pets/";
+const BASE = "pet/";
 
 const Authentication = {
   // if data is empty, return all pets
