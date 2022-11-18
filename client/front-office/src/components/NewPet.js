@@ -51,7 +51,7 @@ const NewPet = () => {
                     <span className="label-text">Species</span>
                   </label>
                   <select id="spc" className="input input-bordered" name="spc" onChange={(e) => setSpecies(e.target.value)}>
-                    <option disabled={true} selected value="">
+                    <option disabled={true} defaultValue="">
                       --Choose and option--
                     </option>
                     <option value="dog">dog</option>
