@@ -1,15 +1,49 @@
 <template class="antialiased text-gray-700 bg-gray-100">
-  <div>
+  <div class="">
     <div v-if="!fetchDone">
-      <button
-        v-if="!fetchDone"
-        type="button"
-        id="get-quiz"
-        @click="getQuestion"
-        class="getQuizButton"
+      <div
+        class="flex flex-col items-center justify-center h-[calc(100vh-4rem)] m-2"
       >
-        Get some questions!
-      </button>
+        <div v-if="!isLoggedIn()">
+          <label
+            for="questions"
+            class="block mb-3 text-sm font-medium text-gray-900 dark:text-white"
+            >Name</label
+          >
+          <input
+            @change="(event) => (playerName = event.target.value)"
+            type="text"
+            id="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            for="questions"
+            class="block mt-3 text-sm font-medium text-gray-900 dark:text-white"
+            >Number of questions</label
+          >
+          <input
+            @input="(event) => (count = event.target.value)"
+            type="number"
+            min="1"
+            max="20"
+            id="question"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="5"
+            default="5"
+          />
+        </div>
+        <button
+          class="btn btn-primary mt-3"
+          v-if="!fetchDone"
+          type="button"
+          id="get-quiz"
+          @click="getQuestion"
+        >
+          Get some questions!
+        </button>
+      </div>
     </div>
     <div v-else class="flex w-full h-screen justify-center items-center">
       <div class="w-full max-w-xl p-3">
@@ -75,6 +109,12 @@
                   wrongAnswers
                 }}</span>
               </p>
+              <p>
+                Points:
+                <span class="text-2xl text-blue-700 font-bold">{{
+                  totalPoints
+                }}</span>
+              </p>
             </div>
             <div class="mt-6 flow-root">
               <button
@@ -95,6 +135,10 @@
 export default {
   data() {
     return {
+      playerName: "",
+      timer: "",
+      token: "",
+      totalPoints: 0,
       fetchDone: false,
       idx: 0,
       selectedAnswer: "",
@@ -102,36 +146,20 @@ export default {
       wrongAnswers: 0,
       count: 5,
       difficulty: "easy",
-      questions: [
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-      ],
+      questions: [],
     };
   },
   methods: {
+    isLoggedIn() {
+      let name = "token";
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        this.token = parts.pop().split(";").shift();
+        return true;
+      } 
+      return false;
+    },
     async getQuestion() {
       // get questions for quiz
       await fetch(
@@ -143,49 +171,30 @@ export default {
           if (response.ok) {
             return response.json();
           } else {
-            alert(
-              "Server returned " + response.status + " : " + response.statusText
+            console.log(
+              "Status " + response.status + " : " + response.statusText
             );
           }
         })
         .then((response) => {
-          console.log(response.results);
+          this.resetQuiz();
           //adjust every question
           for (let i = 0; i < this.count; i++) {
             let q = response.results[i];
             this.questions[i].question = q.question; // set questions
-            switch (Math.floor(Math.random() * 4)) {
-              case 0:
-                this.questions[i].answers[0] = q.correct_answer;
-                this.questions[i].answers[1] = q.incorrect_answers.shift();
-                this.questions[i].answers[2] = q.incorrect_answers.shift();
-                this.questions[i].answers[3] = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = 0;
-                break;
-              case 1:
-                this.questions[i].answers[0] = q.incorrect_answers.shift();
-                this.questions[i].answers[1] = q.correct_answer;
-                this.questions[i].answers[2] = q.incorrect_answers.shift();
-                this.questions[i].answers[3] = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = 1;
-                break;
-              case 2:
-                this.questions[i].answers[0] = q.incorrect_answers.shift();
-                this.questions[i].answers[1] = q.incorrect_answers.shift();
-                this.questions[i].answers[2] = q.correct_answer;
-                this.questions[i].answers[3] = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = 2;
-                break;
-              case 3:
-                this.questions[i].answers[0] = q.incorrect_answers.shift();
-                this.questions[i].answers[1] = q.incorrect_answers.shift();
-                this.questions[i].answers[2] = q.incorrect_answers.shift();
-                this.questions[i].answers[3] = q.correct_answer;
-                this.questions[i].correctAnswer = 3;
-                break;
+            let correctQuestionIndex = Math.floor(Math.random() * 4);
+
+            this.questions[i].correctAnswer = correctQuestionIndex;
+            this.questions[i].answers[correctQuestionIndex] = q.correct_answer;
+            for (let j = 0; j < 4; j++) {
+              if (j != correctQuestionIndex) {
+                this.questions[i].answers[j] = q.incorrect_answers.shift();
+              }
             }
           }
           this.fetchDone = true;
+          let time = new Date();
+          this.timer = time.getTime();
         })
         .catch((err) => {
           console.log(err);
@@ -198,12 +207,17 @@ export default {
       ].style.backgroundColor = "lightgreen";
       if (this.selectedAnswer == this.questions[this.idx].correctAnswer) {
         this.correctAnswers++;
+        // calcolo il punteggio
+        let time = new Date();
+        var time_passed = time.getTime() - this.timer;
+        this.totalPoints += Math.round(100000000 / time_passed);
       } else {
         this.wrongAnswers++;
       }
     },
     nextQuestion() {
-      //this.$refs.items[this.selectedAnswer].style.backgroundColor = '' // non serve
+      let time = new Date();
+      this.timer = time.getTime();
       this.$refs.items[
         this.questions[this.idx].correctAnswer
       ].style.backgroundColor = "";
@@ -213,62 +227,42 @@ export default {
     },
     showResults() {
       this.idx++;
+      this.sendResult();
     },
     resetQuiz() {
       this.idx = 0;
       this.selectedAnswer = "";
       this.correctAnswers = 0;
       this.wrongAnswers = 0;
-      this.questions = [
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-        {
-          question: "",
-          answers: { 0: "", 1: "", 2: "", 3: "" },
-          correctAnswer: "",
-        },
-      ];
       this.fetchDone = false;
+      this.questions = [];
+      for (let i = 0; i < this.count; i++) {
+        this.questions.push({
+          question: "",
+          answers: { 0: "", 1: "", 2: "", 3: "" },
+          correctAnswer: "",
+        });
+      }
+    },
+    sendResult() {
+      if (this.totalPoints > 0) {
+        fetch("http://localhost:5000/api/leaderboard/quiz/add", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            name: this.playerName,
+            points: this.totalPoints,
+            token: this.token,
+          }),
+        });
+      }
     },
   },
 };
 </script>
 
-<style>
-.getQuizButton {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background-color: #4338ca;
-  border-radius: 25px;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-}
-</style>
+<style></style>

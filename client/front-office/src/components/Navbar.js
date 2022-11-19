@@ -77,11 +77,12 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
-                            navigate("/");
-                          }}
+                  <button
+                    onClick={() => {
+                      navigate("/boards");
+                    }}
                   >
-                    Leaderbord
+                    Leaderboard
                   </button>
                 </li>
                 <li>
@@ -162,11 +163,12 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => {
-                          navigate("/");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/boards");
+                  }}
                 >
-                  Leaderbord
+                  Leaderboard
                 </button>
               </li>
               <li>

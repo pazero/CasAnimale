@@ -4,26 +4,33 @@ console.log("Ciao dalla console!");
 const games = [
   {
     id: 1,
-    name: 'Quiz about animals',
-    href: 'quiz',
-    imageSrc: 'quiz.png',
-    imageAlt: 'quiz word icon',
+    name: "Quiz about animals",
+    href: "quiz",
+    imageSrc: "quiz.png",
+    imageAlt: "quiz word icon",
   },
   {
     id: 2,
-    name: 'Hangman',
-    href: 'hangman',
-    imageSrc: 'hangman.png',
-    imageAlt: 'hangman game icon',
+    name: "Hangman",
+    href: "hangman",
+    imageSrc: "hangman.png",
+    imageAlt: "hangman game icon",
   },
   {
     id: 3,
-    name: 'Video divertenti',
-    href: 'videos',
-    imageSrc: 'https://pixy.org/src/80/806433.jpg',
-    imageAlt: 'funny video img',
+    name: "Funny Videos",
+    href: "videos",
+    imageSrc: "https://pixy.org/src/80/806433.jpg",
+    imageAlt: "funny video img",
   },
-]
+  {
+    id: 4,
+    name: "Interesting Facts",
+    href: "facts",
+    imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
+    imageAlt: "interesting facts img",
+  },
+];
 
 const adsLeft = [
   { name: 'First - site', href: 'http://localhost:3000', bg:'bg-black', current: false},
@@ -62,12 +69,26 @@ const adsRight = [
       <div class="flex xl:flex-col xl:h-full flex-row text-white" style="flex:1 1 auto; min-width: 15%; min-width: 15%">
         <a v-for="item in adsRight" :key="item.name" :href="item.href" :class="[item.bg,'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium']" :style="[item.height,'border-radius:0',,'flex-grow:1']" :aria-current="undefined">{{ item.name }}</a>
       </div>
+
+
+    <!-- <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
+      <a
+        v-for="item in adsLeft"
+        :key="item.name"
+        :href="item.href"
+        :class="[
+          item.bg,
+          'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium',
+        ]"
+        :style="[item.height, 'border-radius:0']"
+        :aria-current="undefined"
+        >{{ item.name }}</a
+      >
+    </div> -->
   </div>
 </template>
 
-<style scoped>
-</style>
-
+<style scoped></style>
 
 <!--
   - applicazione a se stante

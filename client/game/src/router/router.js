@@ -3,6 +3,7 @@ import HomePage from "../views/HomePage.vue";
 import QuizItem from "../components/QuizItem.vue";
 import HangmanItem from "../components/HangmanItem.vue";
 import FunnyVideo from "../components/FunnyVideo.vue";
+import Facts from "../components/Facts.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/videos",
       name: "video",
       component: FunnyVideo,
+    },
+    {
+      path: "/facts",
+      name: "facts",
+      component: Facts,
     },
   ],
 });

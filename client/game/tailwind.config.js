@@ -4,7 +4,13 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx,vue}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {  /** portebbero servire */
+        homebg: "url('#')",
+        quizbg: "url('quiz.png')",
+        hangmanbg: "url('hangman.png')", 
+      },
+    },
   },
   plugins: [],
 }/** @type {import('tailwindcss').Config} */
@@ -16,5 +22,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }

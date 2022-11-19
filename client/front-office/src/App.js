@@ -7,6 +7,9 @@ import ProfilePets from "./views/ProfilePets";
 import Login from "./components/Login";
 import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
+import Leaderboard from "./views/Leaderboard";
+import SingleVet from "./views/singleVet";
+import BookVetVisit from "./views/bookVetVisit";
 import Cart from "./views/Cart";
 import CompanyList from "./views/CompanyList";
 
@@ -27,6 +30,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/vet" element={<CompanyList type="vet" />} />
           <Route path="/petsitter" element={<CompanyList type="petsitter" />} />
+          <Route path="/boards" element={<Leaderboard />} />
         </Routes>
       </Router>
     </>
