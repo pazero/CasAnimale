@@ -23,8 +23,8 @@ const navigation = [
         </div>
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex flex-shrink-0 items-center">
-            <a href="http://localhost:5173/" className="place-content-center py-2 block h-8 w-auto lg:hidden btn btn-ghost normal-case text-xl" >CasAnimale - Games</a>
-            <a href="http://localhost:5173/" className="place-content-center py-2 hidden h-8 w-auto lg:block btn btn-ghost normal-case text-xl" >CasAnimale - Games</a>
+            <a href="http://localhost:5173/" className="place-content-center block h-8 w-auto lg:hidden btn btn-ghost normal-case text-xl" >CasAnimale - Games</a>
+            <a href="http://localhost:5173/" className="place-content-center hidden h-8 w-auto lg:block btn btn-ghost normal-case text-xl" >CasAnimale - Games</a>
           </div>
           <div class="hidden sm:ml-6 sm:block py-2">
             <div class="flex space-x-4">
