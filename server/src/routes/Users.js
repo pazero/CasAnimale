@@ -140,7 +140,6 @@ router.delete("/:id", async (req, res) => {
 /* Update user's personal datas */
 router.post("/update", async (req, res) => {
   try {
-    console.log("ciao",req)
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
