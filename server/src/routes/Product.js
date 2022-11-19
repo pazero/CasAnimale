@@ -25,14 +25,14 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Create a new product */
-router.put("/newProduct", async (req, res) => {
+router.put("/new", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
       const product = new Product({
         name: req.body.name,
-        image: "test.png", //todo: da implementare
+        photo: req.body.photo,
         description: req.body.description,
         price: req.body.price,
         quantity: req.body.quantity,
@@ -74,7 +74,7 @@ router.post("/update", async (req, res) => {
         { _id: req.body.prod_id }, // todo: attenzione, inserire prod_id nel body della richiesta
         {
           name: req.body.name,
-          image: req.body.image,
+          photo: req.body.photo,
           description: req.body.description,
           price: req.body.price,
           quantity: req.body.quantity,

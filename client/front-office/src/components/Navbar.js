@@ -37,7 +37,7 @@ const Navbar = () => {
               <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
-              <a href="#" className="justify-between">
+              <a href="/" className="justify-between">
                 Servizi
                 <svg
                   className="fill-current"
@@ -59,17 +59,19 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
-                            navigate("/");
-                          }}
+                  <button
+                    onClick={() => {
+                      navigate("/vet");
+                    }}
                   >
                     Vet
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
-                            navigate("/");
-                          }}
+                  <button
+                    onClick={() => {
+                      navigate("/petsitter");
+                    }}
                   >
                     PetSitter
                   </button>
@@ -142,17 +144,19 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => {
-                          navigate("/");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/vet");
+                  }}
                 >
                   Vet
                 </button>
               </li>
               <li>
-                <button onClick={() => {
-                          navigate("/");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/petsitter");
+                  }}
                 >
                   PetSitter
                 </button>
@@ -201,7 +205,7 @@ const Navbar = () => {
                 navigate("/cart");
               }}
             >
-              <TbShoppingCart class="block h-6 w-6" alt="cart icon" />
+              <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
             </label>
             
             <button className="btn btn-primary mr-2"
@@ -209,7 +213,7 @@ const Navbar = () => {
                 navigate("/profile");
               }}
             >
-              <TbUserCircle class="block h-6 w-6 mr-1" alt="user icon" />
+              <TbUserCircle className="block h-6 w-6 mr-1" alt="user icon" />
               Profile
             </button>
             <button className="btn btn-ghost" onClick={logout}>
@@ -222,11 +226,11 @@ const Navbar = () => {
                 navigate("/cart");
               }}
             >
-              <TbShoppingCart class="block h-6 w-6" alt="cart icon" />
+              <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
             </label>
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-primary m-2">
-                <TbUserCircle class="block h-6 w-6" alt="user icon" />
+                <TbUserCircle className="block h-6 w-6" alt="user icon" />
               </label>
               <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full">
                 <li>

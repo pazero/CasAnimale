@@ -5,13 +5,18 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/SidebarProfile";
 import Cookies from "js-cookie";
+import { Image } from "@chakra-ui/react";
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
 
-const Home = () => {
+const Profile = () => {
   const navigate = useNavigate();
   const [name, setName] = useState();
   const [actualName, setActualName] = useState();
   const [surname, setSurname] = useState();
   const [actualSurname, setActualSurname] = useState();
+  const [photo, setPhoto] = useState();
+  const [actualPhoto, setActualPhoto] = useState();
   const [birth, setBirth] = useState();
   const [actualBirth, setActualBirth] = useState();
   const [email, setEmail] = useState();
@@ -22,23 +27,34 @@ const Home = () => {
   const [actualFavanimal, setActualFavanimal] = useState();
   const token = Cookies.get("token");
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/");
-    }
+  const uploader = Uploader({
+    // Get production API keys from Upload.io
+    apiKey: "free",
   });
 
-  async function fetchData() {
-    await UserManage.getUser().then((res) => {
-      const user = res.data;
-      setActualName(user.name);
-      setActualSurname(user.surname);
-      setActualBirth(user.birth);
-      setActualEmail(user.email);
-      setActualPassword(user.password);
-      setActualFavanimal(user.favanimal);
-    });
-  }
+  const options = { multi: false };
+
+  useEffect(() => {
+    async function fetchData() {
+      await UserManage.getUser().then((res) => {
+        const user = res.data;
+        setActualName(user.name);
+        setActualSurname(user.surname);
+        setActualPhoto(user.photo);
+        setPhoto(user.photo);
+        setActualBirth(user.birth);
+        setActualEmail(user.email);
+        setActualPassword(user.password);
+        setActualFavanimal(user.favanimal);
+      });
+    }
+    if (!token) {
+      navigate("/");
+    } else {
+      fetchData();
+    }
+  }, [token, navigate]);
+
   async function resetData() {
     await UserManage.getUser().then((res) => {
       const user = res.data;
@@ -46,8 +62,8 @@ const Home = () => {
       setName(user.name);
       document.querySelector("#newSurname").value = user.surname;
       setSurname(user.surname);
-      //document.querySelector("#newBirth").value = (user.birth).substring(0,10);
-      //setBirth((user.birth).substring(0,10));
+      document.querySelector("#newBirth").value = actualBirth.substring(0, 10);
+      setBirth(user.birth);
       document.querySelector("#newEmail").value = user.email;
       setEmail(user.email);
       document.querySelector("#newPassword").value = user.password;
@@ -57,20 +73,20 @@ const Home = () => {
     });
   }
 
-  fetchData();
-
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     const msg = await UserManage.updateUser({
       name,
       surname,
+      photo,
       birth,
       email,
       password,
       favanimal,
     });
     alert(msg.data.message);
-  };
+    window.location.reload();
+  }
 
   return (
     <div
@@ -82,26 +98,32 @@ const Home = () => {
         maxHeight: "100%",
       }}
     >
-      <div className="flex flex-1" style={{ height: "4rem", maxHeight: "4rem" }}>
+      <div
+        className="flex flex-1"
+        style={{ height: "4rem", maxHeight: "4rem" }}
+      >
         <Navbar />
       </div>
-      
-      <div class="sm:hidden flex flex-col">
-        <div class="flex w-full justify-evenly">
+
+      <div className="sm:hidden flex flex-col">
+        <div className="flex w-full justify-evenly">
           <Sidebar />
         </div>
       </div>
 
-      <div class="sm:flex sm:static sm:inline-flex">
-        <div class="hidden sm:flex inline-block">
+      <div className="sm:flex sm:static sm:inline-flex">
+        <div className="hidden sm:flex inline-block">
           <Sidebar />
         </div>
 
-        <div className="sm:flex sm:flex-1 sm:inline-block" style={{ height: "auto" }}>
+        <div
+          className="sm:flex sm:flex-1 sm:inline-block"
+          style={{ height: "auto" }}
+        >
           <form
             className="flex flex-1"
             style={{ height: "auto" }}
-            onSubmit={handleSubmit}
+            // onSubmit={handleSubmit}
           >
             <div
               className="overflow-hidden bg-white shadow"
@@ -120,6 +142,55 @@ const Home = () => {
               </div>
               <div className="border-t border-gray-200">
                 <dl>
+                  <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                    <dt className="text-lg font-medium text-gray-500">Photo</dt>
+                    <dd className="text-lg text-gray-900 col-span-2 mt-0">
+                      <Image
+                        hidden={false}
+                        src={actualPhoto}
+                        borderRadius="full"
+                        className="actualInfo"
+                        boxSize="150px"
+                        alt="propic"
+                      />
+
+                      <UploadButton
+                        uploader={uploader} // Required.
+                        options={options} // Optional.
+                        onComplete={(files) => {
+                          // Optional.
+                          if (files.length === 0) {
+                            console.log("No files selected.");
+                          } else {
+                            console.log("Files uploaded:");
+                            console.log(files.map((f) => setPhoto(f.fileUrl)));
+                          }
+                        }}
+                      >
+                        {({ onClick }) => (
+                          <div className="flex flex-1">
+                            <button
+                              hidden={true}
+                              className="changeInfo"
+                              onClick={onClick}
+                            >
+                              <Image
+                                id="newPhoto"
+                                hidden={true}
+                                src={photo}
+                                borderRadius="full"
+                                className="changeInfo"
+                                boxSize="150px"
+                                alt="propic"
+                                opacity={"0.5"}
+                              />
+                            </button>
+                          </div>
+                        )}
+                      </UploadButton>
+                    </dd>
+                  </div>
+
                   <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
                     <dt className="text-lg font-medium text-gray-500">Name</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
@@ -139,7 +210,9 @@ const Home = () => {
                     </dd>
                   </div>
                   <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">Surname</dt>
+                    <dt className="text-lg font-medium text-gray-500">
+                      Surname
+                    </dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {actualSurname}
@@ -157,7 +230,9 @@ const Home = () => {
                     </dd>
                   </div>
                   <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">Birthday</dt>
+                    <dt className="text-lg font-medium text-gray-500">
+                      Birthday
+                    </dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {actualBirth
@@ -168,12 +243,15 @@ const Home = () => {
                             actualBirth.substring(0, 4)
                           : actualBirth}
                       </span>
-                      <input hidden={true}
+                      <input
+                        hidden={true}
                         type="date"
                         name="new-birth"
                         id="newBirth"
                         defaultValue={
-                          actualBirth ? actualBirth.substring(0, 10) : actualBirth
+                          actualBirth
+                            ? actualBirth.substring(0, 10)
+                            : actualBirth
                         }
                         placeholder="Type your new birthday here"
                         style={{ fontSize: "98%", minHeight: "0px" }}
@@ -247,11 +325,8 @@ const Home = () => {
                   <button
                     hidden={true}
                     id="saveBtn"
-                    type="submit"
                     className="btn btn-primary"
-                    onClick={() => {
-                      window.location.reload();
-                    }}
+                    onClick={handleSubmit}
                   >
                     save
                   </button>
@@ -304,4 +379,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;

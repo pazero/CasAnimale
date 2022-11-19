@@ -13,7 +13,7 @@ const PetsList = () => {
       setPetList(
         await Promise.all(
           ptList.map((item) => {    // item = pet
-            console.log(item);
+            // console.log(item);
             setIsPetEmpty(true);
             return {
               ...item,

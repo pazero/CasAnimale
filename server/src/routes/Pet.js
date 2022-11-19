@@ -24,13 +24,14 @@ router.get("/:id", async (req, res) => {
 });
 
 /* Create a new pet */
-router.put("/newPet", async (req, res) => {
+router.put("/new", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
       const pet = new Pet({
         name: req.body.name,
+        photo: req.body.photo,
         species: req.body.species,
         breed: req.body.breed,
         owner: req.userid, // id of user
@@ -69,6 +70,7 @@ router.post("/update", async (req, res) => {
       { _id: req.body.pet_id },
       {
         name: req.body.name,
+        photo: req.body.photo,
         species: req.body.species,
         breed: req.body.breed,
         birth: req.body.birth,

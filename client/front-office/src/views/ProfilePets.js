@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import UserManage from "../services/UserManage";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/SidebarProfile";
 import PetsList from "../components/PetsList";
 import NewPet from "../components/NewPet";
-import Cookies from "js-cookie";
 
 const ProfilePets = () => {
   const [showModal, setShowModal] = useState(false);
-  const token = Cookies.get("token");
 
   return (
     <div data-theme="lemonade" className="flex h-screen flex-1" style={{ flexDirection: "column", justifyContent: "space-between", maxHeight: "100%"}} >
@@ -49,8 +45,8 @@ const ProfilePets = () => {
         <Navbar />
       </div>
 
-      <div class="hidden sm:flex static inline-flex">
-        <div class="inline-block">
+      <div className="hidden sm:flex static inline-flex">
+        <div className="inline-block">
           <Sidebar />
         </div>
 
@@ -61,8 +57,8 @@ const ProfilePets = () => {
         </div>
       </div>
 
-      <div class="sm:hidden flex flex-col">
-        <div class="flex w-full justify-evenly">
+      <div className="sm:hidden flex flex-col">
+        <div className="flex w-full justify-evenly">
           <Sidebar />
         </div>
 

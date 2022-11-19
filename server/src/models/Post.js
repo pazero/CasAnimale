@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const postSchema = new Schema({
   userid: String,
   title: String,
+  photo: String,
   description: String,
   date: Date,
   comments: [String], // id of another post

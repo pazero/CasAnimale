@@ -42,7 +42,7 @@ router.post("/restore", (req, res) => {
 });
 
 /* Get an user's information (with email and paswd) */
-router.get("/getUserInfo", async (req, res) => {
+router.get("/getInfo", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
@@ -63,6 +63,7 @@ router.get("/:id", async (req, res) => {
       _id: user._id,
       name: user.name,
       surname: user.surname,
+      photo: user.photo,
       favanimal: user.favanimal,
     });
   } catch (e) {
@@ -82,11 +83,14 @@ router.post("/cart/buy", async (req, res) => {
         const product = await Product.findById(item.id);
         const remain = product.quantity - item.quantity;
         if (remain <= 0) {
-          await Product.deleteOne({_id: item.id});
+          await Product.deleteOne({ _id: item.id });
         } else {
-          await Product.findOneAndUpdate(item.id, {
-            quantity: remain,
-          });
+          await Product.findOneAndUpdate(
+            { _id: item.id },
+            {
+              quantity: remain,
+            }
+          );
         }
       }
       await User.findOneAndUpdate(
@@ -95,7 +99,7 @@ router.post("/cart/buy", async (req, res) => {
           cart: [],
         }
       );
-      res.json({message:"You just boght everything"})
+      res.json({ message: "You just boght everything" });
     }
   } catch (e) {
     res.json({ message: e });
@@ -103,14 +107,16 @@ router.post("/cart/buy", async (req, res) => {
 });
 
 /* Create a new user */
-router.put("/newUser", async (req, res) => {
+router.put("/new", async (req, res) => {
   const user = new User({
     name: req.body.name,
     surname: req.body.surname,
+    photo: req.body.photo,
     birth: req.body.birth,
     email: req.body.email,
     password: req.body.password,
     favanimal: req.body.favanimal,
+    petOwned: req.body.petOwned,
     cart: [],
   });
   await user.save();
@@ -134,6 +140,7 @@ router.delete("/:id", async (req, res) => {
 /* Update user's personal datas */
 router.post("/update", async (req, res) => {
   try {
+    console.log("ciao",req)
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
@@ -142,6 +149,7 @@ router.post("/update", async (req, res) => {
         {
           name: req.body.name,
           surname: req.body.surname,
+          photo: req.body.photo,
           birth: req.body.birth,
           email: req.body.email,
           password: req.body.password,

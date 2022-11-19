@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Forum from "./views/Forum";
 import ECommerce from "./views/eCommerce";
 import Cart from "./views/Cart";
+import CompanyList from "./views/CompanyList";
 
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
           <Route path="/forum" element={<Forum />} />
           <Route path="/compra" element={<ECommerce />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/vet" element={<CompanyList type="vet" />} />
+          <Route path="/petsitter" element={<CompanyList type="petsitter" />} />
         </Routes>
       </Router>
     </>

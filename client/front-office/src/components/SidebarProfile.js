@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { TbFish, TbUserCircle } from 'react-icons/tb';
 
 
 export default function Sidebar() {
   return (
-    <div class="flex">
+    <div className="flex">
       <div className="hidden sm:flex">
         <div className="flex flex-col h-screen p-3 bg-white shadow w-60">
           <div className="space-y-3 m-2">
@@ -16,13 +15,13 @@ export default function Sidebar() {
               <ul className="pt-2 pb-4 space-y-1">
                 <li className="rounded-sm">
                   <a href="/profile" className="flex items-center p-2 space-x-3 rounded-md">
-                    <TbUserCircle class="block h-6 w-6" alt="user icon" />
+                    <TbUserCircle className="block h-6 w-6" alt="user icon" />
                     <span>Profile</span>
                   </a>
                 </li>
                 <li className="rounded-sm">
                   <a href="/profile/pets" className="flex items-center p-2 space-x-3 rounded-md">
-                    <TbFish class="block h-6 w-6" alt="fish icon" />
+                    <TbFish className="block h-6 w-6" alt="fish icon" />
                     <span>Your pets</span>
                   </a>
                 </li>
@@ -31,17 +30,17 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-      <div class="sm:hidden">
+      <div className="sm:hidden">
         <ul className="flex flex-row justify-items-stretch">
           <li className="rounded-sm m-4 mr-4">
             <a href="/profile" className="flex items-center space-x-3 rounded-md">
-              <TbUserCircle class="block h-6 w-6" alt="user icon" />
+              <TbUserCircle className="block h-6 w-6" alt="user icon" />
               <div>Profile</div>
             </a>
           </li>
           <li className="rounded-sm m-4 ml-4">
             <a href="/profile/pets" className="flex items-center space-x-3 rounded-md">
-              <TbFish class="block h-6 w-6" alt="fish icon" />
+              <TbFish className="block h-6 w-6" alt="fish icon" />
               <span>Your pets</span>
             </a>
           </li>

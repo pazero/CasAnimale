@@ -2,31 +2,23 @@ import Api from "./Api.js";
 
 const BASE = "pet/";
 
-const Authentication = {
-  // if data is empty, return all pets
+const PetManage = {
+  // if data is empty, return all users
   getPets(data) {
-    return data === undefined
-      ? Api().get(BASE)
-      : Api().get(
-        `${BASE}?${data.map((value, key) => {
-          return `${key}=${value}&`;
-        })}`
-      );
+    return Api().get(BASE, { params: data });
   },
   getPet(id) {
-    return id === undefined
-      ? Api().get(BASE + "getPetInfo")
-      : Api().get(BASE + id);
+    return Api().get(BASE + id);
   },
   newPet(data) {
-    return Api().put(BASE + "newPet", data);
+    return Api().put(BASE + "new", data);
   },
   deletePet(id) {
     return Api().delete(BASE + id);
   },
-  updatePet(data) {
-    return Api().post(BASE + "update", data);
+  updatePet(id, data) {
+    return Api().post(BASE + id, data);
   },
 };
 
-export default Authentication;
+export default PetManage;
