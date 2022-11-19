@@ -29,14 +29,16 @@ router.put("/new", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const product = new Product({
+      const pet = new Pet({
         name: req.body.name,
         photo: req.body.photo,
         species: req.body.species,
+        breed: req.body.breed,
         owner: req.userid, // id of user
+        birth: req.body.birth,
       });
-      await product.save();
-      res.json({ message: "New pet created!" });
+      await pet.save();
+      res.json({ message: "Pet added succesfully!" });
     }
   } catch (e) {
     res.json({ message: e });
@@ -70,7 +72,9 @@ router.post("/update", async (req, res) => {
         name: req.body.name,
         photo: req.body.photo,
         species: req.body.species,
-        owner: req.userid,
+        breed: req.body.breed,
+        birth: req.body.birth,
+        owner: req.body.owner,
       }
     );
     res.json(updatedPet);

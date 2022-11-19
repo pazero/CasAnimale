@@ -19,7 +19,6 @@ const Authentication = {
     return Api().delete(BASE + id);
   },
   updateUser(data) {
-    console.log("zioporco", data);
     return Api().post(BASE + "update", data);
   },
   login(credential) {
