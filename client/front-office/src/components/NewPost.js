@@ -7,7 +7,7 @@ import { UploadButton } from "react-uploader";
 const NewPost = () => {
   const sendData = async (data) => {
     data.preventDefault();
-    const msg = await PostManage.addPost({
+    const msg = await PostManage.newPost({
       title,
       photo,
       description,

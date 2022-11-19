@@ -10,7 +10,7 @@ const PostManage = {
   getPrenotation(id) {
     return Api().get(BASE + id);
   },
-  addPrenotation(data) {
+  newPrenotation(data) {
     return Api().put(BASE + "new", data);
   },
   deletePrenotation(id) {

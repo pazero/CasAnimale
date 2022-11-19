@@ -10,7 +10,7 @@ const PostManage = {
   getPost(id) {
     return Api().get(BASE + id);
   },
-  addPost(data) {
+  newPost(data) {
     return Api().put(BASE + "new", data);
   },
   deletePost(id) {

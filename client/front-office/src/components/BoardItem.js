@@ -38,7 +38,7 @@ const Board = () => {
           data.map(async (item) => {
             item.scores = await Promise.all(
               item.scores.map(async (d) => {
-                if (d.userid != "") {
+                if (d.userid !== "") {
                   var { data: user } = await UserManage.getUser(d.userid);
                   d["user"] = user;
                 }
@@ -71,7 +71,7 @@ const Board = () => {
                   var imgsrc =
                     "https://cdn1.iconfinder.com/data/icons/basic-ui-set-v5-user-outline/64/Account_profile_user_avatar_questions-128.png";
                   var name = score.name;
-                  if (score.userid != "") {
+                  if (score.userid !== "") {
                     imgsrc = score.user?.photo;
                     name = score.user?.name + " " + score.user?.surname;
                   }

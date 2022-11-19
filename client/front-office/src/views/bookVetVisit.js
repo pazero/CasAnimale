@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 const BookVetVisit = () => {
-    {/*const sendData = async (data) => {
+    /*const sendData = async (data) => {
     data.preventDefault();
     const msg = await PostManage.addPost({
       title,
@@ -13,7 +13,7 @@ const BookVetVisit = () => {
 
   const [title, setTitle] = useState([]);
   const [description, setDescription] = useState([]);
-    */}
+    */
   return (
     <div data-theme="lemonade" className="flex flex-1 justify-center">
       <div className=" hidden sm:flex flex-1 justify-center">

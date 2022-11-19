@@ -42,12 +42,12 @@ const navigation = [
           <div class="flex flex-shrink-0 items-center">
             <a
               href="http://localhost:5173/"
-              className="place-content-center py-2 block h-8 w-auto lg:hidden btn btn-ghost normal-case text-xl"
+              className="place-content-center py-2 block h-8 w-auto lg:hidden btn btn-ghost normal-case text-xl text-black"
               >CasAnimale - Games</a
             >
             <a
               href="http://localhost:5173/"
-              className="place-content-center py-2 hidden h-8 w-auto lg:block btn btn-ghost normal-case text-xl"
+              className="place-content-center py-2 hidden h-8 w-auto lg:block btn btn-ghost normal-case text-xl text-black"
               >CasAnimale - Games</a
             >
           </div>

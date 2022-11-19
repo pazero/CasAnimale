@@ -123,7 +123,6 @@ const Profile = () => {
           <form
             className="flex flex-1"
             style={{ height: "auto" }}
-            // onSubmit={handleSubmit}
           >
             <div
               className="overflow-hidden bg-white shadow"

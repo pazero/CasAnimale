@@ -10,7 +10,7 @@ const PostManage = {
   getCompany(id) {
     return Api().get(BASE + id);
   },
-  addCompany(data) {
+  newCompany(data) {
     return Api().put(BASE + "new", data);
   },
   deleteCompany(id) {
