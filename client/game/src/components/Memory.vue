@@ -28,10 +28,10 @@
         </button>
       </div>
     </div>
-    <div v-else class="flex w-full h-screen justify-center items-center">
+    <div v-else class="flex pt-2 w-full h-screen justify-center items-center h-[calc(100vh-5rem)]">
       <div
         v-if="start && !showResult"
-        class="p-4 grid grid-rows-3 grid-flow-col gap-4"
+        class="p-4 grid lg:grid-rows-3 md:grid-rows-6 sm:grid-rows-9 grid-flow-col gap-4"
       >
         <div v-for="data in animal_img">
           <img
@@ -43,7 +43,7 @@
           <img
             v-else
             v-bind:id="'img' + data.id"
-            class="box-content h-64 w-642 p-1 border-4"
+            class="box-content h-64 w-64 p-1 border-4"
             v-bind:src="data.img"
           />
         </div>
@@ -151,9 +151,10 @@ export default {
         (element) => (endGame = endGame & element.revealed)
       );
       if (endGame) {
-
         let time = new Date();
-        this.totalPoints = Math.round(100000000000000 / (time.getTime() - this.timer) );
+        this.totalPoints = Math.round(
+          100000000000000 / (time.getTime() - this.timer)
+        );
         this.showResult = true;
         this.sendData();
       }
@@ -203,7 +204,7 @@ export default {
       this.showResult = false;
       this.start = false;
       this.playerName = "";
-      this.animal_img= [];
+      this.animal_img = [];
       this.totalPoints = 0;
     },
   },
