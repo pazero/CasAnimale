@@ -35,6 +35,8 @@ UserDipendente =! UserNormale =! Affiliato
 	[ ] Modificare le proprie informazioni
 - GENERALI
 	[ ] "New post" e "New pet" popup non sono responsive
+	[ ] Controllare accessibilità
+	[ ] Portare il progetto su gocker
 
 TO DO:
 - MainComponents
@@ -47,10 +49,10 @@ TO DO:
 		[/] Curiosità miei/generali				|  form sul
 		[ ]	Info utili (sanitarie e legali)		| tuo animale
 		[x] Video buffi yt
-		[/] Quiz
-		[ ] Classifica (login)
+		[x] Quiz
+		[x] Classifica (login e non)
 		[/] Adv servizi offerti
-		[/] -fac- Memory / impiccato
+		[x] -fac- Memory / impiccato
 	- FRONT OFFICE
 		[x] Home page
 		[x] Login
@@ -59,14 +61,14 @@ TO DO:
 		[/] Poter inserire i propri pets e animali preferiti
 		[/] Recupero pass (da implementare api)
 		[/] eCommerce (manca: elinare prodotti in vendita, rendere possibile solo alle azienda di tipo seller di poter vendere)
-		[/] Bacheca "eccolo qua" (wip)      |	(Possibilità di cancellare un post)
-		[/] -fac- Bacheca "cerco partner"	| comunità
-		[/] Leadboard						|
+		[x] Bacheca "eccolo qua"            |
+		[ ] -fac- Bacheca "cerco partner"	| comunità
+		[x] Leadboard						|
 		[/] Veterinario			|
 		[/] Dog-sitter			| servizi in
 		[/] -fac- Toelettatura	|  presenza
 		[/] -fac- Psicologo		|
-		[ ] Gestione delle prenotazioni
+		[/] Gestione delle prenotazioni
 		[ ] -fac- Videochiamata		| servizi(o) online
 	- BACK OFFICE
 		[ ] Home page
@@ -77,7 +79,3 @@ TO DO:
 		[ ] -fac- Gestione servizi online
 - Database
 	[/] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
-	[ ] criptare le password per fare in modo che non siano in chiaro sul db
-- Altro
-	[ ] Inserire controlli sulla password e controlli sulle mail
-	[ ] API per pagina login per avere tutte le a
