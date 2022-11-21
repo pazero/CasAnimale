@@ -52,7 +52,7 @@ router.post("/:game/add", async (req, res) => {
       });
     }
 
-    await Leaderboard.findOneAndUpdate(game);
+    await Leaderboard.findOneAndUpdate({ _id: game._id }, game);
     res.json({ message: "Success!" });
   } catch (e) {
     res.json({ message: e });

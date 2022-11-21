@@ -30,6 +30,14 @@ const games = [
     imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
     imageAlt: "interesting facts img",
   },
+  {
+    id: 5,
+    name: "Memory",
+    href: "memory",
+    imageSrc:
+      "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
+    imageAlt: "memory img",
+  },
 ];
 
 const adsLeft = [

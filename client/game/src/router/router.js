@@ -4,6 +4,7 @@ import QuizItem from "../components/QuizItem.vue";
 import HangmanItem from "../components/HangmanItem.vue";
 import FunnyVideo from "../components/FunnyVideo.vue";
 import Facts from "../components/Facts.vue";
+import Memory from "../components/Memory.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/facts",
       name: "facts",
       component: Facts,
+    },
+    {
+      path: "/memory",
+      name: "memory",
+      component: Memory,
     },
   ],
 });
