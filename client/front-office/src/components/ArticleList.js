@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
 import PostManage from "../services/PostManage";
+import Post from "./Post";
 import NewPost from "./NewPost";
-import { Image, Box, Heading, Text, HStack, Container } from "@chakra-ui/react";
+import { Heading, Text, Container } from "@chakra-ui/react";
 
 const ArticleList = () => {
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const token = Cookies.get("token");
 
@@ -25,6 +27,9 @@ const ArticleList = () => {
           })
         )
       );
+
+      const { data: userData } = await UserManage.getUser();
+      setUser(userData);
     }
     fetchData();
   }, []);
@@ -73,56 +78,13 @@ const ArticleList = () => {
         </>
       ) : null}
 
-      <Container maxW={"7xl"} p="12" pt="0">
-        <Heading as="h1">Posts</Heading>
-        {posts.map((post /** post */) => (
-          <Box
-            key={post._id}
-            marginTop={{ base: "1", sm: "5" }}
-            display="flex"
-            flexDirection={{ base: "column", sm: "row" }}
-            justifyContent="space-between"
-          >
-            <Box
-              display="flex"
-              flex="1"
-              marginRight="3"
-              position="relative"
-              alignItems="center"
-            >
-              <Box
-                display="flex"
-                flex="1"
-                flexDirection="column"
-                justifyContent="center"
-                marginTop={{ base: "3", sm: "0" }}
-                padding="2"
-                paddingLeft="4"
-                backgroundColor="gray.50"
-                borderRadius="md"
-              >
-                <Heading marginTop="1">
-                  <div>{post.title}</div>
-                </Heading>
-                <Text as="p" marginTop="2" fontSize="lg">
-                  <div>{post.description}</div>
-                </Text>
-                <Image src={post.photo} boxSize="fill" />
-                <HStack
-                  marginTop="2"
-                  spacing="2"
-                  display="flex"
-                  alignItems="center"
-                >
-                  <Text fontWeight="medium">
-                    {post.author.name} {post.author.surname}
-                  </Text>
-                  <Text>—</Text>
-                  <Text>{post.date}</Text>
-                </HStack>
-              </Box>
-            </Box>
-          </Box>
+      <Container maxW={"4xl"} p="12" pt="0">
+        <Heading as="h1" className="mt-2">
+          Eccolo qua!
+        </Heading>
+        <Text className="text-lg">Here you can share you pet!</Text>
+        {posts.map((post) => (
+          <Post data={post} isUserLoggedPost={post.userid === user._id} />
         ))}
       </Container>
     </Container>

@@ -50,12 +50,8 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const removedPost = await Post.findById(req.params.id);
-      if (req.userid == removedPost.userid) {
-        // TODO da testare
-        const msg = await Post.deleteOne({ _id: req.params.id });
-        res.json(msg);
-      }
+      await Post.deleteOne({ _id: req.params.id });
+      res.json({ message: "Post removed succesfully" });
     }
   } catch (e) {
     res.json({ message: e });
