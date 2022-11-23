@@ -34,7 +34,7 @@ UserDipendente =! UserNormale =! Affiliato
 - COMPANY (veterinari, per-sitter, ... che lavorano attraverso casa animale)
 	[ ] Modificare le proprie informazioni
 - GENERALI
-	[ ] "New post" e "New pet" popup non sono responsive
+	[ ] Tutti i "New" popup non sono responsive
 	[ ] Controllare accessibilità
 	[ ] Portare il progetto su gocker
 
@@ -44,32 +44,33 @@ TO DO:
 	[/] Carosello (da finire con tutti i servizi)
 	[x] Footer
 - Pagine
-	- GAME
-		[/] Home page
-		[/] Curiosità miei/generali				|  form sul
-		[ ]	Info utili (sanitarie e legali)		| tuo animale
+	- GAME   -> renderlo responsive
+		[x] Home page
+		[x] Curiosità miei/generali				|  form sul
+		[ ]	Info utili (sanitarie e legali)		| tuo animale	-> baolo
+		[ ] Punteggio hagman 				  					-> geno
+		[/] Adv servizi offerti                					-> fede  
 		[x] Video buffi yt
 		[x] Quiz
 		[x] Classifica (login e non)
-		[/] Adv servizi offerti
-		[x] -fac- Memory / impiccato
+		[x] -fac- Memory  (usere v-show per le immagini) / impiccato
 	- FRONT OFFICE
 		[x] Home page
-		[x] Login
+		[x] Login						-> geno fix bug password
 		[x] Registrazione
-		[/] Login e registrazione di nuove aziende (manca frontend)
-		[/] Poter inserire i propri pets e animali preferiti
-		[/] Recupero pass (da implementare api)
-		[/] eCommerce (manca: elinare prodotti in vendita, rendere possibile solo alle azienda di tipo seller di poter vendere)
+		[x] Poter inserire i propri pets e animali preferiti	(eliminazione e foto degli pet, fe animali preferiti array) -> fede
+		[/] Login e registrazione di nuove aziende (manca frontend, pausa)
+		[/] Recupero pass (geno)
+		[/] eCommerce (manca: elinare prodotti in vendita, tag) (geno)
 		[x] Bacheca "eccolo qua"            |
-		[ ] -fac- Bacheca "cerco partner"	| comunità
-		[x] Leadboard						|
+		[x] Leadboard						| comunità
+		[ ] -fac- Bacheca "cerco partner"	| -> geno (non prioritario)
 		[/] Veterinario			|
-		[/] Dog-sitter			| servizi in
+		[/] Dog-sitter			| servizi in  -> paolo e geno
 		[/] -fac- Toelettatura	|  presenza
 		[/] -fac- Psicologo		|
 		[/] Gestione delle prenotazioni
-		[ ] -fac- Videochiamata		| servizi(o) online
+		[ ] -fac- Videochiamata		| servizi online
 	- BACK OFFICE
 		[ ] Home page
 		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
@@ -78,4 +79,4 @@ TO DO:
 		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
 		[ ] -fac- Gestione servizi online
 - Database
-	[/] Aggiungere api per sedi, prodotti, organizzazione temporale(?), fatturazione dei servizi(?)
+	[ ] Aggiungere api per fatturazione dei servizi(?)
