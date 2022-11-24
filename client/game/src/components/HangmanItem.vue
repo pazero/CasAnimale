@@ -15,6 +15,16 @@
             YOU WIN!
           </p>
           <div class="m-2">
+            <p class="m-2">
+              The word was:
+              <span class="text-xl text-blue-700 font-bold">{{ word }}</span>
+            </p>
+            <p class="m-2">
+              Points:
+              <span class="text-2xl text-blue-700 font-bold">{{
+                totalPoints
+              }}</span>
+            </p>
             <button
               type="button"
               class="btn m-2"
@@ -141,7 +151,7 @@
       </div>
 
       <!-- letters undescore -->
-      <div class="mt-2">
+      <div class="mt-2 pb-2">
         <div
           class="letter"
           v-for="(letter, index) in wordDisplayLetters"
@@ -186,9 +196,22 @@
         </div>
       </template>
 
+      <div v-if="!isLoggedIn() && !start" class="flex flex-col m-auto pt-4">
+        <label
+          for="questions"
+          class="block mb-3 text-sm font-medium text-gray-900"
+          >Name</label
+        >
+        <input
+          @change="(event) => (playerName = event.target.value)"
+          type="text"
+          id="name"
+          class="mx-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
       <button
         type="button"
-        class="btn m-2"
+        class="btn m-2 mx-auto"
         @click="initialize()"
         aria-label="newGame"
         style="display: inline-block"
@@ -205,8 +228,11 @@ export default {
   name: "hangman",
   data: function () {
     return {
+      start: false,
       playerName: "",
+      token: "",
       totalPoints: 0,
+      timer: 0,
       strikes: 0,
       word: "HANGMAN",
       wordLetters: ["H", "A", "N", "G", "M", "A", "N"],
@@ -230,7 +256,7 @@ export default {
         "COBRA",
         "PYTHON",
         "MONKEY",
-        "SUIRREL",
+        "SQUIRREL",
         "ARMADILLO",
         "LADYBUG",
         "PIG",
@@ -265,9 +291,11 @@ export default {
   },
   methods: {
     initialize() {
+      this.totalPoints = 0;
       this.initialized = true;
       this.strikes = 0;
       this.word = this.getRandomWord();
+      // console.log(this.word); //debug purpos, uncomment on needs
       this.wordLetters = this.word.split("");
       this.wordDisplayLetters = Array(this.word.length);
       this.usedLetters = [];
@@ -275,6 +303,9 @@ export default {
       this.end = false;
       this.gameOver = false;
       this.win = false;
+      this.start = true;
+      let time = new Date();
+      this.timer = time.getTime();
     },
     getRandomWord() {
       let index = Math.random() * (this.wordBank.length - 0);
@@ -284,6 +315,16 @@ export default {
       this.wordBank.splice(index, 1); // remove the word so it won't be repeated
 
       return word;
+    },
+    isLoggedIn() {
+      let name = "token";
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        this.token = parts.pop().split(";").shift();
+        return true;
+      }
+      return false;
     },
     tryLetter(letter) {
       if (this.usedLetters.includes(letter)) {
@@ -310,8 +351,15 @@ export default {
       } else {
         if (this.taken == this.wordLetters.length) {
           this.win = true;
+          // word points
+          this.totalPoints += Math.round(this.word.length * 100);
+          console.log(this.totalPoints)
+          // time points
+          let now = new Date();
+          this.totalPoints += Math.round(10000000 / (now.getTime() - this.timer));
           this.wait(1000);
           this.end = true;
+          this.sendResult();
         }
       }
     },
@@ -333,18 +381,21 @@ export default {
     },
 
     sendResult() {
-      fetch("http://localhost:5000/api/leaderboard/hangman/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          name: this.playerName,
-          points: this.totalPoints,
-          userid: "",
-        }),
-      });
+      if (this.totalPoints > 0) {
+        fetch("http://localhost:5000/api/leaderboard/hangman/add", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            name: this.playerName,
+            points: this.totalPoints,
+            token: this.token,
+          }),
+        });
+      }
     },
   },
 };
