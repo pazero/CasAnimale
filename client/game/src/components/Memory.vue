@@ -1,10 +1,10 @@
 <template>
   <div id="memory" class="">
-    <div v-if="!fetchDone && !start">
+    <div v-show="!fetchDone && !start">
       <div
         class="flex flex-col items-center justify-center h-[calc(100vh-4rem)] m-2"
       >
-        <div v-if="!isLoggedIn()">
+        <div v-show="!isLoggedIn()">
           <label
             for="questions"
             class="block mb-3 text-sm font-medium text-gray-900 dark:text-white"
@@ -19,7 +19,7 @@
         </div>
         <button
           class="btn btn-primary mt-3"
-          v-if="!fetchDone"
+          v-show="!fetchDone"
           type="button"
           id="get-quiz"
           @click="showMemory"
@@ -28,20 +28,20 @@
         </button>
       </div>
     </div>
-    <div v-else class="flex pt-2 w-full h-screen justify-center items-center h-[calc(100vh-5rem)]">
+    <div v-show="start" class="flex pt-2 w-full h-screen justify-center items-center h-[calc(100vh-5rem)]">
       <div
-        v-if="start && !showResult"
+        v-show="start && !showResult"
         class="p-4 grid lg:grid-rows-3 md:grid-rows-6 sm:grid-rows-9 grid-flow-col gap-4"
       >
         <div v-for="data in animal_img">
           <img
-            v-if="!data.revealed"
+            v-show="!data.revealed"
             class="box-content h-64 w-64 p-1 border-4"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Color_icon_green.svg/800px-Color_icon_green.svg.png"
             @click="reveal(data)"
           />
           <img
-            v-else
+            v-show="data.revealed"
             v-bind:id="'img' + data.id"
             class="box-content h-64 w-64 p-1 border-4"
             v-bind:src="data.img"
@@ -50,7 +50,7 @@
       </div>
       <div
         class="justify-center items-center bg-white p-12 rounded-lg shadow-lg w-64 mt-8"
-        v-if="showResult"
+        v-show="showResult"
       >
         <h2 class="text-bold text-black text-3xl">Results</h2>
         <div class="flex justify-start space-x-4 mt-6">
@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       playerName: "",
+      totalPoints: 0,
       token: "",
       timer: 0,
       animal_img: [],
@@ -153,7 +154,7 @@ export default {
       if (endGame) {
         let time = new Date();
         this.totalPoints = Math.round(
-          100000000000000 / (time.getTime() - this.timer)
+          100000000 / (time.getTime() - this.timer)
         );
         this.showResult = true;
         this.sendData();
