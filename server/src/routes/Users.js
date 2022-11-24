@@ -16,21 +16,31 @@ router.get("", async (req, res) => {
 
 /* Login user */
 router.post("/login", async (req, res) => {
-  const user = await User.find(req.body);
-  if (
-    user &&
-    Object.keys(user).length !== 0 &&
-    Object.getPrototypeOf(user) !== Object.prototype
-  ) {
-    const token = jwt.generateAccessToken({ id: user[0]._id });
-    res.json({
-      message: `Login of ${req.body.email} done!`,
-      token: `${token}`,
-    });
-  } else {
-    res.json({
-      message: `Wrong mail or password.`,
-    });
+  try {
+    if (req.body.email && req.body.password) {
+      const user = await User.find(req.body);
+      if (
+        user &&
+        Object.keys(user).length !== 0 &&
+        Object.getPrototypeOf(user) !== Object.prototype
+      ) {
+        const token = jwt.generateAccessToken({ id: user[0]._id });
+        res.json({
+          message: `Login of ${req.body.email} done!`,
+          token: `${token}`,
+        });
+      } else {
+        res.json({
+          message: `Wrong mail or password.`,
+        });
+      }
+    } else {
+      res.json({
+        message: `You must enter a password or an email`,
+      });
+    }
+  } catch (e) {
+    console.log(e);
   }
 });
 

@@ -21,9 +21,11 @@ const Navbar = () => {
       email,
       password,
     });
-    if (msg.data.token) Cookies.set("token", msg.data.token, { expires: 3600 });
     alert(msg.data.message);
-    navigate("/");
+    if (msg.data.token) {
+      Cookies.set("token", msg.data.token, { expires: 3600 });
+      navigate("/");
+    }
   };
 
   return (
