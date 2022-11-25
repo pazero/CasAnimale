@@ -28,8 +28,10 @@ const CartItem = () => {
         await Promise.all(
           cart.map(async (item) => {
             const { data: prod } = await ProductManage.getProduct(item.id);
-            setTotal((total) => total + prod.price * item.quantity);
-            setIsCartEmpty(false);
+            if (prod) {
+              setTotal((total) => total + prod.price * item.quantity);
+              setIsCartEmpty(false);
+            }
             return {
               ...item,
               prod,
@@ -57,11 +59,16 @@ const CartItem = () => {
             className="m-2 rounded"
             backgroundColor={"lightgreen"}
           >
-            <div className="font-bold">{item.prod.name}</div>
+            <div className="font-bold">{item.prod?.name}</div>
             <div>Quantità: {item.quantity}</div>
-            <div>Costo al pezzo {item.prod.price}</div>
-            <div>Costo totale: {item.prod.price * item.quantity} </div>
-            <Button colorScheme="red" onClick={() => deleteProductFromCart(item.id)}>Elimina</Button>
+            <div>Costo al pezzo {item.prod?.price}</div>
+            <div>Costo totale: {item.prod?.price * item.quantity} </div>
+            <Button
+              colorScheme="red"
+              onClick={() => deleteProductFromCart(item.id)}
+            >
+              Elimina
+            </Button>
           </Box>
         ))}
       </Text>

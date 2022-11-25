@@ -6,7 +6,7 @@ const ArticleList = (props) => {
   const deletePost = async () => {
     const { data: msg } = await PostManage.deletePost(props.data._id);
     alert(msg.message);
-    window.location.reload()
+    window.location.reload();
   };
 
   return (
@@ -41,7 +41,9 @@ const ArticleList = (props) => {
           <Text as="p" marginTop="2" fontSize="lg">
             <div>{props.data.description}</div>
           </Text>
-          {props.data?.photo ? <Image src={props.data?.photo} boxSize="fill" alt="post-img" /> : null}
+          {props.data?.photo ? (
+            <Image src={props.data?.photo} boxSize="fill" alt="post-img" />
+          ) : null}
           <HStack marginTop="2" spacing="2" display="flex" alignItems="center">
             <Text fontWeight="medium">
               Posted by:{" "}

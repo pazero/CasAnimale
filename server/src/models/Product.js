@@ -6,6 +6,7 @@ const productSchema = new Schema({
   name: String,
   photo: String,
   description: String,
+  tags: [String],
   price: String,
   quantity: Number,
   seller: String, // id of the user
