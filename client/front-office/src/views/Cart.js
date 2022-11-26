@@ -31,10 +31,10 @@ const Cart = () => {
       >
         <Navbar />
       </div>
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <CartList />
       </div>
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <Footer />
       </div>
     </div>

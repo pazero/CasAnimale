@@ -59,9 +59,9 @@ TO DO:
 		[x] Login
 		[x] Registrazione
 		[x] Poter inserire i propri pets e animali preferiti	(eliminazione e foto dei pet, fe animali preferiti array) -> fede
+		[x] eCommerce
 		[/] Recupero pass (geno)
 		[/] Login e registrazione di nuove aziende (manca frontend, pausa)
-		[/] eCommerce (filtri) (geno)
 		[x] Bacheca "eccolo qua"            |
 		[x] Leadboard						| comunità
 		[ ] -fac- Bacheca "cerco partner"	| -> geno (non prioritario)

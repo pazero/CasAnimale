@@ -13,12 +13,10 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
   Checkbox,
-  CheckboxGroup,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
@@ -44,10 +42,12 @@ const ECommerce = () => {
         });
         setAllProducts(res.data);
       });
-
-      const { data: userData } = await UserManage.getUser();
-      setUser(userData);
       setFilters(filt);
+
+      try {
+        const { data: userData } = await UserManage.getUser();
+        setUser(userData);
+      } catch {}
     }
     fetchData();
   }, []);
@@ -59,9 +59,9 @@ const ECommerce = () => {
   useEffect(() => {
     if (liveFilters) {
       const newlist = allProducts.filter((el) => {
-        var ret = false;
+        var ret = true;
         liveFilters.forEach((filter) => {
-          if (el.tags.indexOf(filter) != -1) ret = true;
+          if (el.tags.indexOf(filter) === -1) ret = false;
         });
         return ret;
       });
@@ -73,10 +73,10 @@ const ECommerce = () => {
   const setFiltersModal = (filterName) => {
     var isInList = false;
     liveFilters.forEach((el) => {
-      if (el == filterName) isInList = true;
+      if (el === filterName) isInList = true;
     });
     if (isInList) {
-      const newlist = liveFilters.filter((item) => item != filterName);
+      const newlist = liveFilters.filter((item) => item !== filterName);
       setLiveFilters(newlist);
     } else {
       setLiveFilters((last) => [...last, filterName]);
@@ -99,7 +99,7 @@ const ECommerce = () => {
       >
         <Navbar />
       </div>
-      
+
       <div className="flex m-2">
         {token ? (
           <Button
@@ -123,10 +123,10 @@ const ECommerce = () => {
           <ModalCloseButton />
           <ModalBody className="flex flex-col mb-2">
             Group every product by checking the thing that you want!
-            {Object.entries(filters).map((key, index) => {
+            {Object.entries(filters).map((key, i) => {
               return (
                 <Checkbox
-                  isChecked={liveFilters.indexOf(key[0]) != -1}
+                  isChecked={liveFilters.indexOf(key[0]) !== -1}
                   className={"checkbox-tag"}
                   colorScheme="red"
                   onChange={() => {
