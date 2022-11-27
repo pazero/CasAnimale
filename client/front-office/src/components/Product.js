@@ -31,12 +31,20 @@ const Product = (props) => {
   }
 
   return (
-    <Card className="m-2" maxW="sm" id={props.data._id}>
+    <Card
+      className="m-2"
+      maxW={{ sm: "sm", md: "sm", lg: "md", xl: "md", "2xl": "md" }}
+      id={props.data._id}
+    >
       <CardBody>
-        <Image src={props.data.photo} borderRadius="lg" />
-        <div className="">
+        <Image
+          boxSize={{ sm: "300px", md: "350px", lg: "400px", xl: "450px" }}
+          src={props.data.photo}
+          borderRadius="lg"
+        />
+        <div className="mt-2">
           {props.data.tags?.map((item) => (
-            <Tag className="mr-2 mt-2" size="lg" variant="solid" colorScheme="teal">
+            <Tag className="mr-2 " size="md" variant="solid" colorScheme="teal">
               {item}
             </Tag>
           ))}
@@ -67,10 +75,12 @@ const Product = (props) => {
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
-        <Button onClick={AddCart} colorScheme="twitter">Add to cart!</Button>
+        <Button className="mr-2" onClick={AddCart} colorScheme="twitter">
+          Add to cart!
+        </Button>
         {props.isUserLoggedPost ? (
-          <Button colorScheme="red" className="ml-2" onClick={deleteItem}>
-            Delete this item
+          <Button colorScheme="red" onClick={deleteItem}>
+            Delete
           </Button>
         ) : null}
       </CardFooter>

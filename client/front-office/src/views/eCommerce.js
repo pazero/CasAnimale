@@ -34,7 +34,9 @@ const ECommerce = () => {
     async function fetchData() {
       var filt = {};
       await ProdManage.getProducts().then((res) => {
+        // eslint-disable-next-line
         res.data.map((prod) => {
+          // eslint-disable-next-line
           prod.tags.map((el) => {
             if (filt[el]) filt[el] += 1;
             else filt[el] = 1;
@@ -68,6 +70,7 @@ const ECommerce = () => {
       setProducts(newlist);
     }
     if (liveFilters.length === 0) setProducts(allProducts);
+    // eslint-disable-next-line
   }, [liveFilters]);
 
   const setFiltersModal = (filterName) => {
@@ -172,7 +175,15 @@ const ECommerce = () => {
         </>
       ) : null}
 
-      <Grid templateColumns="repeat(4, 1fr)" gap={5}>
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          sm: "repeat(1, 1fr)",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(3, 1fr)",
+        }}
+        gap={2}
+      >
         {products.map((product) => (
           <Center>
             <Product
@@ -183,7 +194,7 @@ const ECommerce = () => {
         ))}
       </Grid>
 
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <Footer />
       </div>
     </div>

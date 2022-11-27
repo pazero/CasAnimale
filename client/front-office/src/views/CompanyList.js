@@ -33,7 +33,7 @@ const CompanyList = (props) => {
         <Navbar />
       </div>
 
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         {company.map((product) => (
           <CompanyShowcase
             name={product.name}
@@ -46,7 +46,7 @@ const CompanyList = (props) => {
         ))}
       </div>
 
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <Footer />
       </div>
     </div>

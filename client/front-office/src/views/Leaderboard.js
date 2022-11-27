@@ -20,10 +20,10 @@ const Leaderboard = () => {
       >
         <Navbar />
       </div>
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <Board />
       </div>
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <Footer />
       </div>
     </div>

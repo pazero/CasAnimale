@@ -57,11 +57,12 @@ const ArticleList = (props) => {
 
           {props.isUserLoggedPost ? (
             <Button
+            size="sm"
               colorScheme="red"
               className="m-auto mt-2"
               onClick={deletePost}
             >
-              Delete this post
+              Delete
             </Button>
           ) : null}
         </Box>
