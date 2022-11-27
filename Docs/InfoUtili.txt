@@ -37,6 +37,7 @@ UserDipendente =! UserNormale =! Affiliato
 	[ ] Tutti i "New" popup non sono responsive
 	[ ] Controllare accessibilità
 	[ ] Portare il progetto su gocker
+	[ ] Documentazione API con swagger
 
 TO DO:
 - MainComponents
@@ -53,14 +54,14 @@ TO DO:
 		[x] Quiz
 		[x] Classifica (login e non)
 		[x] -fac- Memory / impiccato
-	- FRONT OFFICE
+	- FRONT OFFICE                                              -> renderlo responsive e con style bello
 		[x] Home page
 		[x] Login
 		[x] Registrazione
 		[x] Poter inserire i propri pets e animali preferiti	(eliminazione e foto dei pet, fe animali preferiti array) -> fede
+		[x] eCommerce
 		[/] Recupero pass (geno)
 		[/] Login e registrazione di nuove aziende (manca frontend, pausa)
-		[/] eCommerce (manca: eliminare prodotti in vendita, tag) (geno)
 		[x] Bacheca "eccolo qua"            |
 		[x] Leadboard						| comunità
 		[ ] -fac- Bacheca "cerco partner"	| -> geno (non prioritario)

@@ -28,8 +28,10 @@ const CartItem = () => {
         await Promise.all(
           cart.map(async (item) => {
             const { data: prod } = await ProductManage.getProduct(item.id);
-            setTotal((total) => total + prod.price * item.quantity);
-            setIsCartEmpty(false);
+            if (prod) {
+              setTotal((total) => total + prod.price * item.quantity);
+              setIsCartEmpty(false);
+            }
             return {
               ...item,
               prod,
@@ -49,24 +51,29 @@ const CartItem = () => {
       backgroundColor={"lightblue"}
     >
       <Heading as="h1">Cart</Heading>
-      <Text>
-        {prodList.map((item, i) => (
-          <Box
-            key={i}
-            p="5"
-            className="m-2 rounded"
-            backgroundColor={"lightgreen"}
+      {prodList.map((item, i) => (
+        <Box
+          key={i}
+          p="5"
+          className="m-2 rounded"
+          backgroundColor={"lightgreen"}
+        >
+          <div className="font-bold">{item.prod?.name}</div>
+          <div>Quantità: {item.quantity}</div>
+          <div>Costo al pezzo {item.prod?.price}</div>
+          <div>Costo totale: {item.prod?.price * item.quantity} </div>
+          <Button
+            colorScheme="red"
+            onClick={() => deleteProductFromCart(item.id)}
           >
-            <div className="font-bold">{item.prod.name}</div>
-            <div>Quantità: {item.quantity}</div>
-            <div>Costo al pezzo {item.prod.price}</div>
-            <div>Costo totale: {item.prod.price * item.quantity} </div>
-            <Button colorScheme="red" onClick={() => deleteProductFromCart(item.id)}>Elimina</Button>
-          </Box>
-        ))}
-      </Text>
-      <Text>Prezzo totale: {total.toFixed(2)}</Text>
-      {isCartEmpty ? null : (
+            Elimina
+          </Button>
+        </Box>
+      ))}
+      {total > 0 ? <Text>Prezzo totale: {total.toFixed(2)}</Text> : null}
+      {isCartEmpty ? (
+        <Text>It seems empty here, go check our eCommerce service!</Text>
+      ) : (
         <Button colorScheme="blue" onClick={buy}>
           Compra!
         </Button>

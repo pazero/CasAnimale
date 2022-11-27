@@ -20,10 +20,10 @@ const Forum = () => {
       >
         <Navbar />
       </div>
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex flex-1">
         <Blog style={{ display: "flex", height: "100%" }} />
       </div>
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex">
         <Footer />
       </div>
     </div>

@@ -34,6 +34,7 @@ router.put("/new", async (req, res) => {
         name: req.body.name,
         photo: req.body.photo,
         description: req.body.description,
+        tags: req.body.tags,
         price: req.body.price,
         quantity: req.body.quantity,
         seller: req.userid,
@@ -52,12 +53,8 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const removedProd = await Product.findById(req.params.id);
-      if (req.userid == removedProd.seller) {
-        // TODO da testare
-        const msg = await Product.deleteOne(removedProd);
-        res.json(msg);
-      }
+      const msg = await Product.deleteOne({ _id: req.params.id });
+      res.json({ message: "Removed succesfully" });
     }
   } catch (e) {
     res.json({ message: e });
@@ -76,6 +73,7 @@ router.post("/update", async (req, res) => {
           name: req.body.name,
           photo: req.body.photo,
           description: req.body.description,
+          tags: req.body.tags,
           price: req.body.price,
           quantity: req.body.quantity,
           seller: req.body.seller,
@@ -95,11 +93,10 @@ router.post("/updateCart/:id/:quantity", async (req, res) => {
 
     async function cont() {
       var user = await User.find({ _id: req.userid });
-      var alreadyExist = false;
       user = user[0];
-      if (user.cart == undefined) {
-        user.cart = [];
-      }
+      var alreadyExist = false;
+      if (user.cart == undefined) user.cart = [];
+
       user.cart.forEach((value, i) => {
         if (value.id == req.params.id) {
           alreadyExist = true;
@@ -110,13 +107,15 @@ router.post("/updateCart/:id/:quantity", async (req, res) => {
           }
         }
       });
-      if (!alreadyExist && req.params.quantity != 0) {
+
+      if (!alreadyExist && req.params.quantity != 0)
         user.cart.push({ id: req.params.id, quantity: req.params.quantity });
-      }
+
       await User.findOneAndUpdate(
         { _id: req.userid }, // todo: attenzione, inserire prod_id nel body della richiesta
         { cart: user.cart }
       );
+
       res.json({ message: "Update done!" });
     }
   } catch (e) {
