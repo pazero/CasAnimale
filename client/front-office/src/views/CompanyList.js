@@ -6,7 +6,7 @@ import CompanyShowcase from "../components/CompanyShowcase";
 
 const CompanyList = (props) => {
   const [company, setCompany] = useState([]);
-
+  let title = props.type==="vet" ? "Veterinary":"Pet sitter"
   useEffect(() => {
     async function fetchData() {
       await CompanyManage.getCompanies(props).then((res) => {
@@ -32,17 +32,12 @@ const CompanyList = (props) => {
       >
         <Navbar />
       </div>
-
+      <div id="listTitle" class="font-bold">
+          {title}
+      </div>
       <div className="flex flex-1" style={{ height: "auto" }}>
         {company.map((product) => (
-          <CompanyShowcase
-            name={product.name}
-            description={product.description}
-            cost_per_hour={product.cost_per_hour}
-            owner={product.owner}
-            cities={product.cities}
-            business_hours={product.business_hours}
-          />
+          <CompanyShowcase data={product}/>
         ))}
       </div>
 

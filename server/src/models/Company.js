@@ -13,6 +13,10 @@ const companySchema = new Schema({
   business_hours: { start: Number, end: Number },
   email: String,
   password: String,
+  main_pets: [String],
+  study_info: [String],
+  professional_experience: [String],
+  actual_jobs: [String],
 });
 
 module.exports = mongoose.model("Company", companySchema);

@@ -20,6 +20,10 @@ router.get("", async (req, res) => {
         cities: c.cities,
         prenotation: c.prenotation,
         business_hours: c.business_hours,
+        main_pets: c.main_pets,
+        study_info: c.study_info,
+        professional_experience: c.professional_experience,
+        actual_jobs: c.actual_jobs,
       })
     );
     res.json(comp);
@@ -57,6 +61,10 @@ router.get("/:id", async (req, res) => {
       cities: company.cities,
       prenotation: company.prenotation,
       business_hours: company.business_hours,
+      main_pets: company.main_pets,
+      study_info: company.study_info,
+      professional_experience: company.professional_experience,
+      actual_jobs: company.actual_jobs,
     });
   } catch (e) {
     res.json({ message: e });
@@ -77,6 +85,10 @@ router.put("/new", async (req, res) => {
       business_hours: req.body.business_hours,
       email: req.body.email,
       password: req.body.password,
+      main_pets: req.body.main_pets,
+      study_info: req.body.study_info,
+      professional_experience: c.professional_experience,
+      actual_jobs: req.body.actual_jobs,
     });
     await company.save();
     res.json({ message: "New company created!" });
@@ -119,6 +131,10 @@ router.post("/update", async (req, res) => {
         prenotation: req.body.prenotation,
         email: req.body.email,
         password: req.body.password,
+        main_pets: req.body.main_pets,
+        study_info: req.body.study_info,
+        professional_experience: req.body.professional_experience,
+        actual_jobs: req.body.actual_jobs,
       }
     );
     res.json(updatedCompany);
