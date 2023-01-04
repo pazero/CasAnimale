@@ -147,9 +147,9 @@ const advs = [
 
     <!-- GAMES -->
     <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 xl:max-w-7xl xl:px-8">
-      <div class="py-4 pl-3 font-semibold normal-case text-xl">GAMES</div>
+      <div class="py-4 font-semibold text-center normal-case text-xl text-6xl md:text-7xl xl:text-8xl">GAMES</div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      <div class="grid grid-cols-2 xl:grid-cols-3">
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">
           <div
             :class="[game.bg, 'card-body']"
