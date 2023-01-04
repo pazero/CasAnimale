@@ -50,8 +50,7 @@ TO DO:
 		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri
 		[/] card con pagina per pubblicizzare servizi CasAnimale	| vet, petsitter, forum, eCommerce
 		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
-		[ ] inserire img sfondo banner
-		[ ] allargare un po' banner
+		[x] inserire img sfondo banner
 		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
 		[/] raggiungere velocemente servizi CasAnimale 		| si fa da dentro la card con la lista dei servizi
 		[x] raggiungere velocemente e-commerce CasAnimale

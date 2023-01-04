@@ -15,6 +15,14 @@ const games = [
   },
   {
     id: 2,
+    name: "Offered services",
+    href: "services",
+    imageSrc: "services.png",
+    imageAlt: "handshake img",
+    bg: "bg-blue-100",
+  },
+  {
+    id: 3,
     name: "Hangman",
     href: "hangman",
     imageSrc: "hangman.png",
@@ -22,42 +30,27 @@ const games = [
     bg: "bg-gray-100",
   },
   {
-    id: 3,
-    name: "Offered services",
-    href: "services",
-    imageSrc:
-      //"https://cdn-icons-png.flaticon.com/512/3439/3439283.png",
-      "services.png",
-    imageAlt: "handshake img",
-    bg: "bg-blue-100",
-  },
-  {
     id: 4,
-    name: "Create your account",
-    href: "http://localhost:3000/register",
-    imageSrc:
-      //"https://icons.veryicon.com/png/o/education-technology/online-school-applet/invite-friends-6.png",
-      "register.png",
-      imageAlt: "new user img",
-    bg: "bg-blue-100",
-  },
-  {
-    id: 5,
     name: "Interesting Facts",
     href: "facts",
-    imageSrc:
-      //"https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
-      "interest.png",
+    imageSrc: "interest.png",
     imageAlt: "interesting facts img",
     bg: "bg-gray-100",
   },
   {
+    id: 5,
+    name: "Create your account",
+    href: "http://localhost:3000/register",
+    imageSrc: "register.png",
+      imageAlt: "new user img",
+    bg: "bg-blue-100",
+  },
+  
+  {
     id: 6,
     name: "Memory",
     href: "memory",
-    imageSrc:
-      //"https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
-      "memory.png",
+    imageSrc: "memory.png",
     imageAlt: "memory img",
     bg: "bg-gray-100",
   },
@@ -74,9 +67,7 @@ const games = [
     id: 8,
     name: "e-commerce",
     href: "http://localhost:3000/compra",
-    imageSrc:
-      //"https://cdn-icons-png.flaticon.com/512/46/46297.png",
-      "shop.png",
+    imageSrc: "shop.png",
     imageAlt: "ecommerce img",
     bg: "bg-blue-100",
   },
@@ -84,9 +75,7 @@ const games = [
     id: 9,
     name: "Funny Videos",
     href: "videos",
-    imageSrc: 
-      //"https://pixy.org/src/80/806433.jpg",
-      "funny.png",
+    imageSrc: "funny.png",
     imageAlt: "funny video img",
     bg: "bg-gray-100",
   },
@@ -133,13 +122,13 @@ const advs = [
 </script>
 
 <template>
-  <div class="flex xl:flex-row flex-col" style="flex: 1 1 auto" data-theme="lemonade">
+  <div class="flex xl:flex-row flex-col " style="flex: 1 1 auto" data-theme="lemonade">
 
     <!-- adv left -->
-    <div class="xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold hidden" style="flex: 1 1 auto; min-width: 10rem;">
+    <div class="hidden xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold bg-[url(bgGame.jpg)] bg-center" style="flex: 1 1 auto; min-width: 10rem;">
       <a :key="advs[left].name1" :href="advs[left].href"
-        class="hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center bg-[url(bgAdvLeft.jpg)] bg-repeat-y bg-center"
-        :style="[advs[left].height, 'border-radius:0', 'flex-grow:1']"
+        class="flex p-1 hover:bg-gray-700 hover:text-white mt-20 mx-1 justify-center text-md leading-relaxed text-center bg-blue-100"
+        style="border-radius:0; flex-grow:1; flex: 0 1 auto"
         :aria-current="undefined">
         {{ advs[left].name1 }}<br>{{ advs[left].name2 }}
       </a>
@@ -147,7 +136,7 @@ const advs = [
 
     <!-- GAMES -->
     <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 xl:max-w-7xl xl:px-8">
-      <div class="py-4 font-semibold text-center normal-case text-xl text-6xl md:text-7xl xl:text-8xl">GAMES</div>
+      <div class="flex justify-center font-semibold normal-case text-6xl md:text-7xl xl:text-8xl md:pb-4" style="flex: 0 1 auto">GAMES</div>
 
       <div class="grid grid-cols-2 xl:grid-cols-3">
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">
@@ -167,10 +156,10 @@ const advs = [
     </div>
 
     <!-- adv right -->
-    <div class="flex xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 " style="flex: 1 1 auto; min-width: 10rem;" >
+    <div class="flex justify-center xl:justify-start xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 bg-[url(bgGame.jpg)] bg-center" style="flex: 1 1 auto; min-width: 10rem; " >
       <a :key="advs[right].name1" :href="advs[right].href"
-        class="hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center bg-[url(bgAdvRight.jpg)] bg-repeat-y bg-center"
-        :style="[advs[right].height, 'border-radius:0', 'flex-grow:1']"
+        class="flex my-20 p-1 self-center justify-center xl:mt-20 xl:mx-1 text-md text-center leading-relaxed bg-blue-100 hover:bg-gray-700 hover:text-white"
+        style="border-radius:0; flex-grow:1; flex: 0 1 auto"
         :aria-current="undefined">
         {{ advs[right].name1 }}<br>{{ advs[right].name2 }}
       </a>
