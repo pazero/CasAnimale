@@ -138,7 +138,7 @@ const advs = [
     <!-- adv left -->
     <div class="xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold hidden" style="flex: 1 1 auto; min-width: 10rem;">
       <a :key="advs[left].name1" :href="advs[left].href"
-        :class="[advs[left].bg, 'hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center']"
+        class="hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center bg-[url(bgAdvLeft.jpg)] bg-repeat-y bg-center"
         :style="[advs[left].height, 'border-radius:0', 'flex-grow:1']"
         :aria-current="undefined">
         {{ advs[left].name1 }}<br>{{ advs[left].name2 }}
@@ -169,7 +169,7 @@ const advs = [
     <!-- adv right -->
     <div class="flex xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 " style="flex: 1 1 auto; min-width: 10rem;" >
       <a :key="advs[right].name1" :href="advs[right].href"
-        :class="[advs[right].bg, 'hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center']"
+        class="hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center bg-[url(bgAdvRight.jpg)] bg-repeat-y bg-center"
         :style="[advs[right].height, 'border-radius:0', 'flex-grow:1']"
         :aria-current="undefined">
         {{ advs[right].name1 }}<br>{{ advs[right].name2 }}
