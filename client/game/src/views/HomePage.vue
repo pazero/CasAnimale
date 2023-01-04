@@ -1,86 +1,91 @@
 <script setup>
-console.log("Ciao dalla console!");
+  const games = [
+    {
+      id: 1,
+      name: "Quiz about animals",
+      href: "quiz",
+      imageSrc: "quiz.png",
+      imageAlt: "quiz word icon",
+    },
+    {
+      id: 2,
+      name: "Hangman",
+      href: "hangman",
+      imageSrc: "hangman.png",
+      imageAlt: "hangman game icon",
+    },
+    {
+      id: 3,
+      name: "Funny Videos",
+      href: "videos",
+      imageSrc: "https://pixy.org/src/80/806433.jpg",
+      imageAlt: "funny video img",
+    },
+    {
+      id: 4,
+      name: "Interesting Facts",
+      href: "facts",
+      imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
+      imageAlt: "interesting facts img",
+    },
+    {
+      id: 5,
+      name: "Memory",
+      href: "memory",
+      imageSrc:
+        "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
+      imageAlt: "memory img",
+    },
+    {
+      id: 6,
+      name: "infopet",
+      href: "infopet",
+      imageSrc: "infopet.jpg",
+      imageAlt: "infopet icon",
+    },
+  ];
 
-const games = [
-  {
-    id: 1,
-    name: "Quiz about animals",
-    href: "quiz",
-    imageSrc: "quiz.png",
-    imageAlt: "quiz word icon",
-  },
-  {
-    id: 2,
-    name: "Hangman",
-    href: "hangman",
-    imageSrc: "hangman.png",
-    imageAlt: "hangman game icon",
-  },
-  {
-    id: 3,
-    name: "Funny Videos",
-    href: "videos",
-    imageSrc: "https://pixy.org/src/80/806433.jpg",
-    imageAlt: "funny video img",
-  },
-  {
-    id: 4,
-    name: "Interesting Facts",
-    href: "facts",
-    imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
-    imageAlt: "interesting facts img",
-  },
-  {
-    id: 5,
-    name: "Memory",
-    href: "memory",
-    imageSrc:
-      "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
-    imageAlt: "memory img",
-  },
-];
+  const adsLeft = [
+    {
+      name: "First - site",
+      href: "http://localhost:3000",
+      bg: "bg-black",
+      current: false,
+    },
+    {
+      name: "Second - quiz",
+      href: "http://localhost:5173/quiz",
+      bg: "bg-blue-800",
+      current: false,
+    },
+    {
+      name: "Third - hangman",
+      href: "http://localhost:5173/hangman",
+      bg: "bg-indigo-300",
+      current: false,
+    },
+  ];
 
-const adsLeft = [
-  {
-    name: "First - site",
-    href: "http://localhost:3000",
-    bg: "bg-black",
-    current: false,
-  },
-  {
-    name: "Second - quiz",
-    href: "http://localhost:5173/quiz",
-    bg: "bg-blue-800",
-    current: false,
-  },
-  {
-    name: "Third - hangman",
-    href: "http://localhost:5173/hangman",
-    bg: "bg-indigo-300",
-    current: false,
-  },
-];
-
-const adsRight = [
-  {
-    name: "First - site",
-    href: "http://localhost:3000",
-    bg: "bg-black",
-    current: false,
-  },
-  {
-    name: "Second - quiz",
-    href: "http://localhost:5173/quiz",
-    bg: "bg-blue-800",
-    current: false,
-  },
-  {
-    name: "Third - hangman",
-    href: "http://localhost:5173/hangman",
-    bg: "bg-indigo-300",
-    current: false,
-  },
-];
+  const adsRight = [
+    {
+      name: "First - site",
+      href: "http://localhost:3000",
+      bg: "bg-black",
+      current: false,
+    },
+    {
+      name: "Second - quiz",
+      href: "http://localhost:5173/quiz",
+      bg: "bg-blue-800",
+      current: false,
+    },
+    {
+      name: "Third - hangman",
+      href: "http://localhost:5173/hangman",
+      bg: "bg-indigo-300",
+      current: false,
+    },
+  ];
 </script>
 
 <template>
@@ -89,6 +94,7 @@ const adsRight = [
     style="flex: 1 1 auto"
     data-theme="lemonade"
   >
+    <!-- pubblicità a sinistra/sopra-->
     <div
       class="flex xl:flex-col xl:h-full flex-row text-white"
       style="flex: 1 1 auto; min-width: 15%; min-width: 15%"
@@ -128,7 +134,7 @@ const adsRight = [
         </a>
       </div>
     </div>
-
+    <!-- pubblicità a destra/sotto-->
     <div
       class="flex xl:flex-col xl:h-full flex-row text-white"
       style="flex: 1 1 auto; min-width: 15%; min-width: 15%"
@@ -146,21 +152,6 @@ const adsRight = [
         >{{ item.name }}</a
       >
     </div>
-
-    <!-- <div class="hidden flex-col text-white lg:flex" style="min-width: 15%">
-      <a
-        v-for="item in adsLeft"
-        :key="item.name"
-        :href="item.href"
-        :class="[
-          item.bg,
-          'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium',
-        ]"
-        :style="[item.height, 'border-radius:0']"
-        :aria-current="undefined"
-        >{{ item.name }}</a
-      >
-    </div> -->
   </div>
 </template>
 
@@ -174,7 +165,7 @@ const adsRight = [
 
   TODO LIST:
   
-  -  NO autenticazione obbligatoria
+  - NO autenticazione obbligatoria
 
   - permettere all'utente di descrivere i propri pet con specie, nome, sesso, età, eventuali condizioni mediche. Non solo cani e gatti!
 

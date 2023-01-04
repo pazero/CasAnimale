@@ -12,6 +12,7 @@ import Leaderboard from "./views/Leaderboard";
 // import BookVetVisit from "./views/bookVetVisit";
 import Cart from "./views/Cart";
 import CompanyList from "./views/CompanyList";
+import SpecialistPage from "./components/SpecialistPage";
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/vet" element={<CompanyList type="vet" />} />
           <Route path="/petsitter" element={<CompanyList type="petsitter" />} />
           <Route path="/boards" element={<Leaderboard />} />
+          <Route path="/specialistpage/:id" element={<SpecialistPage />} />
         </Routes>
       </Router>
     </>
