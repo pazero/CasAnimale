@@ -1,124 +1,106 @@
 <script setup>
-  const games = [
-    {
-      id: 1,
-      name: "Quiz about animals",
-      href: "quiz",
-      imageSrc: "quiz.png",
-      imageAlt: "quiz word icon",
-    },
-    {
-      id: 2,
-      name: "Hangman",
-      href: "hangman",
-      imageSrc: "hangman.png",
-      imageAlt: "hangman game icon",
-    },
-    {
-      id: 3,
-      name: "Funny Videos",
-      href: "videos",
-      imageSrc: "https://pixy.org/src/80/806433.jpg",
-      imageAlt: "funny video img",
-    },
-    {
-      id: 4,
-      name: "Interesting Facts",
-      href: "facts",
-      imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
-      imageAlt: "interesting facts img",
-    },
-    {
-      id: 5,
-      name: "Memory",
-      href: "memory",
-      imageSrc:
-        "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
-      imageAlt: "memory img",
-    },
-    {
-      id: 6,
-      name: "infopet",
-      href: "infopet",
-      imageSrc: "infopet.jpg",
-      imageAlt: "infopet icon",
-    },
-  ];
+import { onMounted } from "@vue/runtime-core";
 
-  const adsLeft = [
-    {
-      name: "First - site",
-      href: "http://localhost:3000",
-      bg: "bg-black",
-      current: false,
-    },
-    {
-      name: "Second - quiz",
-      href: "http://localhost:5173/quiz",
-      bg: "bg-blue-800",
-      current: false,
-    },
-    {
-      name: "Third - hangman",
-      href: "http://localhost:5173/hangman",
-      bg: "bg-indigo-300",
-      current: false,
-    },
-  ];
+const left = Math.floor(Math.random() * 5);
+const right = Math.floor(Math.random() * 5);
 
-  const adsRight = [
-    {
-      name: "First - site",
-      href: "http://localhost:3000",
-      bg: "bg-black",
-      current: false,
-    },
-    {
-      name: "Second - quiz",
-      href: "http://localhost:5173/quiz",
-      bg: "bg-blue-800",
-      current: false,
-    },
-    {
-      name: "Third - hangman",
-      href: "http://localhost:5173/hangman",
-      bg: "bg-indigo-300",
-      current: false,
-    },
-  ];
+const games = [
+  {
+    id: 1,
+    name: "Quiz about animals",
+    href: "quiz",
+    imageSrc: "quiz.png",
+    imageAlt: "quiz word icon",
+  },
+  {
+    id: 2,
+    name: "Hangman",
+    href: "hangman",
+    imageSrc: "hangman.png",
+    imageAlt: "hangman game icon",
+  },
+  {
+    id: 3,
+    name: "Funny Videos",
+    href: "videos",
+    imageSrc: "https://pixy.org/src/80/806433.jpg",
+    imageAlt: "funny video img",
+  },
+  {
+    id: 4,
+    name: "Interesting Facts",
+    href: "facts",
+    imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
+    imageAlt: "interesting facts img",
+  },
+  {
+    id: 5,
+    name: "Memory",
+    href: "memory",
+    imageSrc:
+      "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
+    imageAlt: "memory img",
+  },
+];
+
+const advs = [
+  {
+    name1: "BUY SOME SUPPLIES",
+    name2: "FOR YOUR PETS HERE!",
+    href: "http://localhost:3000/compra",
+    bg: "bg-red-100",
+    current: false,
+  },
+  {
+    name1: "PLAY WITH US,",
+    name2: "A QUIZ IS WAITING FOR YOU!",
+    href: "http://localhost:5173/quiz",
+    bg: "bg-green-100",
+    current: false,
+  },
+  {
+    name1: "PLAY A HANGMAN",
+    name2: "MATCH HERE!",
+    href: "http://localhost:5173/hangman",
+    bg: "bg-indigo-100",
+    current: false,
+  },
+  {
+    name1: "READ SOME USER'S",
+    name2: "POSTS HERE",
+    href: "http://localhost:3000/forum",
+    bg: "bg-yellow-100",
+    current: false,
+  },
+  {
+    name1: "WATCH SOME FUNNY",
+    name2: "ANIMALS VIDEO!",
+    href: "http://localhost:5173/quiz",
+    bg: "bg-blue-100",
+    current: false,
+  }
+];
+
 </script>
 
 <template>
-  <div
-    class="flex xl:flex-row flex-col h-full"
-    style="flex: 1 1 auto"
-    data-theme="lemonade"
-  >
-    <!-- pubblicità a sinistra/sopra-->
-    <div
-      class="flex xl:flex-col xl:h-full flex-row text-white"
-      style="flex: 1 1 auto; min-width: 15%; min-width: 15%"
-    >
-      <a
-        v-for="item in adsLeft"
-        :key="item.name"
-        :href="item.href"
-        :class="[
-          item.bg,
-          'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium',
-        ]"
-        :style="[item.height, 'border-radius:0', 'flex-grow:1']"
-        :aria-current="undefined"
-        >{{ item.name }}</a
-      >
+  <div class="flex xl:flex-row xl:h-screen flex-col" style="flex: 1 1 auto" data-theme="lemonade">
+
+    <!-- adv left -->
+    <div class="xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold hidden hidden" style="flex: 1 1 auto; min-width: 20rem;">
+      <a :key="advs[left].name1" :href="advs[left].href"
+        :class="[advs[left].bg, 'hover:bg-gray-700 hover:text-white py-8 pb-0 rounded-md text-md leading-relaxed text-center']"
+        :style="[advs[left].height, 'border-radius:0', 'flex-grow:1']"
+        :aria-current="undefined">
+        {{ advs[left].name1 }}<br>{{ advs[left].name2 }}
+      </a>
     </div>
 
-    <div
-      class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 xl:max-w-7xl xl:px-8"
-    >
+    <!-- GAMES -->
+    <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 xl:max-w-7xl xl:px-8">
       <div class="py-4 pl-3 font-semibold normal-case text-xl">GAMES</div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+      <div class="grid grid-cols-3">
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">
           <div
             class="card-body bg-gray-100"
@@ -134,28 +116,18 @@
         </a>
       </div>
     </div>
-    <!-- pubblicità a destra/sotto-->
-    <div
-      class="flex xl:flex-col xl:h-full flex-row text-white"
-      style="flex: 1 1 auto; min-width: 15%; min-width: 15%"
-    >
-      <a
-        v-for="item in adsRight"
-        :key="item.name"
-        :href="item.href"
-        :class="[
-          item.bg,
-          'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium',
-        ]"
-        :style="[item.height, 'border-radius:0', , 'flex-grow:1']"
-        :aria-current="undefined"
-        >{{ item.name }}</a
-      >
+
+    <!-- adv right -->
+    <div class="flex xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 " style="flex: 1 1 auto; min-width: 20rem;" >
+      <a :key="advs[right].name1" :href="advs[right].href"
+        :class="[advs[right].bg, 'hover:bg-gray-700 hover:text-white py-8 pb-0 rounded-md text-md leading-relaxed text-center']"
+        :style="[advs[right].height, 'border-radius:0', 'flex-grow:1']"
+        :aria-current="undefined">
+        {{ advs[right].name1 }}<br>{{ advs[right].name2 }}
+      </a>
     </div>
   </div>
 </template>
-
-<style scoped></style>
 
 <!--
   - applicazione a se stante
