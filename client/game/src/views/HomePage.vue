@@ -41,6 +41,14 @@ const games = [
       "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
     imageAlt: "memory img",
   },
+  {
+    id: 6,
+    name: "Info pet",
+    href: "infopet",
+    imageSrc:
+      "infopet.jpg",
+    imageAlt: "infopet img",
+  },
 ];
 
 const advs = [
