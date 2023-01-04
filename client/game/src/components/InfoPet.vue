@@ -89,8 +89,8 @@ onMounted(updateVideo);
 <template>
   <div id="useful-info" class="my-auto">
     <!-- left arrow -->
-    <div class="pt-2 flex">
-      <div class="place-self-center flex-none justify-left" @click="prev">
+    <div class="flex">
+      <div class="btn place-self-center p-0 center flex-none justify-left bg-transparent border-none hover:bg-transparent" @click="prev">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -120,7 +120,7 @@ onMounted(updateVideo);
         </a>
       </div>
       <!-- rigth arrow -->
-      <div class="place-self-center flex-none justify-end" @click="next()">
+      <div class="btn place-self-center p-0  flex-none justify-end bg-transparent border-none hover:bg-transparent" @click="next()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

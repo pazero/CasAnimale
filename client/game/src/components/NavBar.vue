@@ -16,7 +16,7 @@ import {
 } from "@heroicons/vue/24/outline";
 
 const navigation = [
-  { name: "Services", href: "#", current: false },
+  { name: "Services", href: "services", current: false },
   { name: "Visit our website", href: "http://localhost:3000", current: false },
   { name: "Games", href: "http://localhost:5173", current: false },
 ];

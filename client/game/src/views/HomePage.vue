@@ -11,6 +11,7 @@ const games = [
     href: "quiz",
     imageSrc: "quiz.png",
     imageAlt: "quiz word icon",
+    bg: "bg-gray-100",
   },
   {
     id: 2,
@@ -18,36 +19,76 @@ const games = [
     href: "hangman",
     imageSrc: "hangman.png",
     imageAlt: "hangman game icon",
+    bg: "bg-gray-100",
   },
   {
     id: 3,
-    name: "Funny Videos",
-    href: "videos",
-    imageSrc: "https://pixy.org/src/80/806433.jpg",
-    imageAlt: "funny video img",
+    name: "Offered services",
+    href: "services",
+    imageSrc:
+      //"https://cdn-icons-png.flaticon.com/512/3439/3439283.png",
+      "services.png",
+    imageAlt: "handshake img",
+    bg: "bg-blue-100",
   },
   {
     id: 4,
-    name: "Interesting Facts",
-    href: "facts",
-    imageSrc: "https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
-    imageAlt: "interesting facts img",
+    name: "Create your account",
+    href: "http://localhost:3000/register",
+    imageSrc:
+      //"https://icons.veryicon.com/png/o/education-technology/online-school-applet/invite-friends-6.png",
+      "register.png",
+      imageAlt: "new user img",
+    bg: "bg-blue-100",
   },
   {
     id: 5,
-    name: "Memory",
-    href: "memory",
+    name: "Interesting Facts",
+    href: "facts",
     imageSrc:
-      "https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
-    imageAlt: "memory img",
+      //"https://cdn-icons-png.flaticon.com/512/5361/5361003.png",
+      "interest.png",
+    imageAlt: "interesting facts img",
+    bg: "bg-gray-100",
   },
   {
     id: 6,
+    name: "Memory",
+    href: "memory",
+    imageSrc:
+      //"https://image.api.playstation.com/vulcan/ap/rnd/202007/0210/1hTcaL0ZROBNuObezTudW9xx.png",
+      "memory.png",
+    imageAlt: "memory img",
+    bg: "bg-gray-100",
+  },
+  {
+    id: 7,
     name: "Info pet",
     href: "infopet",
     imageSrc:
-      "infopet.jpg",
+      "infopet.png",
     imageAlt: "infopet img",
+    bg: "bg-gray-100",
+  },
+  {
+    id: 8,
+    name: "e-commerce",
+    href: "http://localhost:3000/compra",
+    imageSrc:
+      //"https://cdn-icons-png.flaticon.com/512/46/46297.png",
+      "shop.png",
+    imageAlt: "ecommerce img",
+    bg: "bg-blue-100",
+  },
+  {
+    id: 9,
+    name: "Funny Videos",
+    href: "videos",
+    imageSrc: 
+      //"https://pixy.org/src/80/806433.jpg",
+      "funny.png",
+    imageAlt: "funny video img",
+    bg: "bg-gray-100",
   },
 ];
 
@@ -92,12 +133,12 @@ const advs = [
 </script>
 
 <template>
-  <div class="flex xl:flex-row xl:h-screen flex-col" style="flex: 1 1 auto" data-theme="lemonade">
+  <div class="flex xl:flex-row flex-col" style="flex: 1 1 auto" data-theme="lemonade">
 
     <!-- adv left -->
-    <div class="xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold hidden hidden" style="flex: 1 1 auto; min-width: 20rem;">
+    <div class="xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold hidden" style="flex: 1 1 auto; min-width: 10rem;">
       <a :key="advs[left].name1" :href="advs[left].href"
-        :class="[advs[left].bg, 'hover:bg-gray-700 hover:text-white py-8 pb-0 rounded-md text-md leading-relaxed text-center']"
+        :class="[advs[left].bg, 'hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center']"
         :style="[advs[left].height, 'border-radius:0', 'flex-grow:1']"
         :aria-current="undefined">
         {{ advs[left].name1 }}<br>{{ advs[left].name2 }}
@@ -108,10 +149,10 @@ const advs = [
     <div class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 xl:max-w-7xl xl:px-8">
       <div class="py-4 pl-3 font-semibold normal-case text-xl">GAMES</div>
 
-      <div class="grid grid-cols-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">
           <div
-            class="card-body bg-gray-100"
+            :class="[game.bg, 'card-body']"
             style="padding: 2rem; margin: 1rem"
           >
             <p class="card-title hidden">{{ game.name }}</p>
@@ -126,9 +167,9 @@ const advs = [
     </div>
 
     <!-- adv right -->
-    <div class="flex xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 " style="flex: 1 1 auto; min-width: 20rem;" >
+    <div class="flex xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 " style="flex: 1 1 auto; min-width: 10rem;" >
       <a :key="advs[right].name1" :href="advs[right].href"
-        :class="[advs[right].bg, 'hover:bg-gray-700 hover:text-white py-8 pb-0 rounded-md text-md leading-relaxed text-center']"
+        :class="[advs[right].bg, 'hover:bg-gray-700 hover:text-white py-20 rounded-md text-md leading-relaxed text-center']"
         :style="[advs[right].height, 'border-radius:0', 'flex-grow:1']"
         :aria-current="undefined">
         {{ advs[right].name1 }}<br>{{ advs[right].name2 }}

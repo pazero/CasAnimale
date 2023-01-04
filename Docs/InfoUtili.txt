@@ -47,14 +47,26 @@ TO DO:
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
 		[x] Home page
-		[x] Curiosità miei/generali				|  form sul
-		[ ]	Info utili (sanitarie e legali)		| tuo animale	-> baolo
-		[/] Adv servizi offerti                					-> fede  
+		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri
+		[/] card con pagina per pubblicizzare servizi CasAnimale	| vet, petsitter, forum, eCommerce
+		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
+		[ ] inserire img sfondo banner
+		[ ] allargare un po' banner
+		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
+		[/] raggiungere velocemente servizi CasAnimale 		| si fa da dentro la card con la lista dei servizi
+		[x] raggiungere velocemente e-commerce CasAnimale
+		[x] Curiosità generali 
+		[ ] Curiosità miei
+		[x]	Info utili (sanitarie e legali) generali 
+		[ ]	Info utili (sanitarie e legali) miei
+		[/] Adv servizi offerti
 		[x] Video buffi yt
 		[x] Quiz
-		[x] Classifica (login e non)
+		[ ] controllare API e tutti i giochi  | GENO
+		[/] Classifica (login e non) 							| GENO. Si potrebbe mettere un tasto nella navbar senza creare una card in piu
 		[x] -fac- Memory / impiccato
-	- FRONT OFFICE                                              -> renderlo responsive e con style bello
+
+	- FRONT OFFICE                     -> renderlo responsive e con style bello
 		[x] Home page
 		[x] Login
 		[x] Registrazione
@@ -62,15 +74,16 @@ TO DO:
 		[x] eCommerce
 		[/] Recupero pass (geno)
 		[/] Login e registrazione di nuove aziende (manca frontend, pausa)
-		[x] Bacheca "eccolo qua"            |
-		[x] Leadboard						| comunità
-		[ ] -fac- Bacheca "cerco partner"	| -> geno (non prioritario)
-		[/] Veterinario			|
-		[/] Dog-sitter			| servizi in  -> paolo e geno
+		[x] Bacheca "eccolo qua"          |
+		[x] Leadboard											| comunità
+		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
+		[/] Veterinario					|
+		[/] Dog-sitter					| servizi in  -> paolo e geno
 		[/] -fac- Toelettatura	|  presenza
-		[/] -fac- Psicologo		|
+		[/] -fac- Psicologo			|
 		[/] Gestione delle prenotazioni
 		[ ] -fac- Videochiamata		| servizi online
+	
 	- BACK OFFICE
 		[ ] Home page
 		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
