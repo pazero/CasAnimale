@@ -46,13 +46,12 @@ const CompanyList = (props) => {
       >
         <Navbar />
       </div>
-      <div className="flex flex-col h-full">
-        <div id="listTitle" class="my-8 text-6xl self-center font-bold uppercase">
+      <div className="flex flex-col h-full" style={{flex:"1 1 auto"}}>
+        <div id="listTitle" className="my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase">
             {title}
         </div>
-        <div className="flex flex-wrap justify-center" style={{flex:"0 1 auto" }}>
+        <div className="flex flex-wrap justify-center h-full" style={{flex:"0 1 auto" }}>
           {company.map((product) => (
-            //<CompanyShowcase data={product}/>
             <a
               id={product._id}
               className="flex flex-col flex-wrap p-2 m-4 mt-0 bg-[#f0f2f3] hover:bg-[#b9b9ff] rounded-lg"
