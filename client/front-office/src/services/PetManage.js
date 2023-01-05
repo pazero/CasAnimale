@@ -1,9 +1,9 @@
 import Api from "./Api.js";
 
-const BASE = "pet/";
+const BASE = "pets/";
 
 const PetManage = {
-  // if data is empty, return all users
+  // if data is empty, return ALL pets, no matter what user is logged
   getPets(data) {
     return Api().get(BASE, { params: data });
   },

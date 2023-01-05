@@ -62,7 +62,7 @@ const ProfilePets = () => {
           <Sidebar />
         </div>
 
-        <button onClick={() => { setShowModal(true); }} className="btn btn-secondary m-4 mb-0" >New pet</button>
+        <button onClick={() => { setShowModal(true); }} className="btn btn-secondary m-4 ml-0 mb-0" >New pet</button>
 
         <div className="flex w-full" style={{ height: "auto" }}>
           <PetsList />

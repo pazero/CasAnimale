@@ -53,7 +53,7 @@ TO DO:
 		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
 		[x] inserire img sfondo banner
 		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
-		[/] raggiungere velocemente servizi CasAnimale 		| si fa da dentro la card con la lista dei servizi
+		[x] raggiungere velocemente servizi CasAnimale
 		[x] raggiungere velocemente e-commerce CasAnimale
 		[x] Curiosità generali 
 		[ ] Curiosità miei

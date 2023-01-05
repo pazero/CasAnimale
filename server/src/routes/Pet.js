@@ -74,7 +74,7 @@ router.post("/update", async (req, res) => {
         species: req.body.species,
         breed: req.body.breed,
         birth: req.body.birth,
-        owner: req.body.owner,
+        owner: req.userid,
       }
     );
     res.json(updatedPet);
