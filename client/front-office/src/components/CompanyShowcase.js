@@ -5,6 +5,13 @@ import { Box, Heading, Text, Badge } from "@chakra-ui/react";
 const Company = (props) => {
   const navigate = useNavigate();
   return (
+    <div id={props.data._id} class="flex p-2 m-2 rounded" style={{border:"solid blue"}} > {props.data.name}</div>
+  );
+};
+
+export default Company;
+
+/*return (
     <Box
       id={props.data._id}
       className="p-2 m-2 rounded"
@@ -32,7 +39,4 @@ const Company = (props) => {
         More info
       </button>
     </Box>
-  );
-};
-
-export default Company;
+  );*/
