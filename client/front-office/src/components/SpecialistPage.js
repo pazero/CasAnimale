@@ -18,7 +18,6 @@ const SpecialistPage = (propsingle) => {
           });
         }
         fetchData();
-        console.log(company);
       }, []);
     
     const [showModal, setShowModal] = useState(false);
@@ -40,6 +39,11 @@ const SpecialistPage = (propsingle) => {
 
             <div className="flex flex-1 flex-col m-3" style={{ height: "auto" }}>
                 <div id="vetName" className="text-3xl font-bold sm:text-5xl md:text-7xl">{company.name}</div>
+                <div id="locationInfo" className="mt-3 ml-2"><span className="font-bold sm:text-xl">Doctor:</span>
+                    <div id="locationList" className="ml-4">
+                        {company.owner}
+                    </div>
+                </div>
                 <div id="mainPetInfo" className="mt-3 ml-2"><span className="font-bold sm:text-xl">Main pet of interest:</span>
                     <ul id="mainPetList" className="ml-4">
                         {company.main_pets?.map((item) => (
