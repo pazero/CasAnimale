@@ -37,7 +37,7 @@ const Navbar = () => {
               <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
-              <a href="/" className="justify-between">
+              <a  className="justify-between">
                 Servizi
                 <svg
                   className="fill-current"
@@ -64,7 +64,7 @@ const Navbar = () => {
                       navigate("/vet");
                     }}
                   >
-                    Vet
+                    Veterinary
                   </button>
                 </li>
                 <li>
@@ -73,7 +73,25 @@ const Navbar = () => {
                       navigate("/petsitter");
                     }}
                   >
-                    PetSitter
+                    Pet Sitter
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/psychologist");
+                    }}
+                  >
+                    Psychologist
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/grooming");
+                    }}
+                  >
+                    Grooming
                   </button>
                 </li>
                 <li>
@@ -123,7 +141,7 @@ const Navbar = () => {
             <a href="http://localhost:5173/">Area Giochi</a>
           </li>
           <li tabIndex={0}>
-            <a href="/" className="justify-between">
+            <a className="justify-between">
               Servizi
               <svg
                 className="fill-current"
@@ -150,7 +168,7 @@ const Navbar = () => {
                     navigate("/vet");
                   }}
                 >
-                  Vet
+                  Veterinary
                 </button>
               </li>
               <li>
@@ -159,9 +177,27 @@ const Navbar = () => {
                     navigate("/petsitter");
                   }}
                 >
-                  PetSitter
+                  Pet Sitter
                 </button>
               </li>
+              <li>
+                  <button
+                    onClick={() => {
+                      navigate("/psychologist");
+                    }}
+                  >
+                    Psychologist
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/grooming");
+                    }}
+                  >
+                    Grooming
+                  </button>
+                </li>
               <li>
                 <button
                   onClick={() => {
