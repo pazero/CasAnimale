@@ -49,7 +49,7 @@ TO DO:
 		[x] Home page
 		[ ] sezione utente e profilo
 		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri (potremmo comprenderlo nel login: se sei loggato e ha degli animali li puoi vedere)
-		[/] card con pagina per pubblicizzare servizi CasAnimale	| vet, petsitter, Psicologo, Toelettatura, forum, eCommerce
+		[x] card con pagina per pubblicizzare servizi CasAnimale
 		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
 		[x] inserire img sfondo banner
 		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
