@@ -30,7 +30,7 @@ UserDipendente =! UserNormale =! Affiliato
 	[ ] Possibilità di eliminare un animale allo user (poverino è morto)
 - DIPENDENTE di CasAnimale
 	[ ] Campo dipendete nello user !!!
-	[ ] Possibilità di creare un account per un affiliato
+	[ ] Possibilità di creare un account per un'azienda
 - COMPANY (veterinari, per-sitter, ... che lavorano attraverso casa animale)
 	[ ] Modificare le proprie informazioni
 - GENERALI
@@ -47,8 +47,9 @@ TO DO:
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
 		[x] Home page
-		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri
-		[/] card con pagina per pubblicizzare servizi CasAnimale	| vet, petsitter, forum, eCommerce
+		[ ] sezione utente e profilo
+		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri (potremmo comprenderlo nel login: se sei loggato e ha degli animali li puoi vedere)
+		[/] card con pagina per pubblicizzare servizi CasAnimale	| vet, petsitter, Psicologo, Toelettatura, forum, eCommerce
 		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
 		[x] inserire img sfondo banner
 		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
@@ -69,26 +70,29 @@ TO DO:
 		[x] Home page
 		[x] Login
 		[x] Registrazione
-		[x] Poter inserire i propri pets e animali preferiti	(eliminazione e foto dei pet, fe animali preferiti array) -> fede
+		[/] Poter inserire i propri pets e animali preferiti	| eliminare animale, add foto animale + animali preferiti: array -> fede
 		[x] eCommerce
 		[/] Recupero pass (geno)
-		[/] Login e registrazione di nuove aziende (manca frontend, pausa)
+		[/] Tasto area riservata, rimanda al login back
 		[x] Bacheca "eccolo qua"          |
 		[x] Leadboard											| comunità
 		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
-		[/] Veterinario					|
-		[/] Dog-sitter					| servizi in  -> paolo e geno
+		[/] Veterinario					| Paolo
+		[/] pet-sitter					| servizi in -> paolo e geno
 		[/] -fac- Toelettatura	|  presenza
 		[/] -fac- Psicologo			|
 		[/] Gestione delle prenotazioni
 		[ ] -fac- Videochiamata		| servizi online
-	
+		[ ] aggiungere più pet disponibili
+ 	
 	- BACK OFFICE
 		[ ] Home page
 		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
 		[ ] Gestione servizi di comunità (bacheche)
 		[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...)
 		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
+		[ ] Login azienda
+		[ ] Registrazione nuova azienda (dipendente)
 		[ ] -fac- Gestione servizi online
 - Database
 	[ ] Aggiungere api per fatturazione dei servizi(?)

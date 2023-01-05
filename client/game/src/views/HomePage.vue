@@ -125,7 +125,7 @@ const advs = [
   <div class="flex xl:flex-row flex-col " style="flex: 1 1 auto" data-theme="lemonade">
 
     <!-- adv left -->
-    <div class="hidden xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold bg-[url(bgGame.jpg)] bg-center" style="flex: 1 1 auto; min-width: 10rem;">
+    <div class="hidden xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold bg-[url(bgGame.jpg)] bg-right-top" style="flex: 1 1 auto; min-width: 10rem;">
       <a :key="advs[left].name1" :href="advs[left].href"
         class="flex p-1 hover:bg-gray-700 hover:text-white mt-20 mx-1 justify-center text-md leading-relaxed text-center bg-blue-100"
         style="border-radius:0; flex-grow:1; flex: 0 1 auto"
@@ -156,7 +156,7 @@ const advs = [
     </div>
 
     <!-- adv right -->
-    <div class="flex justify-center xl:justify-start xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 bg-[url(bgGame.jpg)] bg-center" style="flex: 1 1 auto; min-width: 10rem; " >
+    <div class="flex justify-center xl:justify-start xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 bg-[url(bgGame.jpg)] bg-left-top" style="flex: 1 1 auto; min-width: 10rem; " >
       <a :key="advs[right].name1" :href="advs[right].href"
         class="flex my-20 p-1 self-center justify-center xl:mt-20 xl:mx-1 text-md text-center leading-relaxed bg-blue-100 hover:bg-gray-700 hover:text-white"
         style="border-radius:0; flex-grow:1; flex: 0 1 auto"

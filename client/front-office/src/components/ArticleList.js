@@ -82,7 +82,7 @@ const ArticleList = () => {
         <Heading as="h1" className="mt-2">
           Eccolo qua!
         </Heading>
-        <Text className="text-lg">Here you can share you pet!</Text>
+        <Text className="text-lg">Here you can share your pet!</Text>
         {posts.map((post) => (
           <Post data={post} isUserLoggedPost={post.userid === user._id} />
         ))}
