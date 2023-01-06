@@ -11,20 +11,10 @@ const PetsList = () => {
   const [userId, setUserId] = useState();
   const [endList, setEnd] = useState();
 
-
-  useEffect(() => {
-    console.log("user: " + userId)
-  }, [userId])
-
-  useEffect(() => {
-    console.log("petsList: " + petsList)
-  }, [petsList])
-
   useEffect(() => {
     async function getUserId() {
       var ret = await UserManage.getUser()
       setUserId(ret.data._id)
-      console.log(ret.data._id)
     }
 
     async function fetchData() {
@@ -46,9 +36,16 @@ const PetsList = () => {
     fetchData();
   }, [userId]);
 
+  async function deleteP(pet) {
+    console.log(pet)
+    const ret = await PetManage.deletePet(pet);
+    alert(ret.data.message);
+    window.location.reload();
+  }
+
   return (
     <Container maxW="100%">
-      <Container maxW={"7xl"} p="15" pt="10" mt="4">
+      <Container maxW={"7xl"} p="15" pt="10">
         <Heading as="h1">Your pets</Heading>
         {(isPetFull && endList) ? (
         <Text>
@@ -65,7 +62,6 @@ const PetsList = () => {
                 flex="1"
                 marginRight="3"
                 position="relative"
-                alignItems="center"
               >
                 <Box
                   display="flex"
@@ -80,7 +76,7 @@ const PetsList = () => {
                 >
                   <Stack direction={['column', 'row']} spacing={6}>
                     <Center>
-                      <Image h={'7rem'} w={'7rem'} ml={10} src={item.photo} />
+                      <Image h={'7rem'} w={'7rem'} ml={{ base: '0', sm: '10'}} src={item.photo} />
                     </Center>
                     <Box w={'20rem'} pl={{ base: 10 }}>
                       <Heading as="h2" marginTop="1">
@@ -103,10 +99,11 @@ const PetsList = () => {
                     <Box align={'center'}>
                       <Button
                         rounded={'full'}
-                        my={12}
-                        mr={6}
+                        mt={{ base: '0', sm: '12' }}
+                        mb={{ base: '3', sm: '12' }}
                         bg={'red.400'}
-                        _hover={{ bg: 'red.500' }}>
+                        _hover={{ bg: 'red.500' }}
+                        onClick={() => deleteP(item._id)}>
                           Delete
                       </Button>
                     </Box>

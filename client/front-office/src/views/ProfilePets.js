@@ -57,15 +57,19 @@ const ProfilePets = () => {
         </div>
       </div>
 
-      <div className="sm:hidden flex flex-col">
+      <div className="sm:hidden flex flex-col justify-items-stretch">
         <div className="flex w-full justify-evenly">
           <Sidebar />
         </div>
 
-        <button onClick={() => { setShowModal(true); }} className="btn btn-secondary m-4 ml-0 mb-0" >New pet</button>
+        <div class="flex relative">
+          <div class="flex absolute fixed top-0 right-0 justify-end m-4 mb-0">
+            <button onClick={() => { setShowModal(true); }} className="btn btn-secondary" >New pet</button>
+          </div>
 
-        <div className="flex w-full" style={{ height: "auto" }}>
-          <PetsList />
+          <div className="flex object-left-top w-full h-full" style={{ height: "auto" }}>
+            <PetsList />
+          </div>
         </div>
       </div>
 
