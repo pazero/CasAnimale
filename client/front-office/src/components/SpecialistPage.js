@@ -39,8 +39,8 @@ const SpecialistPage = (propsingle) => {
 
             <div className="flex flex-1 flex-col m-3" style={{ height: "auto" }}>
                 <div id="vetName" className="text-3xl font-bold sm:text-5xl md:text-7xl">{company.name}</div>
-                <div id="locationInfo" className="mt-3 ml-2"><span className="font-bold sm:text-xl">Doctor:</span>
-                    <div id="locationList" className="ml-4">
+                <div id="owner" className="mt-3 ml-2"><span className="font-bold sm:text-xl">Doctor:</span>
+                    <div id="ownerName" className="ml-4">
                         {company.owner}
                     </div>
                 </div>
@@ -80,9 +80,11 @@ const SpecialistPage = (propsingle) => {
                         ))}
                     </ul>
                 </div>
-                {/*<div id="bookBtn" className="flex flex-1 justify-center">
-                    <button className="btn btn-primary" onClick={() => {navigate("/bookVetVisit")}}>Book a visit</button>
-                </div>*/}
+                <div id="costPerHour" className="mt-3 ml-2"><span className="font-bold sm:text-xl">Cost per hour:</span>
+                    <div id="cost" className="ml-4">
+                        {company.cost_per_hour}€/h
+                    </div>
+                </div>
 
                 {token ? (
                     <div className="flex flex-1 justify-center">
@@ -110,9 +112,19 @@ const SpecialistPage = (propsingle) => {
                             {/*body*/}
                             <div className="relative p-6 flex-auto">
                             {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
+                                <div class="font-bold">Data</div>
+                                <div class="font-bold">Orario</div>
+                                <div class="font-bold">Costo totale</div>
                             </div>
                             {/*footer*/}
                             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                            <button
+                                className="btn-primary rounded-lg font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button"
+                                onClick={() => setShowModal(false)}
+                            >
+                                Confirm
+                            </button>
                             <button
                                 className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
