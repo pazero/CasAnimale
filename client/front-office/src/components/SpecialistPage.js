@@ -38,59 +38,87 @@ const SpecialistPage = () => {
     fetchData();
   }, []);
   const newDate = (s) => {
-    return new Date(s)
-  }
-  const getDateString = (s) => {
-    var d = newDate(s)
+    return new Date(s);
+  };
+  const getDateTimeString = (s) => {
+    var d = newDate(s);
     return (
       d.getFullYear().toString() +
-      '-' +
+      "-" +
       ((d.getMonth() + 1).toString().length == 2
         ? (d.getMonth() + 1).toString()
-        : '0' + (d.getMonth() + 1).toString()) +
-      '-' +
+        : "0" + (d.getMonth() + 1).toString()) +
+      "-" +
       (d.getDate().toString().length == 2
         ? d.getDate().toString()
-        : '0' + d.getDate().toString()) +
-      ' ' +
+        : "0" + d.getDate().toString()) +
+      " " +
       (d.getHours().toString().length == 2
         ? d.getHours().toString()
-        : '0' + d.getHours().toString()) +
-      ':' +
+        : "0" + d.getHours().toString()) +
+      ":" +
       ((parseInt(d.getMinutes() / 5) * 5).toString().length == 2
         ? (parseInt(d.getMinutes() / 5) * 5).toString()
-        : '0' + (parseInt(d.getMinutes() / 5) * 5).toString())
-    )
-  }
+        : "0" + (parseInt(d.getMinutes() / 5) * 5).toString())
+    );
+  };
+  //formato mese-giorno-anno
+  const getDateString = (s) => {
+    var d = newDate(s);
+    return (
+      ((d.getMonth() + 1).toString().length == 2
+        ? (d.getMonth() + 1).toString()
+        : "0" + (d.getMonth() + 1).toString()) +
+      "-" +
+      (d.getDate().toString().length == 2
+        ? d.getDate().toString()
+        : "0" + d.getDate().toString()) +
+      "-" +
+      d.getFullYear().toString()
+    );
+  };
+  const getHoursString = (s) => {
+    var d = newDate(s);
+    return d.getHours().toString();
+  };
   useEffect(() => {
-    const array = []
-    companyPrenotation?.map((item)=>{
-        array.push(getDateString(item.start))
-    })
+    const array = [];
+    companyPrenotation?.map((item) => {
+      array.push(getDateTimeString(item.start));
+    });
     console.log("companyPrenotation: " + array);
-    var today = new Date()
-    console.log("time: "+ today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
   }, [companyPrenotation]);
 
   const bookSlot = async (companyId, start) => {
     const res = await PrenotationManage.newPrenotation({
       company: companyId,
       start: start,
-      duration: 5,
+      duration: 1,
     });
     alert(res.message);
   };
 
-  function calcTime() {
+  function calcSlot() {
+    console.log("iniziamo calcSlot");
+    let slotDay = document.getElementById("slotDay").value;
     let start = company.business_hours.start;
     let end = company.business_hours.end;
     let interval = end - start;
     if (interval <= 0) alert("It is not possible to book a slot");
     let slots = [];
-    console.log("companyPrenotation: " + companyPrenotation._id);
-    //for (let i = 0; i < interval; i++) {
-      //slots.push()
-    //}
+    //slots.push(getDateTimeString(item.start))
+    const booked = [];
+    companyPrenotation?.map((item) => {
+      console.log("ciao")
+      console.log(getDateString(item.start));
+      console.log(slotDay);
+      if (getDateString(item.start).localeCompare(slotDay) === 0)
+        booked.push(getHoursString(item.start));
+    });
+    console.log("booked: " + booked);
+    for (let i = 0; i < interval; i++) {
+      //if()
+    }
   }
 
   return (
@@ -116,7 +144,7 @@ const SpecialistPage = () => {
           className="text-3xl font-bold sm:text-5xl md:text-7xl"
         >
           {company.name}
-        </div>
+        </div>calcSlot
         <div id="owner" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Doctor:</span>
           <div id="ownerName" className="ml-4">
@@ -210,9 +238,11 @@ const SpecialistPage = () => {
                     <div className="font-bold">Data</div>
                     <div>
                       <DatePicker
+                        //onCalendarOpen={calcSlot}
                         id="slotDay"
                         className="text-center border-solid border-4 rounded-lg px-1"
                         selected={startDate}
+                        placeholderText="Select a day"
                         onChange={(date) => setStartDate(date)}
                         minDate={new Date()}
                         filterDate={(date) => {
@@ -220,7 +250,10 @@ const SpecialistPage = () => {
                         }}
                       />
                     </div>
-                    <div className="font-bold">Orario</div>
+                    <div className="font-bold">
+                      Orario
+                      <div id="slotSelect"></div>
+                    </div>
                     <div className="font-bold">Costo totale</div>
                   </div>
                   {/*footer*/}
@@ -235,7 +268,9 @@ const SpecialistPage = () => {
                             " end: " +
                             company.business_hours.end
                         );
-                        console.log(document.getElementById("slotDay").value);
+                        console.log(
+                          "slotDay: " + document.getElementById("slotDay").value
+                        );
                         bookSlot(
                           params.id,
                           new Date(
