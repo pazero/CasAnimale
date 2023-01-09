@@ -5,15 +5,9 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import PrenotationManage from "../services/PrenotationManage";
 import CompanyManage from "../services/CompanyManage";
-import UserManage from "../services/UserManage";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
-
 import Cookies from "js-cookie";
-import { getTime } from "date-fns";
-
-//import BookVetVisit from "./bookVetVisit";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -21,6 +15,7 @@ const SpecialistPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [companyPrenotation, setCompanyPrenotation] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
   const [company, setCompany] = useState([]);
   const token = Cookies.get("token");
   useEffect(() => {
@@ -109,15 +104,19 @@ const SpecialistPage = () => {
     //slots.push(getDateTimeString(item.start))
     const booked = [];
     companyPrenotation?.map((item) => {
-      console.log("ciao")
-      console.log(getDateString(item.start));
-      console.log(slotDay);
+      console.log("prenotation date: " + getDateString(item.start));
+      console.log("selected date: " + slotDay);
+      //seleziono solo le prenotazioni fatte nella data selezionata
       if (getDateString(item.start).localeCompare(slotDay) === 0)
         booked.push(getHoursString(item.start));
     });
     console.log("booked: " + booked);
     for (let i = 0; i < interval; i++) {
-      //if()
+      //se lo slot non è incluso lo aggiungo a availableSlots che poi userò per riempire il select
+      if (!booked.includes(start + i)) {
+        let moment = (start + i > 12) ? "pm" : "am";
+        availableSlots.push(((start + i) % 12) + moment);
+      }
     }
   }
 
@@ -144,7 +143,8 @@ const SpecialistPage = () => {
           className="text-3xl font-bold sm:text-5xl md:text-7xl"
         >
           {company.name}
-        </div>calcSlot
+        </div>
+        calcSlot
         <div id="owner" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Doctor:</span>
           <div id="ownerName" className="ml-4">
@@ -197,7 +197,6 @@ const SpecialistPage = () => {
             {company.cost_per_hour}€/h
           </div>
         </div>
-
         {token ? (
           <div className="flex flex-1 justify-center">
             <button
@@ -221,7 +220,6 @@ const SpecialistPage = () => {
             </button>
           </div>
         )}
-
         {showModal ? (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
