@@ -5,40 +5,94 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import PrenotationManage from "../services/PrenotationManage";
 import CompanyManage from "../services/CompanyManage";
+import UserManage from "../services/UserManage";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import Cookies from "js-cookie";
+import { getTime } from "date-fns";
 
 //import BookVetVisit from "./bookVetVisit";
 
-const SpecialistPage = (propsingle) => {
+const SpecialistPage = () => {
+  const navigate = useNavigate();
   const params = useParams();
-  const [companyPrenotation, setCompanyPrenotation ] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [companyPrenotation, setCompanyPrenotation] = useState([]);
   const [company, setCompany] = useState([]);
+  const token = Cookies.get("token");
   useEffect(() => {
     async function fetchData() {
       await CompanyManage.getCompany(params.id).then((res) => {
         setCompany(res.data);
       });
 
-      await PrenotationManage.getPrenotations({company : params.id}).then((res) => {
-        setCompanyPrenotation(res.data);
-      });
+      await PrenotationManage.getPrenotations({ company: params.id }).then(
+        (res) => {
+          setCompanyPrenotation(res.data);
+        }
+      );
     }
     fetchData();
   }, []);
+  const newDate = (s) => {
+    return new Date(s)
+  }
+  const getDateString = (s) => {
+    var d = newDate(s)
+    return (
+      d.getFullYear().toString() +
+      '-' +
+      ((d.getMonth() + 1).toString().length == 2
+        ? (d.getMonth() + 1).toString()
+        : '0' + (d.getMonth() + 1).toString()) +
+      '-' +
+      (d.getDate().toString().length == 2
+        ? d.getDate().toString()
+        : '0' + d.getDate().toString()) +
+      ' ' +
+      (d.getHours().toString().length == 2
+        ? d.getHours().toString()
+        : '0' + d.getHours().toString()) +
+      ':' +
+      ((parseInt(d.getMinutes() / 5) * 5).toString().length == 2
+        ? (parseInt(d.getMinutes() / 5) * 5).toString()
+        : '0' + (parseInt(d.getMinutes() / 5) * 5).toString())
+    )
+  }
+  useEffect(() => {
+    const array = []
+    companyPrenotation?.map((item)=>{
+        array.push(getDateString(item.start))
+    })
+    console.log("companyPrenotation: " + array);
+    var today = new Date()
+    console.log("time: "+ today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
+  }, [companyPrenotation]);
 
-  useEffect(()=> {
-    console.log(companyPrenotation)
-  }, [companyPrenotation])
+  const bookSlot = async (companyId, start) => {
+    const res = await PrenotationManage.newPrenotation({
+      company: companyId,
+      start: start,
+      duration: 5,
+    });
+    alert(res.message);
+  };
 
-  
-  const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
-  const token = Cookies.get("token");
+  function calcTime() {
+    let start = company.business_hours.start;
+    let end = company.business_hours.end;
+    let interval = end - start;
+    if (interval <= 0) alert("It is not possible to book a slot");
+    let slots = [];
+    console.log("companyPrenotation: " + companyPrenotation._id);
+    //for (let i = 0; i < interval; i++) {
+      //slots.push()
+    //}
+  }
+
   return (
     <div
       data-theme="lemonade"
@@ -161,7 +215,9 @@ const SpecialistPage = (propsingle) => {
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         minDate={new Date()}
-                        filterDate = {(date) => {return date.getDay() !== 0 && date.getDay() !== 6}}
+                        filterDate={(date) => {
+                          return date.getDay() !== 0 && date.getDay() !== 6;
+                        }}
                       />
                     </div>
                     <div className="font-bold">Orario</div>
@@ -172,10 +228,22 @@ const SpecialistPage = (propsingle) => {
                     <button
                       className="btn-primary rounded-lg font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() =>{
-                        console.log(document.getElementById("slotDay").value); 
-                        setShowModal(false)}
-                    }
+                      onClick={() => {
+                        console.log(
+                          "start: " +
+                            company.business_hours.start +
+                            " end: " +
+                            company.business_hours.end
+                        );
+                        console.log(document.getElementById("slotDay").value);
+                        bookSlot(
+                          params.id,
+                          new Date(
+                            document.getElementById("slotDay").value + " 11:00"
+                          )
+                        );
+                        setShowModal(false);
+                      }}
                     >
                       Confirm
                     </button>
