@@ -2,18 +2,6 @@ COMANDI UTILI
 Per creare branch locali collegate alle branch remote (tutte) <3
 	git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
 
-
-FRAMEWORKS
-	- REACT (front-office)
-	    Componenti:
-	 	estendono la classe React.Component (class _componente_ extends React.Component).
-	 	Posso riferirmi al componente nella sua interezza con <componente />.
-	 	Un componente può ricordare il suo stato: this.state
-
-	- VUE (game)
-	
-BACK-END: express
-
 API
 ● Pubbliche: 			        https://github.com/public-apis/public-apis
 ● Fatti e immagini di animali: 	https://zoo-animal-api.herokuapp.com/
@@ -46,7 +34,7 @@ TO DO:
 	[x] Footer
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
-		[x] Home page
+		[x] Home page (bottoni per i games che fanno un animazione se ci passi sopra)
 		[ ] sezione utente e profilo
 		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri (potremmo comprenderlo nel login: se sei loggato e ha degli animali li puoi vedere)
 		[x] card con pagina per pubblicizzare servizi CasAnimale
@@ -62,7 +50,6 @@ TO DO:
 		[/] Adv servizi offerti
 		[x] Video buffi yt
 		[x] Quiz
-		[ ] controllare API e tutti i giochi  | GENO
 		[/] Classifica (login e non) 							| GENO. Si potrebbe mettere un tasto nella navbar senza creare una card in piu
 		[x] -fac- Memory / impiccato
 

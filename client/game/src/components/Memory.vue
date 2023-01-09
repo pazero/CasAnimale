@@ -28,7 +28,7 @@
         </button>
       </div>
     </div>
-    <div v-show="start" class="flex pt-2 w-full h-screen justify-center items-center h-[calc(100vh-5rem)]">
+    <div v-show="start" class="flex pt-2 w-full justify-center items-center">
       <div
         v-show="start && !showResult"
         class="p-4 grid lg:grid-rows-3 md:grid-rows-6 sm:grid-rows-9 grid-flow-col gap-4"
@@ -114,18 +114,18 @@ export default {
     async fetchImg() {
       for (let i = 0; i < 9; i++) {
         const response = await fetch(
-          "https://zoo-animal-api.herokuapp.com/animals/rand"
+          "https://dog.ceo/api/breeds/image/random"
         );
         const animal = await response.json();
         this.animal_img.push({
           id: i,
           revealed: false,
-          img: animal.image_link,
+          img: animal.message,
         });
         this.animal_img.push({
           id: i,
           revealed: false,
-          img: animal.image_link,
+          img: animal.message,
         });
       }
       this.shuffle(this.animal_img);

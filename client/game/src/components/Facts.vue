@@ -38,6 +38,8 @@
 </template>
 
 <script scoped>
+import animals from "./animals.json";
+
 export default {
   data() {
     return {
@@ -47,52 +49,59 @@ export default {
         image: "",
       },
       api: [
-        "https://zoo-animal-api.herokuapp.com/animals/rand", // fornisce informazioni su un animale randomico
+        "https://zoo-animal-api.herokuapp.com/animals/rand", // fornisce informazioni su un animale randomico (non funiona in data 09/01)
         "https://meowfacts.herokuapp.com/", // fornisce una curiosità sui gatti
         "https://cataas.com/cat?json=true", // fornisce foto di gatti casuali
       ],
       fetchDone: false,
     };
   },
+
   methods: {
-    getRandAnimal() {
-      fetch("https://zoo-animal-api.herokuapp.com/animals/rand")
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            alert("Status " + response.status + " : " + response.statusText);
-          }
-        })
-        .then((response) => {
-          /*
-            data_layout: {
-              name: "",
-              latin_name: "",
-              animal_type: "",
-              active_time: "",
-              length_min: "",
-              length_max: "",
-              weight_min: "",
-              weight_max: "",
-              lifespan: "",
-              habitat: "",
-              diet: "",
-              geo_range: "",
-              image_link: "",
-              id: 0,
-            }
-          */
-          this.fact.title = `Discover the ${response.name}! (latin name: ${response.latin_name})`;
-          this.fact.body = `This animal is a ${response.animal_type.toLowerCase()}. It's a ${response.active_time.toLowerCase()} animal. Its length is between
-            ${Math.round(response.length_min * 0.3048 * 100) / 10} and ${Math.round(response.length_max * 0.3048 * 100) / 100} meters. Its weight is between
-            ${Math.round(response.weight_min * 0.45359237 * 100) / 100} and ${Math.round(response.weight_max * 0.45359237 * 100) / 100} kg. Its lifespan is
-            ${response.lifespan} years. Its natural habitat are the ${response.habitat.toLowerCase()}. Its diet is formed by ${response.diet.toLowerCase()}.
-            Its tipical locations are ${response.geo_range}.`;
-          this.fact.image = response.image_link;
-          this.animal_fact = response;
-          this.fetchDone = true;
-        });
+    async getRandAnimal() {
+      const animal = animals[Math.floor(Math.random() * animals.length)]; // get random animal
+      const charact = animal.characteristics;
+      console.log(animal);
+      this.fact.title = `Discover the ${animal.name}! (latin name: ${animal.taxonomy.scientific_name})`;
+      this.fact.body = `This animal is a ${charact.diet}.
+        ${
+          charact.group_behavior !== undefined
+            ? `Its group behavior is ${charact.group_behavior}.`
+            : ""
+        }
+        ${
+          charact.length !== undefined
+            ? `Its length is about ${charact.length?.split("(")[0]}.`
+            : ""
+        }
+        ${
+          charact.height !== undefined
+            ? `Its height is about ${charact.height?.split("(")[0]}.`
+            : ""
+        }
+        ${
+          charact.weight !== undefined
+            ? `Its weight is about ${charact.weight?.split("(")[0]}.`
+            : ""
+        }
+        ${
+          charact.lifespan !== undefined
+            ? `Its lifespan is ${charact.lifespan}.`
+            : ""
+        }
+        ${
+          charact.predators !== undefined
+            ? `Its predators are ${charact.predators}.`
+            : ""
+        }
+        ${charact.prey !== undefined ? `Its prey are ${charact.prey}.` : ""}`;
+      var ret = await fetch("https://meme-api.com/gimme/AnimalsBeingDerps", {
+        responseType: "application/json",
+      });
+      ret = await ret.json();
+      this.fact.image = ret.url;
+      this.animal_fact = animal;
+      this.fetchDone = true;
     },
     getCatFact() {
       fetch("https://meowfacts.herokuapp.com")
