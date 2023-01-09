@@ -46,7 +46,7 @@ const CompanyList = (props) => {
       >
         <Navbar />
       </div>
-      <div className="flex flex-col h-full" style={{flex:"1 1 auto"}}>
+      <div className="flex flex-col" style={{flex:"1 1 auto"}}>
         <div id="listTitle" className="my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase">
             {title}
         </div>
