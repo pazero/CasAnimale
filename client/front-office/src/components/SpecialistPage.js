@@ -8,7 +8,7 @@ import CompanyManage from "../services/CompanyManage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
-
+import Select from 'react-select'
 const SpecialistPage = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -18,6 +18,7 @@ const SpecialistPage = () => {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [company, setCompany] = useState([]);
   const token = Cookies.get("token");
+
   useEffect(() => {
     async function fetchData() {
       await CompanyManage.getCompany(params.id).then((res) => {
@@ -31,7 +32,9 @@ const SpecialistPage = () => {
       );
     }
     fetchData();
+    calcSlot();
   }, []);
+
   const newDate = (s) => {
     return new Date(s);
   };
@@ -39,11 +42,11 @@ const SpecialistPage = () => {
     var d = newDate(s);
     return (
       d.getFullYear().toString() +
-      "-" +
+      "/" +
       ((d.getMonth() + 1).toString().length == 2
         ? (d.getMonth() + 1).toString()
         : "0" + (d.getMonth() + 1).toString()) +
-      "-" +
+      "/" +
       (d.getDate().toString().length == 2
         ? d.getDate().toString()
         : "0" + d.getDate().toString()) +
@@ -57,6 +60,7 @@ const SpecialistPage = () => {
         : "0" + (parseInt(d.getMinutes() / 5) * 5).toString())
     );
   };
+
   //formato mese-giorno-anno
   const getDateString = (s) => {
     var d = newDate(s);
@@ -64,11 +68,11 @@ const SpecialistPage = () => {
       ((d.getMonth() + 1).toString().length == 2
         ? (d.getMonth() + 1).toString()
         : "0" + (d.getMonth() + 1).toString()) +
-      "-" +
+      "/" +
       (d.getDate().toString().length == 2
         ? d.getDate().toString()
         : "0" + d.getDate().toString()) +
-      "-" +
+      "/" +
       d.getFullYear().toString()
     );
   };
@@ -86,6 +90,10 @@ const SpecialistPage = () => {
     console.log("companyPrenotation: " + array);
   }, [companyPrenotation]);
 
+  useEffect(() => {
+    console.log("availableSlots: ", availableSlots);
+  }, [availableSlots]);
+
   const bookSlot = async (companyId, start) => {
     const res = await PrenotationManage.newPrenotation({
       company: companyId,
@@ -96,16 +104,20 @@ const SpecialistPage = () => {
   };
 
   function calcSlot() {
-    let slotDay = document.getElementById("slotDay").value;
-    let start = company.business_hours.start;
-    let end = company.business_hours.end;
+    let slotDay =
+      document.getElementById("slotDay")?.value !== undefined
+        ? document.getElementById("slotDay").value
+        : new Date();
+    console.log("slotDay: ", slotDay);
+    let start = company.business_hours?.start;
+    let end = company.business_hours?.end;
     let interval = end - start;
     if (interval <= 0) alert("It is not possible to book an appointment");
     let slots = [];
     const booked = [];
     companyPrenotation?.map((item) => {
-      console.log("prenotation date: " + getDateString(item.start));
-      console.log("selected date: " + slotDay);
+      //console.log("prenotation date: " + getDateString(item.start));
+      //console.log("selected date: " + slotDay);
       //seleziono solo le prenotazioni fatte nella data selezionata
       if (getDateString(item.start).localeCompare(slotDay) === 0)
         booked.push(getHoursString(item.start));
@@ -113,12 +125,18 @@ const SpecialistPage = () => {
     console.log("booked: " + booked);
     for (let i = 0; i < interval; i++) {
       //se lo slot non è incluso lo aggiungo a availableSlots che poi userò per riempire il select
-      if (!booked.includes(start + i)) {
-        let moment = start + i > 12 ? "pm" : "am";
-        //posso fare cosi o devo usare setAvailableSlots?
-        availableSlots.push(((start + i) % 12) + moment);
+      if (!booked.includes((start + i).toString())) {
+        console.log("slot start: '" + (start + i) + "'");
+        let moment =
+          start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
+        slots.push({value: moment, label : moment});
       }
     }
+    setAvailableSlots(slots);
+    console.log("availableSlots: ", availableSlots);
+    //if(showModal){
+      //document.getElementById("slotSelect").innerHTML = `<Select options={availableSlots} />`;
+    //}
   }
 
   return (
@@ -228,7 +246,9 @@ const SpecialistPage = () => {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">Book a appointment!</h3>
+                    <h3 className="text-3xl font-semibold">
+                      Book a appointment!
+                    </h3>
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
@@ -236,12 +256,14 @@ const SpecialistPage = () => {
                     <div className="font-bold">Data</div>
                     <div>
                       <DatePicker
-                        //onCalendarOpen={calcSlot}
                         id="slotDay"
                         className="text-center border-solid border-4 rounded-lg px-1"
                         selected={startDate}
                         placeholderText="Select a day"
-                        onChange={(date) => setStartDate(date)}
+                        onChange={(date) => {
+                          setStartDate(date);
+                          calcSlot();
+                        }}
                         minDate={new Date()}
                         filterDate={(date) => {
                           return date.getDay() !== 0 && date.getDay() !== 6;
@@ -249,11 +271,20 @@ const SpecialistPage = () => {
                       />
                     </div>
                     <div className="font-bold">
-                      Schedule 
-                      <div id="slotSelect"></div>
+                      Schedule
+                      <div id="slotSelect" className="font-normal" >
+                      <Select options={availableSlots} />
+                      </div>
                     </div>
-                    <div className="font-bold">Duration <span className="font-normal">1 hour</span></div>
-                    <div className="font-bold">Total price <span className="font-normal">{company.cost_per_hour}€/h</span></div>
+                    <div className="font-bold">
+                      Duration <span className="font-normal">1 hour</span>
+                    </div>
+                    <div className="font-bold">
+                      Total price{" "}
+                      <span className="font-normal">
+                        {company.cost_per_hour}€/h
+                      </span>
+                    </div>
                   </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -273,7 +304,7 @@ const SpecialistPage = () => {
                         bookSlot(
                           params.id,
                           new Date(
-                            document.getElementById("slotDay").value + " 11:00"
+                            document.getElementById("slotDay").value + " 12:00"
                           )
                         );
                         setShowModal(false);
