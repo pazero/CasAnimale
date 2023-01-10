@@ -4,8 +4,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
-import CompanyShowcase from "../components/CompanyShowcase";
-
 const CompanyList = (props) => {
   const navigate = useNavigate();
   const [company, setCompany] = useState([]);
@@ -80,7 +78,7 @@ const CompanyList = (props) => {
               </div>
               <div className="flex items-end flex-1">
                 <div className="flex flex-row mb-2 mx-2 font-semibold">
-                  <div className="mr-4 self-center" >Opened from {product.business_hours.start} to {product.business_hours.end}</div>
+                  <div className="mr-4 self-center" >Opened from {product.business_hours.start%12}{product.business_hours.start > 12 ? "pm" : "am"} to {product.business_hours.end % 12}{product.business_hours.end > 12 ? "pm" : "am"}</div>
                   <div className="px-2 py-1 rounded flex self-center justify-center flex-start font-semibold bg-[#191A3E]" style={{color:"#b9b9ff"}}>
                     {product.cost_per_hour} € / h
                   </div>

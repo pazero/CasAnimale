@@ -72,10 +72,12 @@ const SpecialistPage = () => {
       d.getFullYear().toString()
     );
   };
+  //restituisce solo l'ora dato che gli slot vanno di ora in ora
   const getHoursString = (s) => {
     var d = newDate(s);
     return d.getHours().toString();
   };
+
   useEffect(() => {
     const array = [];
     companyPrenotation?.map((item) => {
@@ -94,14 +96,12 @@ const SpecialistPage = () => {
   };
 
   function calcSlot() {
-    console.log("iniziamo calcSlot");
     let slotDay = document.getElementById("slotDay").value;
     let start = company.business_hours.start;
     let end = company.business_hours.end;
     let interval = end - start;
-    if (interval <= 0) alert("It is not possible to book a slot");
+    if (interval <= 0) alert("It is not possible to book an appointment");
     let slots = [];
-    //slots.push(getDateTimeString(item.start))
     const booked = [];
     companyPrenotation?.map((item) => {
       console.log("prenotation date: " + getDateString(item.start));
@@ -114,7 +114,8 @@ const SpecialistPage = () => {
     for (let i = 0; i < interval; i++) {
       //se lo slot non è incluso lo aggiungo a availableSlots che poi userò per riempire il select
       if (!booked.includes(start + i)) {
-        let moment = (start + i > 12) ? "pm" : "am";
+        let moment = start + i > 12 ? "pm" : "am";
+        //posso fare cosi o devo usare setAvailableSlots?
         availableSlots.push(((start + i) % 12) + moment);
       }
     }
@@ -144,7 +145,6 @@ const SpecialistPage = () => {
         >
           {company.name}
         </div>
-        calcSlot
         <div id="owner" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Doctor:</span>
           <div id="ownerName" className="ml-4">
@@ -205,7 +205,7 @@ const SpecialistPage = () => {
               }}
               className="btn btn-secondary mt-2 mb-4"
             >
-              Book a slot
+              Book an appointment
             </button>
           </div>
         ) : (
@@ -216,7 +216,7 @@ const SpecialistPage = () => {
                 navigate("/login");
               }}
             >
-              Sign in to book a visit
+              Sign in to book an appointment
             </button>
           </div>
         )}
@@ -228,7 +228,7 @@ const SpecialistPage = () => {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">Book a slot!</h3>
+                    <h3 className="text-3xl font-semibold">Book a appointment!</h3>
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
@@ -249,10 +249,11 @@ const SpecialistPage = () => {
                       />
                     </div>
                     <div className="font-bold">
-                      Orario
+                      Schedule 
                       <div id="slotSelect"></div>
                     </div>
-                    <div className="font-bold">Costo totale</div>
+                    <div className="font-bold">Duration <span className="font-normal">1 hour</span></div>
+                    <div className="font-bold">Total price <span className="font-normal">{company.cost_per_hour}€/h</span></div>
                   </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
