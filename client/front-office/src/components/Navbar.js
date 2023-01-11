@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import UserManage from "../services/UserManage";
 import { TbUserCircle, TbShoppingCart } from 'react-icons/tb';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = Cookies.get("token");
+
+  const isUserLoggedIn = async () => {
+    var ret = await UserManage.isLogged();
+    return ret.data.success
+  }
+
+  useEffect(() => {
+    if(!isUserLoggedIn())
+      logout()
+  }, [])
 
   function logout() {
     Cookies.remove("token", { path: "" });

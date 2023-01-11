@@ -13,8 +13,8 @@ const authJwt = {
 
     jwt.verify(token, process.env.TOKEN_SECRET, (err, data) => {
       if (err) {
-        console.log(err);
-        return res.sendStatus(403);
+        // console.log("jwt error")
+        return res.json({ message: "jwt is not valid", success: false });
       }
       req.userid = data.id;
       next();

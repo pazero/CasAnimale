@@ -30,6 +30,9 @@ const Authentication = {
   buyUserCart() {
     return Api().post(BASE + "cart/buy");
   },
+  isLogged() {
+    return Api().post(BASE + "isLoggedIn");
+  },
 };
 
 export default Authentication;

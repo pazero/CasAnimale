@@ -44,6 +44,18 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/isLoggedIn", (req, res) => {
+  try {
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      console.log("User is logged!");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 /* TODO: prendere o lasciare? Restore user's password */
 router.post("/restore", (req, res) => {
   res.json({
