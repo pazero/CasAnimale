@@ -8,12 +8,13 @@ import CompanyManage from "../services/CompanyManage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
-import Select from 'react-select'
+import Select from "react-select";
 const SpecialistPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [showModal, setShowModal] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState();
+  const [startTime, setStartTime] = useState();
   const [companyPrenotation, setCompanyPrenotation] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [company, setCompany] = useState([]);
@@ -32,9 +33,26 @@ const SpecialistPage = () => {
       );
     }
     fetchData();
-    calcSlot();
+    //setStartDate(new Date());
+    calcSlot(getDateString(new Date()));
   }, []);
 
+  function chooseTime(e) {
+    let time = e.value;
+    let len = time.length;
+    let moment = time[len - 2] + time[len - 1];
+    let hours = "";
+
+    hours += time[0] + (len > 3 ? time[1] : "");
+
+    //for(let i = len-3; i>=0; i--) hours += time[i];
+    console.log("TIMEHOURS: ", hours);
+
+    time = moment === "pm" ? +hours + 12 : +hours;
+    time += ":00";
+    setStartTime(time);
+    console.log("ITALIAN TIME: ", time);
+  }
   const newDate = (s) => {
     return new Date(s);
   };
@@ -61,7 +79,7 @@ const SpecialistPage = () => {
     );
   };
 
-  //formato mese-giorno-anno
+  //formato mese/giornoanno
   const getDateString = (s) => {
     var d = newDate(s);
     return (
@@ -94,6 +112,10 @@ const SpecialistPage = () => {
     console.log("availableSlots: ", availableSlots);
   }, [availableSlots]);
 
+  useEffect(() => {
+    console.log("startTime: ", startTime);
+  }, [startTime]);
+
   const bookSlot = async (companyId, start) => {
     const res = await PrenotationManage.newPrenotation({
       company: companyId,
@@ -103,11 +125,11 @@ const SpecialistPage = () => {
     alert(res.message);
   };
 
-  function calcSlot() {
-    let slotDay =
-      document.getElementById("slotDay")?.value !== undefined
-        ? document.getElementById("slotDay").value
-        : new Date();
+  function calcSlot(slotDay) {
+    //let slotDay = getDateString(startDate);
+    //  document.getElementById("slotDay")?.value !== undefined
+    //    ? document.getElementById("slotDay").value
+    //    : new Date();
     console.log("slotDay: ", slotDay);
     let start = company.business_hours?.start;
     let end = company.business_hours?.end;
@@ -116,8 +138,6 @@ const SpecialistPage = () => {
     let slots = [];
     const booked = [];
     companyPrenotation?.map((item) => {
-      //console.log("prenotation date: " + getDateString(item.start));
-      //console.log("selected date: " + slotDay);
       //seleziono solo le prenotazioni fatte nella data selezionata
       if (getDateString(item.start).localeCompare(slotDay) === 0)
         booked.push(getHoursString(item.start));
@@ -129,13 +149,13 @@ const SpecialistPage = () => {
         console.log("slot start: '" + (start + i) + "'");
         let moment =
           start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
-        slots.push({value: moment, label : moment});
+        slots.push({ value: moment, label: moment });
       }
     }
     setAvailableSlots(slots);
     console.log("availableSlots: ", availableSlots);
     //if(showModal){
-      //document.getElementById("slotSelect").innerHTML = `<Select options={availableSlots} />`;
+    //document.getElementById("slotSelect").innerHTML = `<Select options={availableSlots} />`;
     //}
   }
 
@@ -247,7 +267,7 @@ const SpecialistPage = () => {
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-3xl font-semibold">
-                      Book a appointment!
+                      Book an appointment!
                     </h3>
                   </div>
                   {/*body*/}
@@ -261,8 +281,10 @@ const SpecialistPage = () => {
                         selected={startDate}
                         placeholderText="Select a day"
                         onChange={(date) => {
+                          //console.log("HAI CAMBIATO GIORNO: " + date);
                           setStartDate(date);
-                          calcSlot();
+                          //console.log("HAI CAMBIATO STARTDATE: " + startDate);
+                          calcSlot(getDateString(date));
                         }}
                         minDate={new Date()}
                         filterDate={(date) => {
@@ -272,8 +294,11 @@ const SpecialistPage = () => {
                     </div>
                     <div className="font-bold">
                       Schedule
-                      <div id="slotSelect" className="font-normal" >
-                      <Select options={availableSlots} />
+                      <div id="slotSelect" className="font-normal">
+                        <Select
+                          options={availableSlots}
+                          onChange={chooseTime}
+                        />
                       </div>
                     </div>
                     <div className="font-bold">
@@ -304,7 +329,7 @@ const SpecialistPage = () => {
                         bookSlot(
                           params.id,
                           new Date(
-                            document.getElementById("slotDay").value + " 12:00"
+                            document.getElementById("slotDay").value + " " + startTime
                           )
                         );
                         setShowModal(false);
