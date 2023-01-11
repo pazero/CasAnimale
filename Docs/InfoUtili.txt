@@ -35,22 +35,20 @@ TO DO:
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
 		[x] Home page (bottoni per i games che fanno un animazione se ci passi sopra)
-		[ ] sezione utente e profilo
 		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri (potremmo comprenderlo nel login: se sei loggato e ha degli animali li puoi vedere)
 		[x] card con pagina per pubblicizzare servizi CasAnimale
-		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
 		[x] inserire img sfondo banner
 		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
-		[/] raggiungere velocemente servizi CasAnimale 		| si fa da dentro la card con la lista dei servizi
+		[x] raggiungere velocemente servizi CasAnimale
 		[x] raggiungere velocemente e-commerce CasAnimale
 		[x] Curiosità generali 
 		[ ] Curiosità miei
 		[x]	Info utili (sanitarie e legali) generali 
 		[ ]	Info utili (sanitarie e legali) miei
-		[/] Adv servizi offerti
+		[x] Adv servizi offerti
 		[x] Video buffi yt
 		[x] Quiz
-		[/] Classifica (login e non) 							| GENO. Si potrebbe mettere un tasto nella navbar senza creare una card in piu
+		[x] Classifica (login e non) 							| GENO. Si potrebbe mettere un tasto nella navbar senza creare una card in piu
 		[x] -fac- Memory / impiccato
 
 	- FRONT OFFICE                     -> renderlo responsive e con style bello

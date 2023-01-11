@@ -18,8 +18,26 @@ import {
 const navigation = [
   { name: "Services", href: "services", current: false },
   { name: "Visit our website", href: "http://localhost:3000", current: false },
-  { name: "Ranking", href:"#", current:"false"},
+  { name: "Ranking", href: "http://localhost:3000/boards", current: "false" },
 ];
+
+const isLoggedIn = () => {
+  let name = "token";
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    let token = parts.pop().split(";").shift();
+    console.log("token", token);
+    return true;
+  }
+  return false;
+};
+
+const logout = () => {
+  document.cookie = 'token=; Max-Age=-99999999;'; 
+  document.location.reload()
+}
+
 </script>
 
 <template>
@@ -70,7 +88,7 @@ const navigation = [
           class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
         >
           <!-- Profile dropdown -->
-          <Menu as="div" class="relative ml-3">
+          <Menu v-if="isLoggedIn()" as="div" class="relative ml-3">
             <div>
               <MenuButton
                 class="flex m-0 rounded-full text-sm text-gray-500 hover:text-white"
@@ -90,7 +108,10 @@ const navigation = [
               <MenuItems
                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-200 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
-                <MenuItem v-slot="{ active }">
+                <MenuItem
+                  onclick="document.location.href = `http://localhost:3000/profile`"
+                  v-slot="{ active }"
+                >
                   <a
                     href="#"
                     :class="[
@@ -101,18 +122,7 @@ const navigation = [
                     >Your Profile</a
                   >
                 </MenuItem>
-                <MenuItem v-slot="{ active }">
-                  <a
-                    href="#"
-                    :class="[
-                      active
-                        ? 'block px-4 py-2 text-sm bg-gray-700 text-white'
-                        : 'block px-4 py-2 text-sm text-gray-900',
-                    ]"
-                    >Settings</a
-                  >
-                </MenuItem>
-                <MenuItem v-slot="{ active }">
+                <MenuItem v-on:click="logout()" v-slot="{ active }">
                   <a
                     href="#"
                     :class="[
