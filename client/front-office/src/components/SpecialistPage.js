@@ -44,14 +44,9 @@ const SpecialistPage = () => {
     let hours = "";
 
     hours += time[0] + (len > 3 ? time[1] : "");
-
-    //for(let i = len-3; i>=0; i--) hours += time[i];
-    console.log("TIMEHOURS: ", hours);
-
     time = moment === "pm" ? +hours + 12 : +hours;
     time += ":00";
     setStartTime(time);
-    console.log("ITALIAN TIME: ", time);
   }
   const newDate = (s) => {
     return new Date(s);
@@ -123,6 +118,7 @@ const SpecialistPage = () => {
       duration: 1,
     });
     alert(res.message);
+    window.location.reload();
   };
 
   function calcSlot(slotDay) {
