@@ -1,6 +1,6 @@
 <template>
   <div id="hangman">
-    <div class="" data-theme="lemonade">
+    <div class="bg-white h-screen" data-theme="lemonade">
       <NavBar />
       <!-- end play popup-->
       <div

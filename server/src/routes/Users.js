@@ -48,8 +48,8 @@ router.post("/isLoggedIn", (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
-    async function cont() {
-      console.log("User is logged!");
+    function cont() {
+      // console.log("User is logged!");
     }
   } catch (e) {
     console.log(e);

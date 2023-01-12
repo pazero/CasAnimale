@@ -27,7 +27,7 @@ const isLoggedIn = () => {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) {
     let token = parts.pop().split(";").shift();
-    console.log("token", token);
+    // console.log("token", token);
     return true;
   }
   return false;

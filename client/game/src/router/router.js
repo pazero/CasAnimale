@@ -7,6 +7,7 @@ import Facts from "../components/Facts.vue";
 import Memory from "../components/Memory.vue";
 import InfoPet from "../components/InfoPet.vue"
 import Services from "../components/Services.vue"
+import Shop from "../components/Shop.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: "/services",
       name: "services",
       component: Services,
+    },
+    {
+      path: "/shop",
+      name: "shop",
+      component: Shop,
     },
   ],
 });
