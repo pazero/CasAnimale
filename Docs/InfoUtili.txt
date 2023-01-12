@@ -34,7 +34,7 @@ TO DO:
 	[x] Footer
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
-		[x] Home page (bottoni per i games che fanno un animazione se ci passi sopra)
+		[x] Home page
 		[x] card con pagina per pubblicizzare servizi CasAnimale
 		[x] card per visualizzare prodotti e-commerce
 		[x] raggiungere velocemente servizi CasAnimale

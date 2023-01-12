@@ -166,6 +166,7 @@ const advs = [
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">
           <div
             :class="[game.bg, 'card-body']"
+            class="hover:animate-pulse"
             style="padding: 2rem; margin: 1rem"
           >
             <p class="card-title hidden">{{ game.name }}</p>

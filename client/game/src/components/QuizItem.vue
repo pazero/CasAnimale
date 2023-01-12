@@ -2,7 +2,7 @@
   <div class="">
     <div v-if="!fetchDone">
       <div
-        class="flex flex-col items-center justify-center h-[calc(100vh-4rem)] m-2"
+        class="flex flex-col items-center justify-center h-[calc(100vh-5rem)] m-2"
       >
         <div v-if="!isLoggedIn()">
           <label
