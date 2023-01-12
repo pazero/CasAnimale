@@ -70,7 +70,7 @@ TO DO:
 		[x] Home page
 		[x] Login
 		[x] Registrazione
-		[/] Poter inserire i propri pets e animali preferiti	| eliminare animale, add foto animale + animali preferiti: array -> fede
+		[x] Poter inserire i propri pets e animali preferiti	| eliminare animale, add foto animale + animali preferiti: array -> fede
 		[x] eCommerce
 		[/] Recupero pass (geno)
 		[/] Tasto area riservata, rimanda al login back

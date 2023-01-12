@@ -16,12 +16,13 @@ const NewPet = () => {
     window.location.reload();
   };
 
-  const [name, setName] = useState([]);
-  const [species, setSpecies] = useState([]);
-  const [breed, setBreed] = useState([]);
-  const [birth, setBirth] = useState([]);
-  const [photo, setPhoto] = useState([]);
+  const [name, setName] = useState("");
+  const [species, setSpecies] = useState("");
+  const [breed, setBreed] = useState("");
+  const [birth, setBirth] = useState(new Date());
+  const [photo, setPhoto] = useState("https://cdn-icons-png.flaticon.com/512/60/60422.png");
 
+  
   let date = new Date();
   const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
