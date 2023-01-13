@@ -69,10 +69,9 @@ async function arePrenotationsOverlaping(req, res) {
   return false;
 }
 
-/* Debug purpose, todo: remove */
 router.get("", async (req, res) => {
   try {
-    const prenotation = await Prenotation.find();
+    const prenotation = await Prenotation.find(req.query);
     res.json(prenotation);
   } catch (e) {
     res.json({ message: e });
