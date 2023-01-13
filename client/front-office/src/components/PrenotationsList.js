@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import PetManage from "../services/PetManage";
-import { Box, Heading, Text, Container } from "@chakra-ui/react";
+import PrenotationManage from "../services/PrenotationManage";
+import CompanyManage from "../services/CompanyManage";
+import { Box, Heading, Text, Container, Button} from "@chakra-ui/react";
 
 const PrenotationsList = () => {
-  const [petsList, setPetList] = useState([]);
-  const [isPetEmpty, setIsPetEmpty] = useState();
+  const [prenotationsList, setPrenotationsList] = useState([]);
+  const [isPrenotationEmpty, setisPrenotationEmpty] = useState();
 
   useEffect(() => {
     async function fetchData() {
-      const ret = await PetManage.getPets();
+      const ret = await PrenotationManage.getPrenotations();
       const ptList = ret.data;
-      setPetList(
+      setPrenotationsList(
         await Promise.all(
-          ptList.map((item) => {    // item = pet
+          ptList.map((item) => {
+            // item = pet
             // console.log(item);
-            setIsPetEmpty(true);
+            setisPrenotationEmpty(true);
             return {
               ...item,
             };
@@ -25,14 +27,19 @@ const PrenotationsList = () => {
     fetchData();
   }, []);
 
+  async function fetchCompanyName(id) {
+    const ret = await CompanyManage.getCompany(id);
+    return await Promise.all(ret.data.name);
+  }
+
   return (
     <Container maxW="100%">
       <Container maxW={"7xl"} p="15" pt="10" mt="4">
         <Heading as="h1">Your prenotations</Heading>
         <Text>
-          {petsList.map((item, i) => (
+          {prenotationsList.map((item, i) => (
             <Box
-              key = {i}
+              key={i}
               marginTop={{ base: "1", sm: "5" }}
               display="flex"
               flexDirection={{ base: "column", sm: "row" }}
@@ -49,7 +56,7 @@ const PrenotationsList = () => {
                   display="flex"
                   flex="1"
                   flexDirection="column"
-                  justifyContent="center"
+                  justifyContent="left"
                   marginTop={{ base: "3", sm: "0" }}
                   padding="2"
                   paddingLeft="4"
@@ -57,31 +64,30 @@ const PrenotationsList = () => {
                   borderRadius="md"
                 >
                   <Heading as="h2" marginTop="1">
-                    <div>{item.name}</div>
+                    <div>{item.start
+                          ? item.start.substring(5, 7) +
+                            "/" +
+                            item.start.substring(8, 10) +
+                            "/" +
+                            item.start.substring(0, 4)
+                          : item.start}</div>
                   </Heading>
                   <Text as="p" marginTop="2" fontSize="lg">
                     <ul>
-                      <li>Species: {item.species}</li>
-                      <li>Breed: {item.breed}</li>
-                      <li>Birth: {item.birth
-                                  ? item.birth.substring(5, 7) +
-                                  "/" +
-                                  item.birth.substring(8, 10) +
-                                  "/" +
-                                  item.birth.substring(0, 4)
-                                    : item.birth}</li>
+                      <li>Company: {}</li>
+                      <li>
+                        Schedule:{" "}
+                        {item.start ? item.start.substring(11, 16) : item.start}
+                      </li>
                     </ul>
                   </Text>
+              <Button></Button>
                 </Box>
               </Box>
             </Box>
           ))}
         </Text>
-        {isPetEmpty ? null : (
-          <Text>
-            No animals founded, add one!
-          </Text>
-        )}
+        {isPrenotationEmpty ? null : <Text>No animals founded, add one!</Text>}
       </Container>
     </Container>
   );
