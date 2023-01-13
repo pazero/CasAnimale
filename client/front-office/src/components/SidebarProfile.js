@@ -1,5 +1,5 @@
 import React from "react";
-import { TbFish, TbUserCircle } from 'react-icons/tb';
+import { TbFish, TbUserCircle, TbCalendarEvent } from 'react-icons/tb';
 
 
 export default function Sidebar() {
@@ -25,6 +25,12 @@ export default function Sidebar() {
                     <span>Your pets</span>
                   </a>
                 </li>
+                <li className="rounded-sm">
+                  <a href="/profile/" className="flex items-center p-2 space-x-3 rounded-md">
+                    <TbCalendarEvent className="block h-6 w-6" alt="calendar icon" />
+                    <span>Your prenotations</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -42,6 +48,12 @@ export default function Sidebar() {
             <a href="/profile/pets" className="flex items-center space-x-3 rounded-md">
               <TbFish className="block h-6 w-6" alt="fish icon" />
               <span>Your pets</span>
+            </a>
+          </li>
+          <li className="rounded-sm m-4 ml-4">
+            <a href="/profile/" className="flex items-center space-x-3 rounded-md">
+              <TbCalendarEvent className="block h-6 w-6" alt="fish icon" />
+              <span>Your prenotations</span>
             </a>
           </li>
         </ul>
