@@ -45,11 +45,11 @@ const Navbar = () => {
           </label>
           <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             <li>
-              <a href="http://localhost:5173/">Area Giochi</a>
+              <a href="http://localhost:5173/">Game Area</a>
             </li>
             <li tabIndex={0}>
               <a  className="justify-between">
-                Servizi
+                Services
                 <svg
                   className="fill-current"
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ const Navbar = () => {
                         navigate("/");
                       }}
               >
-                Area Riservata
+                Reserved Section
               </button>
             </li>
           </ul>
@@ -149,11 +149,11 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5173/">Area Giochi</a>
+            <a href="http://localhost:5173/">Game Area</a>
           </li>
           <li tabIndex={0}>
             <a className="justify-between">
-              Servizi
+              Services
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -241,7 +241,7 @@ const Navbar = () => {
                       navigate("/");
                     }}
             >
-              Area Riservata
+              Reserved Section
             </button>
           </li>
         </ul>

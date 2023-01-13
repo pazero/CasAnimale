@@ -13,7 +13,7 @@ const CompanyList = (props) => {
       title = "Veterinaries";
       break;
     case "petsitter":
-      title = "Petsitters";
+      title = "Pet Sitters";
       break;
     case "psychologist":
       title = "Psychologists";

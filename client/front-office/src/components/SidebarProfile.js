@@ -26,7 +26,7 @@ export default function Sidebar() {
                   </a>
                 </li>
                 <li className="rounded-sm">
-                  <a href="/profile/" className="flex items-center p-2 space-x-3 rounded-md">
+                  <a href="/profile/prenotations" className="flex items-center p-2 space-x-3 rounded-md">
                     <TbCalendarEvent className="block h-6 w-6" alt="calendar icon" />
                     <span>Your prenotations</span>
                   </a>
@@ -38,22 +38,22 @@ export default function Sidebar() {
       </div>
       <div className="sm:hidden">
         <ul className="flex flex-row justify-items-stretch">
-          <li className="rounded-sm m-4 mr-4">
-            <a href="/profile" className="flex items-center space-x-3 rounded-md">
+          <li className="rounded-sm m-4 mr-4 basis-1/3" style={{flex: "1 1 auto"}}>
+            <a href="/profile" className="flex flex-row items-center space-x-3 rounded-md">
               <TbUserCircle className="block h-6 w-6" alt="user icon" />
               <div>Profile</div>
             </a>
           </li>
-          <li className="rounded-sm m-4 ml-4">
-            <a href="/profile/pets" className="flex items-center space-x-3 rounded-md">
-              <TbFish className="block h-6 w-6" alt="fish icon" />
-              <span>Your pets</span>
+          <li className="rounded-sm m-4 ml-4 basis-1/3" style={{flex: "1 1 auto"}}>
+            <a href="/profile/pets" className="flex flex-row items-center space-x-3 rounded-md">
+              <TbFish className="block h-6 w-6" alt="fish icon"/>
+              <span>Pets</span>
             </a>
           </li>
-          <li className="rounded-sm m-4 ml-4">
-            <a href="/profile/" className="flex items-center space-x-3 rounded-md">
-              <TbCalendarEvent className="block h-6 w-6" alt="fish icon" />
-              <span>Your prenotations</span>
+          <li className="rounded-sm m-4 ml-4 basis-1/3" style={{flex: "1 1 auto"}}>
+            <a href="/profile/prenotations" className="flex flex-row items-center space-x-3 rounded-md">
+              <TbCalendarEvent className="block h-6 w-6" alt="fish icon"/>
+              <span>Prenotations</span>
             </a>
           </li>
         </ul>
