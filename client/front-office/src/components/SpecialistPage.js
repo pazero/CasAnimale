@@ -33,7 +33,6 @@ const SpecialistPage = () => {
       );
     }
     fetchData();
-    //setStartDate(new Date());
     calcSlot(getDateString(new Date()));
   }, []);
 
@@ -74,7 +73,7 @@ const SpecialistPage = () => {
     );
   };
 
-  //formato mese/giornoanno
+  //formato mese/giorno/anno
   const getDateString = (s) => {
     var d = newDate(s);
     return (
@@ -100,16 +99,16 @@ const SpecialistPage = () => {
     companyPrenotation?.map((item) => {
       array.push(getDateTimeString(item.start));
     });
-    console.log("companyPrenotation: " + array);
+    //console.log("companyPrenotation: " + array);
   }, [companyPrenotation]);
 
-  useEffect(() => {
-    console.log("availableSlots: ", availableSlots);
-  }, [availableSlots]);
+  //useEffect(() => {
+  //  console.log("availableSlots: ", availableSlots);
+  //}, [availableSlots]);
 
-  useEffect(() => {
-    console.log("startTime: ", startTime);
-  }, [startTime]);
+  //useEffect(() => {
+  //  console.log("startTime: ", startTime);
+  //}, [startTime]);
 
   const bookSlot = async (companyId, start) => {
     const res = await PrenotationManage.newPrenotation({
@@ -117,16 +116,13 @@ const SpecialistPage = () => {
       start: start,
       duration: 1,
     });
-    alert(res.message);
+    alert(res.data.message);
     window.location.reload();
   };
 
   function calcSlot(slotDay) {
-    //let slotDay = getDateString(startDate);
-    //  document.getElementById("slotDay")?.value !== undefined
-    //    ? document.getElementById("slotDay").value
-    //    : new Date();
-    console.log("slotDay: ", slotDay);
+    //console.log("slotDay: ", slotDay);
+    //console.log("today: ", getDateString(new Date()));
     let start = company.business_hours?.start;
     let end = company.business_hours?.end;
     let interval = end - start;
@@ -138,21 +134,31 @@ const SpecialistPage = () => {
       if (getDateString(item.start).localeCompare(slotDay) === 0)
         booked.push(getHoursString(item.start));
     });
-    console.log("booked: " + booked);
+    //console.log("booked: " + booked);
+    let actual_time = getHoursString(new Date());
+
     for (let i = 0; i < interval; i++) {
       //se lo slot non è incluso lo aggiungo a availableSlots che poi userò per riempire il select
       if (!booked.includes((start + i).toString())) {
-        console.log("slot start: '" + (start + i) + "'");
-        let moment =
+        //console.log("slot start: '" + (start + i) + "'");
+        if (slotDay.localeCompare(getDateString(new Date())) === 0) {
+          if (+actual_time >= +(start + i).toString()) {
+            continue;
+          }
+        }
+        let start_app =
           start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
-        slots.push({ value: moment, label: moment });
+        let end_app =
+          start + i + 1 > 12
+            ? ((start + i + 1) % 12) + "pm"
+            : start + i + 1 + "am";
+
+        let moment = start_app + " - " + end_app;
+        slots.push({ value: start_app, label: moment });
       }
     }
     setAvailableSlots(slots);
-    console.log("availableSlots: ", availableSlots);
-    //if(showModal){
-    //document.getElementById("slotSelect").innerHTML = `<Select options={availableSlots} />`;
-    //}
+    //console.log("availableSlots: ", availableSlots);
   }
 
   return (
@@ -303,7 +309,7 @@ const SpecialistPage = () => {
                     <div className="font-bold">
                       Total price{" "}
                       <span className="font-normal">
-                        {company.cost_per_hour}€/h
+                        €{company.cost_per_hour}
                       </span>
                     </div>
                   </div>
@@ -313,7 +319,7 @@ const SpecialistPage = () => {
                       className="btn-primary rounded-lg font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => {
-                        console.log(
+                        /*console.log(
                           "start: " +
                             company.business_hours.start +
                             " end: " +
@@ -321,14 +327,20 @@ const SpecialistPage = () => {
                         );
                         console.log(
                           "slotDay: " + document.getElementById("slotDay").value
-                        );
-                        bookSlot(
-                          params.id,
-                          new Date(
-                            document.getElementById("slotDay").value + " " + startTime
-                          )
-                        );
-                        setShowModal(false);
+                        );*/
+                        if (startTime) {
+                          bookSlot(
+                            params.id,
+                            new Date(
+                              document.getElementById("slotDay").value +
+                                " " +
+                                startTime
+                            )
+                          );
+                          setShowModal(false);
+                        } else {
+                          alert("You must schedule your appointment")
+                        }
                       }}
                     >
                       Confirm
