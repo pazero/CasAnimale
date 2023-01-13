@@ -24,6 +24,7 @@ router.get("", async (req, res) => {
         study_info: c.study_info,
         professional_experience: c.professional_experience,
         actual_jobs: c.actual_jobs,
+        photo: c.photo,
       })
     );
     res.json(comp);
@@ -65,6 +66,7 @@ router.get("/:id", async (req, res) => {
       study_info: company.study_info,
       professional_experience: company.professional_experience,
       actual_jobs: company.actual_jobs,
+      photo: company.photo,
     });
   } catch (e) {
     res.json({ message: e });
@@ -89,6 +91,7 @@ router.put("/new", async (req, res) => {
       study_info: req.body.study_info,
       professional_experience: c.professional_experience,
       actual_jobs: req.body.actual_jobs,
+      photo: req.body.photo,
     });
     await company.save();
     res.json({ message: "New company created!" });
@@ -135,6 +138,7 @@ router.post("/update", async (req, res) => {
         study_info: req.body.study_info,
         professional_experience: req.body.professional_experience,
         actual_jobs: req.body.actual_jobs,
+        photo: req.body.actual_jobs,
       }
     );
     res.json(updatedCompany);

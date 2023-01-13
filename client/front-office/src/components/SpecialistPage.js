@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
+import { GiMedicalDrip } from "react-icons/gi";
 const SpecialistPage = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -24,6 +25,7 @@ const SpecialistPage = () => {
     async function fetchData() {
       await CompanyManage.getCompany(params.id).then((res) => {
         setCompany(res.data);
+        //if(company.photo === undefined) company.photo ="https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg?w=2000"
       });
 
       await PrenotationManage.getPrenotations({ company: params.id }).then(
@@ -180,10 +182,18 @@ const SpecialistPage = () => {
 
       <div className="flex flex-1 flex-col m-3" style={{ height: "auto" }}>
         <div
-          id="vetName"
+          id="specialistName"
           className="text-3xl font-bold sm:text-5xl md:text-7xl"
         >
           {company.name}
+        </div>
+        <div id="companyPhoto">
+          <img
+            src={company.photo}
+            alt="company photo"
+            className="max-w-full h-auto rounded-full"
+            style={{ height: "7rem", borderRadius: "50" }}
+          ></img>
         </div>
         <div id="owner" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Doctor:</span>
@@ -339,7 +349,7 @@ const SpecialistPage = () => {
                           );
                           setShowModal(false);
                         } else {
-                          alert("You must schedule your appointment")
+                          alert("You must schedule your appointment");
                         }
                       }}
                     >
