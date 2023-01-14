@@ -21,7 +21,7 @@ const CompanyList = (props) => {
     case "groomer":
       title = "Groomers";
     default:
-      title = "";
+      title = "Groomers";
   }
   useEffect(() => {
     async function fetchData() {
