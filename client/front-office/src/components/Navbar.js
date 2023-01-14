@@ -17,10 +17,10 @@ const Navbar = () => {
     isUserLoggedIn();
   }, []);
 
-  function logout() {
+  const logout = () => {
     Cookies.remove("token", { path: "" });
     navigate("/");
-  }
+  };
 
   return (
     <div className="navbar bg-blue-200" style={{ minHeight: "5%" }}>
@@ -50,7 +50,7 @@ const Navbar = () => {
               <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
-              <a className="justify-between">
+              <div className="justify-between">
                 Servizi
                 <svg
                   className="fill-current"
@@ -61,7 +61,7 @@ const Navbar = () => {
                 >
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
-              </a>
+              </div>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
                   <button
@@ -161,7 +161,7 @@ const Navbar = () => {
             <a href="http://localhost:5173/">Area Giochi</a>
           </li>
           <li tabIndex={0}>
-            <a className="justify-between">
+            <div className="justify-between">
               Servizi
               <svg
                 className="fill-current"
@@ -172,7 +172,7 @@ const Navbar = () => {
               >
                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
               </svg>
-            </a>
+            </div>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
                 <button
