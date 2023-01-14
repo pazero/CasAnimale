@@ -127,13 +127,8 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const removedPrenotation = await Prenotation.findById(req.params.id);
-      if (req.userid == removedPrenotation.company) {
-        const msg = await Prenotation.deleteOne({ _id: req.params.id });
-        res.json(msg);
-      } else {
-        res.json({ message: "You cannot eliminate this prenotation" });
-      }
+      const msg = await Prenotation.deleteOne({ _id: req.params.id });
+      res.json(msg);
     }
     res.json({ message: "Prenotation eliminated" });
   } catch (e) {
