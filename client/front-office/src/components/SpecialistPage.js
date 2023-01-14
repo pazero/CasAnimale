@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
 import { GiMedicalDrip } from "react-icons/gi";
+
 const SpecialistPage = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -49,27 +50,29 @@ const SpecialistPage = () => {
     time += ":00";
     setStartTime(time);
   }
+
   const newDate = (s) => {
     return new Date(s);
   };
+
   const getDateTimeString = (s) => {
     var d = newDate(s);
     return (
       d.getFullYear().toString() +
       "/" +
-      ((d.getMonth() + 1).toString().length == 2
+      ((d.getMonth() + 1).toString().length === 2
         ? (d.getMonth() + 1).toString()
         : "0" + (d.getMonth() + 1).toString()) +
       "/" +
-      (d.getDate().toString().length == 2
+      (d.getDate().toString().length === 2
         ? d.getDate().toString()
         : "0" + d.getDate().toString()) +
       " " +
-      (d.getHours().toString().length == 2
+      (d.getHours().toString().length === 2
         ? d.getHours().toString()
         : "0" + d.getHours().toString()) +
       ":" +
-      ((parseInt(d.getMinutes() / 5) * 5).toString().length == 2
+      ((parseInt(d.getMinutes() / 5) * 5).toString().length === 2
         ? (parseInt(d.getMinutes() / 5) * 5).toString()
         : "0" + (parseInt(d.getMinutes() / 5) * 5).toString())
     );
@@ -79,11 +82,11 @@ const SpecialistPage = () => {
   const getDateString = (s) => {
     var d = newDate(s);
     return (
-      ((d.getMonth() + 1).toString().length == 2
+      ((d.getMonth() + 1).toString().length === 2
         ? (d.getMonth() + 1).toString()
         : "0" + (d.getMonth() + 1).toString()) +
       "/" +
-      (d.getDate().toString().length == 2
+      (d.getDate().toString().length === 2
         ? d.getDate().toString()
         : "0" + d.getDate().toString()) +
       "/" +
@@ -98,7 +101,7 @@ const SpecialistPage = () => {
 
   useEffect(() => {
     const array = [];
-    companyPrenotation?.map((item) => {
+    companyPrenotation?.forEach((item) => {
       array.push(getDateTimeString(item.start));
     });
     //console.log("companyPrenotation: " + array);
@@ -131,7 +134,7 @@ const SpecialistPage = () => {
     if (interval <= 0) alert("It is not possible to book an appointment");
     let slots = [];
     const booked = [];
-    companyPrenotation?.map((item) => {
+    companyPrenotation?.forEach((item) => {
       //seleziono solo le prenotazioni fatte nella data selezionata
       if (getDateString(item.start).localeCompare(slotDay) === 0)
         booked.push(getHoursString(item.start));
@@ -204,40 +207,40 @@ const SpecialistPage = () => {
         <div id="mainPetInfo" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Main pet of interest:</span>
           <ul id="mainPetList" className="ml-4">
-            {company.main_pets?.map((item) => (
-              <li>{item}</li>
+            {company.main_pets?.map((i, item) => (
+              <li key={i}>{item}</li>
             ))}
           </ul>
         </div>
         <div id="studyInfo" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Study info:</span>
           <ul id="studyList" className="ml-4">
-            {company.study_info?.map((item) => (
-              <li>{item}</li>
+            {company.study_info?.map((i, item) => (
+              <li key={i}>{item}</li>
             ))}
           </ul>
         </div>
         <div id="experienceInfo" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Professional experience:</span>
           <ul id="experienceList" className="ml-4">
-            {company.professional_experience?.map((item) => (
-              <li>{item}</li>
+            {company.professional_experience?.map((i, item) => (
+              <li key={i}>{item}</li>
             ))}
           </ul>
         </div>
         <div id="jobInfo" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Actual jobs:</span>
           <ul id="jobList" className="ml-4">
-            {company.actual_jobs?.map((item) => (
-              <li>{item}</li>
+            {company.actual_jobs?.map((i, item) => (
+              <li key={i}>{item}</li>
             ))}
           </ul>
         </div>
         <div id="locationInfo" className="mt-3 ml-2">
           <span className="font-bold sm:text-xl">Workplaces:</span>
           <ul id="locationList" className="ml-4">
-            {company.cities?.map((item) => (
-              <li>{item}</li>
+            {company.cities?.map((i, item) => (
+              <li key={i}>{item}</li>
             ))}
           </ul>
         </div>
@@ -376,4 +379,5 @@ const SpecialistPage = () => {
     </div>
   );
 };
+
 export default SpecialistPage;

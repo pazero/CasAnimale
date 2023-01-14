@@ -20,6 +20,7 @@ const CompanyList = (props) => {
       break;
     case "groomer":
       title = "Groomers";
+      break;
     default:
       title = "Groomers";
   }
@@ -58,7 +59,7 @@ const CompanyList = (props) => {
           style={{ flex: "0 1 auto" }}
         >
           {company.map((product) => (
-            <a
+            <div
               id={product._id}
               className="flex flex-col flex-wrap p-2 m-4 mt-0 bg-[#f0f2f3] hover:bg-[#b9b9ff] rounded-lg"
               style={{
@@ -127,7 +128,7 @@ const CompanyList = (props) => {
                   </div>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>

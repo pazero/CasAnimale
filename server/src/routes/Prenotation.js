@@ -128,9 +128,8 @@ router.delete("/:id", async (req, res) => {
 
     async function cont() {
       const msg = await Prenotation.deleteOne({ _id: req.params.id });
-      res.json(msg);
+      res.json({ message: "Prenotation eliminated" });
     }
-    res.json({ message: "Prenotation eliminated" });
   } catch (e) {
     res.json({ message: e });
   }
