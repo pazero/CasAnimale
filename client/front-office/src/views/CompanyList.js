@@ -15,11 +15,13 @@ const CompanyList = (props) => {
     case "petsitter":
       title = "Pet Sitters";
       break;
-    case "psychologist":
+    case "psy":
       title = "Psychologists";
       break;
-    default:
+    case "groomer":
       title = "Groomers";
+    default:
+      title = "";
   }
   useEffect(() => {
     async function fetchData() {
