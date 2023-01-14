@@ -353,7 +353,7 @@ export default {
           this.win = true;
           // word points
           this.totalPoints += Math.round(this.word.length * 100);
-          console.log(this.totalPoints)
+          // console.log(this.totalPoints)
           // time points
           let now = new Date();
           this.totalPoints += Math.round(10000000 / (now.getTime() - this.timer));

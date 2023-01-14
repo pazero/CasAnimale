@@ -126,21 +126,12 @@ const Navbar = () => {
                     Forum
                   </button>
                 </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      navigate("/");
-                    }}
-                  >
-                    Looking4Partner
-                  </button>
-                </li>
               </ul>
             </li>
             <li>
               <button
                 onClick={() => {
-                  navigate("/");
+                  window.location.href = "http://localhost:5000/";
                 }}
               >
                 Reserved Section
@@ -237,21 +228,12 @@ const Navbar = () => {
                   Forum
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  Looking4Partner
-                </button>
-              </li>
             </ul>
           </li>
           <li>
             <button
               onClick={() => {
-                navigate("/");
+                window.location.href = "http://localhost:5000/";
               }}
             >
               Reserved Section

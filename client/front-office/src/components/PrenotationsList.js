@@ -73,7 +73,7 @@ const PrenotationsList = () => {
   }
 
   async function deletePrenotation(prenotation) {
-    console.log(prenotation);
+    // console.log(prenotation);
     const ret = await PrenotationManage.deletePrenotation(prenotation);
     alert(ret.data.message);
     window.location.reload();
