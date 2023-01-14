@@ -59,14 +59,14 @@ TO DO:
 		[/] Tasto area riservata, rimanda al login back
 		[x] Bacheca "eccolo qua"          |
 		[x] Leadboard											| comunità
-		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
 		[/] Veterinario					| Paolo
 		[/] pet-sitter					| servizi in -> paolo e geno
 		[/] -fac- Toelettatura	|  presenza
 		[/] -fac- Psicologo			|
 		[/] Gestione delle prenotazioni
-		[ ] -fac- Videochiamata		| servizi online
 		[ ] aggiungere più pet disponibili
+		[ ] -fac- Videochiamata		| servizi online
+		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
  	
 	- BACK OFFICE
 		[ ] Home page
