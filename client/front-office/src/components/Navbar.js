@@ -2,21 +2,20 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
-import { TbUserCircle, TbShoppingCart } from 'react-icons/tb';
+import { TbUserCircle, TbShoppingCart } from "react-icons/tb";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = Cookies.get("token");
 
   const isUserLoggedIn = async () => {
-    var ret = await UserManage.isLogged();
-    return ret.data.success
-  }
+    const ret = await UserManage.isLogged();
+    if (!ret.data.success) logout();
+  };
 
   useEffect(() => {
-    if(!isUserLoggedIn())
-      logout()
-  }, [])
+    isUserLoggedIn();
+  }, []);
 
   function logout() {
     Cookies.remove("token", { path: "" });
@@ -43,12 +42,15 @@ const Navbar = () => {
               />
             </svg>
           </label>
-          <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
             <li>
               <a href="http://localhost:5173/">Area Giochi</a>
             </li>
             <li tabIndex={0}>
-              <a  className="justify-between">
+              <a className="justify-between">
                 Servizi
                 <svg
                   className="fill-current"
@@ -62,9 +64,10 @@ const Navbar = () => {
               </a>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
-                  <button onClick={() => {
-                            navigate("/compra");
-                          }}
+                  <button
+                    onClick={() => {
+                      navigate("/compra");
+                    }}
                   >
                     eCommerce
                   </button>
@@ -115,17 +118,19 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
-                            navigate("/forum");
-                          }}
+                  <button
+                    onClick={() => {
+                      navigate("/forum");
+                    }}
                   >
                     Forum
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
-                            navigate("/");
-                          }}
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
                   >
                     Looking4Partner
                   </button>
@@ -133,16 +138,20 @@ const Navbar = () => {
               </ul>
             </li>
             <li>
-              <button onClick={() => {
-                        navigate("/");
-                      }}
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
               >
                 Area Riservata
               </button>
             </li>
           </ul>
         </div>
-        <a href="http://localhost:3000/" className="btn btn-ghost normal-case text-xl" >
+        <a
+          href="http://localhost:3000/"
+          className="btn btn-ghost normal-case text-xl"
+        >
           CasAnimale
         </a>
       </div>
@@ -166,9 +175,10 @@ const Navbar = () => {
             </a>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <button onClick={() => {
-                          navigate("/compra");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/compra");
+                  }}
                 >
                   eCommerce
                 </button>
@@ -192,23 +202,23 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                  <button
-                    onClick={() => {
-                      navigate("/psychologist");
-                    }}
-                  >
-                    Psychologist
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      navigate("/grooming");
-                    }}
-                  >
-                    Grooming
-                  </button>
-                </li>
+                <button
+                  onClick={() => {
+                    navigate("/psychologist");
+                  }}
+                >
+                  Psychologist
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    navigate("/grooming");
+                  }}
+                >
+                  Grooming
+                </button>
+              </li>
               <li>
                 <button
                   onClick={() => {
@@ -219,17 +229,19 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => {
-                          navigate("/forum");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/forum");
+                  }}
                 >
                   Forum
                 </button>
               </li>
               <li>
-                <button onClick={() => {
-                          navigate("/");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
                 >
                   Looking4Partner
                 </button>
@@ -237,9 +249,10 @@ const Navbar = () => {
             </ul>
           </li>
           <li>
-            <button onClick={() => {
-                      navigate("/");
-                    }}
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
             >
               Area Riservata
             </button>
@@ -249,15 +262,18 @@ const Navbar = () => {
       {token ? (
         <div className="navbar-end">
           <div className="hidden sm:flex">
-            <label tabIndex={0} className="btn btn-primary mr-2"
+            <label
+              tabIndex={0}
+              className="btn btn-primary mr-2"
               onClick={() => {
                 navigate("/cart");
               }}
             >
               <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
             </label>
-            
-            <button className="btn btn-primary mr-2"
+
+            <button
+              className="btn btn-primary mr-2"
               onClick={() => {
                 navigate("/profile");
               }}
@@ -269,8 +285,10 @@ const Navbar = () => {
               Log out
             </button>
           </div>
-          <div className="sm:hidden"> 
-            <label tabIndex={0} className="btn btn-primary"
+          <div className="sm:hidden">
+            <label
+              tabIndex={0}
+              className="btn btn-primary"
               onClick={() => {
                 navigate("/cart");
               }}
@@ -281,19 +299,21 @@ const Navbar = () => {
               <label tabIndex={0} className="btn btn-primary m-2">
                 <TbUserCircle className="block h-6 w-6" alt="user icon" />
               </label>
-              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full">
+              <ul
+                tabIndex={0}
+                className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
+              >
                 <li>
-                  <button onClick={() => {
-                    navigate("/profile");
-                  }}
+                  <button
+                    onClick={() => {
+                      navigate("/profile");
+                    }}
                   >
                     Profile
                   </button>
                 </li>
                 <li>
-                  <button onClick={logout} >
-                    Log out
-                  </button>
+                  <button onClick={logout}>Log out</button>
                 </li>
               </ul>
             </div>
@@ -305,19 +325,24 @@ const Navbar = () => {
             <label tabIndex={0} className="btn btn-primary mr-2">
               <span>login</span>
             </label>
-            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full">
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
+            >
               <li>
-                <button onClick={() => {
-                          navigate("/login");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                  }}
                 >
                   Sign in
                 </button>
               </li>
               <li>
-                <button onClick={() => {
-                          navigate("/register");
-                        }}
+                <button
+                  onClick={() => {
+                    navigate("/register");
+                  }}
                 >
                   Sign up
                 </button>
