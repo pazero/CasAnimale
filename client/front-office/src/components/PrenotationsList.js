@@ -18,6 +18,7 @@ const PrenotationsList = () => {
   const [isPrenotationFull, setisPrenotationFull] = useState();
   const [userId, setUserId] = useState();
   const [endList, setEnd] = useState();
+  const [completeList, setCompleteList] = useState([]);
 
   useEffect(() => {
     async function getUserId() {
@@ -46,19 +47,31 @@ const PrenotationsList = () => {
           })
         )
       );
+
+      const com = await CompanyManage.getCompanies();
+      const cnList = com.data;
+      assoc(cnList);
     }
     setEnd(true);
     getUserId();
     fetchData();
   }, [userId]);
 
-  async function fetchCompanyName(id) {
-    const ret = await CompanyManage.getCompany(id);
-    const name = ret.data.name;
-    console.log("name: " + name);
-    return name;
-    //return await Promise.all(ret.data.name);
+  function assoc(cnList) {
+    let ptList = prenotationsList;
+    let array = [];
+    let id = "";
+    ptList.map((item) => {
+      id = item.company;
+      cnList.map((company) => {
+        if (id === company._id) {
+          array.push({ company: company.name, prenotation: item });
+        }
+      });
+    });
+    setCompleteList(array);
   }
+
   async function deletePrenotation(prenotation) {
     console.log(prenotation);
     const ret = await PrenotationManage.deletePrenotation(prenotation);
@@ -80,7 +93,7 @@ const PrenotationsList = () => {
         <Heading as="h1">Your prenotations</Heading>
         {isPrenotationFull && endList ? (
           <Text>
-            {prenotationsList.map((item, i) => (
+            {completeList.map((item, i) => (
               <Box
                 key={i}
                 marginTop={{ base: "1", sm: "5" }}
@@ -112,31 +125,29 @@ const PrenotationsList = () => {
                           h={"7rem"}
                           w={"7rem"}
                           ml={{ base: "0", sm: "10" }}
-                          src={item.photo}
+                          src={item.prenotation.photo}
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>
                         <Heading as="h2" marginTop="1">
                           <div>
-                            {item.start
-                              ? item.start.substring(5, 7) +
+                            {item.prenotation.start
+                              ? item.prenotation.start.substring(5, 7) +
                                 "/" +
-                                item.start.substring(8, 10) +
+                                item.prenotation.start.substring(8, 10) +
                                 "/" +
-                                item.start.substring(0, 4)
-                              : item.start}
+                                item.prenotation.start.substring(0, 4)
+                              : item.prenotation.start}
                           </div>
                         </Heading>
                         <Text as="p" marginTop="2" fontSize="lg">
                           <ul>
-                            <li>
-                              Company:{
-                              //fetchCompanyName(item.company)
-                            }
-                            </li>
+                            <li>Company: {item.company}</li>
                             <li>
                               Schedule:{" "}
-                              {calcTime(item.start?.substring(11, 13))}
+                              {calcTime(
+                                item.prenotation.start?.substring(11, 13)
+                              )}
                             </li>
                           </ul>
                         </Text>
@@ -148,7 +159,9 @@ const PrenotationsList = () => {
                           mb={{ base: "3", sm: "12" }}
                           bg={"red.400"}
                           _hover={{ bg: "red.500" }}
-                          onClick={() => deletePrenotation(item._id)}
+                          onClick={() =>
+                            deletePrenotation(item.prenotation._id)
+                          }
                         >
                           Delete
                         </Button>
