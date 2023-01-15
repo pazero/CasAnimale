@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PrenotationManage from "../services/PrenotationManage";
 import UserManage from "../services/UserManage";
 import CompanyManage from "../services/CompanyManage";
+import vetclinic from "../assets/vet-clinic.png";
 import {
   Box,
   Heading,
@@ -65,7 +66,11 @@ const PrenotationsList = () => {
       id = item.company;
       cnList.map((company) => {
         if (id === company._id) {
-          array.push({ company: company.name, photo: company.photo, prenotation: item });
+          array.push({
+            company: company.name,
+            photo: company.photo,
+            prenotation: item,
+          });
         }
       });
     });
@@ -122,10 +127,13 @@ const PrenotationsList = () => {
                     <Stack direction={["column", "row"]} spacing={6}>
                       <Center>
                         <Image
-                          h={"7rem"}
-                          w={"7rem"}
                           ml={{ base: "0", sm: "10" }}
-                          src={item.photo}
+                          src={
+                            item.photo !== undefined ? item.photo : vetclinic
+                          }
+                          className="rounded-full"
+                          resizeMode="cover"
+                          style={{ aspectRatio: 1, height: "7rem", width: "7rem" }}
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>

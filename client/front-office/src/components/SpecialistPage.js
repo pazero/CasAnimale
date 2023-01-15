@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
-import { GiMedicalDrip } from "react-icons/gi";
+import vetclinic from "../assets/vet-clinic.png";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -25,9 +25,7 @@ const SpecialistPage = () => {
   useEffect(() => {
     async function fetchData() {
       await CompanyManage.getCompany(params.id).then((res) => {
-        if (res.data.photo === undefined)
-          res.data.photo =
-            "vet-clinic.png";
+        if (res.data.photo === undefined) res.data.photo = vetclinic;
         setCompany(res.data);
       });
 
@@ -106,16 +104,7 @@ const SpecialistPage = () => {
     companyPrenotation?.forEach((item) => {
       array.push(getDateTimeString(item.start));
     });
-    //console.log("companyPrenotation: " + array);
   }, [companyPrenotation]);
-
-  //useEffect(() => {
-  //  console.log("availableSlots: ", availableSlots);
-  //}, [availableSlots]);
-
-  //useEffect(() => {
-  //  console.log("startTime: ", startTime);
-  //}, [startTime]);
 
   const bookSlot = async (companyId, start) => {
     const res = await PrenotationManage.newPrenotation({
@@ -128,8 +117,6 @@ const SpecialistPage = () => {
   };
 
   function calcSlot(slotDay) {
-    //console.log("slotDay: ", slotDay);
-    //console.log("today: ", getDateString(new Date()));
     let start = company.business_hours?.start;
     let end = company.business_hours?.end;
     let interval = end - start;
@@ -141,13 +128,11 @@ const SpecialistPage = () => {
       if (getDateString(item.start).localeCompare(slotDay) === 0)
         booked.push(getHoursString(item.start));
     });
-    //console.log("booked: " + booked);
     let actual_time = getHoursString(new Date());
 
     for (let i = 0; i < interval; i++) {
       //se lo slot non è incluso lo aggiungo a availableSlots che poi userò per riempire il select
       if (!booked.includes((start + i).toString())) {
-        //console.log("slot start: '" + (start + i) + "'");
         if (slotDay.localeCompare(getDateString(new Date())) === 0) {
           if (+actual_time >= +(start + i).toString()) {
             continue;
@@ -165,7 +150,6 @@ const SpecialistPage = () => {
       }
     }
     setAvailableSlots(slots);
-    //console.log("availableSlots: ", availableSlots);
   }
 
   return (
@@ -197,7 +181,8 @@ const SpecialistPage = () => {
             src={company.photo}
             alt="company photo"
             className="max-w-full h-auto rounded-full"
-            style={{ height: "7rem", borderRadius: "50" }}
+            resizeMode="cover"
+            style={{ aspectRatio: 1, height: "7rem", width: "7rem" }}
           ></img>
         </div>
         <div id="owner" className="mt-3 ml-2">
@@ -215,7 +200,7 @@ const SpecialistPage = () => {
           )}
         </div>
         <div id="mainPetInfo" className="mt-3 ml-2">
-          {true ?(/*company.main_pets.length !== 0 ? (*/
+          {(company.main_pets !== undefined && company.main_pets.length !== 0) ? (
             <div>
               <span className="font-bold sm:text-xl">
                 Main pet of interest:
@@ -233,7 +218,7 @@ const SpecialistPage = () => {
           )}
         </div>
         <div id="studyInfo" className="mt-3 ml-2">
-          {true ?(/*company.study_info.length !== 0 ? (*/
+          {(company.study_info !== undefined && company.study_info.length) !== 0 ? (
             <div>
               <span className="font-bold sm:text-xl">Study info:</span>
               <ul id="studyList" className="ml-4">
@@ -249,7 +234,7 @@ const SpecialistPage = () => {
           )}
         </div>
         <div id="experienceInfo" className="mt-3 ml-2">
-          {true ?(/*company.professional_experience.length !== 0 ? (*/
+          {(company.professional_experience !== undefined && company.professional_experience.length !== 0) ? (
             <div>
               <span className="font-bold sm:text-xl">
                 Professional experience:
@@ -267,7 +252,7 @@ const SpecialistPage = () => {
           )}
         </div>
         <div id="jobInfo" className="mt-3 ml-2">
-          {true ?(/*company.actual_jobs.length !== 0 ? (*/
+          {(company.actual_jobs !== undefined && company.actual_jobs.length !== 0) ? (
             <div>
               <span className="font-bold sm:text-xl">Actual jobs:</span>
               <ul id="jobList" className="ml-4">
@@ -283,7 +268,7 @@ const SpecialistPage = () => {
           )}
         </div>
         <div id="locationInfo" className="mt-3 ml-2">
-          { true ?( /*company.cities.length !== 0 ? (*/ 
+          {(company.cities !== undefined && company.cities.length !== 0) ? (
             <div>
               <span className="font-bold sm:text-xl">Workplaces:</span>
               <ul id="locationList" className="ml-4">
