@@ -185,111 +185,130 @@ const SpecialistPage = () => {
             style={{ aspectRatio: 1, height: "7rem", width: "7rem" }}
           ></img>
         </div>
-        <div id="owner" className="mt-3 ml-2">
+        <div id="presentation">
           {company.owner !== undefined ? (
-            <div>
-              <span className="font-bold sm:text-xl">Doctor:</span>
-              <div id="ownerName" className="ml-4">
+            <span>
+              {company.type === "vet" || company.type === "psy" ? (
+                <span>The experienced Doctor </span>
+              ) : company.type === "groomer" ? (
+                <span>The expert grommer </span>
+              ) : (
+                <span>The expert pet sitter </span>
+              )}
+              <span id="ownerName" className="font-bold">
                 {company.owner}
-              </div>
-            </div>
+              </span>
+            </span>
           ) : (
             <div id="ownerName" className="ml-4">
               Specialist {company._id}
             </div>
           )}
-        </div>
-        <div id="mainPetInfo" className="mt-3 ml-2">
-          {(company.main_pets !== undefined && company.main_pets.length !== 0) ? (
+          <span> will take care of your pet.</span>
+          {company.main_pets !== undefined && company.main_pets.length !== 0 ? (
             <div>
-              <span className="font-bold sm:text-xl">
-                Main pet of interest:
-              </span>
-              <ul id="mainPetList" className="ml-4">
+              They are mainly specialized in{" "}
+              <span>
                 {company.main_pets?.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <span key={i}>
+                    <span className="font-bold">{item}</span>
+                    {company.main_pets.length !== i + 1 ? ", " : "."}
+                  </span>
                 ))}
-              </ul>
-            </div>
-          ) : (
-            <span className="font-bold sm:text-xl">
-              No information about main pet of interest
-            </span>
-          )}
-        </div>
-        <div id="studyInfo" className="mt-3 ml-2">
-          {(company.study_info !== undefined && company.study_info.length) !== 0 ? (
-            <div>
-              <span className="font-bold sm:text-xl">Study info:</span>
-              <ul id="studyList" className="ml-4">
-                {company.study_info?.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <span className="font-bold sm:text-xl">
-              No information about study carrer
-            </span>
-          )}
-        </div>
-        <div id="experienceInfo" className="mt-3 ml-2">
-          {(company.professional_experience !== undefined && company.professional_experience.length !== 0) ? (
-            <div>
-              <span className="font-bold sm:text-xl">
-                Professional experience:
               </span>
-              <ul id="experienceList" className="ml-4">
+            </div>
+          ) : (
+            ""
+          )}
+
+          {(company.study_info !== undefined && company.study_info.length) !==
+          0 ? (
+            <div>
+              Their study carrer includes{" "}
+              <span>
+                {company.study_info?.map((item, i) => (
+                  <span key={i}>
+                    <span className="font-bold">{item}</span>
+                    {company.study_info.length !== i + 1 ? ", " : "."}
+                  </span>
+                ))}
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {(company.professional_experience !== undefined &&
+            company.professional_experience.length) !== 0 ? (
+            <div>
+              {company.owner} has got many skills through their working
+              experience as{" "}
+              <span>
                 {company.professional_experience?.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <span key={i}>
+                    <span className="font-bold">{item}</span>
+                    {company.professional_experience.length !== i + 1
+                      ? ", "
+                      : "."}
+                  </span>
                 ))}
-              </ul>{" "}
+              </span>
             </div>
           ) : (
-            <span className="font-bold sm:text-xl">
-              No information about professional experience
-            </span>
+            ""
           )}
-        </div>
-        <div id="jobInfo" className="mt-3 ml-2">
-          {(company.actual_jobs !== undefined && company.actual_jobs.length !== 0) ? (
+
+          {company.actual_jobs !== undefined &&
+          company.actual_jobs.length !== 0 ? (
             <div>
-              <span className="font-bold sm:text-xl">Actual jobs:</span>
-              <ul id="jobList" className="ml-4">
+              Moreover,{" "}
+              <span>
                 {company.actual_jobs?.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <span key={i}>
+                    <span className="font-bold">{item}</span>
+                    {company.actual_jobs.length === i + 2
+                      ? " and "
+                      : company.actual_jobs.length === i + 1
+                      ? " "
+                      : ", "}
+                  </span>
                 ))}
-              </ul>{" "}
+                is what {company.owner} is actually practicing.
+              </span>
             </div>
           ) : (
-            <span className="font-bold sm:text-xl">
-              No information about actual jobs
-            </span>
+            ""
           )}
-        </div>
-        <div id="locationInfo" className="mt-3 ml-2">
-          {(company.cities !== undefined && company.cities.length !== 0) ? (
+
+          {(company.cities !== undefined && company.cities.length) !== 0 ? (
             <div>
-              <span className="font-bold sm:text-xl">Workplaces:</span>
-              <ul id="locationList" className="ml-4">
+              {company.cities.length === 1 ? (
+                <span>At the moment, {company.owner} only work in </span>
+              ) : (
+                <span>Actual cities where {company.owner} work are </span>
+              )}
+              <span>
                 {company.cities?.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <span key={i}>
+                    <span className="font-bold">{item}</span>
+                    {company.cities.length !== i + 1 ? ", " : "."}
+                  </span>
                 ))}
-              </ul>
+              </span>
             </div>
           ) : (
-            <span className="font-bold sm:text-xl">
-              No information about workplaces
-            </span>
+            ""
           )}
-        </div>
-        <div id="costPerHour" className="mt-3 ml-2">
+
           {company.cost_per_hour !== undefined ? (
             <div>
-              <span className="font-bold sm:text-xl">Cost per hour:</span>
-              <div id="cost" className="ml-4">
-                {company.cost_per_hour}€/h
-              </div>
+              <span>
+                Appointment cost per hour is {" "}
+                <span id="cost" className="font-bold">
+                  {company.cost_per_hour}€/h
+                </span>
+                .
+              </span>
             </div>
           ) : (
             <span className="font-bold sm:text-xl">
@@ -297,6 +316,7 @@ const SpecialistPage = () => {
             </span>
           )}
         </div>
+
         {token ? (
           <div className="flex flex-1 justify-center">
             <button
