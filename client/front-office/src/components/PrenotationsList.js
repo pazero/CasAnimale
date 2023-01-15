@@ -101,7 +101,9 @@ const PrenotationsList = () => {
   return (
     <Container maxW="100%">
       <Container maxW={"7xl"} p="15" pt="10" mt="4">
-        <Heading as="h1">Your prenotations</Heading>
+        <Heading as="h1" className="mt-4">
+          Your prenotations
+        </Heading>
         {isPrenotationFull && endList ? (
           <Text>
             {completeList.map((item, i) => (
@@ -160,30 +162,38 @@ const PrenotationsList = () => {
                         </Heading>
                         <Text as="p" marginTop="2" fontSize="lg">
                           <ul>
-                            <li>Company: {item.company}</li>
+                            <li>
+                              Company:{" "}
+                              <span className="font-bold">{item.company}</span>
+                            </li>
                             <li>
                               Schedule:{" "}
-                              {calcTime(
-                                item.prenotation.start?.substring(11, 13)
-                              )}
+                              <span className="font-bold">
+                                {calcTime(
+                                  item.prenotation.start?.substring(11, 13)
+                                )}
+                              </span>
                             </li>
                           </ul>
                         </Text>
                       </Box>
-                      <Box align={"center"}>
-                        <Button
-                          rounded={"full"}
-                          mt={{ base: "0", sm: "12" }}
-                          mb={{ base: "3", sm: "12" }}
-                          bg={"red.400"}
-                          _hover={{ bg: "red.500" }}
-                          onClick={() =>
-                            deletePrenotation(item.prenotation._id)
-                          }
-                        >
-                          Delete
-                        </Button>
-                      </Box>
+                      <Stack>
+                        {/*<Box className="flex items-end flex-1" style={{ alignItems: "flex-end" }}>*/}
+                        <Box>
+                          <Button
+                            rounded={"full"}
+                            mt={{ base: "0", sm: "12" }}
+                            mb={{ base: "3", sm: "12" }}
+                            bg={"red.400"}
+                            _hover={{ bg: "red.500" }}
+                            onClick={() =>
+                              deletePrenotation(item.prenotation._id)
+                            }
+                          >
+                            Delete
+                          </Button>
+                        </Box>
+                      </Stack>
                     </Stack>
                   </Box>
                 </Box>
@@ -199,37 +209,3 @@ const PrenotationsList = () => {
 };
 
 export default PrenotationsList;
-
-/*
-<Heading as="h2" marginTop="1">
-                    <div>
-                      {item.start
-                        ? item.start.substring(5, 7) +
-                          "/" +
-                          item.start.substring(8, 10) +
-                          "/" +
-                          item.start.substring(0, 4)
-                        : item.start}
-                    </div>
-                  </Heading>
-                  <Text as="p" marginTop="2" fontSize="lg">
-                    <ul>
-                      <li>Company: {}</li>
-                      <li>
-                        Schedule:{" "}
-                        {item.start ? item.start.substring(11, 16) : item.start}
-                      </li>
-                    </ul>
-                  </Text>
-                </Box>
-                <Box align={"center"}>
-                  <Button
-                    rounded={"full"}
-                    mt={{ base: "0", sm: "12" }}
-                    mb={{ base: "3", sm: "12" }}
-                    bg={"red.400"}
-                    _hover={{ bg: "red.500" }}
-                  >
-                    Delete
-                  </Button>
-                </Box>*/
