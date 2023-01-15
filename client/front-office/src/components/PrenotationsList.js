@@ -13,6 +13,7 @@ import {
   Center,
   Image,
 } from "@chakra-ui/react";
+import { getTime } from "date-fns";
 
 const PrenotationsList = () => {
   const [prenotationsList, setPrenotationsList] = useState([]);
@@ -64,21 +65,26 @@ const PrenotationsList = () => {
     let id = "";
     ptList.map((item) => {
       id = item.company;
-      cnList.map((company) => {
-        if (id === company._id) {
-          array.push({
-            company: company.name,
-            photo: company.photo,
-            prenotation: item,
-          });
-        }
-      });
+      if (new Date(item.start).getTime() > new Date().getTime()) {
+        cnList.map((company) => {
+          if (id === company._id) {
+            array.push({
+              company: company.name,
+              photo: company.photo,
+              prenotation: item,
+            });
+          }
+        });
+      } else {
+        deleteOld(item._id);
+      }
     });
     setCompleteList(array);
   }
-
+  async function deleteOld(prenotation) {
+    const ret = await PrenotationManage.deletePrenotation(prenotation);
+  }
   async function deletePrenotation(prenotation) {
-    // console.log(prenotation);
     const ret = await PrenotationManage.deletePrenotation(prenotation);
     alert(ret.data.message);
     window.location.reload();
@@ -133,7 +139,11 @@ const PrenotationsList = () => {
                           }
                           className="rounded-full"
                           resizeMode="cover"
-                          style={{ aspectRatio: 1, height: "7rem", width: "7rem" }}
+                          style={{
+                            aspectRatio: 1,
+                            height: "7rem",
+                            width: "7rem",
+                          }}
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>
