@@ -65,7 +65,7 @@ const PrenotationsList = () => {
       id = item.company;
       cnList.map((company) => {
         if (id === company._id) {
-          array.push({ company: company.name, prenotation: item });
+          array.push({ company: company.name, photo: company.photo, prenotation: item });
         }
       });
     });
@@ -125,7 +125,7 @@ const PrenotationsList = () => {
                           h={"7rem"}
                           w={"7rem"}
                           ml={{ base: "0", sm: "10" }}
-                          src={item.prenotation.photo}
+                          src={item.photo}
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>

@@ -25,8 +25,10 @@ const SpecialistPage = () => {
   useEffect(() => {
     async function fetchData() {
       await CompanyManage.getCompany(params.id).then((res) => {
+        if (res.data.photo === undefined)
+          res.data.photo =
+            "vet-clinic.png";
         setCompany(res.data);
-        //if(company.photo === undefined) company.photo ="https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg?w=2000"
       });
 
       await PrenotationManage.getPrenotations({ company: params.id }).then(
@@ -199,56 +201,116 @@ const SpecialistPage = () => {
           ></img>
         </div>
         <div id="owner" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Doctor:</span>
-          <div id="ownerName" className="ml-4">
-            {company.owner}
-          </div>
+          {company.owner !== undefined ? (
+            <div>
+              <span className="font-bold sm:text-xl">Doctor:</span>
+              <div id="ownerName" className="ml-4">
+                {company.owner}
+              </div>
+            </div>
+          ) : (
+            <div id="ownerName" className="ml-4">
+              Specialist {company._id}
+            </div>
+          )}
         </div>
         <div id="mainPetInfo" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Main pet of interest:</span>
-          <ul id="mainPetList" className="ml-4">
-            {company.main_pets?.map((i, item) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          {true ?(/*company.main_pets.length !== 0 ? (*/
+            <div>
+              <span className="font-bold sm:text-xl">
+                Main pet of interest:
+              </span>
+              <ul id="mainPetList" className="ml-4">
+                {company.main_pets?.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <span className="font-bold sm:text-xl">
+              No information about main pet of interest
+            </span>
+          )}
         </div>
         <div id="studyInfo" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Study info:</span>
-          <ul id="studyList" className="ml-4">
-            {company.study_info?.map((i, item) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          {true ?(/*company.study_info.length !== 0 ? (*/
+            <div>
+              <span className="font-bold sm:text-xl">Study info:</span>
+              <ul id="studyList" className="ml-4">
+                {company.study_info?.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <span className="font-bold sm:text-xl">
+              No information about study carrer
+            </span>
+          )}
         </div>
         <div id="experienceInfo" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Professional experience:</span>
-          <ul id="experienceList" className="ml-4">
-            {company.professional_experience?.map((i, item) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          {true ?(/*company.professional_experience.length !== 0 ? (*/
+            <div>
+              <span className="font-bold sm:text-xl">
+                Professional experience:
+              </span>
+              <ul id="experienceList" className="ml-4">
+                {company.professional_experience?.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>{" "}
+            </div>
+          ) : (
+            <span className="font-bold sm:text-xl">
+              No information about professional experience
+            </span>
+          )}
         </div>
         <div id="jobInfo" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Actual jobs:</span>
-          <ul id="jobList" className="ml-4">
-            {company.actual_jobs?.map((i, item) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          {true ?(/*company.actual_jobs.length !== 0 ? (*/
+            <div>
+              <span className="font-bold sm:text-xl">Actual jobs:</span>
+              <ul id="jobList" className="ml-4">
+                {company.actual_jobs?.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>{" "}
+            </div>
+          ) : (
+            <span className="font-bold sm:text-xl">
+              No information about actual jobs
+            </span>
+          )}
         </div>
         <div id="locationInfo" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Workplaces:</span>
-          <ul id="locationList" className="ml-4">
-            {company.cities?.map((i, item) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          { true ?( /*company.cities.length !== 0 ? (*/ 
+            <div>
+              <span className="font-bold sm:text-xl">Workplaces:</span>
+              <ul id="locationList" className="ml-4">
+                {company.cities?.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <span className="font-bold sm:text-xl">
+              No information about workplaces
+            </span>
+          )}
         </div>
         <div id="costPerHour" className="mt-3 ml-2">
-          <span className="font-bold sm:text-xl">Cost per hour:</span>
-          <div id="cost" className="ml-4">
-            {company.cost_per_hour}€/h
-          </div>
+          {company.cost_per_hour !== undefined ? (
+            <div>
+              <span className="font-bold sm:text-xl">Cost per hour:</span>
+              <div id="cost" className="ml-4">
+                {company.cost_per_hour}€/h
+              </div>
+            </div>
+          ) : (
+            <span className="font-bold sm:text-xl">
+              No information about costs
+            </span>
+          )}
         </div>
         {token ? (
           <div className="flex flex-1 justify-center">
