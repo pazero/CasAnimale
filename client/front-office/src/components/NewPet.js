@@ -22,9 +22,14 @@ const NewPet = () => {
   const [birth, setBirth] = useState(new Date());
   const [photo, setPhoto] = useState("https://cdn-icons-png.flaticon.com/512/60/60422.png");
 
-  
+  /*
   let date = new Date();
   const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+*/
+  function today(){
+    let date = new Date();
+    return toString(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+  }
 
   return (
     <div data-theme="lemonade" className="flex flex-1 justify-center">
@@ -91,10 +96,11 @@ const NewPet = () => {
                   </label>
                   <input
                     type="date"
-                    max={today}
+                    placeholder="Birth date"
                     className="input input-bordered"
-                    onChange={(e) => setBirth(e.target.value)}
-                  />
+                    max={today()}
+                    required
+                    onChange={(e) => setBirth(e.target.value)} />                  
                 </div>
                 <div className="form-control">
                   <label className="label">
