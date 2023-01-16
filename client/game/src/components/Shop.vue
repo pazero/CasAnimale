@@ -75,7 +75,7 @@ export default {
     async getProducts() {
       var ret = await fetch("http://localhost:5000/api/product/");
       ret = await ret.json();
-      console.log(ret);
+      // console.log(ret);
       this.products = ret;
       this.updateProd();
     },

@@ -147,21 +147,4 @@ export default function CaptionCarousel() {
       </Slider>
     </Box>
   );
-/*
-<Stack
-  spacing={6}
-  width={'100vh'}
-  maxW={'lg'}
-  position="absolute"
-  top="50%"
-  transform="translate(0, -50%)"
-  className="bg-gray-300 bg-opacity-60 p-2 rounded text-black">
-  <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className="text-black">
-    {card.title}
-  </Heading>
-  <Text fontSize={{ base: 'md', lg: 'lg' }}>
-    {card.text}
-  </Text>
-</Stack>
-*/
 }
