@@ -23,6 +23,7 @@ UserDipendente =! UserNormale =! Affiliato
 	[ ] Modificare le proprie informazioni
 - GENERALI
 	[ ] Tutti i "New" popup non sono responsive
+	[ ] Convertire gli alert con qualcosa di più carino (toast)
 	[ ] Controllare accessibilità
 	[ ] Portare il progetto su gocker
 	[ ] Documentazione API con swagger
@@ -54,8 +55,8 @@ TO DO:
 		[x] Home page
 		[x] Login
 		[x] Registrazione
-		[x] Poter inserire i propri pets e animali preferiti	| eliminare animale, add foto animale + animali preferiti: array -> fede
-		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri (potremmo comprenderlo nel login: se sei loggato e ha degli animali li puoi vedere)
+		[x] Poter inserire i propri pets e animali preferiti
+		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
 		[/] Recupero pass (geno)
 		[/] Tasto area riservata, rimanda al login back
