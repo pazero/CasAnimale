@@ -259,16 +259,16 @@ const SpecialistPage = () => {
           )}
 
           {company.actual_jobs !== undefined &&
-          company.actual_jobs.length !== 0 ? (
+          company.actual_jobs?.length !== 0 ? (
             <div>
               Moreover,{" "}
               <span>
                 {company.actual_jobs?.map((item, i) => (
                   <span key={i}>
                     <span className="font-bold">{item}</span>
-                    {company.actual_jobs.length === i + 2
+                    {company.actual_jobs?.length === i + 2
                       ? " and "
-                      : company.actual_jobs.length === i + 1
+                      : company.actual_jobs?.length === i + 1
                       ? " "
                       : ", "}
                   </span>
@@ -280,7 +280,7 @@ const SpecialistPage = () => {
             ""
           )}
 
-          {(company.cities !== undefined && company.cities.length) !== 0 ? (
+          {(company.cities !== undefined) ? (company?.cities?.length !== 0) ? (
             <div>
               {company.cities.length === 1 ? (
                 <span>At the moment, {company.owner} only work in </span>
@@ -298,7 +298,7 @@ const SpecialistPage = () => {
             </div>
           ) : (
             ""
-          )}
+          ): ""}
 
           {company.cost_per_hour !== undefined ? (
             <div>
