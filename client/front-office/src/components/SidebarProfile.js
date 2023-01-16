@@ -4,14 +4,14 @@ import { TbFish, TbUserCircle, TbCalendarEvent } from 'react-icons/tb';
 
 export default function Sidebar() {
   return (
-    <div className="flex">
+    <div className="flex flex-1">
       <div className="hidden sm:flex">
-        <div className="flex flex-col h-screen p-3 bg-white shadow w-60">
+        <div className="flex flex-col  p-3 bg-white shadow w-60">
           <div className="space-y-3 m-2">
             <div className="flex items-center justify-center">
               <h2 className="text-xl font-bold">Menu</h2>
             </div>
-            <div className="flex-1">
+            <div className="flex flex-1">
               <ul className="pt-2 pb-4 space-y-1">
                 <li className="rounded-sm">
                   <a href="/profile" className="flex items-center p-2 space-x-3 rounded-md">

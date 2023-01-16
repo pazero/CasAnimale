@@ -18,6 +18,7 @@ const Navbar = () => {
   }, []);
 
   const logout = () => {
+    console.log("logging out")
     Cookies.remove("token", { path: "" });
     navigate("/");
   };

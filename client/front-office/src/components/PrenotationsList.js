@@ -140,7 +140,7 @@ const PrenotationsList = () => {
                             item.photo !== undefined ? item.photo : vetclinic
                           }
                           className="rounded-full"
-                          resizeMode="cover"
+                          resizemode="cover"
                           style={{
                             aspectRatio: 1,
                             height: "7rem",

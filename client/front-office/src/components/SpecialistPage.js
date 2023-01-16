@@ -181,7 +181,7 @@ const SpecialistPage = () => {
             src={company.photo}
             alt="company photo"
             className="max-w-full h-auto rounded-full"
-            resizeMode="cover"
+            resizemode="cover"
             style={{ aspectRatio: 1, height: "7rem", width: "7rem" }}
           ></img>
         </div>
@@ -205,105 +205,122 @@ const SpecialistPage = () => {
             </div>
           )}
           <span> will take care of your pet.</span>
-          {company.main_pets !== undefined && company.main_pets.length !== 0 ? (
-            <div>
-              They are mainly specialized in{" "}
-              <span>
-                {company.main_pets?.map((item, i) => (
-                  <span key={i}>
-                    <span className="font-bold">{item}</span>
-                    {company.main_pets.length !== i + 1 ? ", " : "."}
-                  </span>
-                ))}
-              </span>
-            </div>
+          {company.main_pets !== undefined ? (
+            company.main_pets.length !== 0 ? (
+              <div>
+                They are mainly specialized in{" "}
+                <span>
+                  {company.main_pets?.map((item, i) => (
+                    <span key={i}>
+                      <span className="font-bold">{item}</span>
+                      {company.main_pets.length !== i + 1 ? ", " : "."}
+                    </span>
+                  ))}
+                </span>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
 
-          {(company.study_info !== undefined && company.study_info.length) !==
-          0 ? (
-            <div>
-              Their study carrer includes{" "}
-              <span>
-                {company.study_info?.map((item, i) => (
-                  <span key={i}>
-                    <span className="font-bold">{item}</span>
-                    {company.study_info.length !== i + 1 ? ", " : "."}
-                  </span>
-                ))}
-              </span>
-            </div>
+          {company.study_info !== undefined ? (
+            company.study_info.length !== 0 ? (
+              <div>
+                Their study carrer includes{" "}
+                <span>
+                  {company.study_info?.map((item, i) => (
+                    <span key={i}>
+                      <span className="font-bold">{item}</span>
+                      {company.study_info.length !== i + 1 ? ", " : "."}
+                    </span>
+                  ))}
+                </span>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
 
-          {(company.professional_experience !== undefined &&
-            company.professional_experience.length) !== 0 ? (
-            <div>
-              {company.owner} has got many skills through their working
-              experience as{" "}
-              <span>
-                {company.professional_experience?.map((item, i) => (
-                  <span key={i}>
-                    <span className="font-bold">{item}</span>
-                    {company.professional_experience.length !== i + 1
-                      ? ", "
-                      : "."}
-                  </span>
-                ))}
-              </span>
-            </div>
+          {company.professional_experience !== undefined ? (
+            company.professional_experience.length !== 0 ? (
+              <div>
+                {company.owner} has got many skills through their working
+                experience as{" "}
+                <span>
+                  {company.professional_experience?.map((item, i) => (
+                    <span key={i}>
+                      <span className="font-bold">{item}</span>
+                      {company.professional_experience.length !== i + 1
+                        ? ", "
+                        : "."}
+                    </span>
+                  ))}
+                </span>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
 
-          {company.actual_jobs !== undefined &&
-          company.actual_jobs?.length !== 0 ? (
-            <div>
-              Moreover,{" "}
-              <span>
-                {company.actual_jobs?.map((item, i) => (
-                  <span key={i}>
-                    <span className="font-bold">{item}</span>
-                    {company.actual_jobs?.length === i + 2
-                      ? " and "
-                      : company.actual_jobs?.length === i + 1
-                      ? " "
-                      : ", "}
-                  </span>
-                ))}
-                is what {company.owner} is actually practicing.
-              </span>
-            </div>
+          {company.actual_jobs !== undefined ? (
+            company.actual_jobs?.length !== 0 ? (
+              <div>
+                Moreover,{" "}
+                <span>
+                  {company.actual_jobs?.map((item, i) => (
+                    <span key={i}>
+                      <span className="font-bold">{item}</span>
+                      {company.actual_jobs?.length === i + 2
+                        ? " and "
+                        : company.actual_jobs?.length === i + 1
+                        ? " "
+                        : ", "}
+                    </span>
+                  ))}
+                  is what {company.owner} is actually practicing.
+                </span>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
 
-          {(company.cities !== undefined) ? (company?.cities?.length !== 0) ? (
-            <div>
-              {company.cities.length === 1 ? (
-                <span>At the moment, {company.owner} only work in </span>
-              ) : (
-                <span>Actual cities where {company.owner} work are </span>
-              )}
-              <span>
-                {company.cities?.map((item, i) => (
-                  <span key={i}>
-                    <span className="font-bold">{item}</span>
-                    {company.cities.length !== i + 1 ? ", " : "."}
-                  </span>
-                ))}
-              </span>
-            </div>
+          {company.cities !== undefined ? (
+            company?.cities?.length !== 0 ? (
+              <div>
+                {company.cities.length === 1 ? (
+                  <span>At the moment, {company.owner} only work in </span>
+                ) : (
+                  <span>Actual cities where {company.owner} work are </span>
+                )}
+                <span>
+                  {company.cities?.map((item, i) => (
+                    <span key={i}>
+                      <span className="font-bold">{item}</span>
+                      {company.cities.length !== i + 1 ? ", " : "."}
+                    </span>
+                  ))}
+                </span>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
-          ): ""}
+          )}
 
           {company.cost_per_hour !== undefined ? (
             <div>
               <span>
-                Appointment cost per hour is {" "}
+                Appointment cost per hour is{" "}
                 <span id="cost" className="font-bold">
                   {company.cost_per_hour}€/h
                 </span>
@@ -311,9 +328,7 @@ const SpecialistPage = () => {
               </span>
             </div>
           ) : (
-            <span className="font-bold sm:text-xl">
-              No information about costs
-            </span>
+            ""
           )}
         </div>
 
@@ -363,9 +378,7 @@ const SpecialistPage = () => {
                         selected={startDate}
                         placeholderText="Select a day"
                         onChange={(date) => {
-                          //console.log("HAI CAMBIATO GIORNO: " + date);
                           setStartDate(date);
-                          //console.log("HAI CAMBIATO STARTDATE: " + startDate);
                           calcSlot(getDateString(date));
                         }}
                         minDate={new Date()}
