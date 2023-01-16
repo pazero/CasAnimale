@@ -70,7 +70,8 @@ const PetsList = () => {
                   justifyContent="center"
                   marginTop={{ base: "3", sm: "0" }}
                   padding="2"
-                  paddingLeft="4"
+                  paddingTop="3"
+                  paddingRight="0"
                   backgroundColor="gray.50"
                   borderRadius="md"
                 >
