@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PetManage from "../services/PetManage";
 
 const NewPet = () => {
   const sendData = async (data) => {
+    console.log("send");
     data.preventDefault();
     const msg = await PetManage.newPet({
       name,
+      photo,
       species,
       breed,
       birth
@@ -14,13 +16,20 @@ const NewPet = () => {
     window.location.reload();
   };
 
-  const [name, setName] = useState([]);
-  const [species, setSpecies] = useState([]);
-  const [breed, setBreed] = useState([]);
-  const [birth, setBirth] = useState([]);
+  const [name, setName] = useState("");
+  const [species, setSpecies] = useState("");
+  const [breed, setBreed] = useState("");
+  const [birth, setBirth] = useState(new Date());
+  const [photo, setPhoto] = useState("https://cdn-icons-png.flaticon.com/512/60/60422.png");
 
+  /*
   let date = new Date();
   const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+*/
+  function today(){
+    let date = new Date();
+    return toString(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+  }
 
   return (
     <div data-theme="lemonade" className="flex flex-1 justify-center">
@@ -35,7 +44,7 @@ const NewPet = () => {
                 <div className="card-title justify-center">
                   Add a new pet!
                 </div>
-                <div className="form-control">
+                <div className="form-control">                 
                   <label className="label">
                     <span className="label-text">Name</span>
                   </label>
@@ -67,6 +76,7 @@ const NewPet = () => {
                     <option value="monkey">monkey</option>
                     <option value="turtle">turtle</option>
                     <option value="crustacean">crustacean</option>
+                    <option value="bird">bird</option>
                   </select>
                 </div>
                 <div className="form-control">
@@ -86,10 +96,22 @@ const NewPet = () => {
                   </label>
                   <input
                     type="date"
-                    max={today}
+                    placeholder="Birth date"
                     className="input input-bordered"
-                    onChange={(e) => setBirth(e.target.value)}
-                  />
+                    max={today()}
+                    required
+                    onChange={(e) => setBirth(e.target.value)} />                  
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Photo</span>
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={"https://cdn-icons-png.flaticon.com/512/60/60422.png"}
+                    className="input input-bordered"
+                    onChange={(e) => { e.target.value ? setPhoto(e.target.value) : setPhoto("https://cdn-icons-png.flaticon.com/512/60/60422.png") }}
+                  /> 
                 </div>
                 <div>
                   <button className="btn btn-secondary m-1">save</button>

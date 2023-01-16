@@ -36,7 +36,9 @@ TO DO:
 	- GAME   													-> renderlo responsive e con style bello
 		[x] Home page
 		[x] card con pagina per pubblicizzare servizi CasAnimale
-		[x] card per visualizzare prodotti e-commerce
+		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
+		[x] inserire img sfondo banner
+		[ ] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
 		[x] raggiungere velocemente servizi CasAnimale
 		[x] raggiungere velocemente e-commerce CasAnimale
 		[x] Curiosità generali 
@@ -52,7 +54,7 @@ TO DO:
 		[x] Home page
 		[x] Login
 		[x] Registrazione
-		[/] Poter inserire i propri pets e animali preferiti	| eliminare animale, add foto animale + animali preferiti: array -> fede
+		[x] Poter inserire i propri pets e animali preferiti	| eliminare animale, add foto animale + animali preferiti: array -> fede
 		[ ] permettere all'utente di descrivere propri animali	| chiediamo agli altri (potremmo comprenderlo nel login: se sei loggato e ha degli animali li puoi vedere)
 		[x] eCommerce
 		[/] Recupero pass (geno)
