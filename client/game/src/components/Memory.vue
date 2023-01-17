@@ -132,23 +132,25 @@ export default {
     },
 
     reveal(data) {
-      data.revealed = true;
-      if (this.isRevaled) {
-        console.log(this.flippedCard)
-        if (data.id !== this.revealed_img.id) {
-          if (this.flippedCard < 2) {
-            this.flippedCard += 1;
+      if (this.flippedCard < 2) {
+        data.revealed = true;
+        if (this.isRevaled) {
+          this.flippedCard += 1;
+          if (data.id !== this.revealed_img.id) {
             setTimeout(() => {
               this.revealed_img.revealed = false;
               data.revealed = false;
-              this.flippedCard -= 1;
             }, 1000);
           }
+          setTimeout(() => {
+            this.flippedCard = 0;
+          }, 1000);
+          this.isRevaled = false;
+        } else {
+          this.flippedCard += 1;
+          this.isRevaled = true;
+          this.revealed_img = data;
         }
-        this.isRevaled = false;
-      } else {
-        this.isRevaled = true;
-        this.revealed_img = data;
       }
 
       var endGame = true;

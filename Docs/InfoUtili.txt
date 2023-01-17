@@ -68,18 +68,6 @@ TO DO:
 		[/] -fac- Psicologo			|
 		[/] Gestione delle prenotazioni
 		[ ] aggiungere più pet disponibili
-		[ ] -fac- Videochiamata		| servizi online
-		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
- 	
-	- BACK OFFICE
-		[ ] Home page
-		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
-		[ ] Gestione servizi di comunità (bacheche)
-		[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...)
-		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
-		[ ] Login azienda
-		[ ] Registrazione nuova azienda (dipendente)
-		[ ] -fac- Gestione servizi online
 
 	- BACK OFFICE
 		[ ] Home page

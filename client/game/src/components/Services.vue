@@ -2,7 +2,7 @@
   <div class="flex flex-col py-5 mx-2">
     <h1 class="flex justify-center font-semibold normal-case text-4xl md:text-5xl xl:text-6xl md:pb-4">OFFERED SERVICES</h1>
 
-  <div class="">
+  <div>
     <div class="flex justify-center mt-4 font-semibold">
       <a href="http://localhost:3000/vet" class="flex-initial max-w-sm sm:max-w-xl md:max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100">
         <div class="flex flex-row">
