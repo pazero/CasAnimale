@@ -185,175 +185,177 @@ const SpecialistPage = () => {
       <div className="flex flex-1 flex-col m-3" style={{ height: "auto" }}>
         <div
           id="specialistName"
-          className="text-3xl font-bold sm:text-5xl md:text-7xl"
+          className="my-4 md:mt-6 md:mb-5 self-center text-center text-3xl font-semibold sm:text-5xl md:text-6xl uppercase"
         >
           {company.name}
         </div>
-        <div id="companyPhoto">
-          <img
-            src={company.photo}
-            alt="company photo"
-            className="max-w-full h-auto rounded-full"
-            resizemode="cover"
-            style={{ aspectRatio: 1, height: "7rem", width: "7rem" }}
-          ></img>
-        </div>
-        <div id="presentation">
-          {company.owner !== undefined ? (
-            <span>
-              {company.type === "vet" || company.type === "psy" ? (
-                <span>The experienced Doctor </span>
-              ) : company.type === "groomer" ? (
-                <span>The expert grommer </span>
-              ) : (
-                <span>The expert pet sitter </span>
-              )}
-              <span id="ownerName" className="font-bold">
-                {company.owner}
-              </span>
-            </span>
-          ) : (
-            <div id="ownerName" className="ml-4">
-              Specialist {company._id}
-            </div>
-          )}
-          <span> will take care of your pet.</span>
-          {company.main_pets !== undefined ? (
-            company.main_pets.length !== 0 ? (
-              <div>
-                They are mainly specialized in{" "}
-                <span>
-                  {company.main_pets?.map((item, i) => (
-                    <span key={i}>
-                      <span className="font-bold">{item}</span>
-                      {company.main_pets.length !== i + 1 ? ", " : "."}
-                    </span>
-                  ))}
-                </span>
-              </div>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-
-          {company.study_info !== undefined ? (
-            company.study_info.length !== 0 ? (
-              <div>
-                Their study carrer includes{" "}
-                <span>
-                  {company.study_info?.map((item, i) => (
-                    <span key={i}>
-                      <span className="font-bold">{item}</span>
-                      {company.study_info.length !== i + 1 ? ", " : "."}
-                    </span>
-                  ))}
-                </span>
-              </div>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-
-          {company.professional_experience !== undefined ? (
-            company.professional_experience.length !== 0 ? (
-              <div>
-                {company.owner} has got many skills through their working
-                experience as{" "}
-                <span>
-                  {company.professional_experience?.map((item, i) => (
-                    <span key={i}>
-                      <span className="font-bold">{item}</span>
-                      {company.professional_experience.length !== i + 1
-                        ? ", "
-                        : "."}
-                    </span>
-                  ))}
-                </span>
-              </div>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-
-          {company.actual_jobs !== undefined ? (
-            company.actual_jobs?.length !== 0 ? (
-              <div>
-                Moreover,{" "}
-                <span>
-                  {company.actual_jobs?.map((item, i) => (
-                    <span key={i}>
-                      <span className="font-bold">{item}</span>
-                      {company.actual_jobs?.length === i + 2
-                        ? " and "
-                        : company.actual_jobs?.length === i + 1
-                        ? " "
-                        : ", "}
-                    </span>
-                  ))}
-                  is what {company.owner} is actually practicing.
-                </span>
-              </div>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-
-          {company.cities !== undefined ? (
-            company?.cities?.length !== 0 ? (
-              <div>
-                {company.cities.length === 1 ? (
-                  <span>At the moment, {company.owner} only work in </span>
+        <div className="md:text-center sm:text-lg">
+          <div id="companyPhoto" className="flex justify-center shrink-0 pb-5">
+            <img
+              src={company.photo}
+              alt="company photo"
+              className="max-w-full h-auto rounded-full"
+              resizemode="cover"
+              style={{ aspectRatio: 1, height: "10rem", width: "10rem" }}
+            ></img>
+          </div>
+          <div id="presentation">
+            {company.owner !== undefined ? (
+              <span className="py-1">
+                {company.type === "vet" || company.type === "psy" ? (
+                  <span>The experienced Doctor </span>
+                ) : company.type === "groomer" ? (
+                  <span>The expert grommer </span>
                 ) : (
-                  <span>Actual cities where {company.owner} work are </span>
+                  <span>The expert pet sitter </span>
                 )}
+                <span id="ownerName" className="font-bold">
+                  {company.owner}
+                </span>
+              </span>
+            ) : (
+              <div id="ownerName" className="ml-4">
+                Specialist {company._id}
+              </div>
+            )}
+            <span> will take care of your pet.</span>
+            {company.main_pets !== undefined ? (
+              company.main_pets.length !== 0 ? (
+                <div className="py-1">
+                  They are mainly specialized in{" "}
+                  <span>
+                    {company.main_pets?.map((item, i) => (
+                      <span key={i}>
+                        <span className="font-bold">{item}</span>
+                        {company.main_pets.length !== i + 1 ? ", " : "."}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+
+            {company.study_info !== undefined ? (
+              company.study_info.length !== 0 ? (
+                <div className="py-1">
+                  Their study carrer includes{" "}
+                  <span>
+                    {company.study_info?.map((item, i) => (
+                      <span key={i}>
+                        <span className="font-bold">{item}</span>
+                        {company.study_info.length !== i + 1 ? ", " : "."}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+
+            {company.professional_experience !== undefined ? (
+              company.professional_experience.length !== 0 ? (
+                <div className="py-1">
+                  {company.owner} has got many skills through their working
+                  experience as{" "}
+                  <span>
+                    {company.professional_experience?.map((item, i) => (
+                      <span key={i}>
+                        <span className="font-bold">{item}</span>
+                        {company.professional_experience.length !== i + 1
+                          ? ", "
+                          : "."}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+
+            {company.actual_jobs !== undefined ? (
+              company.actual_jobs?.length !== 0 ? (
+                <div className="py-1">
+                  Moreover,{" "}
+                  <span>
+                    {company.actual_jobs?.map((item, i) => (
+                      <span key={i}>
+                        <span className="font-bold">{item}</span>
+                        {company.actual_jobs?.length === i + 2
+                          ? " and "
+                          : company.actual_jobs?.length === i + 1
+                          ? " "
+                          : ", "}
+                      </span>
+                    ))}
+                    is what {company.owner} is actually practicing.
+                  </span>
+                </div>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+
+            {company.cities !== undefined ? (
+              company?.cities?.length !== 0 ? (
+                <div className="py-1">
+                  {company.cities.length === 1 ? (
+                    <span>At the moment, {company.owner} only work in </span>
+                  ) : (
+                    <span>Actual cities where {company.owner} work are </span>
+                  )}
+                  <span>
+                    {company.cities?.map((item, i) => (
+                      <span key={i}>
+                        <span className="font-bold">{item}</span>
+                        {company.cities.length !== i + 1 ? ", " : "."}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+
+            {company.cost_per_hour !== undefined ? (
+              <div>
                 <span>
-                  {company.cities?.map((item, i) => (
-                    <span key={i}>
-                      <span className="font-bold">{item}</span>
-                      {company.cities.length !== i + 1 ? ", " : "."}
-                    </span>
-                  ))}
+                  Appointment cost per hour is{" "}
+                  <span id="cost" className="font-bold">
+                    {company.cost_per_hour}€/h
+                  </span>
+                  .
                 </span>
               </div>
             ) : (
               ""
-            )
-          ) : (
-            ""
-          )}
-
-          {company.cost_per_hour !== undefined ? (
-            <div>
-              <span>
-                Appointment cost per hour is{" "}
-                <span id="cost" className="font-bold">
-                  {company.cost_per_hour}€/h
-                </span>
-                .
-              </span>
-            </div>
-          ) : (
-            ""
-          )}
-          {company.online !== undefined ? (
-            <div>
-              Takes appointment <span className="font-bold">online</span> also!
-            </div>
-          ) : (
-            ""
-          )}
+            )}
+            {company.online !== undefined ? (
+              <div>
+                Takes appointment <span className="font-bold">online</span> also!
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
 
         {token ? (
-          <div className="flex flex-1 justify-center">
+          <div className="flex flex-1 justify-center py-6 md:pt-10">
             <button
               onClick={() => {
                 setShowModal(true);
@@ -364,7 +366,7 @@ const SpecialistPage = () => {
             </button>
           </div>
         ) : (
-          <div className="flex flex-1 justify-center">
+          <div className="flex flex-1 justify-center py-6 md:pt-10">
             <button
               className="btn btn-secondary"
               onClick={() => {

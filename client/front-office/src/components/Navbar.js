@@ -154,7 +154,7 @@ const Navbar = () => {
           </li>
           <li tabIndex={0}>
             <div className="justify-between">
-              Servizi
+              Services
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"
