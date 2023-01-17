@@ -65,7 +65,7 @@ TO DO:
 		[/] -fac- Psicologo			|
 		[/] Gestione delle prenotazioni
 		[ ] aggiungere più pet disponibili
-		[ ] -fac- Videochiamata		| servizi online
+		[x] -fac- Videochiamata		| servizi online
 		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
  	
 	- BACK OFFICE

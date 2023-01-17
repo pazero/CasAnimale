@@ -51,7 +51,7 @@ const ProfilePrenotations = () => {
                 {/*body*/}
                 <div className="flex relative p-6 flex-col flex-auto justify-center" style={{flex: "0 1 auto"}}>
                   {specialists.map((item) => {
-                    return <button class="flex my-2 items-center btn border-0 text-[#191A3E] bg-[#f0f2f3] hover:bg-[#b9b9ff]" onClick={() => {navigate(item.onclick)}}>
+                    return <button className="flex my-2 items-center btn border-0 text-[#191A3E] bg-[#f0f2f3] hover:bg-[#b9b9ff]" onClick={() => {navigate(item.onclick)}}>
                       {item.job}
                     </button>;
                   })}
@@ -103,8 +103,8 @@ const ProfilePrenotations = () => {
           <Sidebar />
         </div>
 
-        <div class="flex relative">
-          <div class="flex absolute fixed top-0 right-0 justify-end m-4 mb-0">
+        <div className="flex relative">
+          <div className="flex absolute fixed top-0 right-0 justify-end m-4 mb-0">
             <button
               onClick={() => {
                 setShowList(true);

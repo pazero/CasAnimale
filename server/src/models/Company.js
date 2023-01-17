@@ -18,6 +18,7 @@ const companySchema = new Schema({
   professional_experience: [String],
   actual_jobs: [String],
   photo: String,
+  online: Boolean,
 });
 
 module.exports = mongoose.model("Company", companySchema);

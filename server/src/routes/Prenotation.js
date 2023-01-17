@@ -109,6 +109,7 @@ router.put("/new", async (req, res) => {
 
       const prenotation = new Prenotation({
         company: req.body.company,
+        place: req.body.place,
         start: req.body.start,
         duration: req.body.duration,
         user: req.userid,
@@ -141,6 +142,8 @@ router.post("/update", async (req, res) => {
     const updatedPrenotation = await Post.findOneAndUpdate(
       { _id: req.body.prenotation_id },
       {
+        company: req.body.company,
+        place: req.body.place,
         start: req.body.start,
         duration: req.body.duration,
         user: req.body.user,

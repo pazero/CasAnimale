@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
 import vetclinic from "../assets/vet-clinic.png";
+import { Checkbox } from "@chakra-ui/react";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const SpecialistPage = () => {
   const [companyPrenotation, setCompanyPrenotation] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [company, setCompany] = useState([]);
+  const [isOnline, setIsOnline] = useState(false);
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -106,12 +108,23 @@ const SpecialistPage = () => {
     });
   }, [companyPrenotation]);
 
-  const bookSlot = async (companyId, start) => {
-    const res = await PrenotationManage.newPrenotation({
-      company: companyId,
-      start: start,
-      duration: 1,
-    });
+  const bookSlot = async (isOnline, companyId, start) => {
+    var res;
+    if (isOnline) {
+      res = await PrenotationManage.newPrenotation({
+        place: "online",
+        company: companyId,
+        start: start,
+        duration: 1,
+      });
+    } else {
+      res = await PrenotationManage.newPrenotation({
+        place: "",
+        company: companyId,
+        start: start,
+        duration: 1,
+      });
+    }
     alert(res.data.message);
     window.location.reload();
   };
@@ -330,6 +343,13 @@ const SpecialistPage = () => {
           ) : (
             ""
           )}
+          {company.online !== undefined ? (
+            <div>
+              Takes appointment <span className="font-bold">online</span> also!
+            </div>
+          ) : (
+            ""
+          )}
         </div>
 
         {token ? (
@@ -369,6 +389,20 @@ const SpecialistPage = () => {
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
+                    {company.online !== undefined ? (
+                      <Checkbox
+                        className="mb-2"
+                        size="lg"
+                        colorScheme="orange"
+                        onChange={() => {
+                          setIsOnline(!isOnline);
+                        }}
+                      >
+                        Online
+                      </Checkbox>
+                    ) : (
+                      ""
+                    )}
                     {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
                     <div className="font-bold">Data</div>
                     <div>
@@ -423,6 +457,7 @@ const SpecialistPage = () => {
                         );*/
                         if (startTime) {
                           bookSlot(
+                            isOnline,
                             params.id,
                             new Date(
                               document.getElementById("slotDay").value +
