@@ -38,12 +38,20 @@ const ArticleList = (props) => {
           <Heading marginTop="1">
             <div>{props.data.title}</div>
           </Heading>
-          <Text as="p" marginTop="2" fontSize="lg">
-            <div>{props.data.description}</div>
-          </Text>
+          
           {props.data?.photo ? (
-            <Image src={props.data?.photo} boxSize="fill" alt="post-img" />
-          ) : null}
+            <Box display="flex" flexDirection="row">
+              <Image src={props.data?.photo} boxSize="fill" h={'8rem'} w={'8rem'} alt="post-img" />
+              <Text as="p" marginTop="3" marginLeft="3" fontSize="lg">
+                <div>{props.data.description}</div>
+              </Text>
+            </Box>
+          ) : (
+            <Text as="p" marginTop="2" fontSize="lg">
+              <div>{props.data.description}</div>
+            </Text>
+          )}
+          
           <HStack marginTop="2" spacing="2" display="flex" alignItems="center">
             <Text fontWeight="medium">
               Posted by:{" "}

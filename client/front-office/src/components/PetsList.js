@@ -77,7 +77,7 @@ const PetsList = () => {
                 >
                   <Stack direction={['column', 'row']} spacing={6}>
                     <Center>
-                      <Image h={'7rem'} w={'7rem'} ml={{ base: '0', sm: '10'}} src={item.photo} />
+                      <Image h={'7rem'} w={'7rem'} ml={{ base: '0', sm: '10' }} src={(item.photo === "") ? "/speciesIcons/" + item.species + ".png":item.photo} />
                     </Center>
                     <Box w={'20rem'} pl={{ base: 10 }}>
                       <Heading as="h2" marginTop="1">
