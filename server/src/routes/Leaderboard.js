@@ -29,8 +29,7 @@ router.put("/new", async (req, res) => {
 /* Add a new user score */
 router.post("/:game/add", async (req, res) => {
   try {
-    console.log(req.headers);
-    console.log(req.body);
+    // console.log(req.body);
     var game = await Leaderboard.find({ game: req.params.game });
     game = game[0];
     if (game.scores == undefined) {

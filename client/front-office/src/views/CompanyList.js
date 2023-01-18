@@ -13,7 +13,7 @@ const CompanyList = (props) => {
       title = "Veterinaries";
       break;
     case "petsitter":
-      title = "Petsitters";
+      title = "Pet Sitters";
       break;
     case "psy":
       title = "Psychologists";
@@ -22,7 +22,7 @@ const CompanyList = (props) => {
       title = "Groomers";
       break;
     default:
-      title = "";
+      title = "Groomers";
   }
   useEffect(() => {
     async function fetchData() {
@@ -55,8 +55,9 @@ const CompanyList = (props) => {
           className="flex flex-wrap justify-center h-full"
           style={{ flex: "0 1 auto" }}
         >
-          {company.map((product) => (
+          {company.map((product, i) => (
             <div
+              key={i}
               id={product._id}
               className="flex flex-col flex-wrap p-2 sm:p-3 m-4 bg-white border border-gray-300 rounded-lg shadow-md hover:bg-gray-100"
               style={{
@@ -99,8 +100,8 @@ const CompanyList = (props) => {
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
                     {" "}
-                    {product.cities.map((item) => (
-                      <li>{item}</li>
+                    {product.cities.map((item, i) => (
+                      <li key={i}>{item}</li>
                     ))}
                   </ul>
                 </div>

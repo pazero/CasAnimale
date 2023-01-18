@@ -49,7 +49,6 @@ router.post("/isLoggedIn", (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     function cont() {
-      // console.log("User is logged!");
       res.json({ message: "user is logged", success: true });
     }
   } catch (e) {

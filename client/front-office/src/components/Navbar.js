@@ -18,6 +18,7 @@ const Navbar = () => {
   }, []);
 
   const logout = () => {
+    console.log("logging out")
     Cookies.remove("token", { path: "" });
     navigate("/");
   };
@@ -47,7 +48,7 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="http://localhost:5173/">Area Giochi</a>
+              <a href="http://localhost:5173/">Game Area</a>
             </li>
             <li tabIndex={0}>
               <div className="justify-between">
@@ -126,24 +127,15 @@ const Navbar = () => {
                     Forum
                   </button>
                 </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      navigate("/");
-                    }}
-                  >
-                    Looking4Partner
-                  </button>
-                </li>
               </ul>
             </li>
             <li>
               <button
                 onClick={() => {
-                  navigate("/");
+                  window.location.href = "http://localhost:5000/";
                 }}
               >
-                Area Riservata
+                Reserved Section
               </button>
             </li>
           </ul>
@@ -158,11 +150,11 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5173/">Area Giochi</a>
+            <a href="http://localhost:5173/">Game Area</a>
           </li>
           <li tabIndex={0}>
             <div className="justify-between">
-              Servizi
+              Services
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -237,24 +229,15 @@ const Navbar = () => {
                   Forum
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  Looking4Partner
-                </button>
-              </li>
             </ul>
           </li>
           <li>
             <button
               onClick={() => {
-                navigate("/");
+                window.location.href = "http://localhost:5000/";
               }}
             >
-              Area Riservata
+              Reserved Section
             </button>
           </li>
         </ul>
