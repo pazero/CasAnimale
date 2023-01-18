@@ -1,3 +1,17 @@
+.primary{
+    color:#59114D
+}
+.secondary{
+    color:#826C7F;
+}
+.thirdary{
+    color: #E1DEE3;
+}
 body {
-    background-color: green;
+    background-color: #E1DEE3;
+    height: 100%;
+
+}
+html{
+    height: 100%;
 }

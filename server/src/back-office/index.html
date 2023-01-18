@@ -7,9 +7,21 @@
     <link rel="stylesheet" href="css/style.css" />
     <script type="text/javascript" src="script/index.js"></script>
     <title>Area risevata</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./components/NavBar.html" rel="import" />
+
+    <script>
+      $(document).ready(function(){
+   
+   $('#sidebar').load("./components/NavBar.html");
+
+});
+    </script>
   </head>
-  <body>
-    Questo è il backoffice
-    <button onclick="welcome()">Premi</button>
+  <body >
+    <div class="flex flex-row flex-1 h-screen">
+      <div class="flex" id="sidebar"></div>
+    </div>
   </body>
 </html>
