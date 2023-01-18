@@ -10,28 +10,33 @@ API
 ● Generatore di Meme: 		    https://imgflip.com/api 
 ● Quiz e curiosità:             https://zoo-animal-api.herokuapp.com/animals/rand 
 
-TO DO URGENTI/FONDAMENTALI:
-UserDipendente =! UserNormale =! Affiliato
+Gestione utenti
+FrontOffice: Utente Non Registrato -> Utente Registrato -> Utente vip (sblocca alcuni prodotti e servizi)
+BackOffice: Utente Aziendale (vede il pannello di amministrazione delle propria azienda) -> Administrator (vede tutto)
+
+Utente vip può:
+  - comprare animali e cuccioli
+  - prenotazione a servizi costosi (wedding planner, pensioni)
+  - servizi online
+
+TO DO:
 - USER
 	[ ] Differenziare clienti vip e normali
-	[x] Possibilità di inserire un animale allo user (nome, specie, razza)
-	[x] Possibilità di eliminare un animale allo user (poverino è morto)
-- DIPENDENTE di CasAnimale
-	[ ] Campo dipendete nello user !!!
-	[ ] Possibilità di creare un account per un'azienda
-- COMPANY (veterinari, per-sitter, ... che lavorano attraverso casa animale)
-	[ ] Modificare le proprie informazioni
+	    [ ] Tasto nella sezione profile per diventare vip
+	    [ ] aggiungere prodotti vip con tag vip e con dovuti controlli
+	    [ ] aggiungere servizi vip accessibili solo ai vip
+	    [ ] rendere opzione online solo per i vip
 - GENERALI
 	[ ] Tutti i "New" popup non sono responsive
 	[ ] Convertire gli alert con qualcosa di più carino (toast)
-	[ ] Controllare accessibilità
+	[ ] Controllare accessibilità  !!!
 	[ ] Portare il progetto su gocker
-	[ ] Documentazione API con swagger
+	[ ] -fac- Documentazione API con swagger
 
 TO DO:
 - MainComponents
 	[x] Header
-	[/] Carosello (da finire con tutti i servizi)
+	[/] Carosello (inserire tutti i servizi)
 	[x] Footer
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
