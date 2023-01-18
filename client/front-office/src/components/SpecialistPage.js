@@ -10,7 +10,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
 import vetclinic from "../assets/vet-clinic.png";
-import { Checkbox } from "@chakra-ui/react";
+import {
+  Checkbox,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+} from "@chakra-ui/react";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -22,6 +31,9 @@ const SpecialistPage = () => {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [company, setCompany] = useState([]);
   const [isOnline, setIsOnline] = useState(false);
+  const [cities, setCities] = useState([]);
+  const [rcities, setRCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState([]);
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -40,6 +52,23 @@ const SpecialistPage = () => {
     fetchData();
     calcSlot(getDateString(new Date()));
   }, []);
+
+  useEffect(() => {
+    if (company?.cities) {
+      var arr = {};
+      Object.keys(company.cities).forEach((key) => {
+        if (!arr[company.cities[key]]) arr[company.cities[key]] = [];
+        arr[company.cities[key]].push(key);
+      });
+      setCities(arr);
+
+      var arr2 = [];
+      Object.keys(arr).forEach((v) => {
+        arr2.push({ value: v, label: v });
+      });
+      setRCities(arr2);
+    }
+  }, [company]);
 
   function chooseTime(e) {
     let time = e.value;
@@ -119,7 +148,7 @@ const SpecialistPage = () => {
       });
     } else {
       res = await PrenotationManage.newPrenotation({
-        place: "",
+        place: selectedCity,
         company: companyId,
         start: start,
         duration: 1,
@@ -193,7 +222,7 @@ const SpecialistPage = () => {
           <div id="companyPhoto" className="flex justify-center shrink-0 pb-5">
             <img
               src={company.photo}
-              alt="company photo"
+              alt=""
               className="max-w-full h-auto rounded-full"
               resizemode="cover"
               style={{ aspectRatio: 1, height: "10rem", width: "10rem" }}
@@ -307,29 +336,23 @@ const SpecialistPage = () => {
               ""
             )}
 
-            {company.cities !== undefined ? (
-              company?.cities?.length !== 0 ? (
-                <div className="py-1">
-                  {company.cities.length === 1 ? (
-                    <span>At the moment, {company.owner} only work in </span>
-                  ) : (
-                    <span>Actual cities where {company.owner} work are </span>
-                  )}
-                  <span>
-                    {company.cities?.map((item, i) => (
-                      <span key={i}>
-                        <span className="font-bold">{item}</span>
-                        {company.cities.length !== i + 1 ? ", " : "."}
-                      </span>
-                    ))}
-                  </span>
-                </div>
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )}
+            {
+              <div className="py-1">
+                {Object.keys(cities).length === 1 ? (
+                  <span>At the moment, {company.owner} only work in </span>
+                ) : (
+                  <span>Actual cities where {company.owner} work are </span>
+                )}
+                {Object.keys(cities).map((value, i) => {
+                  return (
+                    <span key={i}>
+                      <span className="font-bold"> {value}</span>
+                      {Object.keys(cities).length !== i + 1 ? ", " : "."}
+                    </span>
+                  );
+                })}
+              </div>
+            }
 
             {company.cost_per_hour !== undefined ? (
               <div>
@@ -344,13 +367,35 @@ const SpecialistPage = () => {
             ) : (
               ""
             )}
-            {company.online !== undefined ? (
+            {company.online !== undefined && (
               <div>
-                Takes appointment <span className="font-bold">online</span> also!
+                Takes appointment <span className="font-bold">online</span>{" "}
+                also!
               </div>
-            ) : (
-              ""
             )}
+
+            <TableContainer className="m-4 border rounded">
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Monday</Th>
+                    <Th>Tuesday</Th>
+                    <Th>Wednesday</Th>
+                    <Th>Thursday</Th>
+                    <Th>Friday</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{company.cities.monday}</Td>
+                    <Td>{company.cities.tuesday}</Td>
+                    <Td>{company.cities.wednesday}</Td>
+                    <Td>{company.cities.thursday}</Td>
+                    <Td>{company.cities.friday}</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
           </div>
         </div>
 
@@ -405,6 +450,17 @@ const SpecialistPage = () => {
                     ) : (
                       ""
                     )}
+
+                    {!isOnline && (
+                      <div className="mb-2">
+                        <span className="font-bold">Place:</span>
+                        <Select
+                          options={rcities}
+                          onChange={(e) => setSelectedCity(e.value)}
+                        />
+                      </div>
+                    )}
+
                     {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
                     <div className="font-bold">Data</div>
                     <div>
@@ -448,15 +504,6 @@ const SpecialistPage = () => {
                       className="btn-primary rounded-lg font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => {
-                        /*console.log(
-                          "start: " +
-                            company.business_hours.start +
-                            " end: " +
-                            company.business_hours.end
-                        );
-                        console.log(
-                          "slotDay: " + document.getElementById("slotDay").value
-                        );*/
                         if (startTime) {
                           bookSlot(
                             isOnline,

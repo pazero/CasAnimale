@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 const CompanyList = (props) => {
   const navigate = useNavigate();
   const [company, setCompany] = useState([]);
+
   let title = "";
+
   switch (props.type) {
     case "vet":
       title = "Veterinaries";
@@ -24,11 +26,22 @@ const CompanyList = (props) => {
     default:
       title = "Groomers";
   }
+
   useEffect(() => {
     async function fetchData() {
-      await CompanyManage.getCompanies(props).then((res) => {
-        setCompany(res.data);
+      const ret = await CompanyManage.getCompanies(props);
+      var companies = ret.data;
+
+      companies.forEach((item) => {
+        var arr = {};
+        Object.keys(item.cities).forEach((key) => {
+          if (!arr[item.cities[key]]) arr[item.cities[key]] = [];
+          arr[item.cities[key]].push(key);
+        });
+        item["rcities"] = arr;
       });
+
+      setCompany(companies);
     }
     fetchData();
   }, [props]);
@@ -58,10 +71,10 @@ const CompanyList = (props) => {
           className="flex flex-wrap justify-center h-full"
           style={{ flex: "0 1 auto" }}
         >
-          {company.map((product, i) => (
+          {company.map((comp, i) => (
             <div
               key={i}
-              id={product._id}
+              id={comp._id}
               className="flex flex-col flex-wrap p-2 m-4 mt-0 bg-[#f0f2f3] hover:bg-[#b9b9ff] rounded-lg"
               style={{
                 border: "solid 1px #191A3E",
@@ -69,7 +82,7 @@ const CompanyList = (props) => {
                 minWidth: "20rem",
               }}
               onClick={() => {
-                navigate("/specialistpage/" + product._id);
+                navigate("/specialistpage/" + comp._id);
               }}
             >
               <div>
@@ -77,7 +90,7 @@ const CompanyList = (props) => {
                   className="mb-2 rounded font-semibold text-2xl text-center"
                   style={{ color: "#191A3E" }}
                 >
-                  {product.name}
+                  {comp.name}
                 </div>
 
                 <div className="mb-2 mx-2">
@@ -86,7 +99,7 @@ const CompanyList = (props) => {
                     className="ml-4"
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
-                    {product.description}
+                    {comp.description}
                   </div>
                 </div>
 
@@ -96,7 +109,7 @@ const CompanyList = (props) => {
                     className="ml-4"
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
-                    {product.owner}
+                    {comp.owner}
                   </p>
                 </div>
 
@@ -107,25 +120,26 @@ const CompanyList = (props) => {
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
                     {" "}
-                    {product.cities.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
+                    {comp?.rcities &&
+                      Object.keys(comp.rcities).map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
                   </ul>
                 </div>
               </div>
               <div className="flex items-end flex-1">
                 <div className="flex flex-row mb-2 mx-2 font-semibold">
                   <div className="mr-4 self-center">
-                    Opened from {product.business_hours.start % 12}
-                    {product.business_hours.start > 12 ? "pm" : "am"} to{" "}
-                    {product.business_hours.end % 12}
-                    {product.business_hours.end > 12 ? "pm" : "am"}
+                    Opened from {comp.business_hours.start % 12}
+                    {comp.business_hours.start > 12 ? "pm" : "am"} to{" "}
+                    {comp.business_hours.end % 12}
+                    {comp.business_hours.end > 12 ? "pm" : "am"}
                   </div>
                   <div
                     className="px-2 py-1 rounded flex self-center justify-center flex-start font-semibold bg-[#191A3E]"
                     style={{ color: "#b9b9ff" }}
                   >
-                    {product.cost_per_hour} € / h
+                    {comp.cost_per_hour} € / h
                   </div>
                 </div>
               </div>
