@@ -9,19 +9,20 @@
     <title>Area risevata</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="./components/NavBar.html" rel="import" />
+    <link href="./components/SideBar.html" rel="import" />
+    <link href="./components/PresentationPage.html" rel="import" />
 
     <script>
-      $(document).ready(function(){
-   
-   $('#sidebar').load("./components/NavBar.html");
-
-});
+      $(document).ready(function () {
+        $("#sidebar").load("./components/SideBar.html");
+        $("#presentation").load("./components/PresentationPage.html")
+      });
     </script>
   </head>
-  <body >
+  <body>
     <div class="flex flex-row flex-1 h-screen">
       <div class="flex" id="sidebar"></div>
+      <div class="flex w-full" id="presentation"></div>
     </div>
   </body>
 </html>
