@@ -1,7 +1,7 @@
 const express = require("express");
 const Leaderboard = require("../models/Leaderboard");
 const router = express.Router();
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 
 /* Get all pet list */
 router.get("", async (req, res) => {

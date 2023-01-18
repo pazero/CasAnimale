@@ -1,7 +1,7 @@
 const express = require("express");
 const Prenotation = require("../models/Prenotation");
 const Company = require("../models/Company");
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
 function addHours(numOfHours, str) {

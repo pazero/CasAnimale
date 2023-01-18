@@ -1,6 +1,6 @@
 const express = require("express");
 const Company = require("../models/Company");
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
 /* Get all company list with query */

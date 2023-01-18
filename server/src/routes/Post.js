@@ -1,6 +1,6 @@
 const express = require("express");
 const Post = require("../models/Post");
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
 /* Get all posts list */

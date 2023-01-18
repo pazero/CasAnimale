@@ -1,7 +1,7 @@
 const express = require("express");
 const Product = require("../models/Product");
 const User = require("../models/User");
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
 /* Get all products */

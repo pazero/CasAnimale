@@ -1,6 +1,6 @@
 const express = require("express");
 const Pet = require("../models/Pet");
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
 /* Get all pet list */

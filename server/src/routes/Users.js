@@ -1,7 +1,7 @@
 const express = require("express");
 const User = require("../models/User");
 const Product = require("../models/Product");
-const jwt = require("../services/jwrUtils");
+const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
 /* TODO: remove later on, temporary  query for debugging */
