@@ -387,11 +387,11 @@ const SpecialistPage = () => {
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>{company.cities.monday}</Td>
-                    <Td>{company.cities.tuesday}</Td>
-                    <Td>{company.cities.wednesday}</Td>
-                    <Td>{company.cities.thursday}</Td>
-                    <Td>{company.cities.friday}</Td>
+                    <Td>{company.cities?.monday}</Td>
+                    <Td>{company.cities?.tuesday}</Td>
+                    <Td>{company.cities?.wednesday}</Td>
+                    <Td>{company.cities?.thursday}</Td>
+                    <Td>{company.cities?.friday}</Td>
                   </Tr>
                 </Tbody>
               </Table>

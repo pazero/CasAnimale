@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 /* Company schema fields */
 const petSchema = new Schema({
     name: String,
+    photo: String,
     species: String,
     breed: String,     // razza (può essere NULL)
     owner: String,    // id of user

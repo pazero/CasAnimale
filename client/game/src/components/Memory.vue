@@ -80,6 +80,7 @@ export default {
     return {
       playerName: "",
       totalPoints: 0,
+      flippedCard: 0,
       token: "",
       timer: 0,
       animal_img: [],
@@ -113,9 +114,7 @@ export default {
 
     async fetchImg() {
       for (let i = 0; i < 9; i++) {
-        const response = await fetch(
-          "https://dog.ceo/api/breeds/image/random"
-        );
+        const response = await fetch("https://dog.ceo/api/breeds/image/random");
         const animal = await response.json();
         this.animal_img.push({
           id: i,
@@ -133,18 +132,25 @@ export default {
     },
 
     reveal(data) {
-      data.revealed = true;
-      if (this.isRevaled) {
-        if (data.id !== this.revealed_img.id) {
+      if (this.flippedCard < 2) {
+        data.revealed = true;
+        if (this.isRevaled) {
+          this.flippedCard += 1;
+          if (data.id !== this.revealed_img.id) {
+            setTimeout(() => {
+              this.revealed_img.revealed = false;
+              data.revealed = false;
+            }, 1000);
+          }
           setTimeout(() => {
-            this.revealed_img.revealed = false;
-            data.revealed = false;
+            this.flippedCard = 0;
           }, 1000);
+          this.isRevaled = false;
+        } else {
+          this.flippedCard += 1;
+          this.isRevaled = true;
+          this.revealed_img = data;
         }
-        this.isRevaled = false;
-      } else {
-        this.isRevaled = true;
-        this.revealed_img = data;
       }
 
       var endGame = true;

@@ -63,7 +63,7 @@ const CompanyList = (props) => {
       <div className="flex flex-col" style={{ flex: "1 1 auto" }}>
         <div
           id="listTitle"
-          className="my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase"
+          className="m-2 my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase"
         >
           {title}
         </div>
@@ -75,9 +75,8 @@ const CompanyList = (props) => {
             <div
               key={i}
               id={comp._id}
-              className="flex flex-col flex-wrap p-2 m-4 mt-0 bg-[#f0f2f3] hover:bg-[#b9b9ff] rounded-lg"
+              className="flex flex-col flex-wrap p-2 sm:p-3 m-4 bg-white border border-gray-300 rounded-lg shadow-md hover:bg-gray-100"
               style={{
-                border: "solid 1px #191A3E",
                 color: "#191A3E",
                 minWidth: "20rem",
               }}
@@ -86,21 +85,8 @@ const CompanyList = (props) => {
               }}
             >
               <div>
-                <div
-                  className="mb-2 rounded font-semibold text-2xl text-center"
-                  style={{ color: "#191A3E" }}
-                >
+                <div className="mb-2 mt-3 font-semibold text-2xl text-center text-blue-800 ">
                   {comp.name}
-                </div>
-
-                <div className="mb-2 mx-2">
-                  <p className="font-semibold">Description: </p>
-                  <div
-                    className="ml-4"
-                    style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
-                  >
-                    {comp.description}
-                  </div>
                 </div>
 
                 <div className="mb-2 mx-2">
@@ -111,6 +97,16 @@ const CompanyList = (props) => {
                   >
                     {comp.owner}
                   </p>
+                </div>
+
+                <div className="mb-2 mx-2">
+                  <p className="font-semibold">Description: </p>
+                  <div
+                    className="ml-4"
+                    style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
+                  >
+                    {comp.description}
+                  </div>
                 </div>
 
                 <div className="mb-2 mx-2">
@@ -127,18 +123,16 @@ const CompanyList = (props) => {
                   </ul>
                 </div>
               </div>
+
               <div className="flex items-end flex-1">
-                <div className="flex flex-row mb-2 mx-2 font-semibold">
-                  <div className="mr-4 self-center">
+                <div className="flex justify-between mb-2 mx-2 font-semibold">
+                  <div className="mr-6 self-center">
                     Opened from {comp.business_hours.start % 12}
                     {comp.business_hours.start > 12 ? "pm" : "am"} to{" "}
                     {comp.business_hours.end % 12}
                     {comp.business_hours.end > 12 ? "pm" : "am"}
                   </div>
-                  <div
-                    className="px-2 py-1 rounded flex self-center justify-center flex-start font-semibold bg-[#191A3E]"
-                    style={{ color: "#b9b9ff" }}
-                  >
+                  <div className="ml-2 px-2 py-1 rounded text-lg flex flex-wrap self-center font-semibold bg-blue-400 text-blue-700">
                     {comp.cost_per_hour} € / h
                   </div>
                 </div>
