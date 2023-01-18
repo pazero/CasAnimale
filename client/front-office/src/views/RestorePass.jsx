@@ -28,7 +28,7 @@ export default function ForgotPasswordForm() {
   const sendMail = async (e) => {
     e.preventDefault();
     const msg = await UserManage.restore({
-      email,
+      mail: email,
     });
     alert(msg.data.message);
   };

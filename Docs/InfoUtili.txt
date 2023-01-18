@@ -37,7 +37,6 @@ TO DO:
 	- GAME   													-> renderlo responsive e con style bello
 		[x] Home page
 		[x] card con pagina per pubblicizzare servizi CasAnimale
-		[ ] gestire LOG IN (serve per qualcosa? tipo la classifica?)  | GENO
 		[x] inserire img sfondo banner
 		[x] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
 		[x] raggiungere velocemente servizi CasAnimale
@@ -58,27 +57,24 @@ TO DO:
 		[x] Poter inserire i propri pets e animali preferiti
 		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
-		[/] Recupero pass (geno)
-		[/] Tasto area riservata, rimanda al login back
-		[x] Bacheca "eccolo qua"          |
-		[x] Leadboard											| comunità
-		[/] Veterinario					| Paolo
-		[/] pet-sitter					| servizi in 		-> paolo e geno
-		[/] -fac- Toelettatura	|  presenza
-		[/] -fac- Psicologo			|
-		[/] Gestione delle prenotazioni
-		[ ] aggiungere più pet disponibili
-		[x] -fac- Videochiamata		| servizi online
-		[ ] -fac- Bacheca "cerco partner"	| 					-> geno (non prioritario)
+		[x] Recupero pass
+		[x] Bacheca "eccolo qua"
+		[x] Leadboard
+		[x] Veterinario
+		[x] pet-sitter
+		[x] -fac- Toelettatura
+		[x] -fac- Psicologo
+		[x] Gestione delle prenotazioni
+		[x] -fac- Videochiamata
+		[ ] -fac- Bacheca "cerco partner"	| geno (non prioritario)
  	
->>>>>>> feat/gestione-prenotazione-profilo
 	- BACK OFFICE
-		[ ] Home page
+		[/] Home page
+		[ ] Login
 		[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
 		[ ] Gestione di servizi (bacheche) | controllare o cancellare messaggi nel forum 
 		[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...) | aggiungere e togliere prodoB, prezzi, descrizioni.
 		[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...)
-		[ ] Login azienda
 		[ ] Registrazione nuova azienda (dipendente)
 		[ ] La fatturazione dei servizi e dei prodotti, con gestione di totali e statistiche.
 		[ ] -fac- Gestione servizi online

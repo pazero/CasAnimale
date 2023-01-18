@@ -33,6 +33,9 @@ const Authentication = {
   isLogged() {
     return Api().post(BASE + "isLoggedIn");
   },
+  restore(mail) {
+    return Api().put("restore/new", mail);
+  }
 };
 
 export default Authentication;

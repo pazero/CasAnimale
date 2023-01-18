@@ -5,6 +5,7 @@ const petRoute = require("./routes/Pet");
 const companyRoute = require("./routes/Company");
 const prenotationRoute = require("./routes/Prenotation");
 const leaderboardRoute = require("./routes/Leaderboard");
+const emailRestoreRoute = require("./routes/EmailRestore");
 
 module.exports = (app) => {
   // todo: da togliere alla fine
@@ -20,4 +21,5 @@ module.exports = (app) => {
   app.use("/api/company", companyRoute);          /* company routing middleware     */
   app.use("/api/prenotation", prenotationRoute);  /* prenotation routing middleware */
   app.use("/api/leaderboard", leaderboardRoute);   /* prenotation routing middleware */
+  app.use("/api/restore", emailRestoreRoute);   /* prenotation routing middleware */
 };
