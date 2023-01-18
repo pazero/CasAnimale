@@ -8,31 +8,31 @@
       },
       {
         text: "Manage public forum posts",
-        img: "../public/customers.png",
+        img: "../public/forum.png",
       },
       {
         text: "Sell or delete products in your eCommerce",
-        img: "../public/customers.png",
+        img: "../public/shop.png",
       },
     ];
     let services2 = [
       {
         text: "Manage prenotations info as prices and schedules",
-        img: "../public/customers.png",
+        img: "../public/schedule.png",
       },
       {
         text: "Billing and analytics",
-        img: "../public/customers.png",
+        img: "../public/analytics.png",
       },
       {
         text: "Manage online services",
-        img: "../public/customers.png",
+        img: "../public/videocall.png",
       },
     ];
 
     let tmp = "";
     $(document).ready(function () {
-      services1.map( (item) => {
+      services1.map((item) => {
         tmp +=
           `<a class="card">
             <div
@@ -40,7 +40,7 @@
             class="hover:animate-pulse"
             style="padding: 2rem; margin: 1rem"
             >
-        <p class="card-title">` +
+        <p class="card-title" hidden>` +
           item.text +
           `</p>
         <img
@@ -53,8 +53,30 @@
         </div>
         </a>`;
         $("#cards").html(tmp);
-      }
-    )});
+      });
+      services2.map((item) => {
+        tmp +=
+          `<a class="card">
+            <div
+            class="card-body bg-white"
+            class="hover:animate-pulse"
+            style="padding: 2rem; margin: 1rem"
+            >
+        <p class="card-title" hidden>` +
+          item.text +
+          `</p>
+        <img
+        src=` +
+          item.img +
+          `
+        alt="ALT"
+        class="h-full w-full object-cover object-center group-hover:opacity-75"
+        />
+        </div>
+        </a>`;
+        $("#cards").html(tmp);
+      });
+    });
   </script>
 </head>
 <div class="flex self-center flex-col w-full">
@@ -65,7 +87,7 @@
   </div>
   <!--div class="flex justify-center primary font-semibold">Here anything you can do! </div-->
 
-  <div id="cards" class="grid grid-cols-2 xl:grid-cols-3"></div>
+  <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"></div>
 
   <!--div class="grid grid-cols-2 xl:grid-cols-3">
     <a v-for="game in games" :key="game.id" :href="game.href" class="card">
