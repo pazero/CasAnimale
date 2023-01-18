@@ -9,7 +9,13 @@ const companySchema = new Schema({
   description: String,
   cost_per_hour: String,
   owner: String,
-  cities: [String], // città in cui opera
+  cities: {
+    monday: String,
+    tuesday: String,
+    wednesday: String,
+    thursday: String,
+    friday: String,
+  }, // città in cui opera
   business_hours: { start: Number, end: Number },
   email: String,
   password: String,

@@ -69,6 +69,50 @@ async function arePrenotationsOverlaping(req, res) {
   return false;
 }
 
+async function isPlaceCorrect(req, res) {
+  const company = await Company.find({ _id: req.body.company });
+  const compCities = company[0].cities;
+
+  const day = new Date(req.body.start);
+
+  switch (day.getDay()) {
+    case 1:
+      if (compCities.monday !== req.body.place) {
+        res.json({ message: "Choose the right place" });
+        return false;
+      }
+      break;
+    case 2:
+      if (compCities.tuesday !== req.body.place) {
+        res.json({ message: "Choose the right place" });
+        return false;
+      }
+      break;
+    case 3:
+      if (compCities.wednesday !== req.body.place) {
+        res.json({ message: "Choose the right place" });
+        return false;
+      }
+      break;
+    case 4:
+      if (compCities.thursday !== req.body.place) {
+        res.json({ message: "Choose the right place" });
+        return false;
+      }
+      break;
+    case 5:
+      if (compCities.friday !== req.body.place) {
+        res.json({ message: "Choose the right place" });
+        return false;
+      }
+      break;
+    default:
+      res.json({ message: "something went wrong" });
+      return false;
+  }
+  return true;
+}
+
 router.get("", async (req, res) => {
   try {
     const prenotation = await Prenotation.find(req.query);
@@ -101,7 +145,8 @@ router.put("/new", async (req, res) => {
       if (
         isDurationNegative(req, res) ||
         (await isDateInWorkingHours(req, res)) ||
-        (await arePrenotationsOverlaping(req, res))
+        (await arePrenotationsOverlaping(req, res)) ||
+        !(await isPlaceCorrect(req, res))
       ) {
         console.log("Somethig went wrong...");
         return;

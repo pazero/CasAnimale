@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 const CompanyList = (props) => {
   const navigate = useNavigate();
   const [company, setCompany] = useState([]);
+
   let title = "";
+
   switch (props.type) {
     case "vet":
       title = "Veterinaries";
@@ -24,11 +26,22 @@ const CompanyList = (props) => {
     default:
       title = "Groomers";
   }
+
   useEffect(() => {
     async function fetchData() {
-      await CompanyManage.getCompanies(props).then((res) => {
-        setCompany(res.data);
+      const ret = await CompanyManage.getCompanies(props);
+      var companies = ret.data;
+
+      companies.forEach((item) => {
+        var arr = {};
+        Object.keys(item.cities).forEach((key) => {
+          if (!arr[item.cities[key]]) arr[item.cities[key]] = [];
+          arr[item.cities[key]].push(key);
+        });
+        item["rcities"] = arr;
       });
+
+      setCompany(companies);
     }
     fetchData();
   }, [props]);
@@ -48,29 +61,32 @@ const CompanyList = (props) => {
         <Navbar />
       </div>
       <div className="flex flex-col" style={{ flex: "1 1 auto" }}>
-        <div id="listTitle" className="my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase" >
+        <div
+          id="listTitle"
+          className="m-2 my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase"
+        >
           {title}
         </div>
         <div
           className="flex flex-wrap justify-center h-full"
           style={{ flex: "0 1 auto" }}
         >
-          {company.map((product, i) => (
+          {company.map((comp, i) => (
             <div
               key={i}
-              id={product._id}
+              id={comp._id}
               className="flex flex-col flex-wrap p-2 sm:p-3 m-4 bg-white border border-gray-300 rounded-lg shadow-md hover:bg-gray-100"
               style={{
                 color: "#191A3E",
                 minWidth: "20rem",
               }}
               onClick={() => {
-                navigate("/specialistpage/" + product._id);
+                navigate("/specialistpage/" + comp._id);
               }}
             >
               <div>
-                <div className="mb-2 mt-3 font-semibold text-2xl text-center text-blue-800 " >
-                  {product.name}
+                <div className="mb-2 mt-3 font-semibold text-2xl text-center text-blue-800 ">
+                  {comp.name}
                 </div>
 
                 <div className="mb-2 mx-2">
@@ -79,7 +95,7 @@ const CompanyList = (props) => {
                     className="ml-4"
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
-                    {product.owner}
+                    {comp.owner}
                   </p>
                 </div>
 
@@ -89,7 +105,7 @@ const CompanyList = (props) => {
                     className="ml-4"
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
-                    {product.description}
+                    {comp.description}
                   </div>
                 </div>
 
@@ -100,9 +116,10 @@ const CompanyList = (props) => {
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
                   >
                     {" "}
-                    {product.cities.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
+                    {comp?.rcities &&
+                      Object.keys(comp.rcities).map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
                   </ul>
                 </div>
               </div>
@@ -110,13 +127,13 @@ const CompanyList = (props) => {
               <div className="flex items-end flex-1">
                 <div className="flex justify-between mb-2 mx-2 font-semibold">
                   <div className="mr-6 self-center">
-                    Opened from {product.business_hours.start % 12}
-                    {product.business_hours.start > 12 ? "pm" : "am"} to{" "}
-                    {product.business_hours.end % 12}
-                    {product.business_hours.end > 12 ? "pm" : "am"}
+                    Opened from {comp.business_hours.start % 12}
+                    {comp.business_hours.start > 12 ? "pm" : "am"} to{" "}
+                    {comp.business_hours.end % 12}
+                    {comp.business_hours.end > 12 ? "pm" : "am"}
                   </div>
-                  <div className="px-2 py-1 rounded text-lg flex flex-wrap self-center font-semibold bg-blue-100 text-blue-700">
-                    {product.cost_per_hour} € / h
+                  <div className="ml-2 px-2 py-1 rounded text-lg flex flex-wrap self-center font-semibold bg-blue-400 text-blue-700">
+                    {comp.cost_per_hour} € / h
                   </div>
                 </div>
               </div>

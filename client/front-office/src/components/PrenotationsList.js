@@ -45,10 +45,10 @@ const PrenotationsList = () => {
   function assoc(ptList, cnList) {
     let array = [];
     let id = "";
-    ptList.map((item) => {
+    ptList.forEach((item) => {
       id = item.company;
       if (new Date(item.start).getTime() > new Date().getTime()) {
-        cnList.map((company) => {
+        cnList.forEach((company) => {
           if (id === company._id) {
             array.push({
               company: company.name,
@@ -64,8 +64,8 @@ const PrenotationsList = () => {
     setCompleteList(array);
   }
 
-  async function deleteOld(id) {
-    const ret = await PrenotationManage.deletePrenotation(id);
+  function deleteOld(id) {
+    PrenotationManage.deletePrenotation(id);
   }
 
   async function deletePrenotation(prenotation) {
@@ -162,7 +162,7 @@ const PrenotationsList = () => {
                                   )}
                                 </span>
                               </li>
-                              {item.prenotation.place === "online" && (
+                              {item.prenotation.place === "online" ? (
                                 <li>
                                   <Button
                                     colorScheme="red"
@@ -175,6 +175,8 @@ const PrenotationsList = () => {
                                     Videochat link
                                   </Button>
                                 </li>
+                              ) : (
+                                <li>Place: {item.prenotation.place}</li>
                               )}
                             </ul>
                           </Text>
