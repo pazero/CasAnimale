@@ -12,8 +12,7 @@ import Leaderboard from "./views/Leaderboard";
 import Cart from "./views/Cart";
 import CompanyList from "./views/CompanyList";
 import SpecialistPage from "./components/SpecialistPage";
-import Navbar from "./components/Navbar";
-
+// import Navbar from "./components/Navbar";
 
 const App = () => {
   return (

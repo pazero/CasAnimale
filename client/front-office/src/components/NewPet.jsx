@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PetManage from "../services/PetManage";
 import { Image } from "@chakra-ui/react"
 import { Uploader } from "uploader";

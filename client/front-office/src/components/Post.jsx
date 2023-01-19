@@ -1,6 +1,6 @@
 import React from "react";
 import PostManage from "../services/PostManage";
-import { Image, Box, Heading, Text, HStack, Button, Show, Hide } from "@chakra-ui/react";
+import { Image, Box, Heading, Text, HStack, Button, Show } from "@chakra-ui/react";
 
 const ArticleList = (props) => {
   const deletePost = async () => {

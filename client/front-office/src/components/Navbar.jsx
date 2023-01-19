@@ -132,7 +132,7 @@ const Navbar = () => {
             <li>
               <button
                 onClick={() => {
-                  window.location.href = "http://localhost:5000/";
+                  window.location.href = "http://localhost:5000/back";
                 }}
               >
                 Reserved Section
@@ -234,7 +234,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={() => {
-                window.location.href = "http://localhost:5000/";
+                window.location.href = "http://localhost:5000/back";
               }}
             >
               Reserved Section

@@ -10,11 +10,18 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["*", "http://localhost:5173", "http://localhost:3000"],
+    origin: [
+      "*",
+      "http://localhost:3000",
+      "http://localhost:5000",
+      "http://localhost:5173",
+    ],
   })
 );
 app.use(express.json());
-app.use(express.static(__dirname + "/back-office"));
+app.use("/back", express.static(__dirname + "/back-office"));
+app.use("/front", express.static(__dirname + "/front-office"));
+app.use("/game", express.static(__dirname + "/game"));
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);

@@ -24,9 +24,6 @@ const Authentication = {
   login(credential) {
     return Api().post(BASE + "login", credential);
   },
-  restore(credential) {
-    return Api().post(BASE + "restore", credential);
-  },
   buyUserCart() {
     return Api().post(BASE + "cart/buy");
   },

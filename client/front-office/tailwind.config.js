@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "../front-office/src/**/*.{html,js}"],
+  content: ["./index.html", "../front-office/src/**/*.{html,jsx,js}"],
   theme: {
     spacing: {
       0: '0',
