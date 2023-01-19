@@ -34,15 +34,21 @@ const ECommerce = () => {
     async function fetchData() {
       var filt = {};
       var prods = [];
-
-      const { data: userData } = await UserManage.getUser();
-      setUser(userData);
+      var userData;
 
       var res = await ProdManage.getProducts();
       prods = res.data;
 
+      try {
+        userData = await UserManage.getUser();
+        userData = userData.data;
+        setUser(userData);
+      } catch {
+        userData = null;
+      }
+
       // filter out vip products
-      if (!userData.vip) prods = prods.filter((x) => !x.tags.includes("vip"));
+      if (!userData?.vip) prods = prods.filter((x) => !x.tags.includes("vip"));
       setAllProducts(prods);
 
       // get filters
