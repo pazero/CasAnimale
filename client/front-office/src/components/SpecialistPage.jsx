@@ -19,6 +19,7 @@ import {
   Th,
   Td,
   TableContainer,
+  Center,
 } from "@chakra-ui/react";
 
 const SpecialistPage = () => {
@@ -228,6 +229,7 @@ const SpecialistPage = () => {
               style={{ aspectRatio: 1, height: "10rem", width: "10rem" }}
             ></img>
           </div>
+
           <div id="presentation">
             {company.owner !== undefined ? (
               <span className="py-1">
@@ -322,8 +324,8 @@ const SpecialistPage = () => {
                         {company.actual_jobs?.length === i + 2
                           ? " and "
                           : company.actual_jobs?.length === i + 1
-                          ? " "
-                          : ", "}
+                            ? " "
+                            : ", "}
                       </span>
                     ))}
                     is what {company.owner} is actually practicing.
@@ -374,28 +376,67 @@ const SpecialistPage = () => {
               </div>
             )}
 
-            <TableContainer className="m-4 border rounded">
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Monday</Th>
-                    <Th>Tuesday</Th>
-                    <Th>Wednesday</Th>
-                    <Th>Thursday</Th>
-                    <Th>Friday</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{company.cities?.monday}</Td>
-                    <Td>{company.cities?.tuesday}</Td>
-                    <Td>{company.cities?.wednesday}</Td>
-                    <Td>{company.cities?.thursday}</Td>
-                    <Td>{company.cities?.friday}</Td>
-                  </Tr>
-                </Tbody>
-              </Table>
-            </TableContainer>
+            <div className="hidden sm:flex mt-6 mb-0 flex justify-center grow-0">
+              <TableContainer className="border rounded">
+                <Table variant="simple" className="">
+                  <Thead>
+                    <Tr>
+                      <Th>Monday</Th>
+                      <Th>Tuesday</Th>
+                      <Th>Wednesday</Th>
+                      <Th>Thursday</Th>
+                      <Th>Friday</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>{company.cities?.monday}</Td>
+                      <Td>{company.cities?.tuesday}</Td>
+                      <Td>{company.cities?.wednesday}</Td>
+                      <Td>{company.cities?.thursday}</Td>
+                      <Td>{company.cities?.friday}</Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </div>
+            <div className="flex sm:hidden mt-6 mb-0 flex flex-col justify-center mx-2 ">
+              <TableContainer className="border rounded">
+                <Table variant="simple" size='sm'>
+                  <Thead>
+                    <Tr className="">
+                      <Th>Monday</Th>
+                      <Th>Tuesday</Th>
+                      <Th>Wednesday</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr className="">
+                      <Td>{company.cities?.monday}</Td>
+                      <Td>{company.cities?.tuesday}</Td>
+                      <Td>{company.cities?.wednesday}</Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+              <TableContainer className="border rounded mt-2 mx-12">
+                <Table variant="simple" size='sm'>
+                  <Thead>
+                    <Tr>
+                      <Th>Thursday</Th>
+                      <Th marginRight={'1rem'}>Friday</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>{company.cities?.thursday}</Td>
+                      <Td>{company.cities?.friday}</Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </div>
+
           </div>
         </div>
 
@@ -510,8 +551,8 @@ const SpecialistPage = () => {
                             params.id,
                             new Date(
                               document.getElementById("slotDay").value +
-                                " " +
-                                startTime
+                              " " +
+                              startTime
                             )
                           );
                           setShowModal(false);

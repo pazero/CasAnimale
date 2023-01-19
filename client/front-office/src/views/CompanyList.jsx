@@ -132,7 +132,7 @@ const CompanyList = (props) => {
                     {comp.business_hours.end % 12}
                     {comp.business_hours.end > 12 ? "pm" : "am"}
                   </div>
-                  <div className="ml-2 px-2 py-1 rounded text-lg flex flex-wrap self-center font-semibold bg-blue-400 text-blue-700">
+                  <div className="ml-2 px-2 py-1 rounded text-lg flex flex-wrap self-center font-semibold bg-blue-200 text-blue-700">
                     {comp.cost_per_hour} € / h
                   </div>
                 </div>
