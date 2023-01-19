@@ -5,9 +5,19 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/SidebarProfile";
 import Cookies from "js-cookie";
-import { Image } from "@chakra-ui/react";
+import { Image, Button } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -25,7 +35,19 @@ const Profile = () => {
   const [actualPassword, setActualPassword] = useState();
   const [favanimal, setFavanimal] = useState();
   const [actualFavanimal, setActualFavanimal] = useState();
+  const [vip, setVip] = useState(false);
   const token = Cookies.get("token");
+
+  const {
+    isOpen: isOpenBecome,
+    onOpen: onOpenBecome,
+    onClose: onCloseBecome,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenStop,
+    onOpen: onOpenStop,
+    onClose: onCloseStop,
+  } = useDisclosure();
 
   const uploader = Uploader({
     // Get production API keys from Upload.io
@@ -46,6 +68,7 @@ const Profile = () => {
         setActualEmail(user.email);
         setActualPassword(user.password);
         setActualFavanimal(user.favanimal);
+        setVip(user.vip);
       });
     }
     if (!token) {
@@ -120,10 +143,7 @@ const Profile = () => {
           className="sm:flex sm:flex-1 sm:inline-block"
           style={{ height: "auto" }}
         >
-          <form
-            className="flex flex-1"
-            style={{ height: "auto" }}
-          >
+          <form className="flex flex-1" style={{ height: "auto" }}>
             <div
               className="overflow-hidden bg-white shadow"
               style={{ width: "100%" }}
@@ -319,6 +339,27 @@ const Profile = () => {
                       />
                     </dd>
                   </div>
+                  <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
+                    <dt className="text-lg font-medium text-gray-500 flex">
+                      <svg
+                        className="mr-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                      >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                          d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                          fill="rgba(244,212,6,1)"
+                        />
+                      </svg>
+                      Vip status
+                    </dt>
+                    <dd className="text-lg text-gray-900 col-span-2 mt-0">
+                      <span className="ml-1">{vip ? "True" : "False"}</span>
+                    </dd>
+                  </div>
                 </dl>
                 <div className="flex flex-1 flex-auto justify-center my-4">
                   <button
@@ -364,6 +405,111 @@ const Profile = () => {
                       resetData();
                     }}
                   />
+
+                  {vip ? (
+                    <Button
+                      className="ml-3 btn btn-secondary flex"
+                      onClick={onOpenStop}
+                    >
+                      <svg
+                        className="mr-1 pb-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                      >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                          d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                          fill="rgba(244,212,6,1)"
+                        />
+                      </svg>
+                      Stop vip
+                    </Button>
+                  ) : (
+                    <Button
+                      className="ml-3 btn btn-secondary flex"
+                      onClick={onOpenBecome}
+                    >
+                      <svg
+                        className="mr-1 pb-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                      >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                          d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                          fill="rgba(244,212,6,1)"
+                        />
+                      </svg>
+                      BECOME VIP
+                    </Button>
+                  )}
+
+                  <Modal isOpen={isOpenBecome} onClose={onCloseBecome}>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader>Become a vip user</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        Benefits:
+                        <ul className="list-disc list-inside">
+                          <li>Buy exclusive merch on the store</li>
+                          <li>Unlimited access to new services</li>
+                          <li>Possibility to book an appointment online</li>
+                        </ul>
+                        At only{" "}
+                        <span className="badge badge-warning badge-lg">
+                          14.99
+                        </span>{" "}
+                        per month!
+                      </ModalBody>
+
+                      <ModalFooter>
+                        <Button
+                          colorScheme="yellow"
+                          onClick={async () => {
+                            const ret = await UserManage.enableVip();
+                            alert(ret.data.message);
+                            setVip(true);
+                            onCloseBecome();
+                            window.location.reload();
+                          }}
+                        >
+                          YES
+                        </Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
+
+                  <Modal isOpen={isOpenStop} onClose={onCloseStop}>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader>Stop beeing a vip user</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        You will immediatly no longer receive the benefits of a
+                        vip user. Click Ok if you want to procede.
+                      </ModalBody>
+
+                      <ModalFooter>
+                        <Button
+                          colorScheme="red"
+                          onClick={async () => {
+                            const ret = await UserManage.disableVip();
+                            alert(ret.data.message);
+                            setVip(false);
+                            onCloseStop();
+                            window.location.reload();
+                          }}
+                        >
+                          Ok
+                        </Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
                 </div>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./views/Home";
 import Register from "./views/Register";
@@ -7,12 +8,12 @@ import ProfilePets from "./views/ProfilePets";
 import ProfilePrenotations from "./views/ProfilePrenotations";
 import Login from "./components/Login";
 import Forum from "./views/Forum";
+import HelpMe from "./views/HelpMe";
 import ECommerce from "./views/eCommerce";
 import Leaderboard from "./views/Leaderboard";
 import Cart from "./views/Cart";
 import CompanyList from "./views/CompanyList";
 import SpecialistPage from "./components/SpecialistPage";
-// import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/profile/pets" element={<ProfilePets />} />
           <Route path="/profile/prenotations" element={<ProfilePrenotations />} />
           <Route path="/forum" element={<Forum />} />
+          <Route path="/helpme" element={<HelpMe />} />
           <Route path="/compra" element={<ECommerce />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/vet" element={<CompanyList type="vet" />} />

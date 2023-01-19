@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CompanyManage from "../services/CompanyManage";
+import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -7,25 +8,8 @@ import { useNavigate } from "react-router-dom";
 const CompanyList = (props) => {
   const navigate = useNavigate();
   const [company, setCompany] = useState([]);
-
-  let title = "";
-
-  switch (props.type) {
-    case "vet":
-      title = "Veterinaries";
-      break;
-    case "petsitter":
-      title = "Pet Sitters";
-      break;
-    case "psy":
-      title = "Psychologists";
-      break;
-    case "groomer":
-      title = "Groomers";
-      break;
-    default:
-      title = "Groomers";
-  }
+  const [title, setTitle] = useState("");
+  const [user, setUser] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -42,9 +26,36 @@ const CompanyList = (props) => {
       });
 
       setCompany(companies);
+
+      const { data } = await UserManage.getUser();
+      setUser(data);
     }
     fetchData();
+
+    switch (props.type) {
+      case "vet":
+        setTitle("Veterinaries");
+        break;
+      case "petsitter":
+        setTitle("Pet Sitters");
+        break;
+      case "psy":
+        setTitle("Psychologists");
+        break;
+      case "groomer":
+        setTitle("Groomers");
+        break;
+      default:
+        setTitle("Groomers");
+    }
   }, [props]);
+
+  useEffect(() => {
+    if (user) {
+      if (!user.vip) navigate("/");
+      if (!user.vip) navigate("/");
+    }
+  }, [user]);
 
   return (
     <div

@@ -39,15 +39,47 @@ const Product = (props) => {
       <CardBody>
         <Image
           boxSize={{ sm: "300px", md: "350px", lg: "400px", xl: "450px" }}
-          src={(props.data.photo === "")?"/compra.png":props.data.photo}
+          src={props.data.photo === "" ? "/compra.png" : props.data.photo}
           borderRadius="lg"
         />
         <div className="mt-2">
-          {props.data.tags?.map((item) => (
-            <Tag className="mr-2 " size="md" variant="solid" colorScheme="teal">
-              {item}
-            </Tag>
-          ))}
+          {props.data.tags?.map((item) => {
+            if (item === "vip")
+              return (
+                <Tag
+                  className="mr-2"
+                  size="md"
+                  variant="solid"
+                  colorScheme="yellow"
+                >
+                  <span className="flex">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                        fill="rgba(229,221,0,1)"
+                      />
+                    </svg>
+                    <span className="ml-1">{item}</span>
+                  </span>
+                </Tag>
+              );
+            return (
+              <Tag
+                className="mr-2 "
+                size="md"
+                variant="solid"
+                colorScheme="teal"
+              >
+                {item}
+              </Tag>
+            );
+          })}
         </div>
         <Stack mt="6" spacing="3">
           <Heading size="lg">{props.data.name}</Heading>

@@ -4,6 +4,8 @@ const Product = require("../models/Product");
 const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
+const VIPFee = 15; // each month
+
 /* TODO: remove later on, temporary  query for debugging */
 router.get("", async (req, res) => {
   try {
@@ -56,7 +58,7 @@ router.post("/isLoggedIn", (req, res) => {
   }
 });
 
-/* TODO: prendere o lasciare? Restore user's password */
+/* Restore user's password */
 router.post("/restore", (req, res) => {
   res.json({
     message: `Questa è la tua password temporanea: ciao1234!`,
@@ -140,6 +142,7 @@ router.put("/new", async (req, res) => {
     favanimal: req.body.favanimal,
     petOwned: req.body.petOwned,
     cart: [],
+    vip: false,
   });
   await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
@@ -178,6 +181,42 @@ router.post("/update", async (req, res) => {
         }
       );
       res.json({ message: "Update done!" });
+    }
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+router.post("/enableVip", (req, res) => {
+  try {
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      await User.findOneAndUpdate(
+        { _id: req.userid },
+        {
+          vip: true,
+        }
+      );
+      res.json({ message: "You are now a VIP user!" });
+    }
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+router.post("/disableVip", (req, res) => {
+  try {
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      await User.findOneAndUpdate(
+        { _id: req.userid },
+        {
+          vip: false,
+        }
+      );
+      res.json({ message: "You are now a NORMAL user!" });
     }
   } catch (e) {
     res.json({ message: e });

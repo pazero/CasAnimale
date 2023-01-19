@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import PrenotationManage from "../services/PrenotationManage";
 import CompanyManage from "../services/CompanyManage";
+import UserManage from "../services/UserManage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
@@ -34,10 +35,14 @@ const SpecialistPage = () => {
   const [cities, setCities] = useState([]);
   const [rcities, setRCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState([]);
+  const [user, setUser] = useState([]);
   const token = Cookies.get("token");
 
   useEffect(() => {
     async function fetchData() {
+      const { data: userData } = await UserManage.getUser();
+      setUser(userData);
+
       await CompanyManage.getCompany(params.id).then((res) => {
         if (res.data.photo === undefined) res.data.photo = vetclinic;
         setCompany(res.data);
@@ -370,7 +375,7 @@ const SpecialistPage = () => {
             {company.online !== undefined && (
               <div>
                 Takes appointment <span className="font-bold">online</span>{" "}
-                also!
+                also, but only if you are a vip user!
               </div>
             )}
 
@@ -436,7 +441,7 @@ const SpecialistPage = () => {
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
-                    {company.online !== undefined ? (
+                    {user.vip && company.online !== undefined ? (
                       <Checkbox
                         className="mb-2"
                         size="lg"

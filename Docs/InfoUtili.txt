@@ -21,11 +21,11 @@ Utente vip può:
 
 TO DO:
 - USER
-	[ ] Differenziare clienti vip e normali
-	    [ ] Tasto nella sezione profile per diventare vip
-	    [ ] aggiungere prodotti vip con tag vip e con dovuti controlli
-	    [ ] aggiungere servizi vip accessibili solo ai vip
-	    [ ] rendere opzione online solo per i vip
+	[x] Differenziare clienti vip e normali
+	    [x] Tasto nella sezione profile per diventare vip
+	    [x] aggiungere prodotti vip con tag vip e con dovuti controlli
+	    [x] aggiungere servizi vip accessibili solo ai vip
+	    [x] rendere opzione online solo per i vip
 - GENERALI
 	[ ] Tutti i "New" popup non sono responsive
 	[ ] Convertire gli alert con qualcosa di più carino (toast)
@@ -63,9 +63,12 @@ TO DO:
 		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
 		[x] Recupero pass
-		[x] Bacheca "eccolo qua"
+		[/] Bacheca "eccolo qua"
+		[/] Bacheca "aiutami"     (manca gestione commenti)
 		[x] Leadboard
-		[x] Veterinario
+		[ ] Filtro dei servizi per luogo o per data
+		[ ] Recensioni
+		[x] Veterinario 
 		[x] pet-sitter
 		[x] -fac- Toelettatura
 		[x] -fac- Psicologo

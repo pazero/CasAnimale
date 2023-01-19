@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import PostManage from "../services/PostManage";
-import {Image} from "@chakra-ui/react"
+import { Image } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
-const NewPost = () => {
+const NewPost = ({ type }) => {
   const sendData = async (data) => {
     data.preventDefault();
     const msg = await PostManage.newPost({
       title,
       photo,
+      type,
       description,
     });
     alert(msg.data.message);
@@ -28,10 +29,8 @@ const NewPost = () => {
   const options = { multi: false };
 
   function checkPhoto() {
-    if (photo === "")
-      return true;
-    else
-      return false;
+    if (photo === "") return true;
+    else return false;
   }
 
   return (
@@ -49,7 +48,10 @@ const NewPost = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Type the title <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Type the title{" "}
+                      <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <input
                     required
@@ -62,7 +64,8 @@ const NewPost = () => {
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">
-                      Type the description of the post <span className="text-sm text-gray-400">*</span>
+                      Type the description of the post{" "}
+                      <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <textarea
@@ -89,11 +92,14 @@ const NewPost = () => {
                       }
                     }}
                   >
-                    {({ onClick }) => (
+                    {({ onClick }) =>
                       checkPhoto() ? (
                         <>
                           <div className="rounded-lg pt-1 flex items-center justify-center border-dashed border-2 border-gray-300">
-                            <button className="text-gray-400 text-center" onClick={onClick}>
+                            <button
+                              className="text-gray-400 text-center"
+                              onClick={onClick}
+                            >
                               <Image
                                 id="changephoto"
                                 src={photo}
@@ -117,8 +123,9 @@ const NewPost = () => {
                               />
                             </button>
                           </div>
-                        </>)
-                    )}
+                        </>
+                      )
+                    }
                   </UploadButton>
                 </div>
                 <div>
