@@ -102,7 +102,6 @@ router.post("/updateCart/:id/:quantity", async (req, res) => {
           alreadyExist = true;
           if (req.params.quantity == 0) {
             user.cart.splice(i, 1);
-            console.log("splice" + user.cart);
           } else {
             user.cart[i].quantity = req.params.quantity;
           }
