@@ -3,30 +3,34 @@
   <script>
     let services1 = [
       {
-        text: "Organize your customers information",
+        text: "customers",
         img: "../public/customers.png",
+        alt: "customers icon",
       },
       {
-        text: "Manage public forum posts",
+        text: "forum",
         img: "../public/forum.png",
+        alt: "forum icon",
       },
       {
-        text: "Sell or delete products in your eCommerce",
+        text: "e-commerce",
         img: "../public/shop.png",
+        alt: "shop icon",
       },
-    ];
-    let services2 = [
       {
-        text: "Manage prenotations info as prices and schedules",
+        text: "schedules",
         img: "../public/schedule.png",
+        alt: "prenotation icon",
       },
       {
-        text: "Billing and analytics",
+        text: "Billing",
         img: "../public/billing.png",
+        alt: "billing icon",
       },
       {
-        text: "Manage online services",
+        text: "videocalls",
         img: "../public/videocall.png",
+        alt: "online services icon",
       },
     ];
 
@@ -34,44 +38,23 @@
     $(document).ready(function () {
       services1.map((item) => {
         tmp +=
-          `<a class="card">
+          `<a class="card flex space-between">
             <div
-            class="card-body bg-white"
-            class="hover:animate-pulse"
-            style="padding: 2rem; margin: 1rem"
+            class="card-body bg-[#cba9b6] hover:animate-pulse"
+            style="padding-left: 3rem; padding-right: 3rem; padding-top:3rem; max-height: 18rem; max-width: 18rem; margin:0.5rem"
             >
-        <p class="card-title" hidden>` +
-          item.text +
-          `</p>
         <img
         src=` +
           item.img +
           `
-        alt="ALT"
-        class="h-full w-full object-cover object-center group-hover:opacity-75"
-        />
-        </div>
-        </a>`;
-        $("#cards").html(tmp);
-      });
-      services2.map((item) => {
-        tmp +=
-          `<a class="card">
-            <div
-            class="card-body bg-white"
-            class="hover:animate-pulse"
-            style="padding: 2rem; margin: 1rem"
-            >
-        <p class="card-title" hidden>` +
-          item.text +
-          `</p>
-        <img
-        src=` +
-          item.img +
+        alt=` +
+          item.alt +
           `
-        alt="ALT"
-        class="h-full w-full object-cover object-center group-hover:opacity-75"
+        class="h-auto w-full object-cover object-center group-hover:opacity-75"
         />
+        <p class="card-title py-4 font-bold text-center align-center">` +
+          item.text.toLocaleUpperCase() +
+          `</p>
         </div>
         </a>`;
         $("#cards").html(tmp);
@@ -80,29 +63,10 @@
   </script>
 </head>
 <div class="flex self-center flex-col w-full">
-  <div class="flex flex-col text-center bg-[#826C7F] p-3 md:p-6 rounded-lg">
-    <div class="primary font-bold text-2xl md:text-6xl">
-      Welcome to the place where you can manage your own company!
+  <div class="flex flex-col text-center p-3 md:pb-6">
+    <div class="primary font-bold text-2xl sm:text-4xl md:text-6xl">
+      Manage your own company
     </div>
   </div>
-  <!--div class="flex justify-center primary font-semibold">Here anything you can do! </div-->
-
-  <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"></div>
-
-  <!--div class="grid grid-cols-2 xl:grid-cols-3">
-    <a v-for="game in games" :key="game.id" :href="game.href" class="card">
-      <div
-        :class="[game.bg, 'card-body']"
-        class="hover:animate-pulse"
-        style="padding: 2rem; margin: 1rem"
-      >
-        <p class="card-title hidden">{{ game.name }}</p>
-        <img
-          :src="game.imageSrc"
-          :alt="game.imageAlt"
-          class="h-full w-full object-cover object-center group-hover:opacity-75"
-        />
-      </div>
-    </a>
-  </div-->
+  <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" style="grid-auto-rows: 1fr"></div>
 </div>
