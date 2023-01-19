@@ -95,13 +95,14 @@ router.post("/updateCart/:id/:quantity", async (req, res) => {
       var user = await User.find({ _id: req.userid });
       user = user[0];
       var alreadyExist = false;
-      if (user.cart == undefined) user.cart = [];
+      if (user.cart === undefined) user.cart = [];
 
       user.cart.forEach((value, i) => {
-        if (value.id == req.params.id) {
+        if (value.id === req.params.id) {
           alreadyExist = true;
           if (req.params.quantity == 0) {
             user.cart.splice(i, 1);
+            console.log("splice" + user.cart);
           } else {
             user.cart[i].quantity = req.params.quantity;
           }
