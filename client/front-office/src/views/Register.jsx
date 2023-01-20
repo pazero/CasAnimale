@@ -28,13 +28,13 @@ const Register = () => {
     navigate("/login");
   };
 
-  const [name, setName] = useState([]);
-  const [surname, setSurname] = useState([]);
-  // const [photo, setPhoto] = useState([]);
-  const [birth, setBirth] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
-  const [favanimal, setFavAnimal] = useState([]);
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  // const [photo, setPhoto] = useState("");
+  const [birth, setBirth] = useState(new Date());
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [favanimal, setFavAnimal] = useState("");
 
   return (
     <div

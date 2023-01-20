@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
 import {
   Image,
@@ -9,6 +9,7 @@ import {
   NumberDecrementStepper,
   Card,
   CardBody,
+  Box,
   Divider,
   CardFooter,
   Tag,
@@ -16,8 +17,21 @@ import {
 import { Stack, Heading, Text, Button } from "@chakra-ui/react";
 
 const Product = (props) => {
+
   const deleteItem = async () => {
     const { data: msg } = await ProductManage.deleteProduct(props.data._id);
+    alert(msg.message);
+    window.location.reload();
+  };
+
+  const [newQnt, setNewQnt] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const updateItem = async (id) => {
+    const { data: msg } = await ProductManage.updateProduct({
+      id,
+      newQnt,
+    });
     alert(msg.message);
     window.location.reload();
   };
@@ -38,6 +52,71 @@ const Product = (props) => {
   }
 
   return (
+    <div>
+    {showModal ? (
+      <>
+        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="relative w-full my-6 mx-auto max-w-3xl">
+            {/*content*/}
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              {/*header*/}
+              <div class="flex items-start justify-between p-4 rounded-t dark:border-gray-600">
+                <button type="button" class="z-30 absolute top-3 right-2.5 text-red-500 bg-transparent hover:text-red-700 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onClick={() => setShowModal(false)}>
+                  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+              </div>
+              {/*body*/}
+              <div className="relative sm:px-5 flex-auto">
+                  <div data-theme="lemonade" className="flex flex-1 justify-center">
+                    <div className="flex flex-1 justify-center">
+                      <div className="flex justify-center" style={{ width: "90%", flex: "0 1 auto", alignItems: "center" }}>
+                        <form onSubmit={updateItem(props.data._id)} className="flex justify-center w-full">
+                          <div className="mx-3 mt-0 card justify-center w-full ">
+                            <div className="card-body text-center py-0">
+                              <div className="card-title justify-center uppercase">
+                                Update product quantity!
+                              </div>
+                              <div className="form-control">
+                                <label className="label">
+                                  <span className="label-text">New quantity <span className="text-sm text-gray-400">*</span></span>
+                                </label>
+                                <NumberInput
+                                  required
+                                  size="md"
+                                  maxW={20}
+                                  defaultValue={1}
+                                  min={1}
+                                  onChange={(e) => setNewQnt(e)}
+                                >
+                                  <NumberInputField />
+                                  <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                  </NumberInputStepper>
+                                </NumberInput>
+                              </div>
+                              <div>
+                                <button className="btn btn-secondary mt-3">save</button>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              {/*footer*/}
+              <div className="flex p-4 justify-end rounded-b text-sm text-gray-400">
+                * required field
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="opacity-10 fixed inset-0 z-40 bg-black"></div>
+      </>
+    ) : null}
+
     <Card
       className="grow-0 m-2 self-stretch"
       width={{ sm:"sm", md:"sm", lg:"md", xl:"md"}}
@@ -87,7 +166,7 @@ const Product = (props) => {
       <CardFooter className="flex grow-0">
         <NumberInput
           id={"Number" + props.data._id}
-          className="mr-2 rounded"
+          className="mr-2 rounded grow-0"
           backgroundColor={"white"}
           size="md"
           maxW={24}
@@ -112,18 +191,35 @@ const Product = (props) => {
           Add to cart!
         </Button>
         {props.isUserLoggedPost ? (
-          <Button
-            rounded={"full"}
-            bg={"red.400"}
-            color={"white"}
-            _hover={{ bg: "red.500" }}
-            onClick={deleteItem}
-          >
-            Delete item
-          </Button>
+          <Box className="inline-block">
+            <Button
+              rounded={"full"}
+              bg={"orange.300"}
+              color={"white"}
+              _hover={{ bg: "orange.400" }}
+              onClick={() => {setShowModal(true);}}
+              className="text-sm"
+            >
+              update qnt
+            </Button>
+            <Button
+              rounded={"full"}
+              bg={"red.400"}
+              color={"white"}
+              _hover={{ bg: "red.500" }}
+              onClick={deleteItem}
+                className="text-sm"
+            >
+              elete item
+            </Button>
+            <Box>
+
+            </Box>
+          </Box>
         ) : null}
       </CardFooter>
     </Card>
+    </div>
   );
 };
 
