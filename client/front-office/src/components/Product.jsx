@@ -39,7 +39,7 @@ const Product = (props) => {
       <CardBody>
         <Image
           boxSize={{ sm: "300px", md: "350px", lg: "400px", xl: "450px" }}
-          src={props.data.photo === "" ? "/compra.png" : props.data.photo}
+          src={props.data.photo === "" ? "/f/compra.png" : props.data.photo}
           borderRadius="lg"
         />
         <div className="mt-2">

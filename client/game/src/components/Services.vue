@@ -1,9 +1,5 @@
-<script scoped>
-import Const from "../router/utils";
-</script>
-
 <template>
-  <div class="flex flex-col py-5 mx-2">
+  <div class="flex flex-col py-5 mx-2 bg-white">
     <h1
       class="flex justify-center font-semibold normal-case text-4xl md:text-5xl xl:text-6xl md:pb-4"
     >
@@ -18,7 +14,7 @@ import Const from "../router/utils";
         >
           <div class="flex flex-row">
             <img
-              src="vet.png"
+              src="../assets/vet.png"
               alt="vet icon"
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
@@ -39,8 +35,8 @@ import Const from "../router/utils";
         >
           <div class="flex flex-row">
             <img
-              src="forum.png"
-              alt="vet icon"
+              src="../assets/forum.png"
+              alt="forum icon"
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
@@ -60,8 +56,8 @@ import Const from "../router/utils";
         >
           <div class="flex flex-row">
             <img
-              src="petsitter.png"
-              alt="vet icon"
+              src="../assets/petsitter.png"
+              alt="petsitter icon"
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
@@ -82,8 +78,8 @@ import Const from "../router/utils";
         >
           <div class="flex flex-row">
             <img
-              src="psychologist.png"
-              alt="vet icon"
+              src="../assets/psychologist.png"
+              alt="psychologist icon"
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
@@ -106,8 +102,8 @@ import Const from "../router/utils";
         >
           <div class="flex flex-row">
             <img
-              src="compra.png"
-              alt="vet icon"
+              src="../assets/compra.png"
+              alt="compra icon"
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
@@ -127,8 +123,8 @@ import Const from "../router/utils";
         >
           <div class="flex flex-row">
             <img
-              src="grooming.png"
-              alt="vet icon"
+              src="../assets/grooming.png"
+              alt="grooming icon"
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
@@ -145,3 +141,7 @@ import Const from "../router/utils";
     </div>
   </div>
 </template>
+
+<script setup>
+import Const from "../router/utils";
+</script>

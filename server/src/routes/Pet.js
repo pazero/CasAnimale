@@ -54,7 +54,7 @@ router.delete("/:id", async (req, res) => {
       const removedPet = await Pet.findById(req.params.id);
       if (req.userid == removedPet.owner) {
         // TODO da testare
-        const msg = await Pet.deleteOne({ _id: req.params.id });
+        Pet.deleteOne({ _id: req.params.id });
         res.json({ message: "Pet deleted succesfully!" });
       }
     }

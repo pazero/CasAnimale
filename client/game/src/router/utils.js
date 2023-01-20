@@ -1,6 +1,10 @@
-const BEURL = "http://192.168.43.209:5000";
-const FOURL = BEURL+"/f";
-const GAMEURL = "http://192.168.43.209:5173";
+const BEURL = "http://localhost:5000";
+// if develpoment const FOURL = "http://localhost:3000"
+// if production const FOURL = BEURL + "/f";
+const FOURL = BEURL + "/f";
+// if develpoment const GAMEURL = "http://localhost:5173"
+// if production const GAMEURL = BEURL + "/g";
+const GAMEURL = BEURL + "/g";
 const BOURL = BEURL + "/b";
 
 export default { BEURL, GAMEURL, BOURL, FOURL };

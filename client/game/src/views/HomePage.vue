@@ -83,7 +83,6 @@ const games = [
     id: 10,
     name: "Shop showcase",
     href: "shop",
-    //todo: cambia
     imageSrc: "products.png",
     imageAlt: "shop showcase img",
     bg: "bg-gray-100",
@@ -136,9 +135,14 @@ const advs = [
     data-theme="lemonade"
   >
     <!-- adv left -->
+    <!-- decommentare la linea background-image: url('/g/bgGame.jpg'); quando in produzione-->
     <div
       class="hidden xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold bg-[url(bgGame.jpg)] bg-right-top"
-      style="flex: 1 1 auto; min-width: 10rem"
+      style="
+        flex: 1 1 auto;
+        min-width: 10rem;
+        background-image: url('/g/bgGame.jpg');
+      "
     >
       <a
         :key="advs[left].name1"
@@ -181,9 +185,14 @@ const advs = [
     </div>
 
     <!-- adv right -->
+    <!-- decommentare la linea background-image: url('/g/bgGame.jpg'); quando in produzione-->
     <div
       class="flex justify-center xl:justify-start xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 bg-[url(bgGame.jpg)] bg-left-top"
-      style="flex: 1 1 auto; min-width: 10rem"
+      style="
+        flex: 1 1 auto;
+        min-width: 10rem;
+        background-image: url('/g/bgGame.jpg');
+      "
     >
       <a
         :key="advs[right].name1"
@@ -197,26 +206,3 @@ const advs = [
     </div>
   </div>
 </template>
-
-<!--
-  - applicazione a se stante
-  - scopo: presentare l'azienda
-  - offre momenti di svago e istruzione ai proprietari degli animali
-  - deve invogliare ad usare i servizi a pagamento!
-
-  TODO LIST:
-  
-  - NO autenticazione obbligatoria
-
-  - permettere all'utente di descrivere i propri pet con specie, nome, sesso, età, eventuali condizioni mediche. Non solo cani e gatti!
-
-  - ampia disponibilità di semplici giochi a tema animale
-
-  - pagine informative e di curiosità specifiche sugli animali dell'utente (API REST)
-
-  - pagine di visualizzazione dei prodotti di e-commerce acquistabili
-  
-  - pagine di visualizzazione dei servizi commerciali offerti da CasAnimale
-
-  - permette di passare velocemente all'app front-office per accedere ai servizi e all'e-commerce
--->

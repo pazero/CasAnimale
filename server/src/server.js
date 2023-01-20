@@ -28,11 +28,11 @@ app.get("/f/*", async (_, res) =>
     )
   )
 );
-app.use("/g/", express.static(path.join(__dirname, "../../client/game/build")));
+app.use("/g/", express.static(path.join(__dirname, "../../client/game/dist")));
 app.get("/g/*", async (_, res) =>
   res.end(
     await fs.readFile(
-      path.join(__dirname, "../../client/game/build/index.html")
+      path.join(__dirname, "../../client/game/dist/index.html")
     )
   )
 );
