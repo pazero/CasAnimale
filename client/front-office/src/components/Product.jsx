@@ -30,18 +30,32 @@ const Product = (props) => {
     alert(msg.data.message);
   }
 
+  function outOfStock(qnt) {
+    if (qnt == 0)
+      return true;
+    else
+      return false;
+  }
+
   return (
     <Card
-      className="m-2"
-      maxW={{ sm: "sm", md: "sm", lg: "md", xl: "md", "2xl": "md" }}
+      className="grow-0 m-2 self-stretch"
+      width={{ sm:"sm", md:"sm", lg:"md", xl:"md"}}
       id={props.data._id}
     >
       <CardBody>
-        <Image
-          boxSize={{ sm: "300px", md: "350px", lg: "400px", xl: "450px" }}
-          src={(props.data.photo === "")?"/compra.png":props.data.photo}
-          borderRadius="lg"
-        />
+        {props.data.quantity == 0
+          ? <Image
+              src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
+              borderRadius="lg"
+              className="w-5/6 justify-self-center lg:w-full"
+              opacity="0.5"
+            />
+          : <Image
+              src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
+              borderRadius="lg"
+              className="w-5/6 justify-self-center sm:w-full"
+            />}
         <div className="mt-2">
           {props.data.tags?.map((item) => (
             <Tag className="mr-2 " size="md" variant="solid" colorScheme="teal">
@@ -50,15 +64,27 @@ const Product = (props) => {
           ))}
         </div>
         <Stack mt="6" spacing="3">
-          <Heading size="lg">{props.data.name}</Heading>
-          <Text>{props.data.description}</Text>
-          <Text color="blue.600" fontSize="2xl">
-            {Number.parseFloat(props.data.price).toFixed(2)} €
+          <Heading size="md">{props.data.name}</Heading>
+          <Text size="sm">{props.data.description}</Text>
+          <Text fontSize={{base:"2xl", sm:"3xl"}} className="font-semibold">
+            &euro; {Number.parseFloat(props.data.price).toFixed(2)}
           </Text>
+          {props.data.quantity == 0
+            ? <Text color="red.500" fontSize="md" className="font-semibold">
+              OUT OF STOCK
+            </Text>
+            : props.data.quantity <= 5
+              ? <Text color="red.400" fontSize="md">
+                Only {props.data.quantity} left in stock
+              </Text>
+              : <Text color="gray.400" fontSize="md">
+                {props.data.quantity} in stock
+              </Text>
+          }
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter className="flex flex-1">
+      <CardFooter className="flex grow-0">
         <NumberInput
           id={"Number" + props.data._id}
           className="mr-2 rounded"
@@ -75,12 +101,25 @@ const Product = (props) => {
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
-        <Button className="mr-2" onClick={AddCart} colorScheme="twitter">
+        <Button
+          className="mr-2"
+          rounded={"full"}
+          bg={"blue.100"}
+          _hover={{ bg: "blue.200", color: "black" }}
+          onClick={AddCart}
+          disabled={outOfStock(props.data.quantity)}
+        >
           Add to cart!
         </Button>
         {props.isUserLoggedPost ? (
-          <Button colorScheme="red" onClick={deleteItem}>
-            Delete
+          <Button
+            rounded={"full"}
+            bg={"red.400"}
+            color={"white"}
+            _hover={{ bg: "red.500" }}
+            onClick={deleteItem}
+          >
+            Delete item
           </Button>
         ) : null}
       </CardFooter>

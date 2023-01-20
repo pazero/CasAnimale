@@ -54,7 +54,23 @@ router.delete("/:id", async (req, res) => {
 
     async function cont() {
       const msg = await Product.deleteOne({ _id: req.params.id });
-      res.json({ message: "Removed succesfully" });
+      /* cancello l'articolo in tutti i carrelli in cui è presente */
+      const users = await User.find({});
+      for (const usr of users) {
+        usr.cart.forEach((item, j) => {
+          if (item.id === req.params.id) {
+            console.log("articolo trovato in " + usr.id);
+            usr.cart.splice(j, 1);
+          }
+        });
+        await User.findOneAndUpdate(
+          { _id: usr.id },
+          {
+            cart: usr.cart,
+          }
+        );
+      };
+      res.json({ message: "Removed item, also in every cart, succesfully" });
     }
   } catch (e) {
     res.json({ message: e });

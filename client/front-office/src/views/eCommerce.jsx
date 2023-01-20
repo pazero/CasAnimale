@@ -8,7 +8,7 @@ import NewProduct from "../components/NewProduct";
 import {
   Button,
   Grid,
-  Center,
+  Box,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -182,16 +182,16 @@ const ECommerce = () => {
         gap={2}
       >
         {products.map((product) => (
-          <Center>
+          <Box className="flex items-stretch justify-center">
             <Product
               data={product}
               isUserLoggedPost={product.seller === user._id}
             />
-          </Center>
+          </Box>
         ))}
       </Grid>
 
-      <div className="flex">
+      <div className="flex mt-6">
         <Footer />
       </div>
     </div>
