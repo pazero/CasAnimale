@@ -29,7 +29,7 @@ const Cart = () => {
         <Navbar />
       </div>
 
-      <div className="flex justify-center my-10 h-screen">
+      <div className="flex justify-center my-8 h-screen ">
         <CartList />
       </div>
 

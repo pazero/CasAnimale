@@ -54,7 +54,7 @@ const Product = (props) => {
           : <Image
               src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
               borderRadius="lg"
-              className="w-5/6 justify-self-center sm:w-full"
+              className="w-5/6 justify-self-center lg:w-full"
             />}
         <div className="mt-2">
           {props.data.tags?.map((item) => (

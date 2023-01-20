@@ -41,6 +41,7 @@ const CartItem = () => {
       const ret = await UserManage.getUser();
       const cart = ret.data.cart;
       setTotal(0);
+      setIsCartEmpty(true);
       setProdList(
         await Promise.all(
           cart.map(async (item) => {
@@ -74,16 +75,16 @@ const CartItem = () => {
   }
 
   return (
-    <Box className="flex flex-col">
+    <Box className="flex flex-col ">
       <Heading as="h1" className="my-4 mt-0 md:mb-5 self-center text-center text-2xl font-semibold sm:text-5xl md:text-6xl uppercase">Cart</Heading>
       {prodList.map((item, i) => (
         <Box>
           {/** non-small screen */}
-          <Box key={i} className="hidden sm:flex inline-block space-x-10 m-2 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+          <Box key={i} className="hidden sm:flex inline-block space-x-8 m-2 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
             {item.prod?.quantity == 0
               ? <Box className="flex-none">
                 <Image
-                  boxSize={{ base: "5rem", md: "8rem", lg: "12rem" }}
+                  boxSize={{ base: "5rem", md: "8rem"}}
                   src={(item.prod?.photo === "") ? "/compra.png" : item.prod?.photo}
                   borderRadius="lg"
                   opacity="0.5"
@@ -91,7 +92,7 @@ const CartItem = () => {
               </Box>
               : <Box className="flex-none">
                 <Image
-                  boxSize={{ base: "5rem", md: "8rem", lg: "12rem" }}
+                  boxSize={{ base: "5rem", md: "8rem", lg: "10rem" }}
                   src={(item.prod?.photo === "") ? "/compra.png" : item.prod?.photo}
                   borderRadius="lg"
                 />
@@ -177,7 +178,7 @@ const CartItem = () => {
               {item.prod?.quantity == 0
                 ? <Box className="flex-none">
                   <Image
-                    boxSize={{ base: "8rem", lg: "12rem" }}
+                    boxSize={"8rem"}
                     src={(item.prod?.photo === "") ? "/compra.png" : item.prod?.photo}
                     borderRadius="lg"
                     opacity="0.5"
@@ -185,7 +186,7 @@ const CartItem = () => {
                 </Box>
                 : <Box className="flex-none">
                   <Image
-                    boxSize={{ base: "8rem", lg: "12rem" }}
+                    boxSize={"8rem"}
                     src={(item.prod?.photo === "") ? "/compra.png" : item.prod?.photo}
                     borderRadius="lg"
                   />
@@ -254,7 +255,10 @@ const CartItem = () => {
       ) : null}
 
       {isCartEmpty ? (
-        <Text>It seems empty here, go check our eCommerce service!</Text>
+        <Box className="font-semibold text-center mt-6 uppercase">
+          <Text>It seems like there are no items available for purchase here <span>&#9785;</span></Text>
+          <Text>Go check our eCommerce!</Text>
+        </Box>
       ) : (
         <Box className="flex font-semibold justify-center sm:justify-end sm:mr-10">
           <Button

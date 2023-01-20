@@ -59,7 +59,6 @@ router.delete("/:id", async (req, res) => {
       for (const usr of users) {
         usr.cart.forEach((item, j) => {
           if (item.id === req.params.id) {
-            console.log("articolo trovato in " + usr.id);
             usr.cart.splice(j, 1);
           }
         });

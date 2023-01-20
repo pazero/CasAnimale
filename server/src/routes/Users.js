@@ -103,18 +103,21 @@ router.post("/cart/buy", async (req, res) => {
       const userCart = user.cart;
       for (const [n, item] of Object.entries(userCart)) {
         const product = await Product.findById(item.id);
-        const remain = product.quantity - item.quantity;
-        await Product.findOneAndUpdate(
-          { _id: item.id },
-          {
-            quantity: remain,
-          }
-        );
+        if(product.quantity != 0){
+          const remain = product.quantity - item.quantity;
+          await Product.findOneAndUpdate(
+            { _id: item.id },
+            {
+              quantity: remain,
+            }
+          );
+          userCart.splice(n, 1);
+        }
       }
       await User.findOneAndUpdate(
         { _id: req.userid },
         {
-          cart: [],
+          cart: userCart,
         }
       );
       res.json({ message: "You just boght everything" });
