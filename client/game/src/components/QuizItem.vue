@@ -132,6 +132,8 @@
 </template>
 
 <script>
+import Const from "../router/utils";
+
 export default {
   data() {
     return {
@@ -157,7 +159,7 @@ export default {
       if (parts.length === 2) {
         this.token = parts.pop().split(";").shift();
         return true;
-      } 
+      }
       return false;
     },
     async getQuestion() {
@@ -246,7 +248,7 @@ export default {
     },
     sendResult() {
       if (this.totalPoints > 0) {
-        fetch("http://localhost:5000/api/leaderboard/quiz/add", {
+        fetch(Const.BEURL + "/api/leaderboard/quiz/add", {
           method: "POST",
           credentials: "include",
           headers: {

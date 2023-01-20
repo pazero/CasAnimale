@@ -224,6 +224,8 @@
 
 <script scoped>
 import NavBar from "./NavBar.vue";
+import Const from "../router/utils";
+
 export default {
   name: "hangman",
   data: function () {
@@ -356,7 +358,9 @@ export default {
           // console.log(this.totalPoints)
           // time points
           let now = new Date();
-          this.totalPoints += Math.round(10000000 / (now.getTime() - this.timer));
+          this.totalPoints += Math.round(
+            10000000 / (now.getTime() - this.timer)
+          );
           this.wait(1000);
           this.end = true;
           this.sendResult();
@@ -382,7 +386,7 @@ export default {
 
     sendResult() {
       if (this.totalPoints > 0) {
-        fetch("http://localhost:5000/api/leaderboard/hangman/add", {
+        fetch(Const.BEURL + "/api/leaderboard/hangman/add", {
           method: "POST",
           credentials: "include",
           headers: {

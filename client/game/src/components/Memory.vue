@@ -75,6 +75,8 @@
 </template>
 
 <script scoped>
+import Const from "../router/utils";
+
 export default {
   data() {
     return {
@@ -189,7 +191,7 @@ export default {
 
     async sendData() {
       const msg = await fetch(
-        "http://localhost:5000/api/leaderboard/memory/add",
+        Const.BEURL+"/api/leaderboard/memory/add",
         {
           method: "POST",
           credentials: "include",

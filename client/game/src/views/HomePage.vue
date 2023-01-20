@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
+import Const from "../router/utils";
 
 const left = Math.floor(Math.random() * 5);
 const right = Math.floor(Math.random() * 5);
@@ -40,7 +41,7 @@ const games = [
   {
     id: 5,
     name: "Create your account",
-    href: "http://localhost:3000/register",
+    href: Const.FOURL + "/register",
     imageSrc: "register.png",
     imageAlt: "new user img",
     bg: "bg-blue-100",
@@ -65,7 +66,7 @@ const games = [
   {
     id: 8,
     name: "e-commerce",
-    href: "http://localhost:3000/compra",
+    href: Const.FOURL + "/compra",
     imageSrc: "shop.png",
     imageAlt: "ecommerce img",
     bg: "bg-blue-100",
@@ -93,35 +94,35 @@ const advs = [
   {
     name1: "BUY SOME SUPPLIES",
     name2: "FOR YOUR PETS HERE!",
-    href: "http://localhost:3000/compra",
+    href: Const.FOURL + "/compra",
     bg: "bg-red-100",
     current: false,
   },
   {
     name1: "PLAY WITH US,",
     name2: "A QUIZ IS WAITING FOR YOU!",
-    href: "http://localhost:5173/quiz",
+    href: Const.GAMEURL + "/quiz",
     bg: "bg-green-100",
     current: false,
   },
   {
     name1: "PLAY A HANGMAN",
     name2: "MATCH HERE!",
-    href: "http://localhost:5173/hangman",
+    href: Const.GAMEURL + "/hangman",
     bg: "bg-indigo-100",
     current: false,
   },
   {
     name1: "READ SOME USER'S",
     name2: "POSTS HERE",
-    href: "http://localhost:3000/forum",
+    href: Const.FOURL + "/forum",
     bg: "bg-yellow-100",
     current: false,
   },
   {
     name1: "WATCH SOME FUNNY",
     name2: "ANIMALS VIDEO!",
-    href: "http://localhost:5173/quiz",
+    href: Const.GAMEURL + "/quiz",
     bg: "bg-blue-100",
     current: false,
   },

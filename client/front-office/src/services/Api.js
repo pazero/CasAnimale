@@ -1,6 +1,7 @@
 import axios from "axios";
+import Const from "./utils";
 
-const baseURL = "http://localhost:5000/api/";
+const baseURL = Const.BEURL + "/api/";
 
 const Api = () => {
   return axios.create({

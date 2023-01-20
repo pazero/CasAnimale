@@ -3,5 +3,7 @@ client/game/node_modules
 client/game/.vscode
 server/node_modules
 server/.env
+server/src/build
+server/src/game
 client/front-office/src/output.css
 client/game/src/output.css

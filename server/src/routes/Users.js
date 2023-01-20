@@ -107,9 +107,9 @@ router.post("/cart/buy", async (req, res) => {
         const product = await Product.findById(item.id);
         const remain = product.quantity - item.quantity;
         if (remain <= 0) {
-          await Product.deleteOne({ _id: item.id });
+          Product.deleteOne({ _id: item.id });
         } else {
-          await Product.findOneAndUpdate(
+          Product.findOneAndUpdate(
             { _id: item.id },
             {
               quantity: remain,

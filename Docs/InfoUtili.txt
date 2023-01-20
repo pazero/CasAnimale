@@ -36,7 +36,7 @@ TO DO:
 TO DO:
 - MainComponents
 	[x] Header
-	[/] Carosello (inserire tutti i servizi)
+	[/] Carosello (inserire utleriori schede: vip, giochi, bacheche...)
 	[x] Footer
 - Pagine
 	- GAME   													-> renderlo responsive e con style bello
@@ -62,7 +62,7 @@ TO DO:
 		[x] Poter inserire i propri pets e animali preferiti
 		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
-		[x] Recupero pass
+		[x] Recupero pass -> sezione BO per admin
 		[/] Bacheca "eccolo qua"
 		[/] Bacheca "aiutami"     (manca gestione commenti)
 		[x] Leadboard

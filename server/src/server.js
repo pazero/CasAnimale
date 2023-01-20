@@ -1,6 +1,8 @@
 /* Import packages and inizialize */
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const fs = require("fs/promises");
 const mongoose = require("mongoose");
 // imports the .env file
 require("dotenv").config();
@@ -10,18 +12,30 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: [
-      "*",
-      "http://localhost:3000",
-      "http://localhost:5000",
-      "http://localhost:5173",
-    ],
+    origin: true,
   })
 );
 app.use(express.json());
-app.use("/back", express.static(__dirname + "/back-office"));
-app.use("/front", express.static(__dirname + "/front-office"));
-app.use("/game", express.static(__dirname + "/game"));
+app.use("/b", express.static(__dirname + "/back-office"));
+app.use(
+  "/f/",
+  express.static(path.join(__dirname, "../../client/front-office/build"))
+);
+app.get("/f/*", async (_, res) =>
+  res.end(
+    await fs.readFile(
+      path.join(__dirname, "../../client/front-office/build/index.html")
+    )
+  )
+);
+app.use("/g/", express.static(path.join(__dirname, "../../client/game/build")));
+app.get("/g/*", async (_, res) =>
+  res.end(
+    await fs.readFile(
+      path.join(__dirname, "../../client/game/build/index.html")
+    )
+  )
+);
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);

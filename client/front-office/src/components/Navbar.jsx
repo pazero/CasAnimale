@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
 import { TbUserCircle, TbShoppingCart } from "react-icons/tb";
+import Const from "../services/utils";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -27,8 +28,7 @@ const Navbar = () => {
   }, []);
 
   const logout = () => {
-    console.log("logging out");
-    Cookies.remove("token", { path: "" });
+    Cookies.remove("token", { path: "/" });
     navigate("/");
   };
 
@@ -57,7 +57,7 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="http://localhost:5173/">Game Area</a>
+              <a href={Const.GAMEURL}>Game Area</a>
             </li>
             <li tabIndex={0}>
               <div className="justify-between">
@@ -88,6 +88,7 @@ const Navbar = () => {
                       if (user.vip) navigate("/helpme");
                     }}
                   >
+                    HelpMe!
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -100,7 +101,6 @@ const Navbar = () => {
                         fill="rgba(244,212,6,1)"
                       />
                     </svg>
-                    HelpMe!
                   </button>
                 </li>
                 <li>
@@ -143,6 +143,7 @@ const Navbar = () => {
                       if (user.vip) navigate("/vet");
                     }}
                   >
+                    Veterinary
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -155,7 +156,6 @@ const Navbar = () => {
                         fill="rgba(244,212,6,1)"
                       />
                     </svg>
-                    Veterinary
                   </button>
                 </li>
                 <li>
@@ -173,6 +173,7 @@ const Navbar = () => {
                       if (user.vip) navigate("/psychologist");
                     }}
                   >
+                    Psychologist
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -185,7 +186,6 @@ const Navbar = () => {
                         fill="rgba(244,212,6,1)"
                       />
                     </svg>
-                    Psychologist
                   </button>
                 </li>
                 <li>
@@ -202,7 +202,7 @@ const Navbar = () => {
             <li>
               <button
                 onClick={() => {
-                  window.location.href = "http://localhost:5000/back";
+                  window.location.href = Const.BOURL;
                 }}
               >
                 Reserved Section
@@ -210,17 +210,14 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a
-          href="http://localhost:3000/"
-          className="btn btn-ghost normal-case text-xl"
-        >
+        <a href={Const.FOURL} className="btn btn-ghost normal-case text-xl">
           CasAnimale
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5173/">Game Area</a>
+            <a href={Const.GAMEURL}>Game Area</a>
           </li>
           <li tabIndex={0}>
             <div className="justify-between">
@@ -251,6 +248,7 @@ const Navbar = () => {
                     if (user.vip) navigate("/helpme");
                   }}
                 >
+                  HelpMe!
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -263,7 +261,6 @@ const Navbar = () => {
                       fill="rgba(244,212,6,1)"
                     />
                   </svg>
-                  HelpMe!
                 </button>
               </li>
               <li>
@@ -306,6 +303,7 @@ const Navbar = () => {
                     if (user.vip) navigate("/vet");
                   }}
                 >
+                  Veterinary
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -318,7 +316,6 @@ const Navbar = () => {
                       fill="rgba(244,212,6,1)"
                     />
                   </svg>
-                  Veterinary
                 </button>
               </li>
               <li>
@@ -336,6 +333,7 @@ const Navbar = () => {
                     if (user.vip) navigate("/psychologist");
                   }}
                 >
+                  Psychologist
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -348,7 +346,6 @@ const Navbar = () => {
                       fill="rgba(244,212,6,1)"
                     />
                   </svg>
-                  Psychologist
                 </button>
               </li>
               <li>
@@ -365,7 +362,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={() => {
-                window.location.href = "http://localhost:5000/back";
+                window.location.href = Const.BOURL;
               }}
             >
               Reserved Section

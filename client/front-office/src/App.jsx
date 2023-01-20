@@ -18,7 +18,7 @@ import SpecialistPage from "./components/SpecialistPage";
 const App = () => {
   return (
     <>
-      <Router>
+      <Router basename="/f">
         {/*<Navbar/>*/}
         <Routes>
           <Route path="/" element={<Home />} />

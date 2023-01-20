@@ -6,6 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 const container = document.querySelector("#root");
 const root = createRoot(container);
+console.log("Ciaone")
 root.render(
   <ChakraProvider>
     <App />

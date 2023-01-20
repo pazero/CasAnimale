@@ -98,6 +98,7 @@
 
 <script scoped>
 import animals from "./animals.json";
+import Const from "../router/utils";
 
 export default {
   data() {
@@ -122,13 +123,13 @@ export default {
 
   methods: {
     async getPets() {
-      var user = await fetch("http://localhost:5000/api/user/getInfo", {
+      var user = await fetch(Const.BEURL + "/api/user/getInfo", {
         credentials: "include",
       });
 
       user = await user.json();
 
-      var ret = await fetch("http://localhost:5000/api/pet?owner=" + user._id, {
+      var ret = await fetch(Const.BEURL + "/api/pet?owner=" + user._id, {
         credentials: "include",
       });
       this.ppets = await ret.json();
@@ -162,7 +163,7 @@ export default {
     async setFactAnimal(animal) {
       this.showLoader = true;
       const charact = animal.characteristics;
-      console.log(animal); // uncomment for debug
+      // console.log(animal); // uncomment for debug
       this.fact.title = `Discover the ${animal.name}!
       ${
         animal.taxonomy.scientific_name !== undefined
@@ -201,11 +202,11 @@ export default {
             : ""
         }
         ${charact.prey !== undefined ? `Its prey are ${charact.prey}.` : ""}`;
-      var ret = await fetch("https://meme-api.com/gimme/AnimalsBeingDerps", {
-        responseType: "application/json",
-      });
-      ret = await ret.json();
-      this.fact.image = ret.url;
+      // var ret = await fetch("https://meme-api.com/gimme/AnimalsBeingDerps", {
+      //   responseType: "application/json",
+      // });
+      // ret = await ret.json(); //TODO CONTROLLARE
+      this.fact.image = "leone.jpg";
       this.animal_fact = animal;
       this.fetchDone = true;
       this.showLoader = false;
