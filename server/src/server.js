@@ -16,6 +16,8 @@ app.use(
   })
 );
 app.use(express.json());
+
+/* Route to static frontend apps */
 app.use("/b", express.static(__dirname + "/back-office"));
 app.use(
   "/f/",
@@ -31,11 +33,12 @@ app.get("/f/*", async (_, res) =>
 app.use("/g/", express.static(path.join(__dirname, "../../client/game/dist")));
 app.get("/g/*", async (_, res) =>
   res.end(
-    await fs.readFile(
-      path.join(__dirname, "../../client/game/dist/index.html")
-    )
+    await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
   )
 );
+app.use("/", (_, res) => {
+  return res.redirect("/f/");
+});
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);
