@@ -16,12 +16,48 @@
     <link href="./components/Register.html" rel="import" />
 
     <script>
-     $(document).ready(function () {
+      $(document).ready(function () {
         $("#login").load("./components/Login.html");
-        window.location.href = "/login";
-        //$("#sidebar").load("./components/SideBar.html");
-        //$("#presentation").load("./components/PresentationPage.html");
+        $("#sidebar").load("./components/SideBar.html");
+        $("#presentation").load("./components/PresentationPage.html");
       });
+
+      const home = () => {
+        targetProxy.token
+          ? $(document).ready(function () {
+              //ho il token
+              //$("#login").attr("hidden", "true");
+              //$("#body").removeAttr("hidden");
+              document.getElementById("body").hidden = false;
+              document.getElementById("login").hidden = true;
+              console.log($("#body").html());
+            })
+          : $(document).ready(function () {
+              //non ho il token, quindi login
+              //$("#body").attr("hidden", "true");
+              //$("#login").removeAttr("hidden");
+              document.getElementById("login").hidden = false;
+              document.getElementById("body").hidden = true;
+              console.log("facciamo vedere il login");
+            });
+      };
+      var targetObj = {};
+      var targetProxy = new Proxy(targetObj, {
+        set: function (target, key, value) {
+          console.log(`${key} set to ${value}`);
+          if (key === "token") home();
+          target[key] = value;
+          return true;
+        },
+      });
+
+      targetProxy.token = false;
+      home();
+
+      const setToken = (mode) => {
+        //let bool = mode === 1 ? true : false;
+        if (mode !== targetProxy.token) targetProxy.token = mode;
+      };
     </script>
   </head>
 
