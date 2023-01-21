@@ -2,16 +2,9 @@
 
 Progetto del corso di Tecnologie Web dell'anno academico 2021/2022
 
-# Note per poter poter far partire tutto l'ambaradan
+# Note per poter poter far partire il dokcer
 
-1. `npm start` nella cartella server per far partire il backend in express
-2. poi `npx tailwindcss -i ./src/input.css -o ./src/output.css --watch` per far partire tailwind su front-office e/o game
-3. `npm start` e/o `npm run dev` su front-office o game
-
-# Per aggiungere utenti al db
-
-`curl -X POST --header "Content-Type: application/json" -i http://localhost:5000/register --data '{ "name": "Giorgio", "surname": "Stromboli", "birth": "15/10/2000", "email": "giostro@gmail.com", "password": "ciao1234", "favanimal": "Cane" }'`
-
-# Per aggiornare un utente (importante usare PATH)
-
-`curl -X PUT -H 'Content-Type: application/json' -i http://localhost:5000/user/:id --data '{"password":"ciao123456","favanimal":"falco", altri valori}'`
+1. nella cartella del progetto eseguire `docker build . -t prog-tecweb`
+2. poi `docker run -p 5000:5000 -d prog-tecweb:latest` per far partire il docker (omettere il `-d` per vedere l'output)
+3. `docker ps` per vedereil nome della macchina e il suo stato
+4. `docker stop [macchina]` per stopparla
