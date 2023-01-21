@@ -62,17 +62,17 @@ TO DO:
 		[x] Poter inserire i propri pets e animali preferiti
 		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
-		[x] Recupero pass
-		[x] Bacheca "eccolo qua"
-		[x] Leadboard
-		[x] Veterinario
-		[x] pet-sitter
-		[x] -fac- Toelettatura
-		[x] -fac- Psicologo
-		[x] Gestione delle prenotazioni
-		[x] -fac- Videochiamata
-		[ ] -fac- Bacheca "cerco partner"	| geno (non prioritario)
- 	
+		[/] Recupero pass (geno)
+		[/] Tasto area riservata, rimanda al login back
+		[x] Bacheca "eccolo qua"          |
+		[x] Leadboard											| comunità
+		[/] Veterinario					| Paolo
+		[/] pet-sitter					| servizi in 		-> paolo e geno
+		[/] -fac- Toelettatura	|  presenza
+		[/] -fac- Psicologo			|
+		[/] Gestione delle prenotazioni
+		[ ] aggiungere più pet disponibili
+
 	- BACK OFFICE
 		[/] Home page
 		[ ] Login
