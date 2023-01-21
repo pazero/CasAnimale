@@ -5,71 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="import" href="../components/prenotation-list.html" />
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Back Office</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      const pts = [
-        {
-          place: "Bubano",
-          start: "2023-01-23T11:00:00.000Z",
-          duration: 1,
-          user: "635d00fdc77f11a1f22d313d",
-        },
-        {
-          place: "Bubano",
-          start: "2023-01-23T09:00:00.000Z",
-          duration: 1,
-          user: "635d00fdc77f11a1f22d313d",
-        },
-        {
-          place: "Mordano",
-          start: "2023-02-23T14:00:00.000Z",
-          duration: 1,
-          user: "635d00fdc77f11a1f22d313d",
-        },
-        {
-          place: "Trieste",
-          start: "2023-02-01T09:00:00.000Z",
-          duration: 1,
-          user: "635d00fdc77f11a1f22d313d",
-        },
-        {
-          place: "Lugo",
-          start: "2023-02-06T09:00:00.000Z",
-          duration: 1,
-          user: "635d00fdc77f11a1f22d313d",
-        },
-      ];
-      let tmp = "";
       $(document).ready(function () {
-        pts.map((item, index) => {
-          tmp +=
-            `
-            <div class="flex flex-row m-3 flex-1">`+ (index+1) +`.
-                <div class="flex flex-col flex-1 bg-white p-2">
-                    <div><span class="font-semibold">City:</span> ` +
-            item.place +
-            `
-                    </div>
-                    <div><span class="font-semibold">Schedule:</span> ` +
-            item.start +
-            `
-                    </div>
-                    <div><span class="font-semibold">Customer id:</span> ` +
-            item.user +
-            `
-                    </div>
-                </div>
-            </div>`;
+          $("#list").load("../components/prenotation-list.html");
         });
-        $("#ptsList").html(tmp);
-      });
+      const getPtsList = () => {
+        $(document).ready(function () {
+          $("#list").removeClass("hidden");
+        });
+      };
+      const removePtsList = () => {
+        $(document).ready(function () {
+          $("#list").addClass("hidden");
+        });
+      };
     </script>
   </head>
   <body>
-    <div id="ptsList" class="flex flex-col flex-1"></div>
+    <div id="title" class="font-bold text-6xl m-4">PRENOTATIONS</div>
+    <button class="bg-[#59114D] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4" onclick="getPtsList()">
+      GET LIST
+    </button>
+    <button class="bg-[#59114D] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4" onclick="removePtsList()">
+      REMOVE LIST
+    </button>
+    <div id="list" class="hidden flex flex-1 m-4"></div>
   </body>
 </html>

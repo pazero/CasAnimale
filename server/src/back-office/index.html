@@ -10,67 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="./components/SideBar.html" rel="import" />
-    <link href="./components/PresentationPage.html" rel="import" />
-    <link href="./components/Login.html" rel="import" />
-    <link href="./components/Register.html" rel="import" />
-
     <script>
-     $(document).ready(function () {
-        //$("body").load("./services/login.html");
+      $(document).ready(function () {
         window.location.href = "services/login.html";
-        //$("#sidebar").load("./components/SideBar.html");
-        //$("#presentation").load("./components/PresentationPage.html");
       });
     </script>
   </head>
 
-  <body>
-    <!--button onclick="setToken(true)">LOGIN</button>
-    <div id="login"></div>
-    <div id="body" hidden class="flex flex-col md:flex-row flex-1">
-      <div
-        class="fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
-        id="sidebar"
-      ></div>
-      <div class="flex w-full p-5 ml-0 md:ml-[106px]" id="presentation"></div>
-    </div-->
-  </body>
+  <body></body>
 </html>
-
-<!--
-   $("#login").load("./components/Login.html");
-            $("#sidebar").load("./components/SideBar.html");
-            $("#presentation").load("./components/PresentationPage.html");
-
-const home = () => {
-        targetProxy.token
-          ? $(document).ready(function () {
-              //ho il token
-              $("#body").attr("hidden", "false");
-            })
-          : $(document).ready(function () {
-              //non ho il token, quindi login
-              $("#body").attr("hidden", "true");
-              $("#login").removeAttr("hidden");
-            });
-      };
-      var targetObj = {};
-      var targetProxy = new Proxy(targetObj, {
-        set: function (target, key, value) {
-          console.log(`${key} set to ${value}`);
-          if (key === "token") home();
-          target[key] = value;
-          return true;
-        },
-      });
-
-      targetProxy.token = false;
-      home();
-
-      const setToken = (mode) => {
-        let bool = mode === 1 ? true : false;
-        if (bool !== targetProxy.token) targetProxy.token = bool;
-      };
-
--->
