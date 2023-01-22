@@ -36,9 +36,9 @@ app.get("/g/*", async (_, res) =>
     await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
   )
 );
-app.use("/", (_, res) => {
-  return res.redirect("/f/");
-});
+// app.use("/", (_, res) => {
+//   return res.redirect("/f/");
+// });
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);

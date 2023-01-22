@@ -27,18 +27,24 @@ router.post("/login", async (req, res) => {
         Object.getPrototypeOf(user) !== Object.prototype
       ) {
         const token = jwt.generateAccessToken({ id: user[0]._id });
+        res.cookie("token", token, {
+          path: "/",
+          maxAge: 2 * 60 * 60 * 1000,
+        });
         res.json({
           message: `Login of ${req.body.email} done!`,
-          token: `${token}`,
+          success: true,
         });
       } else {
         res.json({
           message: `Wrong mail or password.`,
+          success: false,
         });
       }
     } else {
       res.json({
         message: `You must enter a password or an email`,
+        success: false,
       });
     }
   } catch (e) {

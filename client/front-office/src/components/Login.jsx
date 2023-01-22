@@ -22,10 +22,7 @@ const Navbar = () => {
       password,
     });
     alert(msg.data.message);
-    if (msg.data.token) {
-      Cookies.set("token", msg.data.token, { expires: 3600 });
-      navigate("/");
-    }
+    if (msg.data.success) navigate("/");
   };
 
   return (
