@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
+import UpdateProduct from "../components/UpdateProduct";
+import { DeleteIcon, EditIcon, CheckIcon } from '@chakra-ui/icons';
 import {
   Image,
   NumberInput,
@@ -13,6 +15,7 @@ import {
   Divider,
   CardFooter,
   Tag,
+  Icon
 } from "@chakra-ui/react";
 import { Stack, Heading, Text, Button } from "@chakra-ui/react";
 
@@ -24,17 +27,7 @@ const Product = (props) => {
     window.location.reload();
   };
 
-  const [newQnt, setNewQnt] = useState("");
   const [showModal, setShowModal] = useState(false);
-
-  const updateItem = async (id) => {
-    const { data: msg } = await ProductManage.updateProduct({
-      id,
-      newQnt,
-    });
-    alert(msg.message);
-    window.location.reload();
-  };
 
   async function AddCart() {
     const msg = await ProductManage.updateCart(
@@ -68,43 +61,7 @@ const Product = (props) => {
               </div>
               {/*body*/}
               <div className="relative sm:px-5 flex-auto">
-                  <div data-theme="lemonade" className="flex flex-1 justify-center">
-                    <div className="flex flex-1 justify-center">
-                      <div className="flex justify-center" style={{ width: "90%", flex: "0 1 auto", alignItems: "center" }}>
-                        <form onSubmit={updateItem(props.data._id)} className="flex justify-center w-full">
-                          <div className="mx-3 mt-0 card justify-center w-full ">
-                            <div className="card-body text-center py-0">
-                              <div className="card-title justify-center uppercase">
-                                Update product quantity!
-                              </div>
-                              <div className="form-control">
-                                <label className="label">
-                                  <span className="label-text">New quantity <span className="text-sm text-gray-400">*</span></span>
-                                </label>
-                                <NumberInput
-                                  required
-                                  size="md"
-                                  maxW={20}
-                                  defaultValue={1}
-                                  min={1}
-                                  onChange={(e) => setNewQnt(e)}
-                                >
-                                  <NumberInputField />
-                                  <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                  </NumberInputStepper>
-                                </NumberInput>
-                              </div>
-                              <div>
-                                <button className="btn btn-secondary mt-3">save</button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
+                  <UpdateProduct data={props.data} style={{ display: "flex", height: "100%" }} />
               </div>
               {/*footer*/}
               <div className="flex p-4 justify-end rounded-b text-sm text-gray-400">
@@ -118,33 +75,36 @@ const Product = (props) => {
     ) : null}
 
     <Card
-      className="grow-0 m-2 self-stretch"
-      width={{ sm:"sm", md:"sm", lg:"md", xl:"md"}}
+      className="grow-0 m-2 items-stretch h-full"
+      maxW={{ sm:"sm", md:"sm", lg:"sm", xl:"sm"}}
       id={props.data._id}
     >
       <CardBody>
+        <Box className="mx-1.5">
         {props.data.quantity == 0
-          ? <Image
-              src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
-              borderRadius="lg"
-              className="w-5/6 justify-self-center lg:w-full"
-              opacity="0.5"
-            />
-          : <Image
-              src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
-              borderRadius="lg"
-              className="w-5/6 justify-self-center lg:w-full"
-            />}
+        ? <Image
+            src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
+            borderRadius="lg"
+            className="w-full object-cover justify-self-center"
+            opacity="0.5"
+          />
+        : <Image
+            src={(props.data.photo === "") ? "/compra.png" : props.data.photo}
+            borderRadius="lg"
+            className="w-full justify-self-center"
+          />
+        }
+        </Box>
         <div className="mt-2">
           {props.data.tags?.map((item) => (
-            <Tag className="mr-2 " size="md" variant="solid" colorScheme="teal">
+            <Tag className="mr-2 mt-1" size="md" variant="solid" colorScheme="teal">
               {item}
             </Tag>
           ))}
         </div>
         <Stack mt="6" spacing="3">
           <Heading size="md">{props.data.name}</Heading>
-          <Text size="sm">{props.data.description}</Text>
+          <Text size="sm" >{props.data.description}</Text>
           <Text fontSize={{base:"2xl", sm:"3xl"}} className="font-semibold">
             &euro; {Number.parseFloat(props.data.price).toFixed(2)}
           </Text>
@@ -164,59 +124,62 @@ const Product = (props) => {
       </CardBody>
       <Divider />
       <CardFooter className="flex grow-0">
-        <NumberInput
-          id={"Number" + props.data._id}
-          className="mr-2 rounded grow-0"
-          backgroundColor={"white"}
-          size="md"
-          maxW={24}
-          defaultValue={1}
-          min={1}
-          max={props.data.quantity}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-        <Button
-          className="mr-2"
-          rounded={"full"}
-          bg={"blue.100"}
-          _hover={{ bg: "blue.200", color: "black" }}
-          onClick={AddCart}
-          disabled={outOfStock(props.data.quantity)}
-        >
-          Add to cart!
-        </Button>
-        {props.isUserLoggedPost ? (
-          <Box className="inline-block">
-            <Button
-              rounded={"full"}
-              bg={"orange.300"}
-              color={"white"}
-              _hover={{ bg: "orange.400" }}
-              onClick={() => {setShowModal(true);}}
+      {props.isUserLoggedPost ? (
+        <Box className="flex justify-evenly w-full">
+          <Button
+            rightIcon={<EditIcon />}
+            rounded={"full"}
+            bg={"orange.300"}
+            color={"white"}
+            _hover={{ bg: "orange.400" }}
+            onClick={() => {setShowModal(true);}}
+            className="text-sm"
+          >
+            Update qnt
+          </Button>
+          <Button
+            rightIcon={<DeleteIcon />}
+            rounded={"full"}
+            bg={"red.400"}
+            color={"white"}
+            _hover={{ bg: "red.500" }}
+            onClick={deleteItem}
               className="text-sm"
-            >
-              update qnt
-            </Button>
-            <Button
-              rounded={"full"}
-              bg={"red.400"}
-              color={"white"}
-              _hover={{ bg: "red.500" }}
-              onClick={deleteItem}
-                className="text-sm"
-            >
-              elete item
-            </Button>
-            <Box>
-
-            </Box>
-          </Box>
-        ) : null}
+          >
+            Delete item
+          </Button>
+        </Box>
+      ) : 
+        <Box className="flex justify-evenly w-full">
+          <NumberInput
+            id={"Number" + props.data._id}
+            className="mr-2 rounded grow-0"
+            backgroundColor={"white"}
+            size="md"
+            maxW={24}
+            defaultValue={1}
+            min={1}
+            max={props.data.quantity}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          <Button
+            rightIcon={<CheckIcon />}
+            className="mr-2"
+            rounded={"full"}
+            bg={"blue.100"}
+            _hover={{ bg: "blue.200", color: "black" }}
+            onClick={AddCart}
+            disabled={outOfStock(props.data.quantity)}
+          >
+            Add to cart
+          </Button>
+        </Box>
+      }
       </CardFooter>
     </Card>
     </div>

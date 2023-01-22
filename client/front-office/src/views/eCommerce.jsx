@@ -7,8 +7,8 @@ import Navbar from "../components/Navbar";
 import NewProduct from "../components/NewProduct";
 import {
   Button,
-  Grid,
-  Box,
+  SimpleGrid,
+  GridItem,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -17,6 +17,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Checkbox,
+  Box
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
@@ -172,26 +173,18 @@ const ECommerce = () => {
         </>
       ) : null}
 
-      <Grid
-        templateColumns={{
-          base: "repeat(1, 1fr)",
-          sm: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-          lg: "repeat(3, 1fr)",
-        }}
-        gap={2}
-      >
-        {products.map((product) => (
-          <Box className="flex items-stretch justify-center">
+      <Box className="flex justify-evenly grow-0 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
+          {products.map((product) => (
             <Product
               data={product}
               isUserLoggedPost={product.seller === user._id}
             />
-          </Box>
-        ))}
-      </Grid>
+          ))}
+        </div>
+      </Box>
 
-      <div className="flex mt-6">
+      <div className="flex mt-10">
         <Footer />
       </div>
     </div>
