@@ -42,7 +42,7 @@ const SpecialistPage = () => {
     async function fetchData() {
       try {
         const ret = await UserManage.getUser();
-        console.log("ciao ", ret.data);
+        setUser(ret.data);
       } catch (e) {
         console.log(e);
         setUser(null);
