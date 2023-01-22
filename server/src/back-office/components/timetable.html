@@ -15,13 +15,18 @@
 <script>
   const goChange = () => {
     $(document).ready(function () {
+      $("#changeBtn").addClass("hidden");
       $("#saveBtn").removeClass("hidden");
+      $("input").removeClass("hidden");
+      $(".day").addClass("hidden");
     });
   };
   const saveChange = () => {
     $(document).ready(function () {
       $("#saveBtn").addClass("hidden");
-      //document.querySelector("#saveBtn").hidden = true;
+      $("#changeBtn").removeClass("hidden");
+      $(".day").removeClass("hidden");
+      $("input").addClass("hidden");
     });
   };
 </script>
@@ -38,23 +43,73 @@
         </tr>
         <tr>
           <td>Monday</td>
-          <td>Bubano</td>
+          <td>
+            <span class="day">Bubano</span>
+            <input
+              type="text"
+              name="new-favanimal"
+              id="cityMon"
+              value="Bubano"
+              placeholder="Type city"
+              class="change hidden px-1 rounded shadow-sm"
+            />
+          </td>
         </tr>
         <tr>
           <td>Tuesday</td>
-          <td>Torino</td>
+          <td>
+            <span class="day">Torino</span>
+            <input
+              type="text"
+              name="new-favanimal"
+              id="cityTue"
+              value="Torino"
+              placeholder="Type city"
+              class="change hidden px-1 rounded shadow-sm"
+            />
+          </td>
         </tr>
         <tr>
           <td>Wednesday</td>
-          <td>Trieste</td>
+          <td>
+            <span class="day">Trieste</span>
+            <input
+              type="text"
+              name="new-favanimal"
+              id="cityWen"
+              value="Trieste"
+              placeholder="Type city"
+              class="change hidden px-1 rounded shadow-sm"
+            />
+          </td>
         </tr>
         <tr>
           <td>Thursday</td>
-          <td>Torino</td>
+          <td>
+            <span class="day">Torino</span>
+            <input
+              type="text"
+              name="new-favanimal"
+              id="cityThu"
+              value="Torino"
+              placeholder="Type city"
+              class="change hidden px-1 rounded shadow-sm"
+            />
+          </td>
         </tr>
         <tr>
           <td>Friday</td>
-          <td>Torino</td>
+          <td>
+            <span class="day">Torino</span>
+            <input
+              type="text"
+              name="new-favanimal"
+              id="cityFri"
+              value="Torino"
+              placeholder="Type city"
+              class="change hidden px-1 rounded shadow-sm"
+            />
+          </td>
         </tr>
       </table>
       <div class="m-4">
@@ -63,6 +118,7 @@
           <span class="font-bold">Bubano, Torino, Trieste.</span>
         </div>
         <button
+          id="changeBtn"
           class="bg-[#114D59] hover:opacity-80 text-white font-bold py-2 px-4 my-2 rounded"
           onclick="goChange()"
         >
@@ -70,11 +126,10 @@
         </button>
         <button
           id="saveBtn"
-          
           class="hidden bg-[#11591D] hover:opacity-80 text-white font-bold py-2 px-4 my-2 rounded"
           onclick="saveChange()"
         >
-          save
+          Save
         </button>
       </div>
     </div>
