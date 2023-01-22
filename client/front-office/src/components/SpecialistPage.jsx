@@ -40,19 +40,22 @@ const SpecialistPage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data: userData } = await UserManage.getUser();
-      setUser(userData);
+      try {
+        const ret = await UserManage.getUser();
+        console.log("ciao ", ret.data);
+      } catch (e) {
+        console.log(e);
+        setUser(null);
+      }
 
-      await CompanyManage.getCompany(params.id).then((res) => {
+      CompanyManage.getCompany(params.id).then((res) => {
         if (res.data.photo === undefined) res.data.photo = vetclinic;
         setCompany(res.data);
       });
 
-      await PrenotationManage.getPrenotations({ company: params.id }).then(
-        (res) => {
-          setCompanyPrenotation(res.data);
-        }
-      );
+      PrenotationManage.getPrenotations({ company: params.id }).then((res) => {
+        setCompanyPrenotation(res.data);
+      });
     }
     fetchData();
     calcSlot(getDateString(new Date()));
@@ -274,7 +277,7 @@ const SpecialistPage = () => {
             )}
 
             {company.study_info !== undefined ? (
-              company.study_info.length !== 0 ? (
+              company.study_info?.length !== 0 ? (
                 <div className="py-1">
                   Their study carrer includes{" "}
                   <span>
