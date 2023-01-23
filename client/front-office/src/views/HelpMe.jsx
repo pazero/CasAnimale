@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Blog from "../components/ArticleList";
 import Navbar from "../components/Navbar";
+import UserManage from "../services/UserManage";
+import { useNavigate } from "react-router-dom";
 
-const Forum = () => {
+const HelpMe = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data: userData } = await UserManage.getUser();
+      setUser(userData);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      if (!user.vip) navigate("/");
+    }
+  }, [user]);
+
   return (
     <div
       data-theme="lemonade"
@@ -35,4 +54,4 @@ const Forum = () => {
   );
 };
 
-export default Forum;
+export default HelpMe;
