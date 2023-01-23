@@ -66,6 +66,7 @@ TO DO:
 		[/] Bacheca "aiutami"    			| gestione commenti sotto i post (facoltativa)
 		[/] Bacheca "cerco partner"			|
 		[x] Leadboard
+		[ ] Gestione degli animali nei servizi
 		[ ] Filtro dei servizi per luogo
 		[ ] Recensioni (facoltativo)
 		[x] Veterinario
