@@ -42,17 +42,17 @@ export default function CaptionCarousel() {
     {
       title: "Veterinary service",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "vet3.jpg",
+      image: "f/vet3.jpg",
     },
     {
       title: "Psychologist service",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "p2.jpg",
+      image: "f/p2.jpg",
     },
     {
       title: "Pet equipment shop",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "pet_toys.jpg",
+      image: "f/pet_toys.jpg",
     },
   ];
 

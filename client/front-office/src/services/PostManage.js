@@ -17,7 +17,7 @@ const PostManage = {
     return Api().delete(BASE + id);
   },
   updatePost(id, data) {
-    return Api().post(BASE + id, data);
+    return Api().post(BASE + "update/" + id, data);
   },
 };
 
