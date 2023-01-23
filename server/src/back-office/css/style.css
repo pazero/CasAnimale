@@ -1,17 +1,34 @@
-.primary{
-    color:#59114D;
+.primary {
+  color: #59114d;
 }
-.secondary{
-    color:#826C7F;
+.secondary {
+  color: #826c7f;
 }
-.thirdary{
-    color: #E1DEE3;
+.thirdary {
+  color: #e1dee3;
 }
 body {
-    background-color: #E1DEE3;
-    height: 100%;
-
+  background-color: #e1dee3;
+  height: 100%;
 }
-html{
-    height: 100%;
+html {
+  height: 100%;
+}
+.card {
+  background-color: #cba9b6;
+}
+
+.bg-primary {
+  background-color: #59114d;
+}
+
+.bg-secondary {
+  background-color: #114d59;
+}
+
+.bg-save {
+    background-color: #11591D;
+}
+.bg-danger {
+  background-color: #952a83;
 }

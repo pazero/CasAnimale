@@ -124,7 +124,7 @@
         <div class="flex flex-row my-3">` +
           (index + 1) +
           `.
-          <div class="flex flex-row flex-1 bg-white p-2">
+          <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
             <div class="flex flex-col">
               <div><span class="font-semibold">City:</span> ` +
           item.place +
@@ -139,7 +139,7 @@
           `
               </div>
             </div>
-            <button class="btn bg-[#952a83] p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt(`+
+            <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt(`+
           item.company +
           `
             )">
