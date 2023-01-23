@@ -9,6 +9,7 @@ import ProfilePrenotations from "./views/ProfilePrenotations";
 import Login from "./components/Login";
 import Forum from "./views/Forum";
 import HelpMe from "./views/HelpMe";
+import FindPartner from "./views/FindPartner";
 import ECommerce from "./views/eCommerce";
 import Leaderboard from "./views/Leaderboard";
 import Cart from "./views/Cart";
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/profile/prenotations" element={<ProfilePrenotations />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/helpme" element={<HelpMe />} />
+          <Route path="/findpartner" element={<FindPartner />} />
           <Route path="/compra" element={<ECommerce />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/vet" element={<CompanyList type="vet" />} />

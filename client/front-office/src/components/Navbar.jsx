@@ -85,6 +85,15 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
+                      navigate("/findpartner");
+                    }}
+                  >
+                    FindPartner
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
                       if (user.vip) navigate("/helpme");
                     }}
                   >
@@ -240,6 +249,15 @@ const Navbar = () => {
                   }}
                 >
                   EccoloQua!
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    navigate("/findpartner");
+                  }}
+                >
+                  FindPartner
                 </button>
               </li>
               <li>

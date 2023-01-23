@@ -94,7 +94,7 @@ const ArticleList = ({ name, description, type }) => {
         </>
       ) : null}
 
-      <Container maxW={"4xl"} p="12" pt="0">
+      <Container maxW={"4xl"} p="12" pt="0" className="mt-3">
         <Heading as="h1" className="mt-2">
           {name}
         </Heading>

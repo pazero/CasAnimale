@@ -27,11 +27,10 @@ TO DO:
 	    [x] aggiungere servizi vip accessibili solo ai vip
 	    [x] rendere opzione online solo per i vip
 - GENERALI
-	[ ] Tutti i "New" popup non sono responsive
-	[ ] Convertire gli alert con qualcosa di più carino (toast)
-	[ ] Controllare accessibilità  !!!
-	[ ] Portare il progetto su gocker
-	[ ] -fac- Documentazione API con swagger
+	[ ] Convertire gli alert con dei toast
+	[ ] Controllare accessibilità, stile e responsive di tutto
+	[/] Portare il progetto su gocker (creato docker)
+	[ ] Documentazione API con swagger
 
 TO DO:
 - MainComponents
@@ -39,7 +38,7 @@ TO DO:
 	[/] Carosello (inserire utleriori schede: vip, giochi, bacheche...)
 	[x] Footer
 - Pagine
-	- GAME   													-> renderlo responsive e con style bello
+	- GAME
 		[x] Home page
 		[x] card con pagina per pubblicizzare servizi CasAnimale
 		[x] inserire img sfondo banner
@@ -55,7 +54,7 @@ TO DO:
 		[x] Classifica
 		[x] -fac- Memory / impiccato
 
-	- FRONT OFFICE                     -> renderlo responsive e con style bello
+	- FRONT OFFICE
 		[x] Home page
 		[x] Login
 		[x] Registrazione
@@ -63,18 +62,19 @@ TO DO:
 		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
 		[x] Recupero pass -> sezione BO per admin
-		[/] Bacheca "eccolo qua"
-		[/] Bacheca "aiutami"     (manca gestione commenti)
+		[/] Bacheca "eccolo qua"			|
+		[/] Bacheca "aiutami"    			| gestione commenti sotto i post (facoltativa)
+		[/] Bacheca "cerco partner"			|
 		[x] Leadboard
-		[ ] Filtro dei servizi per luogo o per data
-		[ ] Recensioni
-		[x] Veterinario 
+		[ ] Filtro dei servizi per luogo
+		[ ] Recensioni (facoltativo)
+		[x] Veterinario
 		[x] pet-sitter
 		[x] -fac- Toelettatura
 		[x] -fac- Psicologo
 		[x] Gestione delle prenotazioni
 		[x] -fac- Videochiamata
-		[ ] -fac- Bacheca "cerco partner"	| geno (non prioritario)
+		[ ] Implementare sistema di fatturazione dei servizi e del vip
  	
 	- BACK OFFICE
 		[/] Home page
@@ -87,5 +87,5 @@ TO DO:
 		[ ] La fatturazione dei servizi e dei prodotti, con gestione di totali e statistiche.
 		[ ] -fac- Gestione servizi online
 
-- Database
-	[ ] Aggiungere api per fatturazione dei servizi(?)
+- Back end
+	[ ] Aggiungere api per fatturazione dei servizi
