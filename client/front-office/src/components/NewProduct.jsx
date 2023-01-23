@@ -15,7 +15,6 @@ import { UploadButton } from "react-uploader";
 
 const NewProduct = () => {
   const uploader = Uploader({
-    // Get production API keys from Upload.io
     apiKey: "free",
   });
 

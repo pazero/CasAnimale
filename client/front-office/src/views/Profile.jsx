@@ -50,7 +50,6 @@ const Profile = () => {
   } = useDisclosure();
 
   const uploader = Uploader({
-    // Get production API keys from Upload.io
     apiKey: "free",
   });
 

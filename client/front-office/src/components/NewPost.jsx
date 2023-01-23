@@ -22,7 +22,6 @@ const NewPost = ({ type }) => {
   const [description, setDescription] = useState("");
 
   const uploader = Uploader({
-    // Get production API keys from Upload.io
     apiKey: "free",
   });
 
