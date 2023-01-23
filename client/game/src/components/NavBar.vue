@@ -8,17 +8,13 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/vue";
-import {
-  Bars3Icon,
-  BellIcon,
-  XMarkIcon,
-  UserIcon,
-} from "@heroicons/vue/24/outline";
+import { Bars3Icon, XMarkIcon, UserIcon } from "@heroicons/vue/24/outline";
+import Const from "../router/utils.js";
 
 const navigation = [
   { name: "Services", href: "services", current: false },
-  { name: "Visit our website", href: "http://localhost:3000", current: false },
-  { name: "Ranking", href: "http://localhost:3000/boards", current: "false" },
+  { name: "Visit our website", href: Const.FOURL, current: false },
+  { name: "Ranking", href: Const.FOURL + "/boards", current: "false" },
 ];
 
 const isLoggedIn = () => {
@@ -34,10 +30,9 @@ const isLoggedIn = () => {
 };
 
 const logout = () => {
-  document.cookie = 'token=; Max-Age=-99999999;'; 
-  document.location.reload()
-}
-
+  document.cookie = "token=; Max-Age=-99999999;";
+  document.location.reload();
+};
 </script>
 
 <template>
@@ -59,12 +54,12 @@ const logout = () => {
         >
           <div class="flex flex-shrink-0 items-center">
             <a
-              href="http://localhost:5173/"
+              :href="Const.GAMEURL"
               className="place-content-center py-2 block h-8 w-auto lg:hidden btn btn-ghost normal-case text-xl text-black"
               >CasAnimale - Games</a
             >
             <a
-              href="http://localhost:5173/"
+              :href="Const.GAMEURL"
               className="place-content-center py-2 hidden h-8 w-auto lg:block btn btn-ghost normal-case text-xl text-black"
               >CasAnimale - Games</a
             >
@@ -108,12 +103,9 @@ const logout = () => {
               <MenuItems
                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-200 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
-                <MenuItem
-                  onclick="document.location.href = `http://localhost:3000/profile`"
-                  v-slot="{ active }"
-                >
+                <MenuItem v-slot="{ active }">
                   <a
-                    href="#"
+                    :href="Const.FOURL + '/profile'"
                     :class="[
                       active
                         ? 'block px-4 py-2 text-sm bg-gray-700 text-white'

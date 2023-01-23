@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
+import Const from "../router/utils";
 
 const left = Math.floor(Math.random() * 5);
 const right = Math.floor(Math.random() * 5);
@@ -40,7 +41,7 @@ const games = [
   {
     id: 5,
     name: "Create your account",
-    href: "http://localhost:3000/register",
+    href: Const.FOURL + "/register",
     imageSrc: "register.png",
     imageAlt: "new user img",
     bg: "bg-blue-100",
@@ -65,7 +66,7 @@ const games = [
   {
     id: 8,
     name: "e-commerce",
-    href: "http://localhost:3000/compra",
+    href: Const.FOURL + "/compra",
     imageSrc: "shop.png",
     imageAlt: "ecommerce img",
     bg: "bg-blue-100",
@@ -82,7 +83,6 @@ const games = [
     id: 10,
     name: "Shop showcase",
     href: "shop",
-    //todo: cambia
     imageSrc: "products.png",
     imageAlt: "shop showcase img",
     bg: "bg-gray-100",
@@ -93,35 +93,35 @@ const advs = [
   {
     name1: "BUY SOME SUPPLIES",
     name2: "FOR YOUR PETS HERE!",
-    href: "http://localhost:3000/compra",
+    href: Const.FOURL + "/compra",
     bg: "bg-red-100",
     current: false,
   },
   {
     name1: "PLAY WITH US,",
     name2: "A QUIZ IS WAITING FOR YOU!",
-    href: "http://localhost:5173/quiz",
+    href: Const.GAMEURL + "/quiz",
     bg: "bg-green-100",
     current: false,
   },
   {
     name1: "PLAY A HANGMAN",
     name2: "MATCH HERE!",
-    href: "http://localhost:5173/hangman",
+    href: Const.GAMEURL + "/hangman",
     bg: "bg-indigo-100",
     current: false,
   },
   {
     name1: "READ SOME USER'S",
     name2: "POSTS HERE",
-    href: "http://localhost:3000/forum",
+    href: Const.FOURL + "/forum",
     bg: "bg-yellow-100",
     current: false,
   },
   {
     name1: "WATCH SOME FUNNY",
     name2: "ANIMALS VIDEO!",
-    href: "http://localhost:5173/quiz",
+    href: Const.GAMEURL + "/quiz",
     bg: "bg-blue-100",
     current: false,
   },
@@ -135,9 +135,14 @@ const advs = [
     data-theme="lemonade"
   >
     <!-- adv left -->
+    <!-- uncomment background-image: url('/g/bgGame.jpg'); in production-->
     <div
       class="hidden xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold bg-[url(bgGame.jpg)] bg-right-top"
-      style="flex: 1 1 auto; min-width: 10rem"
+      style="
+        flex: 1 1 auto;
+        min-width: 10rem;
+        /* background-image: url('/g/bgGame.jpg'); */
+      "
     >
       <a
         :key="advs[left].name1"
@@ -180,9 +185,14 @@ const advs = [
     </div>
 
     <!-- adv right -->
+    <!-- uncomment background-image: url('/g/bgGame.jpg'); in production-->
     <div
       class="flex justify-center xl:justify-start xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 bg-[url(bgGame.jpg)] bg-left-top"
-      style="flex: 1 1 auto; min-width: 10rem"
+      style="
+        flex: 1 1 auto;
+        min-width: 10rem;
+        /* background-image: url('/g/bgGame.jpg'); */
+      "
     >
       <a
         :key="advs[right].name1"
@@ -196,26 +206,3 @@ const advs = [
     </div>
   </div>
 </template>
-
-<!--
-  - applicazione a se stante
-  - scopo: presentare l'azienda
-  - offre momenti di svago e istruzione ai proprietari degli animali
-  - deve invogliare ad usare i servizi a pagamento!
-
-  TODO LIST:
-  
-  - NO autenticazione obbligatoria
-
-  - permettere all'utente di descrivere i propri pet con specie, nome, sesso, età, eventuali condizioni mediche. Non solo cani e gatti!
-
-  - ampia disponibilità di semplici giochi a tema animale
-
-  - pagine informative e di curiosità specifiche sugli animali dell'utente (API REST)
-
-  - pagine di visualizzazione dei prodotti di e-commerce acquistabili
-  
-  - pagine di visualizzazione dei servizi commerciali offerti da CasAnimale
-
-  - permette di passare velocemente all'app front-office per accedere ai servizi e all'e-commerce
--->

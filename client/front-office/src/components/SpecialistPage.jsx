@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import PrenotationManage from "../services/PrenotationManage";
 import CompanyManage from "../services/CompanyManage";
+import UserManage from "../services/UserManage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
@@ -19,7 +20,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Center,
 } from "@chakra-ui/react";
 
 const SpecialistPage = () => {
@@ -35,20 +35,27 @@ const SpecialistPage = () => {
   const [cities, setCities] = useState([]);
   const [rcities, setRCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState([]);
+  const [user, setUser] = useState([]);
   const token = Cookies.get("token");
 
   useEffect(() => {
     async function fetchData() {
-      await CompanyManage.getCompany(params.id).then((res) => {
+      try {
+        const ret = await UserManage.getUser();
+        setUser(ret.data);
+      } catch (e) {
+        console.log(e);
+        setUser(null);
+      }
+
+      CompanyManage.getCompany(params.id).then((res) => {
         if (res.data.photo === undefined) res.data.photo = vetclinic;
         setCompany(res.data);
       });
 
-      await PrenotationManage.getPrenotations({ company: params.id }).then(
-        (res) => {
-          setCompanyPrenotation(res.data);
-        }
-      );
+      PrenotationManage.getPrenotations({ company: params.id }).then((res) => {
+        setCompanyPrenotation(res.data);
+      });
     }
     fetchData();
     calcSlot(getDateString(new Date()));
@@ -271,7 +278,7 @@ const SpecialistPage = () => {
             )}
 
             {company.study_info !== undefined ? (
-              company.study_info.length !== 0 ? (
+              company.study_info?.length !== 0 ? (
                 <div className="py-1">
                   Their study carrer includes{" "}
                   <span>
@@ -372,7 +379,7 @@ const SpecialistPage = () => {
             {company.online !== undefined && (
               <div>
                 Takes appointment <span className="font-bold">online</span>{" "}
-                also!
+                also, but only if you are a vip user!
               </div>
             )}
 
@@ -477,7 +484,7 @@ const SpecialistPage = () => {
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
-                    {company.online !== undefined ? (
+                    {user.vip && company.online !== undefined ? (
                       <Checkbox
                         className="mb-2"
                         size="lg"

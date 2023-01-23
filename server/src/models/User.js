@@ -11,6 +11,7 @@ const userSchema = new Schema({
   password: String,
   favanimal: [String],
   cart: [{ id: String, quantity: Number }], // product's id and quantity
+  vip: Boolean,
 });
 
 module.exports = mongoose.model("User", userSchema);

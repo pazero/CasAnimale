@@ -19,9 +19,12 @@
         class="place-self-center flex justify-center flex-auto text-black mt-16"
       >
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
+          <!-- in production comment /g from ? '/g/compra.png' -->
           <img
             class="w-full"
-            v-bind:src="selectedProd.photo"
+            v-bind:src="
+              selectedProd.photo === '' ? '/compra.png' : selectedProd.photo
+            "
             alt="Sunset in the mountains"
           />
           <div class="px-6 py-4">
@@ -48,18 +51,24 @@
     </div>
 
     <div class="flex justify-center">
-      <button
+      <a
         class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-auto"
-        onclick="document.location.href = `http://localhost:3000/compra`"
+        :href="c.FOURL + '/compra'"
       >
         Visit out shop
-      </button>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import Const from "../router/utils";
+
 export default {
+  setup() {
+    const c = Const;
+    return { c };
+  },
   data() {
     return {
       fetchDone: false,
@@ -73,7 +82,7 @@ export default {
   },
   methods: {
     async getProducts() {
-      var ret = await fetch("http://localhost:5000/api/product/");
+      var ret = await fetch(Const.BEURL + "/api/product/");
       ret = await ret.json();
       // console.log(ret);
       this.products = ret;

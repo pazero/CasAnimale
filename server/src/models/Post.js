@@ -8,6 +8,7 @@ const postSchema = new Schema({
   photo: String,
   description: String,
   date: Date,
+  type: String,
   comments: [String], // id of another post
 });
 

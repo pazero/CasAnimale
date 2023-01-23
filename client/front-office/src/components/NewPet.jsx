@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PetManage from "../services/PetManage";
-import { Image } from "@chakra-ui/react"
+import { Image } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
@@ -12,39 +12,37 @@ const NewPet = () => {
       photo,
       species,
       breed,
-      birth
+      birth,
     });
     alert(msg.data.message);
     window.location.reload();
   };
 
   const [name, setName] = useState("");
-  const [species, setSpecies] = useState("dog");  /** se non si seleziona attivamente dal menù, ma si lascia il dog di default non viene assegnato nel modo corretto */
-  const [breed, setBreed] = useState("");      
+  const [species, setSpecies] =
+    useState(
+      "dog"
+    ); /** se non si seleziona attivamente dal menù, ma si lascia il dog di default non viene assegnato nel modo corretto */
+  const [breed, setBreed] = useState("");
   const [birth, setBirth] = useState(new Date());
   const [photo, setPhoto] = useState("");
 
   const uploader = Uploader({
-    // Get production API keys from Upload.io
     apiKey: "free",
   });
 
   const options = { multi: false };
 
-  /*
-  let date = new Date();
-  const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-*/
-  function today(){
+  function today() {
     let date = new Date();
-    return toString(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+    return toString(
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    );
   }
 
-  function checkPhoto(){
-    if (photo === "")
-      return true;
-    else
-      return false;
+  function checkPhoto() {
+    if (photo === "") return true;
+    else return false;
   }
 
   return (
@@ -60,9 +58,11 @@ const NewPet = () => {
                 <div className="card-title justify-center uppercase">
                   Add a new pet!
                 </div>
-                <div className="form-control">                 
+                <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Name <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Name <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -73,9 +73,17 @@ const NewPet = () => {
                 </div>
                 <div className="form-control">
                   <label className="label" for="spc">
-                    <span className="label-text">Species <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Species <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
-                  <select id="spc" className="input input-bordered" name="spc" required onChange={(e) => setSpecies(e.target.value)}>
+                  <select
+                    id="spc"
+                    className="input input-bordered"
+                    name="spc"
+                    required
+                    onChange={(e) => setSpecies(e.target.value)}
+                  >
                     <option disabled={true} defaultValue="">
                       --Choose and option--
                     </option>
@@ -96,7 +104,9 @@ const NewPet = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Breed <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Breed <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -108,7 +118,9 @@ const NewPet = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Birth <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Birth <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <input
                     type="date"
@@ -116,7 +128,8 @@ const NewPet = () => {
                     className="input input-bordered"
                     max={today()}
                     required
-                    onChange={(e) => setBirth(e.target.value)} />            
+                    onChange={(e) => setBirth(e.target.value)}
+                  />
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -135,11 +148,14 @@ const NewPet = () => {
                       }
                     }}
                   >
-                    {({ onClick }) => (
+                    {({ onClick }) =>
                       checkPhoto() ? (
                         <>
                           <div className="rounded-lg pt-1 flex items-center justify-center border-dashed border-2 border-gray-300">
-                            <button className="text-gray-400 text-center" onClick={onClick}>
+                            <button
+                              className="text-gray-400 text-center"
+                              onClick={onClick}
+                            >
                               <Image
                                 id="changephoto"
                                 src={photo}
@@ -150,7 +166,7 @@ const NewPet = () => {
                             </button>
                           </div>
                         </>
-                        ) : (
+                      ) : (
                         <>
                           <div className="rounded-lg py-1 flex items-center justify-center">
                             <button className="" onClick={onClick}>
@@ -163,10 +179,10 @@ const NewPet = () => {
                               />
                             </button>
                           </div>
-                        </>)
-                    )}
+                        </>
+                      )
+                    }
                   </UploadButton>
-                  
                 </div>
                 <div>
                   <button className="btn btn-secondary mt-3">save</button>

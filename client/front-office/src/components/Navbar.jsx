@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
 import { TbUserCircle, TbShoppingCart } from "react-icons/tb";
+import Const from "../services/utils";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
   const token = Cookies.get("token");
 
   const isUserLoggedIn = async () => {
@@ -17,9 +19,16 @@ const Navbar = () => {
     isUserLoggedIn();
   }, []);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data } = await UserManage.getUser();
+      setUser(data);
+    };
+    fetchUser();
+  }, []);
+
   const logout = () => {
-    console.log("logging out")
-    Cookies.remove("token", { path: "" });
+    Cookies.remove("token", { path: "/" });
     navigate("/");
   };
 
@@ -48,11 +57,66 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="http://localhost:5173/">Game Area</a>
+              <a href={Const.GAMEURL}>Game Area</a>
             </li>
             <li tabIndex={0}>
               <div className="justify-between">
-                Servizi
+                Community
+                <svg
+                  className="fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                </svg>
+              </div>
+              <ul className="p-2 border bg-base-100 z-10">
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/forum");
+                    }}
+                  >
+                    EccoloQua!
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      if (user.vip) navigate("/helpme");
+                    }}
+                  >
+                    HelpMe!
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                        fill="rgba(244,212,6,1)"
+                      />
+                    </svg>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/boards");
+                    }}
+                  >
+                    Leaderboard
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <li tabIndex={0}>
+              <div className="justify-between">
+                Services
                 <svg
                   className="fill-current"
                   xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +140,22 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/vet");
+                      if (user.vip) navigate("/vet");
                     }}
                   >
                     Veterinary
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                        fill="rgba(244,212,6,1)"
+                      />
+                    </svg>
                   </button>
                 </li>
                 <li>
@@ -94,10 +170,22 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      navigate("/psychologist");
+                      if (user.vip) navigate("/psychologist");
                     }}
                   >
                     Psychologist
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                        fill="rgba(244,212,6,1)"
+                      />
+                    </svg>
                   </button>
                 </li>
                 <li>
@@ -109,30 +197,12 @@ const Navbar = () => {
                     Grooming
                   </button>
                 </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      navigate("/boards");
-                    }}
-                  >
-                    Leaderboard
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      navigate("/forum");
-                    }}
-                  >
-                    Forum
-                  </button>
-                </li>
               </ul>
             </li>
             <li>
               <button
                 onClick={() => {
-                  window.location.href = "http://localhost:5000/back";
+                  window.location.href = Const.BOURL;
                 }}
               >
                 Reserved Section
@@ -140,17 +210,69 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a
-          href="http://localhost:3000/"
-          className="btn btn-ghost normal-case text-xl"
-        >
+        <a href={Const.FOURL} className="btn btn-ghost normal-case text-xl">
           CasAnimale
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="http://localhost:5173/">Game Area</a>
+            <a href={Const.GAMEURL}>Game Area</a>
+          </li>
+          <li tabIndex={0}>
+            <div className="justify-between">
+              Community
+              <svg
+                className="fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+              </svg>
+            </div>
+            <ul className="p-2 border bg-base-100 z-10">
+              <li>
+                <button
+                  onClick={() => {
+                    navigate("/forum");
+                  }}
+                >
+                  EccoloQua!
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    if (user.vip) navigate("/helpme");
+                  }}
+                >
+                  HelpMe!
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path
+                      d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                      fill="rgba(244,212,6,1)"
+                    />
+                  </svg>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    navigate("/boards");
+                  }}
+                >
+                  Leaderboard
+                </button>
+              </li>
+            </ul>
           </li>
           <li tabIndex={0}>
             <div className="justify-between">
@@ -178,10 +300,22 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/vet");
+                    if (user.vip) navigate("/vet");
                   }}
                 >
                   Veterinary
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path
+                      d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                      fill="rgba(244,212,6,1)"
+                    />
+                  </svg>
                 </button>
               </li>
               <li>
@@ -196,10 +330,22 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    navigate("/psychologist");
+                    if (user.vip) navigate("/psychologist");
                   }}
                 >
                   Psychologist
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path
+                      d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                      fill="rgba(244,212,6,1)"
+                    />
+                  </svg>
                 </button>
               </li>
               <li>
@@ -211,30 +357,12 @@ const Navbar = () => {
                   Grooming
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate("/boards");
-                  }}
-                >
-                  Leaderboard
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate("/forum");
-                  }}
-                >
-                  Forum
-                </button>
-              </li>
             </ul>
           </li>
           <li>
             <button
               onClick={() => {
-                window.location.href = "http://localhost:5000/back";
+                window.location.href = Const.BOURL;
               }}
             >
               Reserved Section

@@ -32,7 +32,13 @@ const Authentication = {
   },
   restore(mail) {
     return Api().put("restore/new", mail);
-  }
+  },
+  enableVip() {
+    return Api().post(BASE + "enableVip");
+  },
+  disableVip() {
+    return Api().post(BASE + "disableVip");
+  },
 };
 
 export default Authentication;

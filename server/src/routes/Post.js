@@ -33,6 +33,7 @@ router.put("/new", async (req, res) => {
         userid: req.userid,
         title: req.body.title,
         photo: req.body.photo,
+        type: req.body.type,
         description: req.body.description,
         date: new Date(),
       });
@@ -67,6 +68,7 @@ router.post("/update", async (req, res) => {
         user_id: req.body.userid,
         title: req.body.title,
         photo: req.body.photo,
+        type: req.body.type,
         description: req.body.description,
         date: new Date(),
       }

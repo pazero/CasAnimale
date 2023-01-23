@@ -5,9 +5,9 @@ import HangmanItem from "../components/HangmanItem.vue";
 import FunnyVideo from "../components/FunnyVideo.vue";
 import Facts from "../components/Facts.vue";
 import Memory from "../components/Memory.vue";
-import InfoPet from "../components/InfoPet.vue"
-import Services from "../components/Services.vue"
-import Shop from "../components/Shop.vue"
+import InfoPet from "../components/InfoPet.vue";
+import Services from "../components/Services.vue";
+import Shop from "../components/Shop.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
