@@ -26,6 +26,7 @@ router.get("", async (req, res) => {
         actual_jobs: c.actual_jobs,
         photo: c.photo,
         online: c.online,
+        review: c.review,
       })
     );
     res.json(comp);
@@ -69,6 +70,7 @@ router.get("/:id", async (req, res) => {
       actual_jobs: company.actual_jobs,
       photo: company.photo,
       online: company.online,
+      review: company.review,
     });
   } catch (e) {
     res.json({ message: e });
@@ -94,7 +96,7 @@ router.put("/new", async (req, res) => {
       professional_experience: c.professional_experience,
       actual_jobs: req.body.actual_jobs,
       photo: req.body.photo,
-      online: req.body.online,
+      review: [],
     });
     await company.save();
     res.json({ message: "New company created!" });
@@ -122,10 +124,10 @@ router.delete("/:id", async (req, res) => {
 });
 
 /* Update company's infos */
-router.post("/update", async (req, res) => {
+router.post("/update/:id", async (req, res) => {
   try {
     const updatedCompany = await Company.findOneAndUpdate(
-      { _id: req.body.company_id },
+      { _id: req.params.id },
       {
         name: req.body.name,
         type: req.body.type,
@@ -143,9 +145,10 @@ router.post("/update", async (req, res) => {
         actual_jobs: req.body.actual_jobs,
         photo: req.body.actual_jobs,
         online: req.body.online,
+        review: req.body.review,
       }
     );
-    res.json(updatedCompany);
+    res.json({ message: "Update done!" });
   } catch (e) {
     res.json({ message: e });
   }

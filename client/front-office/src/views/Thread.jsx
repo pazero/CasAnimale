@@ -12,7 +12,6 @@ import {
   Text,
   HStack,
   Show,
-  FormControl,
   FormLabel,
   Input,
   Button,
@@ -69,10 +68,6 @@ const Thread = () => {
     };
     fetchPost(params.id);
   }, []);
-
-  useEffect(() => {
-    console.log("commenti", comments);
-  }, [comments]);
 
   return (
     <div
@@ -190,47 +185,44 @@ const Thread = () => {
                 </div>
                 {/* comment section */}
                 <div className="mt-2">
-                  {post.comments?.map((item, i) => {
-                    console.log(item);
-                    return (
-                      <Box className="p-2 m-2" key={i}>
+                  {post.comments?.map((item, i) => (
+                    <Box className="p-2 m-2" key={i}>
+                      <Box
+                        display="flex"
+                        flexDirection={{ base: "column", sm: "row" }}
+                      >
                         <Box
-                          display="flex"
-                          flexDirection={{ base: "column", sm: "row" }}
+                          display={"flex"}
+                          justifyContent={"center"}
+                          flexShrink="0"
                         >
-                          <Box
-                            display={"flex"}
-                            justifyContent={"center"}
-                            flexShrink="0"
-                          >
-                            <Image
-                              borderRadius="full"
-                              boxSize="75px"
-                              src={item.user?.photo}
-                              alt="post-img"
-                            />
-                          </Box>
-                          <Text
-                            as="p"
-                            marginTop="3"
-                            marginLeft={{ base: "0", sm: "3" }}
-                            fontSize={{ base: "md", sm: "lg" }}
-                          >
-                            <div className="flex flex-col">
-                              <span className="text-md">{item.content}</span>
-                              <span className="text-xs">
-                                Posted by{" "}
-                                <span className="font-bold mr-1">
-                                  {item.user?.name} {item.user?.surname}
-                                </span>
-                                on {item.date?.replace("T", " ").slice(0, -5)}
-                              </span>
-                            </div>
-                          </Text>
+                          <Image
+                            borderRadius="full"
+                            boxSize="75px"
+                            src={item.user?.photo}
+                            alt="post-img"
+                          />
                         </Box>
+                        <Text
+                          as="p"
+                          marginTop="3"
+                          marginLeft={{ base: "0", sm: "3" }}
+                          fontSize={{ base: "md", sm: "lg" }}
+                        >
+                          <div className="flex flex-col">
+                            <span className="text-md">{item.content}</span>
+                            <span className="text-xs">
+                              Posted by{" "}
+                              <span className="font-bold mr-1">
+                                {item.user?.name} {item.user?.surname}
+                              </span>
+                              on {item.date?.replace("T", " ").slice(0, -5)}
+                            </span>
+                          </div>
+                        </Text>
                       </Box>
-                    );
-                  })}
+                    </Box>
+                  ))}
                 </div>
               </div>
             </Box>

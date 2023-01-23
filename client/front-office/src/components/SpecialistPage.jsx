@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { useParams } from "react-router-dom";
+import Review from "../components/ReviewItem";
 import PrenotationManage from "../services/PrenotationManage";
 import CompanyManage from "../services/CompanyManage";
 import UserManage from "../services/UserManage";
@@ -48,8 +48,22 @@ const SpecialistPage = () => {
         setUser(null);
       }
 
-      CompanyManage.getCompany(params.id).then((res) => {
+      CompanyManage.getCompany(params.id).then(async (res) => {
         if (res.data.photo === undefined) res.data.photo = vetclinic;
+
+        res.data.review = await Promise.all(
+          res.data.review.map(async (item) => {
+            const { data: userReviewData } = await UserManage.getUser(
+              item.user
+            );
+            return {
+              user: userReviewData,
+              content: item.content,
+              date: item.date,
+            };
+          })
+        );
+
         setCompany(res.data);
       });
 
@@ -331,8 +345,8 @@ const SpecialistPage = () => {
                         {company.actual_jobs?.length === i + 2
                           ? " and "
                           : company.actual_jobs?.length === i + 1
-                            ? " "
-                            : ", "}
+                          ? " "
+                          : ", "}
                       </span>
                     ))}
                     is what {company.owner} is actually practicing.
@@ -409,7 +423,7 @@ const SpecialistPage = () => {
             </div>
             <div className="flex sm:hidden mt-6 mb-0 flex flex-col justify-center mx-2 ">
               <TableContainer className="border rounded">
-                <Table variant="simple" size='sm'>
+                <Table variant="simple" size="sm">
                   <Thead>
                     <Tr className="">
                       <Th>Monday</Th>
@@ -427,11 +441,11 @@ const SpecialistPage = () => {
                 </Table>
               </TableContainer>
               <TableContainer className="border rounded mt-2 mx-12">
-                <Table variant="simple" size='sm'>
+                <Table variant="simple" size="sm">
                   <Thead>
                     <Tr>
                       <Th>Thursday</Th>
-                      <Th marginRight={'1rem'}>Friday</Th>
+                      <Th marginRight={"1rem"}>Friday</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -443,7 +457,6 @@ const SpecialistPage = () => {
                 </Table>
               </TableContainer>
             </div>
-
           </div>
         </div>
 
@@ -558,8 +571,8 @@ const SpecialistPage = () => {
                             params.id,
                             new Date(
                               document.getElementById("slotDay").value +
-                              " " +
-                              startTime
+                                " " +
+                                startTime
                             )
                           );
                           setShowModal(false);
@@ -584,6 +597,9 @@ const SpecialistPage = () => {
             <div className="opacity-10 fixed inset-0 z-40 bg-black"></div>
           </>
         ) : null}
+        <div className="flex justify-center">
+          <Review data={company} user={user} />
+        </div>
       </div>
       <div className="flex flex-1" style={{ height: "auto" }}>
         <Footer />
