@@ -103,6 +103,17 @@
     await loadList();
     //console.log(pts);
   };
+  //non funziona
+  const deletePt = async (id) => {
+    var ret = await fetch("http://localhost:5000/api/prenotation/"+id, {
+      method: "POST",
+      body: {},
+      credentials: "include",
+    });
+    pts = await ret.json();
+    await loadList();
+    //console.log(pts);
+  }
   
   const loadList = () => {
     let tmp = "";
@@ -140,17 +151,6 @@
       $("#ptsList").html(tmp);
     });
   };
-
-  const deletePt = async (id) => {
-    var ret = await fetch("http://localhost:5000/api/prenotation/"+id, {
-      method: "POST",
-      body: {},
-      credentials: "include",
-    });
-    pts = await ret.json();
-    await loadList();
-    //console.log(pts);
-  }
 
   getPts();
 </script>
