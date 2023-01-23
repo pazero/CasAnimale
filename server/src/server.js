@@ -17,28 +17,25 @@ app.use(
 );
 app.use(express.json());
 
-/* Route to static frontend apps */
+/* Route to static frontend apps, uncomment on producion */
 app.use("/b", express.static(__dirname + "/back-office"));
-app.use(
-  "/f/",
-  express.static(path.join(__dirname, "../../client/front-office/build"))
-);
-app.get("/f/*", async (_, res) =>
-  res.end(
-    await fs.readFile(
-      path.join(__dirname, "../../client/front-office/build/index.html")
-    )
-  )
-);
-app.use("/g/", express.static(path.join(__dirname, "../../client/game/dist")));
-app.get("/g/*", async (_, res) =>
-  res.end(
-    await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
-  )
-);
-// app.use("/", (_, res) => {
-//   return res.redirect("/f/");
-// });
+// app.use(
+//   "/f/",
+//   express.static(path.join(__dirname, "../../client/front-office/build"))
+// );
+// app.get("/f/*", async (_, res) =>
+//   res.end(
+//     await fs.readFile(
+//       path.join(__dirname, "../../client/front-office/build/index.html")
+//     )
+//   )
+// );
+// app.use("/g/", express.static(path.join(__dirname, "../../client/game/dist")));
+// app.get("/g/*", async (_, res) =>
+//   res.end(
+//     await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
+//   )
+// );
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);

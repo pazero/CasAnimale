@@ -19,11 +19,11 @@
         class="place-self-center flex justify-center flex-auto text-black mt-16"
       >
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
-          <!-- in produzione tolgiere /g dalla linea ? '/g/compra.png' -->
+          <!-- in production comment /g from ? '/g/compra.png' -->
           <img
             class="w-full"
             v-bind:src="
-              selectedProd.photo === '' ? '/g/compra.png' : selectedProd.photo
+              selectedProd.photo === '' ? '/compra.png' : selectedProd.photo
             "
             alt="Sunset in the mountains"
           />

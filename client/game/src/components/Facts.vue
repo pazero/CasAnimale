@@ -129,7 +129,7 @@ export default {
 
       user = await user.json();
 
-      var ret = await fetch(Const.BEURL + "/api/pet?owner=" + user._id, {
+      var ret = await fetch(Const.BEURL + "/api/pets?owner=" + user._id, {
         credentials: "include",
       });
       this.ppets = await ret.json();

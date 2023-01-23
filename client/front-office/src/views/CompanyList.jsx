@@ -52,7 +52,7 @@ const CompanyList = (props) => {
 
   useEffect(() => {
     if (user) {
-      if (!user.vip && (props.type == "vet" || props.type == "psy"))
+      if (!user.vip && (props.type === "vet" || props.type === "psy"))
         navigate("/");
     }
   }, [user]);

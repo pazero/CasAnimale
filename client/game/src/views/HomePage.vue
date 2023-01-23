@@ -135,13 +135,13 @@ const advs = [
     data-theme="lemonade"
   >
     <!-- adv left -->
-    <!-- decommentare la linea background-image: url('/g/bgGame.jpg'); quando in produzione-->
+    <!-- uncomment background-image: url('/g/bgGame.jpg'); in production-->
     <div
       class="hidden xl:flex xl:flex-col xl:h-full xl:w-20 flex-row text-gray-600 font-semibold bg-[url(bgGame.jpg)] bg-right-top"
       style="
         flex: 1 1 auto;
         min-width: 10rem;
-        background-image: url('/g/bgGame.jpg');
+        /* background-image: url('/g/bgGame.jpg'); */
       "
     >
       <a
@@ -185,13 +185,13 @@ const advs = [
     </div>
 
     <!-- adv right -->
-    <!-- decommentare la linea background-image: url('/g/bgGame.jpg'); quando in produzione-->
+    <!-- uncomment background-image: url('/g/bgGame.jpg'); in production-->
     <div
       class="flex justify-center xl:justify-start xl:flex-col xl:h-full xl:w-20 flex-row font-semibold text-gray-600 bg-[url(bgGame.jpg)] bg-left-top"
       style="
         flex: 1 1 auto;
         min-width: 10rem;
-        background-image: url('/g/bgGame.jpg');
+        /* background-image: url('/g/bgGame.jpg'); */
       "
     >
       <a
