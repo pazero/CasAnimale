@@ -105,49 +105,53 @@
   };
   //non funziona
   const deletePt = async (id) => {
-    var ret = await fetch("http://localhost:5000/api/prenotation/"+id, {
-      method: "POST",
+    var ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
+      method: "DELETE",
       body: {},
       credentials: "include",
     });
-    pts = await ret.json();
-    await loadList();
-    //console.log(pts);
-  }
-  
+    
+    window.location.reload();
+  };
+
   const loadList = () => {
     let tmp = "";
     $(document).ready(function () {
-      pts.map((item, index) => {
-        tmp +=
-          `
+      if (pts !== undefined) {
+        pts.map((item, index) => {
+          tmp +=
+            `
         <div class="flex flex-row my-3">` +
-          (index + 1) +
-          `.
+            (index + 1) +
+            `.
           <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
             <div class="flex flex-col">
               <div><span class="font-semibold">City:</span> ` +
-          item.place +
-          `
+            item.place +
+            `
               </div>
               <div><span class="font-semibold">Schedule:</span> ` +
-          item.start +
-          `
+            item.start +
+            `
               </div>
               <div><span class="font-semibold">Customer id:</span> ` +
-          item.user +
-          `
+            item.user +
+            `
+              </div>
+              <div><span class="font-semibold">Company id:</span> ` +
+            item.company +
+            `
               </div>
             </div>
-            <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt(`+
-          item.company +
-          `
-            )">
+            <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt('` +
+            item.company +
+            `')">
               Delete
             </button>
           </div>
         </div>`;
-      });
+        });
+      }
       $("#ptsList").html(tmp);
     });
   };
