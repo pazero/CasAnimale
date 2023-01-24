@@ -68,7 +68,7 @@ TO DO:
 		[x] Leadboard
 		[ ] Gestione degli animali nei servizi
 		[x] Filtro dei servizi per luogo
-		[ ] Recensioni (facoltativo)
+		[x] Recensioni (facoltativo)		| migliorare stile
 		[x] Veterinario
 		[x] pet-sitter
 		[x] -fac- Toelettatura

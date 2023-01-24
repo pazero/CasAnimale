@@ -22,7 +22,6 @@ const Thread = () => {
   const token = Cookies.get("token");
   const [post, setPost] = useState({});
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState([]);
   const [op, setOp] = useState({});
   const [user, setUser] = useState({});
 

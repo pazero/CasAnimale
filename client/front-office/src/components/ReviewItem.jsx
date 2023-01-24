@@ -30,7 +30,7 @@ const Review = ({ data, user }) => {
   return (
     <div className="mt-5 p-2 border rounded">
       <div>
-        <FormLabel>Write a review under this post!</FormLabel>
+        <FormLabel>Write a review for this company!</FormLabel>
         <Input
           type="text"
           placeholder="Write here..."
