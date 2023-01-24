@@ -77,18 +77,18 @@ TO DO:
 		Dipendenti CasAnimale
 			[/] Login
 			[/] Home page
-			[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)
-			[ ] Gestione di servizi (bacheche) | controllare o cancellare messaggi nel forum 
-			[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...) | aggiungere e togliere prodotti, prezzi, descrizioni.
+			[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub)	[ CUSTOMERS ]
+			[ ] Gestione di servizi (bacheche) | controllare o cancellare messaggi nel forum	[ FORUMS ]
+			[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...) | aggiungere e togliere prodotti, prezzi, descrizioni	[ E-COMMERCE ]
 			[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...) | visualizzare tutte le prenotazioni in presenza di tutte le aziende (?)
 			[ ] -fac- Gestione servizi online | visualizzare tutte le prenotazioni online di tutte le aziende (?)
 			[ ] Registrazione nuova azienda
-			[ ] Fatturazione dei servizi e dei prodotti, con gestione di totali e statistiche.
+			[ ] Fatturazione dei servizi e dei prodotti, con gestione di totali e statistiche	[ BILLING (?) ]
 		Aziende (vet, petsitter, toelettatura, ...)
 			[/] Login
 			[/] Home page
-			[ ] Schedules, gestione prenotazioni (appuntamenti dell'azienda) in presenza e online
-			[ ] Modifica info dell'azienda (profile)
+			[ ] gestione prenotazioni (appuntamenti dell'azienda) in presenza e online	[ SCHEDULES ]
+			[ ] Modifica info dell'azienda	[ PROFILE ]
 			[ ] Visualizzazione elenco dei clienti che l'azienda ha avuto, avrà(?)
 
 - Database
