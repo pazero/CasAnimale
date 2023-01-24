@@ -19,20 +19,20 @@
         $("#list").load("../components/prenotation-list.html");
         $("#schedules").load("../components/schedules.html");
       });
-      const showPtsList = () => {
+      const showList = () => {
         $(document).ready(function () {
           $("#schedules").addClass("hidden");
-        });
-        $(document).ready(function () {
+          $("#scheBtn").removeClass("noticeBorder");
+          $("#listBtn").addClass("noticeBorder");
           $("#list").removeClass("hidden");
         });
       };
       const showSchedules= () => {
         $(document).ready(function () {
           $("#list").addClass("hidden");
-        });
-        $(document).ready(function () {
           $("#schedules").removeClass("hidden");
+          $("#scheBtn").addClass("noticeBorder");
+          $("#listBtn").removeClass("noticeBorder");
         });
       };
       
@@ -50,12 +50,14 @@
         </div>
         <div class="flex flex-row">
           <button
-            class="bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
-            onclick="showPtsList()"
+            id="listBtn"
+            class="noticeBorder bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
+            onclick="showList()"
           >
             LIST
           </button>
           <button
+            id="scheBtn"
             class="bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
             onclick="showSchedules()"
           >

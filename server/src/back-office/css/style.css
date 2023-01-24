@@ -4,7 +4,7 @@
 .secondary {
   color: #826c7f;
 }
-.thirdary {
+.thirColor {
   color: #e1dee3;
 }
 body {
@@ -31,4 +31,8 @@ html {
 }
 .bg-danger {
   background-color: #952a83;
+}
+
+.noticeBorder{
+  border: #B5229C solid 3px;
 }
