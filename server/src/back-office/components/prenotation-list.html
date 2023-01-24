@@ -68,21 +68,24 @@
             </span>
           <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
             <div class="flex flex-col">
-              <div><span class="font-semibold">City:</span> ` +
+              <div><span class="font-semibold">City: </span>` +
       place +
       `
               </div>
-              <div><span class="font-semibold">Schedule:</span> ` +
+              <div><span class="font-semibold">Schedule: </span>` +
       start +
       `
               </div>
-              <div><span class="font-semibold">Company id:</span> ` +
+              <div><span class="font-semibold">Company id: </span>
+                <button class="btn" onclick="copy(this)">` +
       company +
-      `
-                </div>
-                <div><span class="font-semibold">Customer id:</span> ` +
+      `         </button>
+              </div>
+              <div><span class="font-semibold">Customer id: </span>
+                <button class="btn" onclick="copy(this)">` +
       user +
       `
+                </button>
               </div>
             </div>
             <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt('` +
@@ -112,6 +115,14 @@
     });
   };
 
+  const copy = (that) => {
+    var inp = document.createElement("input");
+    document.body.appendChild(inp);
+    inp.value = that.textContent.trim();
+    inp.select();
+    document.execCommand("copy", false);
+    inp.remove();
+  };
   getPts();
 </script>
 
@@ -132,6 +143,7 @@
             placeholder="es. 63c810b7a6a58c3116769cf9"
             class="px-1 m-1 rounded w-[15rem]"
             oninput="filterList()"
+            onclick="copy()"
           />
         </span>
       </div>
