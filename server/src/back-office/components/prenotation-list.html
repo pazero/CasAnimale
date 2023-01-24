@@ -159,5 +159,37 @@
 </script>
 
 <body>
-  <div id="ptsList" class="flex flex-col flex-1"></div>
+  <div class="flex flex-col flex-1">
+    <div class="flex flex-col lg:flex-row">
+      <div class="flex flex-col sm:flex-row lg:mr-4">
+        <span class="flex">
+          <label for="filterCompanyId" class="flex self-center primary">Filter by company id: </label>
+        </span>
+        <span>
+          <input
+            id="filterCompanyId"
+            name="filterCompanyId"
+            type="text"
+            placeholder="es. 63c810b7a6a58c3116769cf9"
+            class="px-1 m-1 rounded"
+          />
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row">
+        <span class="flex">
+          <label for="filterUserId" class="flex self-center primary">Filter by user id: </label>
+        </span>
+        <span>
+          <input
+            id="filterUserId"
+            name="filterUserId"
+            type="text"
+            placeholder="es. 63c810b7a6a58c3116769cf9"
+            class="px-1 m-1 rounded"
+          />
+        </span>
+      </div>
+    </div>
+    <div id="ptsList" class="flex flex-col flex-1"></div>
+  </div>
 </body>
