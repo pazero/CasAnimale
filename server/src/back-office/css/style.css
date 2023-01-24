@@ -4,8 +4,12 @@
 .secondary {
   color: #826c7f;
 }
-.thirColor {
+.thirdColor {
   color: #e1dee3;
+}
+
+.gray{
+  color: #606060;
 }
 body {
   background-color: #e1dee3;
