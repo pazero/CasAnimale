@@ -63,7 +63,7 @@
       $(document).ready(function () {
         services1.map((item) => {
           tmp +=
-            `<div class="card flex space-between">
+            `<div class="card flex justify-center">
             <button
             class="card-body hover:bg-opacity-50"
             style="padding-left: 3rem; padding-right: 3rem; padding-top:3rem; max-height: 18rem; max-width: 18rem; margin:0.5rem"
@@ -97,13 +97,14 @@
       <div class="flex w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]" id="presentation">
         <div class="flex self-center flex-col w-full">
           <div class="flex flex-col text-center p-3 md:pb-6">
-            <div class="primary font-bold text-2xl sm:text-4xl md:text-6xl">
+            <!-- TODO mettere if -> se admin Manage all your companies, se no va bene cosi-->
+            <div class="primary mb-3 font-bold text-4xl md:text-6xl">
               Manage your own company
             </div>
           </div>
           <div
             id="cards"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+            class="grid grid-cols-1 mx-10 sm:mx-0 sm:grid-cols-2 md:grid-cols-3 gap-4"
             style="grid-auto-rows: 1fr"
           ></div>
         </div>
