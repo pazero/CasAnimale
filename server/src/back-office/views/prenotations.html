@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link href="../components/prenotation-list.html" rel="import" />
     <link href="../components/sidebar.html" rel="import" />
-    <link href="../components/timetable.html" rel="import" />
+    <link href="../components/schedules.html" rel="import" />
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Back Office</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -17,22 +17,22 @@
       $(document).ready(function () {
         $("#sidebar").load("../components/sidebar.html");
         $("#list").load("../components/prenotation-list.html");
-        $("#timetable").load("../components/timetable.html");
+        $("#schedules").load("../components/schedules.html");
       });
       const showPtsList = () => {
         $(document).ready(function () {
-          $("#timetable").addClass("hidden");
+          $("#schedules").addClass("hidden");
         });
         $(document).ready(function () {
           $("#list").removeClass("hidden");
         });
       };
-      const showTimeTable = () => {
+      const showSchedules= () => {
         $(document).ready(function () {
           $("#list").addClass("hidden");
         });
         $(document).ready(function () {
-          $("#timetable").removeClass("hidden");
+          $("#schedules").removeClass("hidden");
         });
       };
       
@@ -57,13 +57,13 @@
           </button>
           <button
             class="bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded m-4"
-            onclick="showTimeTable()"
+            onclick="showSchedules()"
           >
-            TIMES
+            SCHEDULES
           </button>
         </div>
         <div id="list" class="hidden flex flex-1 m-4"></div>
-        <div id="timetable" class="flex m-4"></div>
+        <div id="schedules" class="flex m-4"></div>
       </div>
     </div>
   </body>
