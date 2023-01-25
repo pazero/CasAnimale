@@ -9,34 +9,15 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
-    <!--link href="../tabs/company-info.html" rel="import" /-->
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Back Office</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
         $("#list").load("../tabs/prenotation-list.html");
-        $("#companyInfo").load("../tabs/company-info.html");
       });
-      const showList = () => {
-        $(document).ready(function () {
-          $("#companyInfo").addClass("hidden");
-          $("#scheBtn").removeClass("noticeBorder");
-          $("#listBtn").addClass("noticeBorder");
-          $("#list").removeClass("hidden");
-        });
-      };
-      const showCompanyInfo = () => {
-        $(document).ready(function () {
-          $("#list").addClass("hidden");
-          $("#companyInfo").removeClass("hidden");
-          $("#scheBtn").addClass("noticeBorder");
-          $("#listBtn").removeClass("noticeBorder");
-        });
-      };
     </script>
   </head>
   <body>
@@ -49,27 +30,11 @@
         <div id="title" class="font-bold text-4xl sm:text-6xl m-4">
           PRENOTATIONS
         </div>
-        <div class="flex flex-row">
-          <button
-            id="listBtn"
-            class="noticeBorder bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
-            onclick="showList()"
-          >
-            PRENOTATIONS LIST
-          </button>
-          <button
-            id="scheBtn"
-            class="bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
-            onclick="showCompanyInfo()"
-          >
-            COMPANIES INFO
-          </button>
-        </div>
         <div class="gray m-4 mb-1">
-          Click on a company or customer id to copy it! <i class="fa fa-copy"></i>
+          Click on a company or customer id to copy it!
+          <i class="fa fa-copy"></i>
         </div>
         <div id="list" class="flex flex-1 m-4 mt-2"></div>
-        <div id="companyInfo" class="hidden flex m-4 mt-2"></div>
       </div>
     </div>
   </body>

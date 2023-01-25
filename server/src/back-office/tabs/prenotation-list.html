@@ -11,7 +11,7 @@
       pts = await ret.json();
       await loadList();
     };
-    //non funziona
+    //TODO non funziona
     const deletePt = async (id) => {
       var ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
         method: "DELETE",
@@ -25,6 +25,7 @@
       time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
       return time;
     };
+
     const filterList = () => {
       let reqPrenotation = $("#filterPrenotationId").val();
       let reqCompany = $("#filterCompanyId").val();
@@ -38,7 +39,6 @@
       let compareCity = 0;
       let tmp = "";
       $(document).ready(function () {
-        let flag = 0;
         if (pts !== undefined) {
           let index = 0;
           pts.map((item) => {
@@ -68,7 +68,6 @@
                 compareCity ===
               0
             ) {
-              flag = 1;
               tmp += makeItemPrenotation(
                 index,
                 item._id,
@@ -82,7 +81,7 @@
             }
           });
         }
-        flag == 1
+        tmp !== ""
           ? $("#ptsList").html(tmp)
           : $("#ptsList").html("No prenotations founded with these filters");
         $("#totPrenotations").html("TOTAL RESULTS: " + totPrenotations);
@@ -112,7 +111,7 @@
                 <button class="btn" onclick="copy(this)">` +
         id +
         `
-      <i class="fa fa-copy"></i></button>
+          <i class="fa fa-copy"></i></button>
               </div>
               <div><span class="font-semibold">City: </span>` +
         place +
