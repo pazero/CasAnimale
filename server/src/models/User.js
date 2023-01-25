@@ -9,7 +9,7 @@ const userSchema = new Schema({
   birth: Date,
   email: String,
   password: String,
-  favanimal: [String],
+  favanimal: String,
   cart: [{ id: String, quantity: Number }], // product's id and quantity
   vip: Boolean,
 });
