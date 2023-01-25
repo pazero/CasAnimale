@@ -1,12 +1,7 @@
 <head>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
   <script>
     let pts = [];
-    let newPts = [];
-    let total = 0;
+    let totPrenotations = 0;
     const getPts = async () => {
       var ret = await fetch("http://localhost:5000/api/prenotation", {
         method: "GET",
@@ -31,10 +26,12 @@
       return time;
     };
     const filterList = () => {
+      let reqPrenotation = $("#filterPrenotationId").val();
       let reqCompany = $("#filterCompanyId").val();
       let reqCustomer = $("#filterUserId").val();
       let reqSchedule = $("#filterSchedule").val();
       let reqCity = $("#filterCity").val();
+      let comparePrenotation = 0;
       let compareCompany = 0;
       let compareCustomer = 0;
       let compareSchedule = 0;
@@ -45,29 +42,51 @@
         if (pts !== undefined) {
           let index = 0;
           pts.map((item) => {
-            compareCompany = reqCompany === "" ? 0 : reqCompany === item.company ? 0 : 1;
-            compareCustomer = reqCustomer === "" ? 0 : reqCustomer === item.user ? 0 : 1;
-            compareSchedule = reqSchedule === "" ? 0 : reqSchedule === filterStartTime(item.start) ? 0: 1;
-            compareCity = reqCity === "" ? 0 : reqCity.toLowerCase() === item.place.toLowerCase() ? 0 : 1;
-            if (compareCompany + compareCustomer  + compareSchedule + compareCity === 0) {
+            comparePrenotation =
+              reqPrenotation === "" ? 0 : reqPrenotation === item._id ? 0 : 1;
+            compareCompany =
+              reqCompany === "" ? 0 : reqCompany === item.company ? 0 : 1;
+            compareCustomer =
+              reqCustomer === "" ? 0 : reqCustomer === item.user ? 0 : 1;
+            compareSchedule =
+              reqSchedule === ""
+                ? 0
+                : reqSchedule === filterStartTime(item.start)
+                ? 0
+                : 1;
+            compareCity =
+              reqCity === ""
+                ? 0
+                : reqCity.toLowerCase() === item.place.toLowerCase()
+                ? 0
+                : 1;
+            if (
+              comparePrenotation +
+                compareCompany +
+                compareCustomer +
+                compareSchedule +
+                compareCity ===
+              0
+            ) {
               flag = 1;
-              tmp += makeItem(
+              tmp += makeItemPrenotation(
                 index,
+                item._id,
                 item.place,
                 item.start,
                 item.user,
                 item.company
               );
               index++;
-              total = index;
+              totPrenotations = index;
             }
           });
         }
         flag == 1
           ? $("#ptsList").html(tmp)
           : $("#ptsList").html("No prenotations founded with these filters");
-        $("#total").html("TOTAL RESULTS: " + total);
-        total = 0;
+        $("#totPrenotations").html("TOTAL RESULTS: " + totPrenotations);
+        totPrenotations = 0;
       });
     };
 
@@ -79,7 +98,7 @@
       return time;
     };
 
-    const makeItem = (index, place, start, user, company) => {
+    const makeItemPrenotation = (index, id, place, start, user, company) => {
       return (
         `
         <div class="flex flex-row my-3">
@@ -89,6 +108,12 @@
             </span>
           <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
             <div class="flex flex-col">
+              <div><span class="font-semibold">Prenotation id: </span>
+                <button class="btn" onclick="copy(this)">` +
+        id +
+        `
+      <i class="fa fa-copy"></i></button>
+              </div>
               <div><span class="font-semibold">City: </span>` +
         place +
         `
@@ -127,19 +152,20 @@
       $(document).ready(function () {
         if (pts !== undefined) {
           pts.map((item, index) => {
-            tmp += makeItem(
+            tmp += makeItemPrenotation(
               index,
+              item._id,
               item.place,
               item.start,
               item.user,
               item.company
             );
-            total = index + 1;
+            totPrenotations = index + 1;
           });
         }
         $("#ptsList").html(tmp);
-        $("#total").html("TOTAL RESULTS: " + total);
-        total = 0;
+        $("#totPrenotations").html("TOTAL RESULTS: " + totPrenotations);
+        totPrenotations = 0;
       });
     };
 
@@ -156,91 +182,115 @@
 </head>
 <body>
   <div class="flex flex-col flex-1">
-    <div class="gray my-1">
-      Click on a company or user id to copy it! <i class="fa fa-copy"></i>
-    </div>
-    <!-- primi 2 filtri-->
-    <div class="flex flex-col lg:flex-row">
-      <div class="flex flex-col sm:flex-row lg:mr-4">
-        <span class="flex">
-          <label
-            for="filterCompanyId"
-            class="flex self-center primary font-semibold"
-            >Filter by company id:</label
-          >
-        </span>
-        <span>
-          <input
-            id="filterCompanyId"
-            name="filterCompanyId"
-            type="text"
-            placeholder="ex. 63c810b7a6a58c3116769cf9"
-            class="px-1 m-1 rounded w-[15rem]"
-            oninput="filterList()"
-          />
-        </span>
-      </div>
-      <div class="flex flex-col sm:flex-row lg:mr-4">
-        <span class="flex">
-          <label
-            for="filterUserId"
-            class="flex self-center primary font-semibold"
-            >Filter by Customer id:</label
-          >
-        </span>
-        <span>
-          <input
-            id="filterUserId"
-            name="filterUserId"
-            type="text"
-            placeholder="ex. 635d00fdc77f11a1f22d313d"
-            class="px-1 m-1 rounded w-[15rem]"
-            oninput="filterList()"
-          />
-        </span>
-      </div>
-    </div>
-    <div class="flex flex-col lg:flex-row">
-      <!-- altri 2 filtri-->
-      <div class="flex flex-col sm:flex-row lg:mr-4">
-        <span class="flex">
-          <label
-            for="filterSchedule"
-            class="flex self-center primary font-semibold"
-            >Filter by start time:</label
-          >
-        </span>
-        <span>
-          <input
-            id="filterSchedule"
-            name="filterSchedule"
-            type="text"
-            placeholder="ex. 9am"
-            class="px-1 m-1 rounded w-[15rem]"
-            oninput="filterList()"
-          />
-        </span>
-      </div>
-
+    <div id="prenotationsFilters" class="flex flex-col">
+      <!-- primo filtro-->
       <div class="flex flex-col sm:flex-row">
         <span class="flex">
-          <label for="filterCity" class="flex self-center primary font-semibold"
-            >Filter by City:
-          </label>
+          <label
+            for="filterPrenotationId"
+            class="flex self-center primary font-semibold"
+            >Filter by prenotation id:</label
+          >
         </span>
         <span>
           <input
-            id="filterCity"
-            name="filterCity"
+            id="filterPrenotationId"
+            name="filterPrenotationId"
             type="text"
-            placeholder="ex. Torino"
+            placeholder="ex. 63cecdc93b2ad296f8ed3989"
             class="px-1 m-1 rounded w-[15rem]"
             oninput="filterList()"
           />
         </span>
       </div>
+      <!-- secondo e terzo filtro-->
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterCompanyId"
+              class="flex self-center primary font-semibold"
+              >Filter by company id:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterCompanyId"
+              name="filterCompanyId"
+              type="text"
+              placeholder="ex. 63c810b7a6a58c3116769cf9"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterUserId"
+              class="flex self-center primary font-semibold"
+              >Filter by Customer id:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterUserId"
+              name="filterUserId"
+              type="text"
+              placeholder="ex. 635d00fdc77f11a1f22d313d"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
+      <!-- quarto e quinto filtro-->
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterSchedule"
+              class="flex self-center primary font-semibold"
+              >Filter by start time:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterSchedule"
+              name="filterSchedule"
+              type="text"
+              placeholder="ex. 9am"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row">
+          <span class="flex">
+            <label
+              for="filterCity"
+              class="flex self-center primary font-semibold"
+              >Filter by City:
+            </label>
+          </span>
+          <span>
+            <input
+              id="filterCity"
+              name="filterCity"
+              type="text"
+              placeholder="ex. Torino"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
     </div>
-    <div id="total" class="flex flex-col flex primary font-semibold my-2"></div>
+    <div
+      id="totPrenotations"
+      class="flex flex-col flex primary font-semibold mt-4 my-2"
+    ></div>
     <div id="ptsList" class="flex flex-col flex-1"></div>
   </div>
 </body>

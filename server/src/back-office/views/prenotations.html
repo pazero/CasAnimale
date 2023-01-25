@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
-    <link href="../tabs/prenotation-list.html" rel="import" />
-    <link href="../tabs/sidebar.html" rel="import" />
-    <link href="../tabs/schedules.html" rel="import" />
+    <!--link href="../tabs/company-info.html" rel="import" /-->
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Back Office</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -17,20 +19,20 @@
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
         $("#list").load("../tabs/prenotation-list.html");
-        $("#schedules").load("../tabs/schedules.html");
+        $("#companyInfo").load("../tabs/company-info.html");
       });
       const showList = () => {
         $(document).ready(function () {
-          $("#schedules").addClass("hidden");
+          $("#companyInfo").addClass("hidden");
           $("#scheBtn").removeClass("noticeBorder");
           $("#listBtn").addClass("noticeBorder");
           $("#list").removeClass("hidden");
         });
       };
-      const showSchedules= () => {
+      const showCompanyInfo = () => {
         $(document).ready(function () {
           $("#list").addClass("hidden");
-          $("#schedules").removeClass("hidden");
+          $("#companyInfo").removeClass("hidden");
           $("#scheBtn").addClass("noticeBorder");
           $("#listBtn").removeClass("noticeBorder");
         });
@@ -53,24 +55,22 @@
             class="noticeBorder bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
             onclick="showList()"
           >
-            LIST
+            PRENOTATIONS LIST
           </button>
           <button
             id="scheBtn"
             class="bg-primary hover:opacity-80 text-white font-bold py-2 px-4 rounded mx-4"
-            onclick="showSchedules()"
+            onclick="showCompanyInfo()"
           >
-            SCHEDULES
+            COMPANIES INFO
           </button>
         </div>
-        <div id="list" class="flex flex-1 m-4"></div>
-        <div id="schedules" class="hidden flex m-4"></div>
+        <div class="gray m-4 mb-1">
+          Click on a company or customer id to copy it! <i class="fa fa-copy"></i>
+        </div>
+        <div id="list" class="flex flex-1 m-4 mt-2"></div>
+        <div id="companyInfo" class="hidden flex m-4 mt-2"></div>
       </div>
     </div>
   </body>
 </html>
-
-
-<!--
-  select: all, user, company (city, day)
--->
