@@ -45,7 +45,7 @@
         let ret = 1;
         if (list !== undefined) {
           list.map((item, index) => {
-            if (s.localeCompare(item) === 0) ret = 0;
+            if (item.includes(s)) ret = 0;
           });
         }
         return ret;
@@ -58,20 +58,27 @@
         let reqOwner = $("#filterOwner").val();
         let reqPet = $("#filterPet").val();
         let reqProfession = $("#filterProfession").val();
+        let reqName = $("#filterName").val();
         let compareCompany = 0;
         let compareEmail = 0;
         let compareCost = 0;
         let compareOwner = 0;
         let comparePet = 0;
         let compareProfession = 0;
+        let compareName = 0;
         let tmp = "";
         $(document).ready(function () {
-          let flag = 0;
           if (companies !== undefined) {
             let index = 0;
             companies.map((item) => {
               compareCompany =
-                reqCompany === "" ? 0 : reqCompany === item._id ? 0 : 1;
+                reqCompany === "" ? 0 : item._id.includes(reqCompany) ? 0 : 1;
+              compareName =
+                reqName === ""
+                  ? 0
+                  : item.name.toLowerCase().includes(reqName.toLowerCase())
+                  ? 0
+                  : 1;
               compareCost =
                 reqCost === "" ? 0 : +reqCost <= +item.cost_per_hour ? 0 : 1;
               compareProfession =
@@ -84,21 +91,25 @@
               compareOwner =
                 reqOwner === ""
                   ? 0
-                  : reqOwner.toLowerCase() === item.owner.toLowerCase()
+                  : item.owner.toLowerCase().includes(reqOwner.toLowerCase())
                   ? 0
                   : 1;
               compareEmail =
-                reqEmail === "" ? 0 : reqEmail === item.email ? 0 : 1;
+                reqEmail === ""
+                  ? 0
+                  : item.email.toLowerCase().includes(reqEmail.toLowerCase())
+                  ? 0
+                  : 1;
               if (
                 compareCompany +
                   compareCost +
                   compareEmail +
                   compareProfession +
                   compareOwner +
-                  comparePet ===
+                  comparePet +
+                  compareName ===
                 0
               ) {
-                flag = 1;
                 tmp += makeItemCompany(
                   index,
                   item._id,
@@ -122,10 +133,10 @@
               }
             });
           }
-          flag == 1
+          tmp !== ""
             ? $("#companyList").html(tmp)
             : $("#companyList").html(
-                "No prenotations founded with these filters"
+                `<p class="mt-4 font-semibold">No prenotations founded with these filters</p>`
               );
           $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
           totCompanies = 0;
@@ -177,7 +188,7 @@
               <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
                 <div class="flex flex-col">
                   <div><span class="font-semibold">Company id: </span>
-                      <button class="btn" onclick="copy(this)">` +
+                    <button class="btn" onclick="copy(this)">` +
           id +
           `         <i class="fa fa-copy"></i></button>
                   </div>
@@ -189,12 +200,14 @@
           owner +
           `
                   </div>
+                  <div><span class="font-semibold">Email: </span>
+                    <button class="btn" onclick="copy(this)">` +
+          email +
+          `         <i class="fa fa-copy"></i></button>
+                  </div>
                   <div><span class="font-semibold">Field: </span>` +
           title +
-          `       </div>
-                  <div><span class="font-semibold">Cost per hour: </span>` +
-          cost_per_hour +
-          `€/h
+          `
                   </div>
                 </div>
                 <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
@@ -286,26 +299,27 @@
         </div>
         <div class="flex flex-col mx-4 mb-1 flex-0">
           <div class="gray">
-            Click on a company id to copy it! <i class="fa fa-copy"></i>
+            Click on something followed by
+            <i class="fa fa-copy"></i> to copy it!
           </div>
-          <div class="flex flex-row">
+          <div class="flex flex-row mt-2">
             <button
               id="showBtn"
-              class="flex btn bg-save mt-2 p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
               onclick="showFilters()"
             >
               Show filters
             </button>
             <button
               id="hideBtn"
-              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
               onclick="hideFilters()"
             >
               Hide filters
             </button>
             <button
               id="resetBtn"
-              class="hidden flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+              class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
               onclick="resetFilters()"
             >
               Reset filters
@@ -314,7 +328,7 @@
         </div>
         <div id="companyInfo" class="flex m-4 mt-2">
           <div class="flex flex-col flex-1">
-            <div id="companiesFilters" class="hidden flex flex-col">
+            <div id="companiesFilters" class="flex flex-col">
               <!-- primo filtro-->
               <div class="flex flex-col sm:flex-row">
                 <span class="flex">
@@ -405,7 +419,47 @@
                     />
                   </span>
                 </div>
-
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterName"
+                      class="flex self-center primary font-semibold"
+                      >Filter by company name:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterName"
+                      name="filterName"
+                      type="text"
+                      placeholder="ex. Best vet ever"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- sesto e settimo filtro-->
+              <div class="flex flex-col lg:flex-row mb-2">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterCost"
+                      class="flex self-center primary font-semibold"
+                      >Filter by minimum cost:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterCost"
+                      name="filterCost"
+                      type="text"
+                      placeholder="ex. 34"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
                 <div class="flex flex-col sm:flex-row">
                   <span class="flex">
                     <label
@@ -419,31 +473,12 @@
                       id="filterPet"
                       name="filterPet"
                       type="text"
-                      placeholder="ex. cat"
+                      placeholder="ex. cats"
                       class="px-1 m-1 rounded w-[15rem]"
                       oninput="filterCompanyList()"
                     />
                   </span>
                 </div>
-              </div>
-              <div class="flex flex-col sm:flex-row mb-2">
-                <span class="flex">
-                  <label
-                    for="filterCost"
-                    class="flex self-center primary font-semibold"
-                    >Filter by minimum cost:</label
-                  >
-                </span>
-                <span>
-                  <input
-                    id="filterCost"
-                    name="filterCost"
-                    type="text"
-                    placeholder="ex. 34"
-                    class="px-1 m-1 rounded w-[15rem]"
-                    oninput="filterCompanyList()"
-                  />
-                </span>
               </div>
             </div>
             <div

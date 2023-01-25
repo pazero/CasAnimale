@@ -176,6 +176,31 @@
       document.execCommand("copy", false);
       inp.remove();
     };
+    
+    const showFilters = () => {
+        $("#companiesFilters").removeClass("hidden");
+        $("#showBtn").addClass("hidden");
+        $("#hideBtn").removeClass("hidden");
+        $("#resetBtn").removeClass("hidden");
+      };
+
+      const hideFilters = () => {
+        $("#companiesFilters").addClass("hidden");
+        $("#showBtn").removeClass("hidden");
+        $("#hideBtn").addClass("hidden");
+        $("#resetBtn").addClass("hidden");
+      };
+
+      const resetFilters = () => {
+        $("#filterCompanyId").val("");
+        $("#filterCost").val("");
+        $("#filterOwner").val("");
+        $("#filterEmail").val("");
+        $("#filterPet").val("");
+        $("#filterProfession").val("");
+        filterCompanyList();
+      };
+
     getPts();
   </script>
 </head>
