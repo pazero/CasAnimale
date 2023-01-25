@@ -21,8 +21,17 @@
       window.location.reload();
     };
 
-    //TODO scorre main_pets e trovare corrispondenza di almeno uno
-    const companyCompanyList = () => {
+    const includes = (s, list) => {
+      let ret = 1
+      if (list !== undefined) {
+        list.map((item, index) => {
+          if (s.localeCompare(item) === 0) ret = 0;
+        });
+      }
+      return ret;
+    };
+
+    const filterCompanyList = () => {
       let reqCompany = $("#filterCompanyId").val();
       let reqCost = $("#filterCost").val();
       let reqOwner = $("#filterOwner").val();
@@ -49,7 +58,7 @@
                 : reqProfession.toLowerCase() === item.type
                 ? 0
                 : 1;
-            //comparePet = reqPet === "" ? 0 : (scorrere lista main_pets) ? 0: 1;
+            comparePet = reqPet === "" ? 0 : includes(reqPet, item.main_pets);
             compareOwner =
               reqOwner === ""
                 ? 0
@@ -57,7 +66,11 @@
                 ? 0
                 : 1;
             if (
-              compareCompany + compareCost + compareProfession + compareOwner + comparePet ===
+              compareCompany +
+                compareCost +
+                compareProfession +
+                compareOwner +
+                comparePet ===
               0
             ) {
               flag = 1;
@@ -209,13 +222,13 @@
     };
 
     const copy = (that) => {
-        var inp = document.createElement("input");
-        document.body.appendChild(inp);
-        inp.value = that.textContent.trim();
-        inp.select();
-        document.execCommand("copy", false);
-        inp.remove();
-      };
+      var inp = document.createElement("input");
+      document.body.appendChild(inp);
+      inp.value = that.textContent.trim();
+      inp.select();
+      document.execCommand("copy", false);
+      inp.remove();
+    };
     getCompanies();
   </script>
 </head>
@@ -238,7 +251,7 @@
             type="text"
             placeholder="ex. 63c282e29db4069ff8c23a76"
             class="px-1 m-1 rounded w-[15rem]"
-            oninput="companyCompanyList()"
+            oninput="filterCompanyList()"
           />
         </span>
       </div>
@@ -253,15 +266,22 @@
             >
           </span>
           <span>
-            <!-- TODO select to choose type-->
-            <input
+            <select
               id="filterProfession"
               name="filterProfession"
               type="text"
               placeholder="ex. psychologist"
-              class="px-1 m-1 rounded w-[15rem]"
-              oninput="companyCompanyList()"
-            />
+              class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+              oninput="filterCompanyList()"
+            >
+              <option value="" class="text-[#939798]">
+                --Chose an option--
+              </option>
+              <option value="psy">Psychologist</option>
+              <option value="petsitter">Pet Sitter</option>
+              <option value="vet">Veterinary</option>
+              <option value="groomer">Groomer</option>
+            </select>
           </span>
         </div>
         <div class="flex flex-col sm:flex-row lg:mr-4">
@@ -279,7 +299,7 @@
               type="text"
               placeholder="ex. Dott.ssa Giorgia Rossi"
               class="px-1 m-1 rounded w-[15rem]"
-              oninput="companyCompanyList()"
+              oninput="filterCompanyList()"
             />
           </span>
         </div>
@@ -301,7 +321,7 @@
               type="text"
               placeholder="ex. 37"
               class="px-1 m-1 rounded w-[15rem]"
-              oninput="companyCompanyList()"
+              oninput="filterCompanyList()"
             />
           </span>
         </div>
@@ -321,7 +341,7 @@
               type="text"
               placeholder="ex. cat"
               class="px-1 m-1 rounded w-[15rem]"
-              oninput="companyCompanyList()"
+              oninput="filterCompanyList()"
             />
           </span>
         </div>
