@@ -1,3 +1,43 @@
+.primary {
+  color: #59114d;
+}
+.secondary {
+  color: #826c7f;
+}
+.thirdColor {
+  color: #e1dee3;
+}
+
+.gray{
+  color: #606060;
+}
+
 body {
-    background-color: green;
+  background-color: #e1dee3;
+  height: 100%;
+}
+html {
+  height: 100%;
+}
+.card {
+  background-color: #cba9b6;
+}
+
+.bg-primary {
+  background-color: #59114d;
+}
+
+.bg-secondary {
+  background-color: #114d59;
+}
+
+.bg-save {
+    background-color: #11591D;
+}
+.bg-danger {
+  background-color: #952a83;
+}
+
+.noticeBorder{
+  border: #B5229C solid 3px;
 }

@@ -14,12 +14,11 @@ module.exports = (app) => {
       message: "Questo è un server express",
     });
   });
-  app.use("/api/user", userRoute);                /* user routing middleware          */
-  app.use("/api/product", productRoute);          /* product routing middleware       */
-  app.use("/api/post", postRoute);                /* post routing middleware          */
-  app.use("/api/pets", petRoute);                 /* pet routing middleware           */
-  app.use("/api/company", companyRoute);          /* company routing middleware       */
-  app.use("/api/prenotation", prenotationRoute);  /* prenotation routing middleware   */
-  app.use("/api/leaderboard", leaderboardRoute);  /* leaderboard routing middleware   */
-  app.use("/api/restore", emailRestoreRoute);     /* email restore routing middleware */
+  app.use("/api/user", userRoute);                /* user routing middleware        */
+  app.use("/api/product", productRoute);          /* product routing middleware     */
+  app.use("/api/post", postRoute);                /* post routing middleware        */
+  app.use("/api/pets", petRoute);                 /* pet routing middleware         */
+  app.use("/api/company", companyRoute);          /* company routing middleware     */
+  app.use("/api/prenotation", prenotationRoute);  /* prenotation routing middleware */
+  app.use("/api/leaderboard", leaderboardRoute);  /* prenotation routing middleware */
 };
