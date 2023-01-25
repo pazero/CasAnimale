@@ -275,7 +275,7 @@
               oninput="filterCompanyList()"
             >
               <option value="" class="text-[#939798]">
-                --Chose an option--
+                --Choose an option--
               </option>
               <option value="psy">Psychologist</option>
               <option value="petsitter">Pet Sitter</option>
@@ -309,17 +309,17 @@
         <div class="flex flex-col sm:flex-row lg:mr-4">
           <span class="flex">
             <label
-              for="filterCost"
+              for="filterEmail"
               class="flex self-center primary font-semibold"
-              >Filter by minimum cost:</label
+              >Filter by email:</label
             >
           </span>
           <span>
             <input
-              id="filterCost"
-              name="filterCost"
+              id="filterEmail"
+              name="filterEmail"
               type="text"
-              placeholder="ex. 37"
+              placeholder="ex. name@casanimale.com"
               class="px-1 m-1 rounded w-[15rem]"
               oninput="filterCompanyList()"
             />
@@ -345,6 +345,25 @@
             />
           </span>
         </div>
+      </div>
+      <div class="flex flex-col sm:flex-row">
+        <span class="flex">
+          <label
+            for="filterCost"
+            class="flex self-center primary font-semibold"
+            >Filter by minimum cost:</label
+          >
+        </span>
+        <span>
+          <input
+            id="filterCost"
+            name="filterCost"
+            type="text"
+            placeholder="ex. 34"
+            class="px-1 m-1 rounded w-[15rem]"
+            oninput="filterCompanyList()"
+          />
+        </span>
       </div>
     </div>
     <div

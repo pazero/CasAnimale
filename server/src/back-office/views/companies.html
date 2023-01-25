@@ -16,8 +16,262 @@
     <script>
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
-        $("#companyInfo").load("../tabs/company-info.html");
+        //$("#allFilters").load("../tabs/company-info.html");
       });
+    </script>
+    <script>
+      let companies = [];
+      let totCompanies = 0;
+      const getCompanies = async () => {
+        var ret = await fetch("http://localhost:5000/api/company", {
+          method: "GET",
+          //body: {},
+          credentials: "include",
+        });
+        companies = await ret.json();
+        await loadCompanyList();
+      };
+      //non funziona
+      const deleteCp = async (id) => {
+        var ret = await fetch("http://localhost:5000/api/company/" + id, {
+          method: "DELETE",
+          body: {},
+          credentials: "include",
+        });
+        window.location.reload();
+      };
+
+      const includes = (s, list) => {
+        let ret = 1;
+        if (list !== undefined) {
+          list.map((item, index) => {
+            if (s.localeCompare(item) === 0) ret = 0;
+          });
+        }
+        return ret;
+      };
+
+      const filterCompanyList = () => {
+        let reqCompany = $("#filterCompanyId").val();
+        let reqEmail = $("#filterEmail").val();
+        let reqCost = $("#filterCost").val();
+        let reqOwner = $("#filterOwner").val();
+        let reqPet = $("#filterPet").val();
+        let reqProfession = $("#filterProfession").val();
+        let compareCompany = 0;
+        let compareEmail = 0;
+        let compareCost = 0;
+        let compareOwner = 0;
+        let comparePet = 0;
+        let compareProfession = 0;
+        let tmp = "";
+        $(document).ready(function () {
+          let flag = 0;
+          if (companies !== undefined) {
+            let index = 0;
+            companies.map((item) => {
+              compareCompany =
+                reqCompany === "" ? 0 : reqCompany === item._id ? 0 : 1;
+              compareCost =
+                reqCost === "" ? 0 : +reqCost <= +item.cost_per_hour ? 0 : 1;
+              compareProfession =
+                reqProfession === ""
+                  ? 0
+                  : reqProfession.toLowerCase() === item.type
+                  ? 0
+                  : 1;
+              comparePet = reqPet === "" ? 0 : includes(reqPet, item.main_pets);
+              compareOwner =
+                reqOwner === ""
+                  ? 0
+                  : reqOwner.toLowerCase() === item.owner.toLowerCase()
+                  ? 0
+                  : 1;
+              compareEmail =
+                reqEmail === "" ? 0 : reqEmail === item.email ? 0 : 1;
+              if (
+                compareCompany +
+                  compareCost +
+                  compareEmail +
+                  compareProfession +
+                  compareOwner +
+                  comparePet ===
+                0
+              ) {
+                flag = 1;
+                tmp += makeItemCompany(
+                  index,
+                  item._id,
+                  item.name,
+                  item.email,
+                  item.password,
+                  item.type,
+                  item.description,
+                  item.cost_per_hour,
+                  item.owner,
+                  item.cities,
+                  item.business_hours,
+                  item.main_pets,
+                  item.study_info,
+                  item.professional_experience,
+                  item.actual_jobs,
+                  item.photo
+                );
+                index++;
+                totCompanies = index;
+              }
+            });
+          }
+          flag == 1
+            ? $("#companyList").html(tmp)
+            : $("#companyList").html(
+                "No prenotations founded with these filters"
+              );
+          $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
+          totCompanies = 0;
+        });
+      };
+
+      const makeItemCompany = (
+        index,
+        id,
+        name,
+        email,
+        password,
+        type,
+        description,
+        cost_per_hour,
+        owner,
+        cities,
+        business_hours,
+        main_pets,
+        study_info,
+        professional_experience,
+        actual_jobs,
+        photo
+      ) => {
+        let title;
+        switch (type) {
+          case "vet":
+            title = "Veterinary";
+            break;
+          case "petsitter":
+            title = "Pet Sitter";
+            break;
+          case "psy":
+            title = "Psychologist";
+            break;
+          case "groomer":
+            title = "Groomer";
+            break;
+          default:
+            title = "Groomer";
+        }
+        return (
+          `
+            <div class="flex flex-row my-3">
+              <span class="mr-1">` +
+          (index + 1) +
+          `.
+                </span>
+              <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+                <div class="flex flex-col">
+                  <div><span class="font-semibold">Company id: </span>
+                      <button class="btn" onclick="copy(this)">` +
+          id +
+          `         <i class="fa fa-copy"></i></button>
+                  </div>
+                  <div><span class="font-semibold">Company name: </span>` +
+          name +
+          `
+                  </div>
+                  <div><span class="font-semibold">Company owner: </span>` +
+          owner +
+          `
+                  </div>
+                  <div><span class="font-semibold">Field: </span>` +
+          title +
+          `       </div>
+                  <div><span class="font-semibold">Cost per hour: </span>` +
+          cost_per_hour +
+          `€/h
+                  </div>
+                </div>
+                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
+          id +
+          `')">
+                  ?delete?
+                </button>
+              </div>
+            </div>`
+        );
+      };
+      const loadCompanyList = () => {
+        let tmp = "";
+        $(document).ready(function () {
+          if (companies !== undefined) {
+            companies.map((item, index) => {
+              tmp += makeItemCompany(
+                index,
+                item._id,
+                item.name,
+                item.email,
+                item.password,
+                item.type,
+                item.description,
+                item.cost_per_hour,
+                item.owner,
+                item.cities,
+                item.business_hours,
+                item.main_pets,
+                item.study_info,
+                item.professional_experience,
+                item.actual_jobs,
+                item.photo
+              );
+              totCompanies = index + 1;
+            });
+          }
+          $("#companyList").html(tmp);
+          $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
+          totCompanies = 0;
+        });
+      };
+
+      const copy = (that) => {
+        var inp = document.createElement("input");
+        document.body.appendChild(inp);
+        inp.value = that.textContent.trim();
+        inp.select();
+        document.execCommand("copy", false);
+        inp.remove();
+      };
+
+      const showFilters = () => {
+        $("#companiesFilters").removeClass("hidden");
+        $("#showBtn").addClass("hidden");
+        $("#hideBtn").removeClass("hidden");
+        $("#resetBtn").removeClass("hidden");
+      };
+
+      const hideFilters = () => {
+        $("#companiesFilters").addClass("hidden");
+        $("#showBtn").removeClass("hidden");
+        $("#hideBtn").addClass("hidden");
+        $("#resetBtn").addClass("hidden");
+      };
+
+      const resetFilters = () => {
+        $("#filterCompanyId").val("");
+        $("#filterCost").val("");
+        $("#filterOwner").val("");
+        $("#filterEmail").val("");
+        $("#filterPet").val("");
+        $("#filterProfession").val("");
+        filterCompanyList();
+      };
+
+      getCompanies();
     </script>
   </head>
   <body>
@@ -30,10 +284,175 @@
         <div id="title" class="font-bold text-4xl sm:text-6xl m-4">
           COMPANIES
         </div>
-        <div class="gray m-4 mb-1">
-          Click on a company id to copy it! <i class="fa fa-copy"></i>
+        <div class="flex flex-col mx-4 mb-1 flex-0">
+          <div class="gray">
+            Click on a company id to copy it! <i class="fa fa-copy"></i>
+          </div>
+          <div class="flex flex-row">
+            <button
+              id="showBtn"
+              class="flex btn bg-save mt-2 p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              onclick="showFilters()"
+            >
+              Show filters
+            </button>
+            <button
+              id="hideBtn"
+              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              onclick="hideFilters()"
+            >
+              Hide filters
+            </button>
+            <button
+              id="resetBtn"
+              class="hidden flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+              onclick="resetFilters()"
+            >
+              Reset filters
+            </button>
+          </div>
         </div>
-        <div id="companyInfo" class="flex m-4 mt-2"></div>
+        <div id="companyInfo" class="flex m-4 mt-2">
+          <div class="flex flex-col flex-1">
+            <div id="companiesFilters" class="hidden flex flex-col">
+              <!-- primo filtro-->
+              <div class="flex flex-col sm:flex-row">
+                <span class="flex">
+                  <label
+                    for="filterCompanyId"
+                    class="flex self-center primary font-semibold"
+                    >Filter by company id:</label
+                  >
+                </span>
+                <span>
+                  <input
+                    id="filterCompanyId"
+                    name="filterCompanyId"
+                    type="text"
+                    placeholder="ex. 63c282e29db4069ff8c23a76"
+                    class="px-1 m-1 rounded w-[15rem]"
+                    oninput="filterCompanyList()"
+                  />
+                </span>
+              </div>
+              <!-- secondo e terzo filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterProfession"
+                      class="flex self-center primary font-semibold"
+                      >Filter by profession:</label
+                    >
+                  </span>
+                  <span>
+                    <select
+                      id="filterProfession"
+                      name="filterProfession"
+                      type="text"
+                      placeholder="ex. psychologist"
+                      class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+                      oninput="filterCompanyList()"
+                    >
+                      <option value="" class="text-[#939798]">
+                        --Choose an option--
+                      </option>
+                      <option value="psy">Psychologist</option>
+                      <option value="petsitter">Pet Sitter</option>
+                      <option value="vet">Veterinary</option>
+                      <option value="groomer">Groomer</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterOwner"
+                      class="flex self-center primary font-semibold"
+                      >Filter by owner:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterOwner"
+                      name="filterOwner"
+                      type="text"
+                      placeholder="ex. Dott.ssa Giorgia Rossi"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- quarto e quinto filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterEmail"
+                      class="flex self-center primary font-semibold"
+                      >Filter by email:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterEmail"
+                      name="filterEmail"
+                      type="text"
+                      placeholder="ex. name@casanimale.com"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+
+                <div class="flex flex-col sm:flex-row">
+                  <span class="flex">
+                    <label
+                      for="filterPet"
+                      class="flex self-center primary font-semibold"
+                      >Filter by main pet:
+                    </label>
+                  </span>
+                  <span>
+                    <input
+                      id="filterPet"
+                      name="filterPet"
+                      type="text"
+                      placeholder="ex. cat"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div class="flex flex-col sm:flex-row mb-2">
+                <span class="flex">
+                  <label
+                    for="filterCost"
+                    class="flex self-center primary font-semibold"
+                    >Filter by minimum cost:</label
+                  >
+                </span>
+                <span>
+                  <input
+                    id="filterCost"
+                    name="filterCost"
+                    type="text"
+                    placeholder="ex. 34"
+                    class="px-1 m-1 rounded w-[15rem]"
+                    oninput="filterCompanyList()"
+                  />
+                </span>
+              </div>
+            </div>
+            <div
+              id="totCompanies"
+              class="flex flex-col flex primary font-semibold my-2"
+            ></div>
+            <div id="companyList" class="flex flex-col flex-1"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
