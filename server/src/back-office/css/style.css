@@ -32,7 +32,7 @@ html {
 }
 
 .bg-save {
-    background-color: #11591D;
+  background-color: #11591D;
 }
 .bg-danger {
   background-color: #952a83;
@@ -40,4 +40,23 @@ html {
 
 .noticeBorder{
   border: #B5229C solid 3px;
+}
+
+.border-primary {
+  border-color: #59114d;
+  border-width: 1px;
+}
+
+.border-secondary {
+  border-color: #114d59;
+  border-width: 1px;
+}
+
+.border-save {
+    border-color: #11591D;
+    border-width: 1px;
+}
+.border-danger {
+  border-color: #952a83;
+  border-width: 1px;
 }
