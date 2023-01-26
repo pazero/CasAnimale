@@ -9,17 +9,452 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <!--link href="../tabs/company-info.html" rel="import" /-->
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Back Office</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
-        $("#companyInfo").load("../tabs/company-info.html");
+        //$("#allFilters").load("../tabs/company-info.html");
       });
+    </script>
+    <script>
+      let companies = [];
+      let totCompanies = 0;
+      const getCompanies = async () => {
+        var ret = await fetch("http://localhost:5000/api/company", {
+          method: "GET",
+          //body: {},
+          credentials: "include",
+        });
+        companies = await ret.json();
+        await loadCompanyList();
+      };
+      //non funziona
+      const deleteCp = async (id) => {
+        var ret = await fetch("http://localhost:5000/api/company/" + id, {
+          method: "DELETE",
+          body: {},
+          credentials: "include",
+        });
+        window.location.reload();
+      };
+
+      const includes = (s, list) => {
+        let ret = 1;
+        if (list !== undefined) {
+          list.map((item, index) => {
+            if (item.includes(s)) ret = 0;
+          });
+        }
+        return ret;
+      };
+
+      const filterCompanyList = () => {
+        let reqCity = $("#filterCity").val();
+        let reqCompany = $("#filterCompanyId").val();
+        let reqEmail = $("#filterEmail").val();
+        let reqMinCost = $("#filterMinCost").val();
+        let reqMaxCost = $("#filterMaxCost").val();
+        let reqOwner = $("#filterOwner").val();
+        let reqPet = $("#filterPet").val();
+        let reqProfession = $("#filterProfession").val();
+        let reqName = $("#filterName").val();
+        let compareCompany = 0;
+        let compareCity = 0;
+        let compareEmail = 0;
+        let compareMinCost = 0;
+        let compareMaxCost = 0;
+        let compareOwner = 0;
+        let comparePet = 0;
+        let compareProfession = 0;
+        let compareName = 0;
+        let tmp = "";
+        $(document).ready(function () {
+          if (companies !== undefined) {
+            let index = 0;
+            companies.map((item) => {
+              compareCompany =
+                reqCompany === "" ? 0 : item._id.includes(reqCompany) ? 0 : 1;
+              compareCity =
+                reqCity === "" ? 0 : showCities(item.cities).toLocaleLowerCase().includes(reqCity.toLocaleLowerCase()) ? 0 : 1; 
+              compareName =
+                reqName === ""
+                  ? 0
+                  : item.name.toLowerCase().includes(reqName.toLowerCase())
+                  ? 0
+                  : 1;
+              compareMinCost =
+                reqMinCost === "" ? 0 : +reqMinCost <= +item.cost_per_hour ? 0 : 1;
+              compareMaxCost =
+                reqMaxCost === "" ? 0 : +reqMaxCost >= +item.cost_per_hour ? 0 : 1;
+              compareProfession =
+                reqProfession === ""
+                  ? 0
+                  : reqProfession.toLowerCase() === item.type
+                  ? 0
+                  : 1;
+              comparePet = reqPet === "" ? 0 : includes(reqPet, item.main_pets);
+              compareOwner =
+                reqOwner === ""
+                  ? 0
+                  : item.owner.toLowerCase().includes(reqOwner.toLowerCase())
+                  ? 0
+                  : 1;
+              compareEmail =
+                reqEmail === ""
+                  ? 0
+                  : item.email.toLowerCase().includes(reqEmail.toLowerCase())
+                  ? 0
+                  : 1;
+              if (
+                compareCity +
+                  compareCompany +
+                  compareMinCost +
+                  compareMaxCost +
+                  compareEmail +
+                  compareProfession +
+                  compareOwner +
+                  comparePet +
+                  compareName ===
+                0
+              ) {
+                tmp += makeItemCompany(
+                  index,
+                  item._id,
+                  item.name,
+                  item.email,
+                  item.password,
+                  item.type,
+                  item.description,
+                  item.cost_per_hour,
+                  item.owner,
+                  item.cities,
+                  item.business_hours,
+                  item.main_pets,
+                  item.study_info,
+                  item.professional_experience,
+                  item.actual_jobs,
+                  item.photo,
+                  item.online
+                );
+                index++;
+                totCompanies = index;
+              }
+            });
+          }
+          tmp !== ""
+            ? $("#companyList").html(tmp)
+            : $("#companyList").html(
+                `<p class="mt-4 font-semibold">No prenotations founded with these filters</p>`
+              );
+          $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
+          totCompanies = 0;
+        });
+      };
+      const showArray = (array) => {
+        let ret = "";
+        if (array !== undefined)
+          if (array.length > 0) {
+            array.map((item) => {
+              ret += item + ", ";
+            });
+            return ret.substring(0, ret.length - 2); // tolgo gli utili due caratteri ", "
+          } else return "-";
+      };
+      const showCities = (cities) => {
+        let ret = "";
+        if (cities !== undefined){
+            if(!ret.includes(cities.monday))
+              ret += cities.monday + ", ";
+            if(!ret.includes(cities.tuesday))
+              ret += cities.tuesday + ", ";
+            if(!ret.includes(cities.wednesday))
+              ret += cities.wednesday + ", ";
+            if(!ret.includes(cities.thursday))
+              ret += cities.thursday + ", ";
+            if(!ret.includes(cities.friday))
+              ret += cities.friday + ", ";
+            return ret.substring(0, ret.length - 2); // tolgo gli utili due caratteri ", "
+          } else return "-";
+      };
+      const isTrue = (data, msg) => {
+        if (data === true)
+          return `<span class="text-white bg-secondary ml-3 p-1 rounded text-xs">`+msg.toUpperCase()+`</span>`;
+        else return "";
+      };
+      const formatBusiness = (hours) => {
+        return hours > 12 ? hours %12 + "pm" : hours + "am"
+      }
+      const bulletCities =(cities) => {
+        return `<div class="ml-4 text-sm">
+                  <div><span class="font-semibold">Monday: </span>`+cities.monday+`</div>
+                  <div><span class="font-semibold">Tuesday: </span>`+cities.tuesday+`</div>
+                  <div><span class="font-semibold">Wednesday: </span>`+cities.wednesday+`</div>
+                  <div><span class="font-semibold">Thursday: </span>`+cities.thursday+`</div>
+                  <div><span class="font-semibold">Friday: </span>`+cities.friday+`</div>
+                </div>`
+      }
+      const makeItemCompany = (
+        index,
+        id,
+        name,
+        email,
+        password,
+        type,
+        description,
+        cost_per_hour,
+        owner,
+        cities,
+        business_hours,
+        main_pets,
+        study_info,
+        professional_experience,
+        actual_jobs,
+        photo,
+        online
+      ) => {
+        let title;
+        switch (type) {
+          case "vet":
+            title = "Veterinary";
+            break;
+          case "petsitter":
+            title = "Pet Sitter";
+            break;
+          case "psy":
+            title = "Psychologist";
+            break;
+          case "groomer":
+            title = "Groomer";
+            break;
+          default:
+            title = "Groomer";
+        }
+        return (
+          `
+            <div class="flex flex-row my-3">
+              <span class="mr-1">` +
+          (index + 1) +
+          `.
+                </span>
+              <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+                <div class="flex flex-col">
+                  <div><span class="font-semibold">Company id: </span>
+                    <button class="btn" onclick="copy(this)">` +
+          id +
+          `         <i class="fa fa-copy"></i></button>
+                <span class="font-semibold">` +
+          isTrue(online, "online") +
+          `
+                </span>
+                  </div>
+                  <div><span class="font-semibold">Company name: </span><span class="tohidden`+index+`">` +
+          name +
+          `</span>
+          <input
+                type="text"
+                name="newName"
+                id="newName`+index+`"
+                value="`+ name+`"
+                placeholder="Type new name"
+                class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+              />
+                  </div>
+                  <div><span class="font-semibold">Email: </span>
+                    <input
+                      type="text"
+                      name="newDate"
+                      id="newEmail`+index+`"
+                      value="`+email+`"
+                      placeholder="Type new email"
+                      class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                    />
+                    <button class="btn tohidden`+index+`" onclick="copy(this)">` +
+                      email +
+                      `         <i class="tohidden`+index+` fa fa-copy"></i></button>
+                      </div>
+                      <div><span class="font-semibold">Company owner: </span><span class="tohidden`+index+`">` +
+                        owner +
+                        `         </span>
+                        <input
+                          type="text"
+                          name="newDate"
+                          id="newOwner`+index+`"
+                          value="`+owner+`"
+                          placeholder="Type new owner"
+                          class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                        />
+                        </div>
+                        <div><span class="font-semibold">Profession: </span>` +
+                title +
+                `
+                </div>
+                <button id="showMore` +index +`" onclick="{$('#card` +index +`').removeClass('hidden'); $('#showMore` +index +`').addClass('hidden');$('#showLess` +index +`').removeClass('hidden')}" class="flex gray text-xs m-1"><u>Show more</u></button>
+                  <div id="card` +
+          index +
+          `"class="hidden flex flex-col">
+                    <div><span class="font-semibold">Professional experience: </span>` +
+          showArray(professional_experience) +
+          `         </div>
+                  <div><span class="font-semibold">Actual jobs: </span>` +
+          showArray(actual_jobs) +
+          `       </div>
+                  <div><span class="font-semibold">Study info: </span>` +
+          showArray(study_info) +
+          `       </div>
+                  <div><span class="font-semibold">Main pets: </span>` +
+          showArray(main_pets) +
+          `       </div>
+          <div><span class="font-semibold">Cities: </span>` +
+          showCities(cities) +
+          `       </div>
+          <div>` +
+          bulletCities(cities) +
+          `       </div>
+          <div><span class="font-semibold align-top">Description: </span><span class="tohidden`+index+`"">` +
+          description +
+          `         </span>
+                  <textarea
+                      type="text"
+                      name="newDescription"
+                      id="newDescription`+index+`"
+                      placeholder="Type new description"
+                      class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                    >`+description+`</textarea>
+                    </div>
+          <div class="tohidden`+index+`"><span class="font-semibold">Schedules: </span>` +
+          formatBusiness(business_hours.start) +` - `+formatBusiness(business_hours.end)+
+          `         </div>
+          <div class="toshow`+index+`">
+            <span class="font-semibold">Start at: </span>
+            <input
+                type="text"
+                name="newStart"
+                id="newStart`+index+`"
+                value="`+ formatBusiness(business_hours.start)+`"
+                placeholder="Type new start time"
+                class="change px-1 rounded shadow-sm"
+              />
+          </div>
+          <div class="toshow`+index+`">
+            <span class="font-semibold">End at: </span>
+            <input
+                type="text"
+                name="newEnd"
+                id="newEnd`+index+`"
+                value="`+ formatBusiness(business_hours.end)+`"
+                placeholder="Type new end time"
+                class="change px-1 rounded shadow-sm"
+              />
+          </div>
+          <div><span class="font-semibold">Cost per hour: </span><span class="tohidden`+index+`">` +
+          cost_per_hour +
+          `</span>
+          <input
+                type="text"
+                name="newCost"
+                id="newCost`+index+`"
+                value="`+cost_per_hour+`"
+                placeholder="Type new cost"
+                class="toshow`+index+` change hidden px-1 rounded shadow-sm"
+              />
+          €/h</div>
+                  </div>
+                  <button id="showLess` +index +`" onclick="{$('#card` +index +`').addClass('hidden'); $('#showMore` +index +`').removeClass('hidden');$('#showLess` +index +`').addClass('hidden')}" class="tohidden`+index+` flex hidden gray text-xs m-1"><u>Show less</u></button>
+
+                </div>
+                <div class="flex flex-col self-center">
+                  <button class="tohidden`+index+` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').addClass('hidden'); $('.toshow`+index+`').removeClass('hidden');$('#card` +index +`').removeClass('hidden'); $('#showMore` +index +`').addClass('hidden')}" class="flex gray text-xs m-1}">
+                Change data
+              </button>
+              <button class="toshow`+index+` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+                CANCEL
+              </button>
+              <button class="toshow`+index+` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+                SAVE
+              </button>
+                <button class="tohidden`+index+` btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
+          id +
+          `')">
+                  ?delete?
+                </button>
+              </div>
+              </div>
+            </div>`
+        );
+      }; /*photo: c.photo,*/
+      const loadCompanyList = () => {
+        let tmp = "";
+        $(document).ready(function () {
+          if (companies !== undefined) {
+            companies.map((item, index) => {
+              tmp += makeItemCompany(
+                index,
+                item._id,
+                item.name,
+                item.email,
+                item.password,
+                item.type,
+                item.description,
+                item.cost_per_hour,
+                item.owner,
+                item.cities,
+                item.business_hours,
+                item.main_pets,
+                item.study_info,
+                item.professional_experience,
+                item.actual_jobs,
+                item.photo,
+                item.online
+              );
+              totCompanies = index + 1;
+            });
+          }
+          $("#companyList").html(tmp);
+          $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
+          totCompanies = 0;
+        });
+      };
+
+      const copy = (that) => {
+        var inp = document.createElement("input");
+        document.body.appendChild(inp);
+        inp.value = that.textContent.trim();
+        inp.select();
+        document.execCommand("copy", false);
+        inp.remove();
+      };
+
+      const showFilters = () => {
+        $("#companiesFilters").removeClass("hidden");
+        $("#showBtn").addClass("hidden");
+        $("#hideBtn").removeClass("hidden");
+        $("#resetBtn").removeClass("hidden");
+      };
+
+      const hideFilters = () => {
+        $("#companiesFilters").addClass("hidden");
+        $("#showBtn").removeClass("hidden");
+        $("#hideBtn").addClass("hidden");
+        $("#resetBtn").addClass("hidden");
+      };
+
+      const resetFilters = () => {
+        $("#filterCompanyId").val("");
+        $("#filterMinCost").val("");
+        $("#filterMaxCost").val("");
+        $("#filterOwner").val("");
+        $("#filterEmail").val("");
+        $("#filterPet").val("");
+        $("#filterProfession").val("");
+        $("#filterName").val("");
+        $("#filterCity").val("");
+        filterCompanyList();
+      };
+
+      getCompanies();
     </script>
   </head>
   <body>
@@ -29,13 +464,241 @@
         id="sidebar"
       ></div>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <div id="title" class="font-bold text-4xl sm:text-6xl m-4">
+        <div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
           COMPANIES
         </div>
-        <div class="gray m-4 mb-1">
-          Click on a company id to copy it! <i class="fa fa-copy"></i>
+        <div class="flex flex-col mx-4 mb-1 flex-0">
+          <div class="gray self-center">
+            Click on something followed by
+            <i class="fa fa-copy"></i> to copy it!
+          </div>
+          <div class="flex flex-row mt-2">
+            <button
+              id="showBtn"
+              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              onclick="showFilters()"
+            >
+              Show filters
+            </button>
+            <button
+              id="hideBtn"
+              class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              onclick="hideFilters()"
+            >
+              Hide filters
+            </button>
+            <button
+              id="resetBtn"
+              class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+              onclick="resetFilters()"
+            >
+              Reset filters
+            </button>
+          </div>
         </div>
-        <div id="companyInfo" class="flex m-4 mt-2"></div>
+        <div id="companyInfo" class="flex m-4 mt-2">
+          <div class="flex flex-col flex-1">
+            <div id="companiesFilters" class="flex flex-col">
+              <!-- primo filtro-->
+              <div class="flex flex-col sm:flex-row">
+                <span class="flex">
+                  <label
+                    for="filterCompanyId"
+                    class="flex self-center primary font-semibold"
+                    >Filter by company id:</label
+                  >
+                </span>
+                <span>
+                  <input
+                    id="filterCompanyId"
+                    name="filterCompanyId"
+                    type="text"
+                    placeholder="ex. 63c282e29db4069ff8c23a76"
+                    class="px-1 m-1 rounded w-[15rem]"
+                    oninput="filterCompanyList()"
+                  />
+                </span>
+              </div>
+              <!-- secondo e terzo filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterProfession"
+                      class="flex self-center primary font-semibold"
+                      >Filter by profession:</label
+                    >
+                  </span>
+                  <span>
+                    <select
+                      id="filterProfession"
+                      name="filterProfession"
+                      type="text"
+                      placeholder="ex. psychologist"
+                      class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+                      oninput="filterCompanyList()"
+                    >
+                      <option value="" class="text-[#939798]">
+                        --Choose an option--
+                      </option>
+                      <option value="psy">Psychologist</option>
+                      <option value="petsitter">Pet Sitter</option>
+                      <option value="vet">Veterinary</option>
+                      <option value="groomer">Groomer</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterOwner"
+                      class="flex self-center primary font-semibold"
+                      >Filter by owner:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterOwner"
+                      name="filterOwner"
+                      type="text"
+                      placeholder="ex. Dott.ssa Giorgia Rossi"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- quarto e quinto filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterEmail"
+                      class="flex self-center primary font-semibold"
+                      >Filter by email:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterEmail"
+                      name="filterEmail"
+                      type="text"
+                      placeholder="ex. name@casanimale.com"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterName"
+                      class="flex self-center primary font-semibold"
+                      >Filter by company name:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterName"
+                      name="filterName"
+                      type="text"
+                      placeholder="ex. Best vet ever"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- sesto e settimo filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterMinCost"
+                      class="flex self-center primary font-semibold"
+                      >Filter by minimum cost:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterMinCost"
+                      name="filterMinCost"
+                      type="text"
+                      placeholder="ex. 34"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+                <div class="flex flex-col sm:flex-row">
+                  <span class="flex">
+                    <label
+                      for="filterMaxCost"
+                      class="flex self-center primary font-semibold"
+                      >Filter by maximum cost:
+                    </label>
+                  </span>
+                  <span>
+                    <input
+                      id="filterMaxCost"
+                      name="filterMaxCost"
+                      type="text"
+                      placeholder="ex. 58"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- ottavo e nono filtro-->
+              <div class="flex flex-col lg:flex-row mb-2">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterCity"
+                      class="flex self-center primary font-semibold"
+                      >Filter by city:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterCity"
+                      name="filterCity"
+                      type="text"
+                      placeholder="ex. Torino"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+                <div class="flex flex-col sm:flex-row">
+                  <span class="flex">
+                    <label
+                      for="filterPet"
+                      class="flex self-center primary font-semibold"
+                      >Filter by main pet:
+                    </label>
+                  </span>
+                  <span>
+                    <input
+                      id="filterPet"
+                      name="filterPet"
+                      type="text"
+                      placeholder="ex. cats"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              id="totCompanies"
+              class="flex flex-col flex primary font-semibold my-2"
+            ></div>
+            <div id="companyList" class="flex flex-col flex-1"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>

@@ -18,13 +18,12 @@ router.get("", async (req, res) => {
         cost_per_hour: c.cost_per_hour,
         owner: c.owner,
         cities: c.cities,
-        prenotation: c.prenotation,
         business_hours: c.business_hours,
+        email: c.email,
         main_pets: c.main_pets,
         study_info: c.study_info,
         professional_experience: c.professional_experience,
         actual_jobs: c.actual_jobs,
-        photo: c.photo,
         online: c.online,
       })
     );
@@ -61,13 +60,12 @@ router.get("/:id", async (req, res) => {
       cost_per_hour: company.cost_per_hour,
       owner: company.owner,
       cities: company.cities,
-      prenotation: company.prenotation,
       business_hours: company.business_hours,
+      email: company.email,
       main_pets: company.main_pets,
       study_info: company.study_info,
       professional_experience: company.professional_experience,
       actual_jobs: company.actual_jobs,
-      photo: company.photo,
       online: company.online,
     });
   } catch (e) {
@@ -93,7 +91,6 @@ router.put("/new", async (req, res) => {
       study_info: req.body.study_info,
       professional_experience: c.professional_experience,
       actual_jobs: req.body.actual_jobs,
-      photo: req.body.photo,
       online: req.body.online,
     });
     await company.save();
@@ -134,14 +131,13 @@ router.post("/update", async (req, res) => {
         cost_per_hour: req.body.cost_per_hour,
         owner: req.body.owner,
         cities: req.body.cities,
-        prenotation: req.body.prenotation,
+        business_hours: req.body.business_hours,
         email: req.body.email,
         password: req.body.password,
         main_pets: req.body.main_pets,
         study_info: req.body.study_info,
         professional_experience: req.body.professional_experience,
         actual_jobs: req.body.actual_jobs,
-        photo: req.body.actual_jobs,
         online: req.body.online,
       }
     );

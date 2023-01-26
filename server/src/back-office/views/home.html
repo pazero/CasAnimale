@@ -63,25 +63,25 @@
         services1.map((item) => {
           tmp +=
             `<div class="card flex justify-center">
-            <button
-            class="card-body hover:bg-opacity-50"
-            style="padding-left: 3rem; padding-right: 3rem; padding-top:3rem; max-height: 18rem; max-width: 18rem; margin:0.5rem"
-            onclick=gotologin("`+item.href+`")
-            >
-        <img
-        src=` +
-            item.img +
-            `
-        alt=` +
-            item.alt +
-            `
-        class="h-auto w-full object-cover object-center group-hover:opacity-75"
-        />
-        <p class="card-title py-4 font-bold text-center align-center">` +
-            item.text.toLocaleUpperCase() +
-            `</p>
-        </div>
-        </button>`;
+              <button
+              class="card-body hover:bg-opacity-50"
+              style="padding-left: 3rem; padding-right: 3rem; padding-top:3rem; max-height: 18rem; max-width: 18rem; margin:0.5rem"
+              onclick=gotologin("`+item.href+`")
+              >
+          <img
+          src=` +
+              item.img +
+              `
+          alt=` +
+              item.alt +
+              `
+          class="h-auto w-full object-cover object-center group-hover:opacity-75"
+          />
+          <p class="card-title py-4 font-bold text-center align-center">` +
+              item.text.toLocaleUpperCase() +
+              `</p>
+              </button>
+            </div>`;
           $("#cards").html(tmp);
         });
       });
