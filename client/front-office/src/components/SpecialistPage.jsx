@@ -530,7 +530,9 @@ const SpecialistPage = () => {
                         }}
                         minDate={new Date()}
                         filterDate={(date) => {
-                          return setFilter(date.getDay()) && date.getDay() !== 0 && date.getDay() !== 6;
+                          if(!isOnline)
+                            return setFilter(date.getDay()) && date.getDay() !== 0 && date.getDay() !== 6;
+                          else return date.getDay() !== 0 && date.getDay() !== 6;
                         }}
                       />
                     </div>
