@@ -21,6 +21,23 @@ const authJwt = {
       next();
     });
   },
+
+  authenticateAdmin(req, res, next) {
+    const authHeader = req.headers.cookie; // todo: controllare perche' si
+    const token = authHeader && authHeader.split("=")[1];
+
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, data) => {
+      if (err || !data.admin) {
+        // console.log("jwt error")
+        return res.json({ message: "jwt is not valid", success: false });
+      }
+      req.userid = data.id;
+      req.admin = data.admin || false;
+      next();
+    });
+  },
 };
 
 module.exports = authJwt;

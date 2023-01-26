@@ -66,7 +66,7 @@ router.delete("/:id", async (req, res) => {
 /* Update pet's infos */
 router.post("/update", async (req, res) => {
   try {
-    const updatedPet = await Post.findOneAndUpdate(
+    const updatedPet = await Pet.findOneAndUpdate(
       { _id: req.body.pet_id },
       {
         name: req.body.name,

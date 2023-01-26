@@ -1,0 +1,127 @@
+<head>
+  <script>
+    let receipts = [];
+
+    const getReceipts = async () => {
+      var ret = await fetch("http://localhost:5000/api/receipt/", {
+        method: "GET",
+        credentials: "include",
+      });
+      ret.json().then((ret) => {
+        receipts = ret;
+        loadReceiptList();
+      });
+    };
+
+    const getVipIncomes = async () => {
+      var ret = await fetch(
+        "http://localhost:5000/api/receipt/claimVipIncomes",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+      ret = await ret.json();
+      alert(ret.message);
+      getReceipts();
+    };
+
+    const makeItem = (index, item) => {
+      return (
+        `
+            <div class="flex flex-row my-3">
+              <span class="mr-1">` +
+        (index + 1) +
+        `.
+                </span>
+              <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+                <div class="flex flex-col">
+                  <div><span class="font-semibold">Receipt id: </span>
+                      <button class="btn" onclick="copy(this)">` +
+        item._id +
+        `         <i class="fa fa-copy"></i></button>
+                  </div>
+                  <div><span class="font-semibold">Receipt type: </span>` +
+        item.type +
+        `
+                  </div>
+                  <div><span class="font-semibold">Receipt description: </span>` +
+        item.description +
+        `
+                  </div>
+                  <div><span class="font-semibold">Amount: </span>` +
+        item.amount +
+        `
+                  </div>
+                  <div><span class="font-semibold">Receiver: </span>` +
+        item.receiver +
+        `
+                  </div>
+                  <div><span class="font-semibold">Giver: </span>` +
+        item.giver +
+        `
+                  </div>
+                </div>
+                <button class="btn bg-cyan-400 p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center">
+                  Update
+                </button>
+                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
+        item._id +
+        `')">
+                  Delete
+                </button>
+              </div>
+            </div>`
+      );
+    };
+
+    const loadReceiptList = () => {
+      let html = "";
+      $(document).ready(function () {
+        if (receipts) {
+          receipts.map((item, index) => {
+            html += makeItem(index, item);
+          });
+        }
+        $("#receiptList").html(html);
+        $("#totProducts").html("TOTAL RESULTS: " + receipts.length);
+      });
+    };
+
+    const deleteRc = async (id) => {
+      var ret = await fetch("http://localhost:5000/api/receipt/" + id, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      window.location.reload();
+    };
+
+    const copy = (that) => {
+      var inp = document.createElement("input");
+      document.body.appendChild(inp);
+      inp.value = that.textContent.trim();
+      inp.select();
+      document.execCommand("copy", false);
+      inp.remove();
+    };
+
+    getReceipts();
+  </script>
+</head>
+<body>
+  <div class="flex flex-col flex-1">
+    <div>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onclick="getVipIncomes()"
+      >
+        Get Vip incomes
+      </button>
+    </div>
+    <div
+      id="totProducts"
+      class="flex flex-col flex primary font-semibold mt-4 my-2"
+    ></div>
+    <div id="receiptList" class="flex flex-col flex-1"></div>
+  </div>
+</body>
