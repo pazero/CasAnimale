@@ -201,7 +201,14 @@ const SpecialistPage = () => {
     }
     setAvailableSlots(slots);
   }
-
+  const setFilter = (date) => {
+    if(date === 1 && selectedCity === company.cities?.monday) return true;
+    if(date === 2 && selectedCity === company.cities?.tuesday) return true;
+    if(date === 3 && selectedCity === company.cities?.wednesday) return true;
+    if(date === 4 && selectedCity === company.cities?.thursday) return true;
+    if(date === 5 && selectedCity === company.cities?.friday) return true;
+    return false;
+  }
   return (
     <div
       data-theme="lemonade"
@@ -523,7 +530,7 @@ const SpecialistPage = () => {
                         }}
                         minDate={new Date()}
                         filterDate={(date) => {
-                          return date.getDay() !== 0 && date.getDay() !== 6;
+                          return setFilter(date.getDay()) && date.getDay() !== 0 && date.getDay() !== 6;
                         }}
                       />
                     </div>
