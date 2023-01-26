@@ -57,15 +57,9 @@ const PrenotationsList = () => {
             });
           }
         });
-      } else {
-        deleteOld(item._id);
       }
     });
     setCompleteList(array);
-  }
-
-  function deleteOld(id) {
-    PrenotationManage.deletePrenotation(id);
   }
 
   async function deletePrenotation(prenotation) {
