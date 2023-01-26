@@ -35,6 +35,7 @@ router.put("/new", async (req, res) => {
         photo: req.body.photo,
         type: req.body.type,
         description: req.body.description,
+        comments: [],
         date: new Date(),
       });
       await post.save();
@@ -60,20 +61,20 @@ router.delete("/:id", async (req, res) => {
 });
 
 /* Update post's infos */
-router.post("/update", async (req, res) => {
+router.post("/update/:id", async (req, res) => {
   try {
     const updatedPost = await Post.findOneAndUpdate(
-      { _id: req.body.prod_id },
+      { _id: req.params.id },
       {
         user_id: req.body.userid,
         title: req.body.title,
         photo: req.body.photo,
         type: req.body.type,
         description: req.body.description,
-        date: new Date(),
+        comments: req.body.comments,
       }
     );
-    res.json(updatedPost);
+    res.json({ message: "Update done!" });
   } catch (e) {
     res.json({ message: e });
   }

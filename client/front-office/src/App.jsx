@@ -13,6 +13,7 @@ import FindPartner from "./views/FindPartner";
 import ECommerce from "./views/eCommerce";
 import Leaderboard from "./views/Leaderboard";
 import Cart from "./views/Cart";
+import Thread from "./views/Thread";
 import CompanyList from "./views/CompanyList";
 import SpecialistPage from "./components/SpecialistPage";
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/grooming" element={<CompanyList type="groomer" />} />
           <Route path="/boards" element={<Leaderboard />} />
           <Route path="/specialistpage/:id" element={<SpecialistPage />} />
+          <Route path="/thread/:id" element={<Thread />} />
         </Routes>
       </Router>
     </>

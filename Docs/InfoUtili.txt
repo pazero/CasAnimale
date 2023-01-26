@@ -62,13 +62,13 @@ TO DO:
 		[x] permettere all'utente di descrivere propri animali
 		[x] eCommerce
 		[x] Recupero pass -> sezione BO per admin
-		[/] Bacheca "eccolo qua"			|
-		[/] Bacheca "aiutami"    			| gestione commenti sotto i post (facoltativa)
-		[/] Bacheca "cerco partner"			|
+		[x] Bacheca "eccolo qua"			|
+		[x] Bacheca "aiutami"    			| migliorare stile dei commenti
+		[x] Bacheca "cerco partner"			|
 		[x] Leadboard
 		[ ] Gestione degli animali nei servizi
-		[ ] Filtro dei servizi per luogo
-		[ ] Recensioni (facoltativo)
+		[x] Filtro dei servizi per luogo
+		[x] Recensioni (facoltativo)		| migliorare stile
 		[x] Veterinario
 		[x] pet-sitter
 		[x] -fac- Toelettatura

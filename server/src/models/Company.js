@@ -25,6 +25,7 @@ const companySchema = new Schema({
   actual_jobs: [String],
   photo: String,
   online: Boolean,
+  review: [{ user: String, content: String, date: String }], // array of userid and review's content
 });
 
 module.exports = mongoose.model("Company", companySchema);
