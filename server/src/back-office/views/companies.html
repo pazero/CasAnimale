@@ -64,6 +64,7 @@
         let reqPet = $("#filterPet").val();
         let reqProfession = $("#filterProfession").val();
         let reqName = $("#filterName").val();
+        let reqOnline = $("#filterOnline").val();
         let compareCompany = 0;
         let compareCity = 0;
         let compareEmail = 0;
@@ -73,11 +74,13 @@
         let comparePet = 0;
         let compareProfession = 0;
         let compareName = 0;
+        let compareOnline = 0;
         let tmp = "";
         $(document).ready(function () {
           if (companies !== undefined) {
             let index = 0;
             companies.map((item) => {
+              console.log(item.online)
               compareCompany =
                 reqCompany === "" ? 0 : item._id.includes(reqCompany) ? 0 : 1;
               compareCity =
@@ -125,6 +128,13 @@
                   : item.email.toLowerCase().includes(reqEmail.toLowerCase())
                   ? 0
                   : 1;
+              compareOnline =
+                (reqOnline === "" || item.online === undefined)
+                ? 0
+                //TODO non va
+                : item.online.toString() === reqOnline
+                ? 0
+                : 1;
               if (
                 compareCity +
                   compareCompany +
@@ -134,7 +144,8 @@
                   compareProfession +
                   compareOwner +
                   comparePet +
-                  compareName ===
+                  compareName +
+                  compareOnline ===
                 0
               ) {
                 tmp += makeItemCompany(
@@ -194,7 +205,7 @@
       const isTrue = (data, msg) => {
         if (data === true)
           return (
-            `<span class="text-white bg-secondary ml-3 p-1 rounded text-xs">` +
+            `<span class="text-white bg-secondary p-1 rounded text-xs">` +
             msg.toUpperCase() +
             `</span>`
           );
@@ -234,33 +245,71 @@
         }
         return "-";
       };
-      
-      const updateData = () => {
-        
-      }
 
       const addField = (type,index, aux) => {
         let count = -1;
-        if(aux==="expLen") {toUpdateLen[index].expLen++; count = toUpdateLen[index].expLen}
-        if(aux==="petLen") {toUpdateLen[index].petLen++; count = toUpdateLen[index].petLen}
-        if(aux==="studyLen") {toUpdateLen[index].studyLen++; count = toUpdateLen[index].studyLen}
-        if(aux==="jobLen") {toUpdateLen[index].jobLen++; count = toUpdateLen[index].jobLen}
+        if(aux==="expLen") {toUpdateLen[index].expLen++; count = toUpdateLen[index].expLen - 1}
+        if(aux==="petLen") {toUpdateLen[index].petLen++; count = toUpdateLen[index].petLen - 1}
+        if(aux==="studyLen") {toUpdateLen[index].studyLen++; count = toUpdateLen[index].studyLen - 1}
+        if(aux==="jobLen") {toUpdateLen[index].jobLen++; count = toUpdateLen[index].jobLen - 1}
         if(count != -1) {
           $("#add" + type + index).append(`
           <div>
             <input
             type="text"
             placeholder="Type new field"
+            name="new` + type + index + count + `"
             id="new` + type + index + count + `"
             class="change px-1 rounded shadow-sm border-primary mt-1"
             />
             </div>
             `);
           }
-          console.log(count)
-          //name="new`+index + count + `"
-        //value="`+ item+`"
       };
+
+        /*
+        type,
+        cities,
+        main_pets,
+        study_info,
+        professional_experience,
+        actual_jobs,
+        photo,
+        online*/
+        const updateData = (index) => {
+          toEditData[index].description = $("#newDescription"+index).val()
+          if($("#newName"+index).val() !== "")
+            toEditData[index].name = $("#newName"+index).val()
+          if($("#newEmail"+index).val() !== "")
+            toEditData[index].email = $("#newEmail"+index).val()
+          if($("#newPassword"+index).val() !== "")
+            toEditData[index].password = $("#newPassword"+index).val()
+          if($("#newCost"+index).val() !== "")
+            toEditData[index].cost_per_hour = $("#newCost"+index).val()
+          if($("#newOwner"+index).val() !== "")
+            toEditData[index].owner = $("#newOwner"+index).val()
+          let startTime = $("#newStart"+index).val()
+          if((startTime.endsWith("am") || (startTime.endsWith("pm"))) && !isNaN(+(startTime.substring(0,startTime.length - 2))) && +(startTime.substring(0,startTime.length - 2)) > 0 && +(startTime.substring(0,startTime.length - 2)) < 13){
+            if(startTime.endsWith("am")) 
+              startTime = +startTime.substring(0,startTime.length - 2);
+            else
+              startTime = +startTime.substring(0,$("#newStart"+index).val().length - 2) + 12;
+          }
+          let endTime = $("#newEnd"+index).val()
+          if((endTime.endsWith("am") || (endTime.endsWith("pm"))) && !isNaN(+(endTime.substring(0,endTime.length - 2))) && +(endTime.substring(0,endTime.length - 2)) > 0 && +(endTime.substring(0,endTime.length - 2)) < 13){
+            if(endTime.endsWith("am")) 
+              endTime= +endTime.substring(0,endTime.length - 2);
+            else
+              endTime = +endTime.substring(0,endTime.length - 2) + 12;
+          }
+          if(startTime < endTime) {
+            if(startTime !== "am" && startTime !== "pm")
+              toEditData[index].business_hours.start = startTime
+            if(endTime !== "am" && endTime !== "pm")
+              toEditData[index].business_hours.end = endTime
+          }
+        }
+
       const makeItemCompany = (
         index,
         id,
@@ -302,17 +351,17 @@
             <div class="flex flex-row my-3">
               <span class="mr-1">` + (index + 1) +`.</span>
               <div id="bodyCard`+index+`" class="flex flex-col flex-1 bg-white/50 p-2 rounded">
-                <div class="flex flex-col mr-10">
+                <div class="flex flex-col mr-20">
+                  <div class="font-semibold">` + isTrue(online, "online") +`</div>
                   <div>
                     <span class="font-semibold">Company id: </span>
                     <button class="btn" onclick="copy(this)">` + id +`<i class="fa fa-copy"></i></button>
-                    <span class="font-semibold">` + isTrue(online, "online") +`</span>
                   </div>
                   <div>
                     <span class="font-semibold">Company name: </span><span class="tohidden` + index + `">` + name +`</span>
                     <input
                       type="text"
-                      name="newName"
+                      name="newName` + index + `"
                       id="newName` + index + `"
                       value="` + name + `"
                       placeholder="Type new name"
@@ -323,7 +372,7 @@
                     <span class="font-semibold">Email: </span>
                     <input
                       type="text"
-                      name="newEmail"
+                      name="newEmail` + index + `"
                       id="newEmail` + index + `"
                       value="` + email + `"
                       placeholder="Type new email"
@@ -332,10 +381,22 @@
                     <button class="btn tohidden` + index + `" onclick="copy(this)">` + email +`<i class="tohidden` + index +` fa fa-copy"></i></button>
                   </div>
                   <div>
+                    <span class="font-semibold">Password: </span>
+                    <input
+                      type="text"
+                      name="newPassword` + index + `"
+                      id="newPassword` + index + `"
+                      value="` + password + `"
+                      placeholder="Type new password"
+                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1"
+                    />
+                    <button class="btn tohidden` + index + `" onclick="copy(this)">` + password +`<i class="tohidden` + index +` fa fa-copy"></i></button>
+                  </div>
+                  <div>
                     <span class="font-semibold">Company owner: </span><span class="tohidden` + index + `">` + owner + `</span>
                     <input
                       type="text"
-                      name="newOwner"
+                      name="newOwner`+ index +`"
                       id="newOwner` + index + `"
                       value="` + owner + `"
                       placeholder="Type new owner"
@@ -398,7 +459,7 @@
                       <span class="font-semibold">Monday: </span>
                       <input
                         type="text"
-                        name="newMonday"
+                        name="newMonday` + index +`"
                         id="newMonday` + index +`"
                         value="` +cities.monday +`"
                         placeholder="Type new city for monday"
@@ -409,7 +470,7 @@
                       <span class="font-semibold">Tuesday: </span>
                       <input
                         type="text"
-                        name="newTuesday"
+                        name="newTuesday` + index +`"
                         id="newTuesday` + index + `"
                         value="` + cities.tuesday + `"
                         placeholder="Type new city for tuesday"
@@ -420,7 +481,7 @@
                       <span class="font-semibold">Wednesday: </span>
                       <input
                         type="text"
-                        name="newWednesday"
+                        name="newWednesday` + index +`"
                         id="newWednesday` + index + `"
                         value="` + cities.wednesday + `"
                         placeholder="Type new city for wednesday"
@@ -431,7 +492,7 @@
                       <span class="font-semibold">Thursday: </span>
                       <input
                         type="text"
-                        name="newThursday"
+                        name="newThursday` + index +`"
                         id="newThursday` + index + `"
                         value="` + cities.thursday + `"
                         placeholder="Type new city for thursday"
@@ -442,7 +503,7 @@
                       <span class="font-semibold">Friday: </span>
                       <input
                         type="text"
-                        name="newFriday"
+                        name="newFriday` + index +`"
                         id="newFriday` + index +`"
                         value="` + cities.friday + `"
                         placeholder="Type new city for friday"
@@ -455,7 +516,7 @@
                   </div>
                   <textarea
                     type="text"
-                    name="newDescription"
+                    name="newDescription` + index +`"
                     id="newDescription` + index + `"
                     placeholder="Type new description"
                     class="toshow` + index +` hidden change px-1 rounded shadow-sm ml-8 border-primary mb-1"
@@ -469,7 +530,7 @@
                     <span class="font-semibold">Start at: </span>
                     <input
                       type="text"
-                      name="newStart"
+                      name="newStart` + index +`"
                       id="newStart` + index + `"
                       value="` + formatBusiness(business_hours.start) + `"
                       placeholder="Type new start time"
@@ -480,7 +541,7 @@
                     <span class="font-semibold">End at: </span>
                     <input
                       type="text"
-                      name="newEnd"
+                      name="newEnd` + index +`"
                       id="newEnd` + index + `"
                       value="` + formatBusiness(business_hours.end) +`"
                       placeholder="Type new end time"
@@ -491,7 +552,7 @@
                     <span class="font-semibold">Cost per hour: </span><span class="tohidden` + index + `">` + cost_per_hour +`</span>
                     <input
                       type="text"
-                      name="newCost"
+                      name="newCost` + index +`"
                       id="newCost` + index + `"
                       value="` + cost_per_hour + `"
                       placeholder="Type new cost"
@@ -524,7 +585,7 @@
 
                 <button
                   class="toshow` + index + ` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
-                  onclick="{updateData();$('.tohidden` + index + `').removeClass('hidden'); $('.toshow` + index + `').addClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-row'); $('#bodyCard`+index+`').addClass('flex-col');}"
+                  onclick="{updateData(`+index+`);$('.tohidden` + index + `').removeClass('hidden'); $('.toshow` + index + `').addClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-row'); $('#bodyCard`+index+`').addClass('flex-col');}"
                 >
                   SAVE
                 </button>
@@ -573,7 +634,6 @@
             }
             );
           }
-          console.log("toUpLen: " +toUpdateLen)
           $("#companyList").html(tmp);
           $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
           totCompanies = 0;
@@ -613,6 +673,7 @@
         $("#filterProfession").val("");
         $("#filterName").val("");
         $("#filterCity").val("");
+        $("#filterOnline").val("");
         filterCompanyList();
       };
 
@@ -696,7 +757,6 @@
                       id="filterProfession"
                       name="filterProfession"
                       type="text"
-                      placeholder="ex. psychologist"
                       class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
                       oninput="filterCompanyList()"
                     >
@@ -813,7 +873,7 @@
                 </div>
               </div>
               <!-- ottavo e nono filtro-->
-              <div class="flex flex-col lg:flex-row mb-2">
+              <div class="flex flex-col lg:flex-row">
                 <div class="flex flex-col sm:flex-row lg:mr-4">
                   <span class="flex">
                     <label
@@ -852,6 +912,31 @@
                     />
                   </span>
                 </div>
+              </div>
+              <!-- decimo filtro-->
+              <div class="flex flex-col sm:flex-row mb-2">
+                <span class="flex">
+                  <label
+                    for="filterOnline"
+                    class="flex self-center primary font-semibold"
+                    >Available online:</label
+                  >
+                </span>
+                <span>
+                  <select
+                    id="filterOnline"
+                    name="filterOnline"
+                    type="text"
+                    class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+                    oninput="filterCompanyList()"
+                  >
+                    <option value="" class="text-[#939798]">
+                      --Choose an option--
+                    </option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </span>
               </div>
             </div>
             <div
