@@ -185,11 +185,7 @@
         else return "";
       };
       const formatBusiness = (hours) => {
-        let ret = "";
-        ret += hours.start > 12 ? hours.start %12 + "pm" : hours.start + "am"
-        ret += " - "
-        ret += hours.end > 12 ? hours.end %12 + "pm" : hours.end + "am"
-        return ret
+        return hours > 12 ? hours %12 + "pm" : hours + "am"
       }
       const bulletCities =(cities) => {
         return `<div class="ml-4 text-sm">
@@ -254,31 +250,48 @@
           `
                 </span>
                   </div>
-                  <div><span class="font-semibold">Company name: </span>` +
+                  <div><span class="font-semibold">Company name: </span><span class="tohidden`+index+`">` +
           name +
-          `
+          `</span>
+          <input
+                type="text"
+                name="newName"
+                id="newName`+index+`"
+                value="`+ name+`"
+                placeholder="Type new name"
+                class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+              />
                   </div>
                   <div><span class="font-semibold">Email: </span>
-                    <button class="btn" onclick="copy(this)">` +
+                    <input
+                      type="text"
+                      name="newDate"
+                      id="newEmail`+index+`"
+                      value="`+email+`"
+                      placeholder="Type new email"
+                      class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                    />
+                    <button class="btn tohidden`+index+`" onclick="copy(this)">` +
                       email +
-                      `         <i class="fa fa-copy"></i></button>
+                      `         <i class="tohidden`+index+` fa fa-copy"></i></button>
                       </div>
-                      <div><span class="font-semibold">Company owner: </span>` +
+                      <div><span class="font-semibold">Company owner: </span><span class="tohidden`+index+`">` +
                         owner +
-                        `         </div>
+                        `         </span>
+                        <input
+                          type="text"
+                          name="newDate"
+                          id="newOwner`+index+`"
+                          value="`+owner+`"
+                          placeholder="Type new owner"
+                          class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                        />
+                        </div>
                         <div><span class="font-semibold">Profession: </span>` +
                 title +
                 `
-                        </div>
-                  <button id="showMore` +
-          index +
-          `" onclick="{$('#card` +
-          index +
-          `').removeClass('hidden'); $('#showMore` +
-          index +
-          `').addClass('hidden');$('#showLess` +
-          index +
-          `').removeClass('hidden')}" class="flex gray text-xs m-1"><u>Show more</u></button>
+                </div>
+                <button id="showMore` +index +`" onclick="{$('#card` +index +`').removeClass('hidden'); $('#showMore` +index +`').addClass('hidden');$('#showLess` +index +`').removeClass('hidden')}" class="flex gray text-xs m-1"><u>Show more</u></button>
                   <div id="card` +
           index +
           `"class="hidden flex flex-col">
@@ -300,32 +313,74 @@
           <div>` +
           bulletCities(cities) +
           `       </div>
-          <div><span class="font-semibold">Description: </span>` +
+          <div><span class="font-semibold align-top">Description: </span><span class="tohidden`+index+`"">` +
           description +
+          `         </span>
+                  <textarea
+                      type="text"
+                      name="newDescription"
+                      id="newDescription`+index+`"
+                      placeholder="Type new description"
+                      class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                    >`+description+`</textarea>
+                    </div>
+          <div class="tohidden`+index+`"><span class="font-semibold">Schedules: </span>` +
+          formatBusiness(business_hours.start) +` - `+formatBusiness(business_hours.end)+
           `         </div>
-          <div><span class="font-semibold">Schedules: </span>` +
-          formatBusiness(business_hours) +
-          `         </div>
-          <div><span class="font-semibold">Cost per hour: </span>` +
+          <div class="toshow`+index+`">
+            <span class="font-semibold">Start at: </span>
+            <input
+                type="text"
+                name="newStart"
+                id="newStart`+index+`"
+                value="`+ formatBusiness(business_hours.start)+`"
+                placeholder="Type new start time"
+                class="change px-1 rounded shadow-sm"
+              />
+          </div>
+          <div class="toshow`+index+`">
+            <span class="font-semibold">End at: </span>
+            <input
+                type="text"
+                name="newEnd"
+                id="newEnd`+index+`"
+                value="`+ formatBusiness(business_hours.end)+`"
+                placeholder="Type new end time"
+                class="change px-1 rounded shadow-sm"
+              />
+          </div>
+          <div><span class="font-semibold">Cost per hour: </span><span class="tohidden`+index+`">` +
           cost_per_hour +
-          `€/h</div>
+          `</span>
+          <input
+                type="text"
+                name="newCost"
+                id="newCost`+index+`"
+                value="`+cost_per_hour+`"
+                placeholder="Type new cost"
+                class="toshow`+index+` change hidden px-1 rounded shadow-sm"
+              />
+          €/h</div>
                   </div>
-                  <button id="showLess` +
-          index +
-          `" onclick="{$('#card` +
-          index +
-          `').addClass('hidden'); $('#showMore` +
-          index +
-          `').removeClass('hidden');$('#showLess` +
-          index +
-          `').addClass('hidden')}" class="flex hidden gray text-xs m-1"><u>Show less</u></button>
+                  <button id="showLess` +index +`" onclick="{$('#card` +index +`').addClass('hidden'); $('#showMore` +index +`').removeClass('hidden');$('#showLess` +index +`').addClass('hidden')}" class="tohidden`+index+` flex hidden gray text-xs m-1"><u>Show less</u></button>
 
                 </div>
-                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
+                <div class="flex flex-col self-center">
+                  <button class="tohidden`+index+` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').addClass('hidden'); $('.toshow`+index+`').removeClass('hidden');$('#card` +index +`').removeClass('hidden'); $('#showMore` +index +`').addClass('hidden')}" class="flex gray text-xs m-1}">
+                Change data
+              </button>
+              <button class="toshow`+index+` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+                CANCEL
+              </button>
+              <button class="toshow`+index+` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+                SAVE
+              </button>
+                <button class="tohidden`+index+` btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
           id +
           `')">
                   ?delete?
                 </button>
+              </div>
               </div>
             </div>`
         );
