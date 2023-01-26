@@ -71,21 +71,21 @@
             let index = 0;
             pts.map((item) => {
               comparePrenotation =
-                reqPrenotation === "" ? 0 : reqPrenotation === item._id ? 0 : 1;
+                reqPrenotation === "" ? 0 : item._id.includes(reqPrenotation) ? 0 : 1;
               compareCompany =
-                reqCompany === "" ? 0 : reqCompany === item.company ? 0 : 1;
+                reqCompany === "" ? 0 : item.company.includes(reqCompany) ? 0 : 1;
               compareCustomer =
-                reqCustomer === "" ? 0 : reqCustomer === item.user ? 0 : 1;
+                reqCustomer === "" ? 0 : item.user.includes(reqCustomer) ? 0 : 1;
               compareSchedule =
                 reqSchedule === ""
                   ? 0
-                  : reqSchedule === filterStartEndTime(item.start)
+                  : filterStartEndTime(item.start,0).includes(reqSchedule)
                   ? 0
                   : 1;
               compareCity =
                 reqCity === ""
                   ? 0
-                  : reqCity.toLowerCase() === item.place.toLowerCase()
+                  : item.place.toLowerCase().includes(reqCity.toLowerCase())
                   ? 0
                   : 1;
               if (
