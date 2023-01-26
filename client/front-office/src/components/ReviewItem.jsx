@@ -24,6 +24,8 @@ const Review = ({ data, user }) => {
       });
       alert(ret.data.message);
       window.location.reload();
+    } else {
+      alert("log in first")
     }
   };
 

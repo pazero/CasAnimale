@@ -12,9 +12,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
-      const login = () => {
-        window.location.href = "home.html";
-      };
+      const login = async () => {
+        const mail = $("#emailTab").val();
+        const pass = $("#passwordTab").val();
+        var ret = await fetch("http://localhost:5000/api/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: mail, password: pass }),
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        if (ret.success)
+          window.location.href = "home.html";
+      }
     </script>
   </head>
 
@@ -47,8 +57,8 @@
                         <input
                           type="text"
                           class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                          id="usernameTab"
-                          placeholder="Username"
+                          id="emailTab"
+                          placeholder="Email"
                         />
                       </div>
                       <div class="mb-4">
@@ -79,18 +89,11 @@
                         >
                           Log in
                         </button>
-                        <a class="text-gray-500" href="#!">Forgot password?</a>
-                      </div>
-                      <div class="flex items-center justify-between pb-6">
-                        <p class="mb-0 mr-2">Don't have an account?</p>
-                        <button
-                          type="button"
-                          class="inline-block px-6 py-2 border-2 border-[#863d56] text-[#863d56] font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                          data-mdb-ripple="true"
-                          data-mdb-ripple-color="light"
+                        <a
+                          class="text-gray-500"
+                          href="http://localhost:3000/f/restore"
+                          >Forgot password?</a
                         >
-                          register
-                        </button>
                       </div>
                     </form>
                   </div>

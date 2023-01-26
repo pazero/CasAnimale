@@ -17,6 +17,7 @@ const authJwt = {
         return res.json({ message: "jwt is not valid", success: false });
       }
       req.userid = data.id;
+      req.admin = data.admin || false;
       next();
     });
   },

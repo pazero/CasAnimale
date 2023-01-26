@@ -23,7 +23,7 @@ const Thread = () => {
   const [post, setPost] = useState({});
   const [newComment, setNewComment] = useState("");
   const [op, setOp] = useState({});
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   const addComment = async () => {
     if (token) {
@@ -35,14 +35,20 @@ const Thread = () => {
       });
       alert(ret.data.message);
       window.location.reload();
+    } else {
+      alert("log in first");
     }
   };
 
   useEffect(() => {
     const fetchPost = async (id) => {
       // get current user
-      const { data: userData } = await UserManage.getUser();
-      setUser(userData);
+      try {
+        const { data: userData } = await UserManage.getUser();
+        setUser(userData);
+      } catch {
+        setUser(null);
+      }
 
       // get post info
       const { data: postData } = await PostManage.getPost(id);
@@ -54,15 +60,20 @@ const Thread = () => {
       // get comment and user info
       postData.comments = await Promise.all(
         postData.comments.map(async (item) => {
-          const { data: userCommentData } = await UserManage.getUser(item.user);
-          return {
-            user: userCommentData,
-            content: item.content,
-            date: item.date,
-          };
+          if (item?.user !== undefined) {
+            const { data: userCommentData } = await UserManage.getUser(
+              item.user
+            );
+            return {
+              user: userCommentData,
+              content: item.content,
+              date: item.date,
+            };
+          } else return null;
         })
       );
 
+      console.log(postData.comments);
       setPost(postData);
     };
     fetchPost(params.id);
@@ -184,44 +195,47 @@ const Thread = () => {
                 </div>
                 {/* comment section */}
                 <div className="mt-2">
-                  {post.comments?.map((item, i) => (
-                    <Box className="p-2 m-2" key={i}>
-                      <Box
-                        display="flex"
-                        flexDirection={{ base: "column", sm: "row" }}
-                      >
+                  {post?.comments?.map((item, i) => {
+                    if (item === null) return;
+                    return (
+                      <Box className="p-2 m-2" key={i}>
                         <Box
-                          display={"flex"}
-                          justifyContent={"center"}
-                          flexShrink="0"
+                          display="flex"
+                          flexDirection={{ base: "column", sm: "row" }}
                         >
-                          <Image
-                            borderRadius="full"
-                            boxSize="75px"
-                            src={item.user?.photo}
-                            alt="post-img"
-                          />
-                        </Box>
-                        <Text
-                          as="p"
-                          marginTop="3"
-                          marginLeft={{ base: "0", sm: "3" }}
-                          fontSize={{ base: "md", sm: "lg" }}
-                        >
-                          <div className="flex flex-col">
-                            <span className="text-md">{item.content}</span>
-                            <span className="text-xs">
-                              Posted by{" "}
-                              <span className="font-bold mr-1">
-                                {item.user?.name} {item.user?.surname}
+                          <Box
+                            display={"flex"}
+                            justifyContent={"center"}
+                            flexShrink="0"
+                          >
+                            <Image
+                              borderRadius="full"
+                              boxSize="75px"
+                              src={item?.user?.photo}
+                              alt="post-img"
+                            />
+                          </Box>
+                          <Text
+                            as="p"
+                            marginTop="3"
+                            marginLeft={{ base: "0", sm: "3" }}
+                            fontSize={{ base: "md", sm: "lg" }}
+                          >
+                            <div className="flex flex-col">
+                              <span className="text-md">{item?.content}</span>
+                              <span className="text-xs">
+                                Posted by{" "}
+                                <span className="font-bold mr-1">
+                                  {item?.user?.name} {item?.user?.surname}
+                                </span>
+                                on {item?.date?.replace("T", " ").slice(0, -5)}
                               </span>
-                              on {item.date?.replace("T", " ").slice(0, -5)}
-                            </span>
-                          </div>
-                        </Text>
+                            </div>
+                          </Text>
+                        </Box>
                       </Box>
-                    </Box>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </Box>

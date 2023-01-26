@@ -6,6 +6,7 @@ const companyRoute = require("./routes/Company");
 const prenotationRoute = require("./routes/Prenotation");
 const leaderboardRoute = require("./routes/Leaderboard");
 const emailRestoreRoute = require("./routes/EmailRestore");
+const adminRoute = require("./routes/Admin");
 
 module.exports = (app) => {
   // test api
@@ -14,11 +15,13 @@ module.exports = (app) => {
       message: "Questo è un server express",
     });
   });
-  app.use("/api/user", userRoute);                /* user routing middleware        */
-  app.use("/api/product", productRoute);          /* product routing middleware     */
-  app.use("/api/post", postRoute);                /* post routing middleware        */
-  app.use("/api/pets", petRoute);                 /* pet routing middleware         */
-  app.use("/api/company", companyRoute);          /* company routing middleware     */
-  app.use("/api/prenotation", prenotationRoute);  /* prenotation routing middleware */
-  app.use("/api/leaderboard", leaderboardRoute);  /* prenotation routing middleware */
+  app.use("/api/user", userRoute);                  /* user routing middleware        */
+  app.use("/api/product", productRoute);            /* product routing middleware     */
+  app.use("/api/post", postRoute);                  /* post routing middleware        */
+  app.use("/api/pets", petRoute);                   /* pet routing middleware         */
+  app.use("/api/company", companyRoute);            /* company routing middleware     */
+  app.use("/api/prenotation", prenotationRoute);    /* prenotation routing middleware */
+  app.use("/api/leaderboard", leaderboardRoute);    /* prenotation routing middleware */
+  app.use("/api/emailrestore", emailRestoreRoute);  /* prenotation routing middleware */
+  app.use("/api/admin", adminRoute);                /* admin routing middleware       */
 };

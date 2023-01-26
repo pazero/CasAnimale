@@ -1,14 +1,16 @@
 <head>
   <script>
     const logout = () => {
-      window.location.href = "login.html";
+      document.cookie =
+        "tokenback=;path=/;domain=localhost;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+      window.location.reload();
     };
     const home = () => {
       window.location.href = "home.html";
     };
     const profile = () => {
-      window.location.href = "profile.html"
-    }
+      window.location.href = "profile.html";
+    };
   </script>
 </head>
 <div class="bg-transparent dark:bg-slate-900 relative rounded-lg">

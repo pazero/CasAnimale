@@ -7,7 +7,7 @@ const petSchema = new Schema({
     photo: String,
     species: String,
     breed: String,     // razza (può essere NULL)
-    owner: String,    // id of user
+    owner: String,     // id of user
     birth: Date,
 });
 
