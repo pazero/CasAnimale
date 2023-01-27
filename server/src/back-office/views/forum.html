@@ -1,8 +1,420 @@
-manage forum
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="../css/style.css" />
+	<script type="text/javascript" src="../script/index.js"></script>
+	<title>CasAnimale - Back Office</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		$(document).ready(function () {
+			$("#sidebar").load("../tabs/sidebar.html");
+		});
+
+		let posts = [];
+		let totPosts = 0;
+		const getPosts = async () => {
+			var ret = await fetch("http://localhost:5000/api/post", {
+				method: "GET",
+				//body: {},
+				credentials: "include",
+			});
+			posts = await ret.json();
+			await loadList();
+		};
+		//TODO non funziona
+		const deletePost = async (id) => {
+			var ret = await fetch("http://localhost:5000/api/post/" + id, {
+				method: "DELETE",
+				body: {},
+				credentials: "include",
+			});
+			window.location.reload();
+		};
+
+
+			/* TODO filter by parola chiave !!!
+							visualizzare commenti !!! */
+	
+		const filterList = () => {
+			let reqId = $("#filterPostId").val();
+			let reqUsrId = $("#filterUserId").val();
+			let reqTitle = $("#filterPostTitle").val();
+			let reqType = $("#filterPostsType").val();
+			let reqDate = $("#filterDate").val();
+			let reqMinDate = $("#filterMinDate").val();
+			let reqMaxDate = $("#filterMaxDate").val();
+			let compareId = 0;
+			let compareUsrId = 0;
+			let compareTitle = 0;
+			let compareType = 0;
+			let compareDate = 0;
+			let compareMinDate = 0;
+			let compareMaxDate = 0;
+			let tmp = "";
+			$(document).ready(function () {
+				if (posts !== undefined) {
+					let index = 0;
+					posts.map((item) => {
+						compareId = reqId === "" ? 0 : item._id.toLowerCase().includes(reqId.toLowerCase()) ? 0 : 1;
+						compareUsrId = reqUsrId === "" ? 0 : item.userid.toLowerCase().includes(reqUsrId.toLowerCase()) ? 0 : 1;
+						compareTitle = reqTitle === "" ? 0 : item.title.toLowerCase().includes(reqTitle.toLowerCase()) ? 0 : 1;
+						compareDate = reqDate === "" ? 0 : reqDate === item.date.substring(0, 10) ? 0 : 1;
+						compareMinDate = reqMinDate === "" ? 0 : new Date(reqMinDate).getTime() <= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
+						compareMaxDate = reqMaxDate === "" ? 0 : new Date(reqMaxDate).getTime() >= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
+						
+						compareType = reqType === "" ? 0 : reqType === item.type ? 0 : 1;
+						if (
+							compareId + compareUsrId + compareTitle + compareType + compareDate + compareMinDate + compareMaxDate === 0
+						) {
+							tmp += makeItemPost(
+								index,
+								item._id,
+								item.userid,
+								item.title,
+								item.description,
+								item.date,
+								item.type,
+								item.comments,
+							);
+							index++;
+							totPosts = index;
+						}
+					});
+				}
+				tmp !== ""
+					? $("#postsList").html(tmp)
+					: $("#postsList").html("No post founded with these filters");
+				$("#totPosts").html("TOTAL RESULTS: " + totPosts);
+				totPosts = 0;
+			});
+		};
+
+		const makeItemPost = (index, id, user, title, description, date, type, comments) => {
+			return (
+				`
+			<div>
+				<div class="flex flex-row my-3">
+					<span class="mr-1">`
+					+ (index + 1) + `.
+					</span>
+					<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+						<div class="flex flex-col">
+							<div><span class="font-semibold">Post id: </span>
+								<button class="btn" onclick="copy(this)">`
+									+ id + `
+									<i class="fa fa-copy"></i>
+								</button>
+							</div>
+							<div><span class="font-semibold">Forum: </span>`
+								+ printType(type) + `
+							</div>
+							<div><span class="font-semibold">User id: </span>
+								<button class="btn" onclick="copy(this)">`
+									+ user + `
+									<i class="fa fa-copy"></i>
+								</button>
+							</div>
+							<div><span class="font-semibold">Publication date: </span>`
+								+ date.substring(0, 10) + `
+							</div>
+							<div><span class="font-semibold">Title: </span>`
+								+ title + `
+							</div>
+							<button id="showMore` + index + `"
+											onclick="{$('#card` + index + `').removeClass('hidden');
+																$('#comments` + index + `').removeClass('hidden');
+																$('#showMore` + index + `').addClass('hidden');
+																$('#showLess` + index + `').removeClass('hidden')}" 
+											class="flex gray text-xs m-1">
+								<u>Show more</u>
+							</button>
+								<div id="card` + index + `" class="hidden flex flex-col">
+									<div><span class="font-semibold">Text: </span>`
+										+ description + `
+									</div>
+								</div>
+							<button id="showLess` + index + `"
+											onclick="{$('#card` + index + `').addClass('hidden');
+																$('#comments` + index + `').addClass('hidden');
+																$('#showMore` + index + `').removeClass('hidden');
+																$('#showLess` + index + `').addClass('hidden')}"
+											class="flex hidden gray text-xs m-1">
+								<u>Show less</u>
+							</button>
+						</div>
+						<div class="flex flex-col self-center">
+							<button class="tohidden`+ index + ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+											onclick="deletePost('` + id + `')">
+								Delete
+							</button>
+						</div>
+					</div>
+				</div>
+				<div id="comments` + index + `" class="hidden flex flex-col mb-3"> `
+						+ printComments(comments, index) + `
+				</div>
+			</div >`
+			)
+		};
+		
+		const makeItemComment = (index, postIndex, id, user, date, content) => {
+			return (
+			`
+			<div class="flex flex-row my-3 ml-6">
+				<span class="mr-1">`
+				+ (postIndex + 1) + `.` + (index + 1) + `.
+				</span>
+				<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+					<div class="flex flex-col">
+						<div><span class="font-semibold">Comment id: </span>
+							<button class="btn" onclick="copy(this)">`
+									+ id + `
+								<i class="fa fa-copy"></i>
+							</button>
+						</div>
+						<div><span class="font-semibold">Comment's user id: </span>
+							<button class="btn" onclick="copy(this)">`
+									+ user + `
+								<i class="fa fa-copy"></i>
+							</button>
+						</div>
+						<div>
+							<span class="font-semibold">Comment date: </span>`
+								+ date.substring(0, 10) + `
+						</div>	
+						<div>
+							<span class="font-semibold">Comment content: </span>`
+								+ comment + `
+						</div>				
+					</div>
+				</div>
+			</div >`
+			)
+		};
+		
+
+		const loadList = () => {
+			let tmp = "";
+			$(document).ready(function () {
+				if (posts !== undefined) {
+					posts.map((item, index) => {
+						tmp += makeItemPost(
+							index,
+							item._id,
+							item.userid,
+							item.title,
+							item.description,
+							item.date,
+							item.type,
+							item.comments
+						);
+						totPosts = index + 1;
+					});
+				}
+				$("#postsList").html(tmp);
+				$("#totPosts").html("TOTAL RESULTS: " + totPosts);
+				totPosts = 0;
+			});
+		};
+
+		const printComments = (comments, postIndex) => {
+			let cmt = ""
+			if (comments !== undefined) {
+				comments.map((comment, i) => {
+					cmt += makeItemComment(
+						i,
+						postIndex,
+						comment._id,
+						comment.user,
+						comment.date,
+						comment.content
+					);
+				});
+			}
+			let id = "#comments" + postIndex.toString();
+			$(id).html(cmt);
+		};
+
+		const copy = (that) => {
+			var inp = document.createElement("input");
+			document.body.appendChild(inp);
+			inp.value = that.textContent.trim();
+			inp.select();
+			document.execCommand("copy", false);
+			inp.remove();
+		};
+
+		const printType = (type) => {
+			if(type === "eccoloqua")
+				return "<span class='text-red-300'> EccoloQua! </span>";
+			else
+				if(type === "helpme")
+					return "<span class='text-indigo-300'> HelpMe! </span>";
+				else
+					return "<span class='text-green-400'> FindPartner </span>";
+		};
+
+		const showFilters = () => {
+			$("#postsFilters").removeClass("hidden");
+			$("#showBtn").addClass("hidden");
+			$("#hideBtn").removeClass("hidden");
+			$("#resetBtn").removeClass("hidden");
+		};
+
+		const hideFilters = () => {
+			$("#postsFilters").addClass("hidden");
+			$("#showBtn").removeClass("hidden");
+			$("#hideBtn").addClass("hidden");
+			$("#resetBtn").addClass("hidden");
+		};
+
+		const resetFilters = () => {
+			$("#filterPostId").val("");
+			$("#filterUserId").val("");
+			$("#filterPostTitle").val("");
+			$("#filterPostsType").val("");
+			$("#filterDate").val("");
+			$("#filterMinDate").val("");
+			$("#filterMaxDate").val("");
+			filterList();
+		};
+
+		getPosts();
+	</script>
+</head>
+
+<body>
+	<div class="flex flex-col md:flex-row flex-1 h-full">
+		<div class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center" id="sidebar"></div>
+		<div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
+			<div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+				POSTS
+			</div>
+			<div class="gray m-2 mb-1 self-center">
+				Click on 
+				<i class="fa fa-copy"></i>
+				 to copy the info!
+			</div>
+			<div class="flex flex-row mt-2">
+				<button id="showBtn" class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+					onclick="showFilters()">
+					Show filters
+				</button>
+				<button id="hideBtn" class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+					onclick="hideFilters()">
+					Hide filters
+				</button>
+				<button id="resetBtn" class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+					onclick="resetFilters()">
+					Reset filters
+				</button>
+			</div>
+			<div id="list" class="flex flex-1 m-4 mt-2">
+				<div class="flex flex-col flex-1">
+					<div id="postsFilters" class="flex flex-col">
+						<!-- primo filtro-->
+						<div class="flex flex-col sm:flex-row">
+							<span class="flex">
+								<label for="filterPostId" class="flex self-center primary font-semibold">Filter by post id:</label>
+							</span>
+							<span>
+								<input id="filterPostId" name="filterPostId" type="text"
+									placeholder="ex. 63cecdc93b2ad296f8ed3989" class="px-1 m-1 rounded w-[15rem]"
+									oninput="filterList()" />
+							</span>
+						</div>
+						<!-- secondo e terzo filtro-->
+						<div class="flex flex-col lg:flex-row">
+							<div class="flex flex-col sm:flex-row lg:mr-4">
+								<span class="flex">
+									<label for="filterUserId" class="flex self-center primary font-semibold">Filter by user id:</label>
+								</span>
+								<span>
+									<input id="filterUserId" name="filterUserId" type="text"
+										placeholder="ex. 63cecdc93b2ad296f8ed3989" class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
+								</span>
+							</div>
+							<div class="flex flex-col sm:flex-row lg:mr-4">
+								<span class="flex">
+									<label for="filterPostsType" class="flex self-center primary font-semibold">Filter by forum type:</label>
+								</span>
+								<span class="flex justify-start">
+									<select id="filterPostsType" name="filterPostsType" type="text" placeholder="ex. eccoloqua"
+										class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]" oninput="filterList()">
+										<option value="" class="text-[#939798]">
+											--Chose an option--
+										</option>
+										<option value="eccoloqua">EccoloQua!</option>
+										<option value="findpartner">FindPartner</option>
+										<option value="helpme">HelpMe!</option>
+									</select>
+								</span>
+							</div>
+						</div>
+						<!-- quarto e quinto filtro-->
+						<div class="flex flex-col lg:flex-row">
+							<div class="flex flex-col sm:flex-row lg:mr-4">
+								<span class="flex">
+									<label for="filterPostTitle" class="flex self-center primary font-semibold">Filter by title:</label>
+								</span>
+								<span>
+									<input id="filterPostTitle" name="filterPostTitle" type="text" placeholder="ex. Post numero 1"
+										class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
+								</span>
+							</div>
+
+							<div class="flex flex-col sm:flex-row lg:mr-4">
+								<span class="flex">
+									<label for="filterDate" class="flex self-center primary font-semibold">Filter by publication date:</label>
+								</span>
+								<span>
+									<input id="filterDate" name="filterDate" type="text" placeholder="ex. yyyy-mm-dd"
+										class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
+								</span>
+							</div>
+						</div>
+						<!-- sesto e settimo filtro-->
+						<div class="flex flex-col lg:flex-row">
+							<div class="flex flex-col sm:flex-row lg:mr-4">
+								<span class="flex">
+									<label for="filterMinDate" class="flex self-center primary font-semibold">Filter by min publication date:</label>
+								</span>
+								<span>
+									<input id="filterMinDate" name="filterMinDate" type="text" placeholder="ex. yyyy-mm-dd"
+										class="px-1 m-1 rounded w-[12rem]" oninput="filterList()" />
+								</span>
+							</div>
+						
+							<div class="flex flex-col sm:flex-row lg:mr-4">
+								<span class="flex">
+									<label for="filterMaxDate" class="flex self-center primary font-semibold">Filter by max publication date:</label>
+								</span>
+								<span>
+									<input id="filterMaxDate" name="filterMaxDate" type="text" placeholder="ex. yyyy-mm-dd"
+										class="px-1 m-1 rounded w-[12rem]" oninput="filterList()" />
+								</span>
+							</div>
+						</div>
+					</div>
+					<div id="totPosts" class="flex flex-col flex primary font-semibold my-4"></div>
+					<div id="postsList" class="flex flex-col flex-1 mb-4"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
 
 <!--
-    si vede lista post
-    gli amministratori possono eliminare commenti e post
+		si vede lista post
+		gli amministratori possono eliminare commenti e post
 
-    compagnie non vedono nulla (?)
+		compagnie non vedono nulla (?)
 -->
