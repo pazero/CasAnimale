@@ -24,6 +24,18 @@
       let toUpdateLen = [];
       let companies = [];
       let totCompanies = 0;
+
+      const setUser = async () => {
+        user = await isUserLogged()
+        console.log(user)
+        if(user === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html"
+      }
+
+      const getToken = async () => {
+        return await isUserLogged()
+      }
+
       const getCompanies = async () => {
         var ret = await fetch("http://localhost:5000/api/company", {
           method: "GET",
@@ -34,6 +46,31 @@
         toEditData = companies;
         await loadCompanyList();
       };
+      const sendData = async (index) => {
+        var ret = await fetch("http://localhost:5000/api/company/update/" + toEditData[index]._id, {
+          method: "POST",
+          body: {
+            name: toEditData[index].name,
+            email: toEditData[index].email,
+            password: toEditData[index].password,
+            type: toEditData[index].type,
+            description: toEditData[index].description,
+            cost_per_hour: toEditData[index].cost_per_hour,
+            owner: toEditData[index].owner,
+            cities: toEditData[index].cities,
+            business_hours: toEditData[index].business_hours,
+            main_pets: toEditData[index].main_pets,
+            study_info: toEditData[index].study_info,
+            professional_experience: toEditData[index].professional_experience,
+            actual_jobs: toEditData[index].actual_jobs,
+            photo: toEditData[index].photo,
+            online: toEditData[index].online,
+          },
+          credentials: "include",
+        });
+        //alert(ret.json.message)
+        window.location.reload();
+      } 
       //non funziona
       const deleteCp = async (id) => {
         var ret = await fetch("http://localhost:5000/api/company/" + id, {
@@ -312,6 +349,7 @@
           toEditData[index].online = $("#newOnline" + index).val() === 'true' ? true : false
 
           //chiamare API post con toEditData[index] per aggiornare dati
+          sendData(index)
         }
 
       const setNewOnline = (index, online) => {        
@@ -702,7 +740,7 @@
       getCompanies();
     </script>
   </head>
-  <body>
+  <body onload="setUser()">
     <div class="flex flex-col md:flex-row flex-1 h-full">
       <div
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
