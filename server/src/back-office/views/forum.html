@@ -162,8 +162,8 @@
 			</div >`
 			)
 		};
-
-		const makeItemComment = (index, postIndex, comment) => {
+		
+		const makeItemComment = (index, postIndex, id, user, date, content) => {
 			return (
 			`
 			<div class="flex flex-row my-3 ml-6">
@@ -172,8 +172,24 @@
 				</span>
 				<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
 					<div class="flex flex-col">
+						<div><span class="font-semibold">Comment id: </span>
+							<button class="btn" onclick="copy(this)">`
+									+ id + `
+								<i class="fa fa-copy"></i>
+							</button>
+						</div>
+						<div><span class="font-semibold">Comment's user id: </span>
+							<button class="btn" onclick="copy(this)">`
+									+ user + `
+								<i class="fa fa-copy"></i>
+							</button>
+						</div>
 						<div>
-							<span class="font-semibold">Comment: </span>`
+							<span class="font-semibold">Comment date: </span>`
+								+ date.substring(0, 10) + `
+						</div>	
+						<div>
+							<span class="font-semibold">Comment content: </span>`
 								+ comment + `
 						</div>				
 					</div>
@@ -209,19 +225,20 @@
 
 		const printComments = (comments, postIndex) => {
 			let cmt = ""
-			$(document).ready(function () {
-				if (comments !== undefined && comments.length > 0) {
-					for(let i = 0; i < comments.length; i++) {
-						cmt += makeItemComment(
-							i,
-							postIndex,
-							comments[i]
-						);
-					};
-				}
-				let id = "#comments" + postIndex.toString();
-				$(id).html(cmt);
-			});
+			if (comments !== undefined) {
+				comments.map((comment, i) => {
+					cmt += makeItemComment(
+						i,
+						postIndex,
+						comment._id,
+						comment.user,
+						comment.date,
+						comment.content
+					);
+				});
+			}
+			let id = "#comments" + postIndex.toString();
+			$(id).html(cmt);
 		};
 
 		const copy = (that) => {
