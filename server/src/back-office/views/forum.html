@@ -157,7 +157,7 @@
 					</div>
 				</div>
 				<div id="comments` + index + `" class="hidden flex flex-col mb-3"> `
-						+ printComments(comments, index) + `
+					+ printComments(comments, index) + `
 				</div>
 			</div >`
 			)
@@ -185,12 +185,12 @@
 							</button>
 						</div>
 						<div>
-							<span class="font-semibold">Comment date: </span>`
+							<span class="font-semibold">Publication date: </span>`
 								+ date.substring(0, 10) + `
 						</div>	
 						<div>
-							<span class="font-semibold">Comment content: </span>`
-								+ comment + `
+							<span class="font-semibold">Content: </span>`
+								+ content + `
 						</div>				
 					</div>
 				</div>
@@ -225,20 +225,23 @@
 
 		const printComments = (comments, postIndex) => {
 			let cmt = ""
-			if (comments !== undefined) {
-				comments.map((comment, i) => {
-					cmt += makeItemComment(
-						i,
-						postIndex,
-						comment._id,
-						comment.user,
-						comment.date,
-						comment.content
-					);
-				});
-			}
-			let id = "#comments" + postIndex.toString();
-			$(id).html(cmt);
+			$(document).ready(function () {
+				console.log("comments " + postIndex + ": " + comments.length)
+				if (comments !== undefined && comments.length > 0) {
+					comments.map((comment, i) => {
+						cmt += makeItemComment(
+							i,
+							postIndex,
+							comment._id,
+							comment.user,
+							comment.date,
+							comment.content
+						);
+					});
+				}
+				let id = "#comments" + postIndex.toString();
+				$(id).html(cmt);
+			});
 		};
 
 		const copy = (that) => {
