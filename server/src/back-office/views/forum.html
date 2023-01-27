@@ -24,7 +24,7 @@
 				//body: {},
 				credentials: "include",
 			});
-			cstmrs = await ret.json();
+			posts = await ret.json();
 			await loadList();
 		};
 		//TODO non funziona
@@ -60,13 +60,13 @@
 			$(document).ready(function () {
 				if (posts !== undefined) {
 					let index = 0;
-					cstmrs.map((item) => {
+					posts.map((item) => {
 						compareId = reqId === "" ? 0 : item._id.toLowerCase().includes(reqId.toLowerCase()) ? 0 : 1;
 						compareUsrId = reqUsrId === "" ? 0 : item.userid.toLowerCase().includes(reqUsrId.toLowerCase()) ? 0 : 1;
 						compareTitle = reqTitle === "" ? 0 : item.title.toLowerCase().includes(reqTitle.toLowerCase()) ? 0 : 1;
 						compareDate = reqDate === "" ? 0 : reqDate === item.date.substring(0, 10) ? 0 : 1;
-						compareMinDate = reqMinDate === "" ? 0 : new Date(reqMinDate).getTime() <= new Date(item.date).getTime() ? 0 : 1;
-						compareMaxDate = reqMaxDate === "" ? 0 : new Date(reqMaxDate).getTime() >= new Date(item.date).getTime() ? 0 : 1;
+						compareMinDate = reqMinDate === "" ? 0 : new Date(reqMinDate).getTime() <= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
+						compareMaxDate = reqMaxDate === "" ? 0 : new Date(reqMaxDate).getTime() >= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
 						
 						compareType = reqType === "" ? 0 : reqType === item.type ? 0 : 1;
 						if (
@@ -98,71 +98,97 @@
 		const makeItemPost = (index, id, user, title, description, date, type, comments) => {
 			return (
 				`
-			<div class="flex flex-row my-3">
+			<div>
+				<div class="flex flex-row my-3">
+					<span class="mr-1">`
+					+ (index + 1) + `.
+					</span>
+					<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+						<div class="flex flex-col">
+							<div><span class="font-semibold">Post id: </span>
+								<button class="btn" onclick="copy(this)">`
+									+ id + `
+									<i class="fa fa-copy"></i>
+								</button>
+							</div>
+							<div><span class="font-semibold">Forum: </span>`
+								+ printType(type) + `
+							</div>
+							<div><span class="font-semibold">User id: </span>
+								<button class="btn" onclick="copy(this)">`
+									+ user + `
+									<i class="fa fa-copy"></i>
+								</button>
+							</div>
+							<div><span class="font-semibold">Publication date: </span>`
+								+ date.substring(0, 10) + `
+							</div>
+							<div><span class="font-semibold">Title: </span>`
+								+ title + `
+							</div>
+							<button id="showMore` + index + `"
+											onclick="{$('#card` + index + `').removeClass('hidden');
+																$('#comments` + index + `').removeClass('hidden');
+																$('#showMore` + index + `').addClass('hidden');
+																$('#showLess` + index + `').removeClass('hidden')}" 
+											class="flex gray text-xs m-1">
+								<u>Show more</u>
+							</button>
+								<div id="card` + index + `" class="hidden flex flex-col">
+									<div><span class="font-semibold">Text: </span>`
+										+ description + `
+									</div>
+								</div>
+							<button id="showLess` + index + `"
+											onclick="{$('#card` + index + `').addClass('hidden');
+																$('#comments` + index + `').addClass('hidden');
+																$('#showMore` + index + `').removeClass('hidden');
+																$('#showLess` + index + `').addClass('hidden')}"
+											class="flex hidden gray text-xs m-1">
+								<u>Show less</u>
+							</button>
+						</div>
+						<div class="flex flex-col self-center">
+							<button class="tohidden`+ index + ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+											onclick="deletePost('` + id + `')">
+								Delete
+							</button>
+						</div>
+					</div>
+				</div>
+				<div id="comments` + index + `" class="hidden flex flex-col mb-3"> `
+						+ printComments(comments, index) + `
+				</div>
+			</div >`
+			)
+		};
+
+		const makeItemComment = (index, postIndex, comment) => {
+			return (
+			`
+			<div class="flex flex-row my-3 ml-6">
 				<span class="mr-1">`
-				+ (index + 1) + `.
+				+ (postIndex + 1) + `.` + (index + 1) + `.
 				</span>
 				<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
 					<div class="flex flex-col">
-						<div><span class="font-semibold">Post id: </span>
-							<button class="btn" onclick="copy(this)">`
-								+ id + `
-								<i class="fa fa-copy"></i>
-							</button>
-						</div>
-						<div><span class="font-semibold">Forum: </span>`
-							+ type + `
-						</div>
-						<div><span class="font-semibold">User id: </span>
-							<button class="btn" onclick="copy(this)">`
-								+ user + `
-								<i class="fa fa-copy"></i>
-							</button>
-						</div>
-						<div><span class="font-semibold">Publication date: </span>`
-							+ date.substring(0, 10) + `
-						</div>
-						<div><span class="font-semibold">Title: </span>`
-							+ title + `
-						</div>
-						<button id="showMore` + index + `"
-										onclick="{$('#card` + index + `').removeClass('hidden');
-															$('#showMore` + index + `').addClass('hidden');
-															$('#showLess` + index + `').removeClass('hidden')}" 
-										class="flex gray text-xs m-1">
-							<u>Show more</u>
-						</button>
-							<div id="card` + index + `" class="hidden flex flex-col">
-								<div><span class="font-semibold">Text: </span>`
-									+ description + `
-								</div>
-								
-							</div>
-						<button id="showLess` + index + `"
-										onclick="{$('#card` + index + `').addClass('hidden');
-															$('#showMore` + index + `').removeClass('hidden');
-															$('#showLess` + index + `').addClass('hidden')}"
-										class="flex hidden gray text-xs m-1">
-							<u>Show less</u>
-						</button>
-					</div>
-					<div class="flex flex-col self-center">
-						<button class="tohidden`+ index + ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-										onclick="deletePost('` + id + `')">
-							Delete
-						</button>
+						<div>
+							<span class="font-semibold">Comment: </span>`
+								+ comment + `
+						</div>				
 					</div>
 				</div>
-			</div>`
+			</div >`
 			)
 		};
+		
 
 		const loadList = () => {
 			let tmp = "";
 			$(document).ready(function () {
 				if (posts !== undefined) {
 					posts.map((item, index) => {
-						tmp += makeItemCustomer(
+						tmp += makeItemPost(
 							index,
 							item._id,
 							item.userid,
@@ -181,6 +207,23 @@
 			});
 		};
 
+		const printComments = (comments, postIndex) => {
+			let cmt = ""
+			$(document).ready(function () {
+				if (comments !== undefined && comments.length > 0) {
+					for(let i = 0; i < comments.length; i++) {
+						cmt += makeItemComment(
+							i,
+							postIndex,
+							comments[i]
+						);
+					};
+				}
+				let id = "#comments" + postIndex.toString();
+				$(id).html(cmt);
+			});
+		};
+
 		const copy = (that) => {
 			var inp = document.createElement("input");
 			document.body.appendChild(inp);
@@ -188,6 +231,16 @@
 			inp.select();
 			document.execCommand("copy", false);
 			inp.remove();
+		};
+
+		const printType = (type) => {
+			if(type === "eccoloqua")
+				return "<span class='text-red-300'> EccoloQua! </span>";
+			else
+				if(type === "helpme")
+					return "<span class='text-indigo-300'> HelpMe! </span>";
+				else
+					return "<span class='text-green-400'> FindPartner </span>";
 		};
 
 		const showFilters = () => {
