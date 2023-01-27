@@ -136,7 +136,7 @@ const PetsList = () => {
             ))}
           </Text>
         ) : (
-          <Text>No animals founded, add one!</Text>
+          <Text>No animals found, add one!</Text>
         )}
       </Container>
     </Container>

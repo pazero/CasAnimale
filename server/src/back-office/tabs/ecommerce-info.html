@@ -1,0 +1,224 @@
+<head>
+  <script>
+    let products = [];
+    let filteredProducts = [];
+    let totProducts = 0;
+
+    const getProducts = async () => {
+      var ret = await fetch("http://localhost:5000/api/product", {
+        method: "GET",
+        credentials: "include",
+      });
+      products = await ret.json();
+      loadProductList();
+    };
+
+    const deletePr = async (id) => {
+      var ret = await fetch("http://localhost:5000/api/product/" + id, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      ret = await ret.json();
+      alert(ret.message);
+      window.location.reload();
+    };
+
+    const productList = () => {
+      let reqProd = $("#filterProductId").val();
+      let reqProdName = $("#filterProductName").val();
+      let reqPrice = $("#filterPrice").val();
+      let reqSeller = $("#filterSeller").val();
+      let htmlProd = "";
+
+      $(document).ready(() => {
+        if (products) {
+          if ((reqProd || reqProdName || reqPrice || reqSeller) === "")
+            filteredProducts = products;
+          else {
+            filteredProducts = products.filter(
+              (i) =>
+                (reqProd && i._id === reqProd) ||
+                (reqProdName && i.name.includes(reqProdName)) ||
+                (reqPrice && parseFloat(i.price) >= parseFloat(reqPrice)) ||
+                (reqSeller && i.seller === reqSeller)
+            );
+          }
+
+          if (filteredProducts.length > 0) {
+            filteredProducts.forEach(
+              (item, i) => (htmlProd += makeItem(i, item))
+            );
+            $("#productList").html(htmlProd);
+          } else $("#productList").html("No products found with these filters");
+
+          totProducts = filteredProducts.length;
+        }
+
+        $("#totProducts").html("TOTAL RESULTS: " + totProducts);
+        totProducts = 0;
+      });
+    };
+
+    const makeItem = (index, item) => {
+      return (
+        `
+            <div class="flex flex-row my-3">
+              <span class="mr-1">` +
+        (index + 1) +
+        `.
+                </span>
+              <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+                <div class="flex flex-col">
+                  <div><span class="font-semibold">Product id: </span>
+                      <button class="btn" onclick="copy(this)">` +
+        item._id +
+        `         <i class="fa fa-copy"></i></button>
+                  </div>
+                  <div><span class="font-semibold">Product name: </span>` +
+        item.name +
+        `
+                  </div>
+                  <div><span class="font-semibold">Product seller: </span>` +
+        item.seller +
+        `
+                  </div>
+                  <div><span class="font-semibold">Price: </span>` +
+        item.price +
+        `
+                  </div>
+                  <div><span class="font-semibold">Quantity: </span>` +
+        item.quantity +
+        `
+                  </div>
+                </div>
+                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePr('` +
+        item._id +
+        `')">
+                  Delete
+                </button>
+              </div>
+            </div>`
+      );
+    };
+
+    const loadProductList = () => {
+      let tmp = "";
+      $(document).ready(function () {
+        if (products !== undefined) {
+          products.map((item, index) => {
+            tmp += makeItem(index, item);
+            totProducts = index + 1;
+          });
+        }
+        $("#productList").html(tmp);
+        $("#totProducts").html("TOTAL RESULTS: " + totProducts);
+        totProducts = 0;
+      });
+    };
+
+    const copy = (that) => {
+      var inp = document.createElement("input");
+      document.body.appendChild(inp);
+      inp.value = that.textContent.trim();
+      inp.select();
+      document.execCommand("copy", false);
+      inp.remove();
+    };
+
+    getProducts();
+  </script>
+</head>
+<body>
+  <div class="flex flex-col flex-1">
+    <div id="productsFilters" class="flex flex-col">
+      <!-- primo filtro-->
+      <div class="flex flex-col sm:flex-row">
+        <span class="flex">
+          <label
+            for="filterProductId"
+            class="flex self-center primary font-semibold"
+            >Filter by product id:</label
+          >
+        </span>
+        <span>
+          <input
+            id="filterProductId"
+            name="filterProductId"
+            type="text"
+            placeholder="ex. 63c282e29db4069ff8c23a76"
+            class="px-1 m-1 rounded w-[15rem]"
+            oninput="productList()"
+          />
+        </span>
+      </div>
+      <!-- secondo e terzo filtro-->
+      <div class="flex flex-col sm:flex-row">
+        <span class="flex">
+          <label
+            for="filterProductName"
+            class="flex self-center primary font-semibold"
+            >Filter by product name:</label
+          >
+        </span>
+        <span>
+          <input
+            id="filterProductName"
+            name="filterProductName"
+            type="text"
+            placeholder="ex. food"
+            class="px-1 m-1 rounded w-[15rem]"
+            oninput="productList()"
+          />
+        </span>
+      </div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterSeller"
+              class="flex self-center primary font-semibold"
+              >Filter by seller:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterSeller"
+              name="filterSeller"
+              type="text"
+              placeholder="ex. Dott.ssa Giorgia Rossi"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="productList()"
+            />
+          </span>
+        </div>
+      </div>
+      <!-- quarto filtro-->
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterPrice"
+              class="flex self-center primary font-semibold"
+              >Filter by minimum price:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterPrice"
+              name="filterPrice"
+              type="number"
+              placeholder="ex. 37"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="productList()"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      id="totProducts"
+      class="flex flex-col flex primary font-semibold mt-4 my-2"
+    ></div>
+    <div id="productList" class="flex flex-col flex-1"></div>
+  </div>
+</body>

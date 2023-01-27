@@ -36,15 +36,16 @@ app.use("/b", express.static(__dirname + "/back-office"));
 //     await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
 //   )
 // );
-// app.use("/", async (_, res) =>
-//   res.end(await fs.readFile(path.join(__dirname, "./index.html")))
-// );
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);
 
 /* Api routes */
 require("./api")(app);
+
+// app.use("/", async (_, res) =>
+//   res.end(await fs.readFile(path.join(__dirname, "./index.html")))
+// );
 
 /* Starting point */
 app.listen(process.env.PORT, console.log("Serving on port", process.env.PORT));

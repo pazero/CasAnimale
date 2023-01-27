@@ -200,7 +200,7 @@ const PrenotationsList = () => {
             })}
           </Text>
         ) : (
-          <Text>No appointment founded, book one!</Text>
+          <Text>No appointment found, book one!</Text>
         )}
       </Container>
     </Container>

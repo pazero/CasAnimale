@@ -1,15 +1,20 @@
 <head>
   <script>
+    $(document).ready(() => {
+      const authHeader = document.cookie;
+      const tokenback = authHeader && authHeader.split("=");
+      if (tokenback) {
+        if (tokenback[0] === "tokenback" && tokenback[1] === "") logout();
+      } else logout();
+    });
+
     const logout = () => {
       document.cookie =
         "tokenback=;path=/;domain=localhost;expires=Thu, 01 Jan 1970 00:00:01 GMT";
-      window.location.reload();
+      window.location.href = "http://localhost:5000/b/views/login.html";
     };
     const home = () => {
       window.location.href = "home.html";
-    };
-    const profile = () => {
-      window.location.href = "profile.html";
     };
   </script>
 </head>

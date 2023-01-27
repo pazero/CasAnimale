@@ -159,6 +159,7 @@ router.put("/new", async (req, res) => {
         company: req.body.company,
         place: req.body.place,
         start: req.body.start,
+        claimed: false,
         duration: req.body.duration,
         user: req.userid,
       });

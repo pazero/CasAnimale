@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/User");
 const Product = require("../models/Product");
+const Receipt = require("../models/Receipt");
 const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
@@ -112,7 +113,7 @@ router.post("/cart/buy", async (req, res) => {
       const userCart = user.cart;
       for (const [n, item] of Object.entries(userCart)) {
         const product = await Product.findById(item.id);
-        if(product.quantity != 0){
+        if (product.quantity != 0) {
           const remain = product.quantity - item.quantity;
           await Product.findOneAndUpdate(
             { _id: item.id },
@@ -122,11 +123,22 @@ router.post("/cart/buy", async (req, res) => {
           );
           userCart.splice(n, 1);
         }
+
+        // create receipt
+        const r = new Receipt({
+          timestamp: new Date(),
+          type: "ecommerce",
+          description: product.name + " receipt",
+          amount: product.price * item.quantity,
+          receiver: product.seller,
+          giver: req.userid,
+        });
+        await r.save();
       }
       await User.findOneAndUpdate(
         { _id: req.userid },
         {
-          cart: userCart,
+          cart: [],
         }
       );
       res.json({ message: "You just boght everything" });

@@ -12,6 +12,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
+      $(document).ready(() => {
+        const authHeader = document.cookie;
+        const tokenback = authHeader && authHeader.split("=");
+        if (tokenback[0] === "token") {
+          alert("Log out from frotoffice first");
+          window.location.href = "http://localhost:3000/f";
+          return;
+        }
+        if (tokenback) {
+          if (tokenback[0] === "tokenback" && tokenback[1] !== "")
+            window.location.href = "home.html";
+          else {
+            document.cookie =
+              "tokenback=;path=/;domain=localhost;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            window.location.reload();
+          }
+        }
+      });
+
       const login = async () => {
         const mail = $("#emailTab").val();
         const pass = $("#passwordTab").val();
@@ -22,9 +41,8 @@
         });
         ret = await ret.json();
         alert(ret.message);
-        if (ret.success)
-          window.location.href = "home.html";
-      }
+        if (ret.success) window.location.href = "home.html";
+      };
     </script>
   </head>
 
@@ -112,13 +130,15 @@
                 >
                   <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                     <h4 class="text-xl font-semibold mb-6">
-                      We are more than just a company
+                      We are more than just an animal business!
                     </h4>
                     <p class="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      If you aren't a company or an admin, please go back to the
+                      <a
+                        class="underline text-cyan-300"
+                        href="http://localhost:3000/f"
+                        >front office</a
+                      >.
                     </p>
                   </div>
                 </div>

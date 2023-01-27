@@ -1,5 +1,7 @@
 const express = require("express");
 const Company = require("../models/Company");
+const Prenotation = require("../models/Prenotation");
+const Receipt = require("../models/Receipt");
 const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
@@ -148,6 +150,50 @@ router.post("/update/:id", async (req, res) => {
       }
     );
     res.json({ message: "Update done!" });
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+/* Claim money from prenotation */
+router.post("/claimMoney", async (req, res) => {
+  try {
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      console.log(req.userid);
+      var thisComp = await Company.find({ _id: req.userid });
+      thisComp = thisComp[0];
+
+      // get prenotations
+      const pl = await Prenotation.find({
+        company: req.userid,
+        claimed: false,
+        start: { $lt: new Date() },
+      });
+      // for each past prenotation not claimed, create a receipt
+      pl.forEach(async (i) => {
+        const r = new Receipt({
+          timestamp: new Date(),
+          type: "service",
+          description: thisComp.name + " - " + thisComp.type,
+          amount: parseFloat(thisComp.cost_per_hour) * parseFloat(i.duration),
+          receiver: req.userid,
+          giver: i.user,
+        });
+        await r.save();
+      });
+      // update claimed field
+      await Prenotation.updateMany(
+        {
+          company: req.userid,
+          claimed: false,
+          start: { $lt: new Date() },
+        },
+        { claimed: true }
+      );
+      res.json({ message: "Money claimed!" });
+    }
   } catch (e) {
     res.json({ message: e });
   }

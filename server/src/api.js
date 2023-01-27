@@ -7,10 +7,11 @@ const prenotationRoute = require("./routes/Prenotation");
 const leaderboardRoute = require("./routes/Leaderboard");
 const emailRestoreRoute = require("./routes/EmailRestore");
 const adminRoute = require("./routes/Admin");
+const receiptRoute = require("./routes/Receipt");
 
 module.exports = (app) => {
   // test api
-  app.get("/hello", (req, res) => {
+  app.get("/hello", (_, res) => {
     res.json({
       message: "Questo è un server express",
     });
@@ -24,4 +25,5 @@ module.exports = (app) => {
   app.use("/api/leaderboard", leaderboardRoute);    /* prenotation routing middleware */
   app.use("/api/emailrestore", emailRestoreRoute);  /* prenotation routing middleware */
   app.use("/api/admin", adminRoute);                /* admin routing middleware       */
+  app.use("/api/receipt", receiptRoute);            /* receipt routing middleware     */
 };
