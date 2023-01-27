@@ -80,7 +80,6 @@
           if (companies !== undefined) {
             let index = 0;
             companies.map((item) => {
-              console.log(item.online)
               compareCompany =
                 reqCompany === "" ? 0 : item._id.includes(reqCompany) ? 0 : 1;
               compareCity =
@@ -128,13 +127,7 @@
                   : item.email.toLowerCase().includes(reqEmail.toLowerCase())
                   ? 0
                   : 1;
-              compareOnline =
-                (reqOnline === "" || item.online === undefined)
-                ? 0
-                //TODO non va
-                : item.online.toString() === reqOnline
-                ? 0
-                : 1;
+              compareOnline = reqOnline === "" ? 0 : reqOnline === 'true' ? (item.online === true ? 0 : 1) : (item.online === false || item.online === undefined ? 0 : 1);
               if (
                 compareCity +
                   compareCompany +
@@ -219,27 +212,16 @@
           let tmp = "";
           array.map((item, count) => {
             tmp +=
-              `
-            <div>
+            `<div>
               <input
-                  type="text"
-                  name="new` +
-              index +
-              count +
-              `"
-                  id="new` +
-              type +
-              index +
-              count +
-              `"
-                  value="` +
-              item +
-              `"
-                  placeholder="Type new field"
-                  class="change px-1 rounded shadow-sm border-primary mt-1"
-                />
-            </div>
-            `;
+                type="text"
+                name="new` + type + index + count + `"
+                id="new` + type + index + count + `"
+                value="` + item + `"
+                placeholder="Type new field"
+                class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
+              />
+            </div>`;
           });
           return tmp;
         }
@@ -256,26 +238,17 @@
           $("#add" + type + index).append(`
           <div>
             <input
-            type="text"
-            placeholder="Type new field"
-            name="new` + type + index + count + `"
-            id="new` + type + index + count + `"
-            class="change px-1 rounded shadow-sm border-primary mt-1"
+              type="text"
+              placeholder="Type new field"
+              name="new` + type + index + count + `"
+              id="new` + type + index + count + `"
+              class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
             />
             </div>
             `);
           }
       };
 
-        /*
-        type,
-        cities,
-        main_pets,
-        study_info,
-        professional_experience,
-        actual_jobs,
-        photo,
-        online*/
         const updateData = (index) => {
           toEditData[index].description = $("#newDescription"+index).val()
           if($("#newName"+index).val() !== "")
@@ -288,6 +261,7 @@
             toEditData[index].cost_per_hour = $("#newCost"+index).val()
           if($("#newOwner"+index).val() !== "")
             toEditData[index].owner = $("#newOwner"+index).val()
+
           let startTime = $("#newStart"+index).val()
           if((startTime.endsWith("am") || (startTime.endsWith("pm"))) && !isNaN(+(startTime.substring(0,startTime.length - 2))) && +(startTime.substring(0,startTime.length - 2)) > 0 && +(startTime.substring(0,startTime.length - 2)) < 13){
             if(startTime.endsWith("am")) 
@@ -308,8 +282,44 @@
             if(endTime !== "am" && endTime !== "pm")
               toEditData[index].business_hours.end = endTime
           }
+          toEditData[index].main_pets = []
+          for(let i = 0; i < toUpdateLen[index].petLen; i++) {
+            if($("#newPet"+ index + i).val() !== "") toEditData[index].main_pets.push($("#newPet"+ index + i).val())
+          }
+          toEditData[index].study_info = []
+          for(let i = 0; i < toUpdateLen[index].studyLen; i++) {
+            if($("#newStudy"+ index + i).val() !== "") toEditData[index].study_info.push($("#newStudy"+ index + i).val())
+          }
+          toEditData[index].professional_experience = []
+          for(let i = 0; i < toUpdateLen[index].expLen; i++) {
+            if($("#newExp"+ index + i).val() !== "") toEditData[index].professional_experience.push($("#newExp"+ index + i).val())
+          }
+          toEditData[index].actual_jobs = []
+          for(let i = 0; i < toUpdateLen[index].jobLen; i++) {
+            if($("#newJob"+ index + i).val() !== "") toEditData[index].actual_jobs.push($("#newJob"+ index + i).val())
+          }
+          if($("#newMonday"+index).val() !== "")
+            toEditData[index].cities.monday = $("#newMonday" + index).val()
+          if($("#newTuesday"+index).val() !== "")
+            toEditData[index].cities.tuesday = $("#newTuesday" + index).val()
+          if($("#newWednesday"+index).val() !== "")
+            toEditData[index].cities.wednesday = $("#newWednesday" + index).val()
+          if($("#newThursday"+index).val() !== "")
+            toEditData[index].cities.thursday = $("#newThursday" + index).val()
+          if($("#newFriday"+index).val() !== "")
+            toEditData[index].cities.friday = $("#newFriday" + index).val()
+          
+          toEditData[index].online = $("#newOnline" + index).val() === 'true' ? true : false
+
+          //chiamare API post con toEditData[index] per aggiornare dati
         }
 
+      const setNewOnline = (index, online) => {        
+        $(document).ready(function (){
+          (online === true) ? $("#newOnline"+index).val("true") : $("#newOnline"+ index).val("false");
+        })
+      }
+        
       const makeItemCompany = (
         index,
         id,
@@ -352,7 +362,19 @@
               <span class="mr-1">` + (index + 1) +`.</span>
               <div id="bodyCard`+index+`" class="flex flex-col flex-1 bg-white/50 p-2 rounded">
                 <div class="flex flex-col mr-20">
-                  <div class="font-semibold">` + isTrue(online, "online") +`</div>
+                  <div class="tohidden` + index + ` font-semibold">` + isTrue(toEditData[index].online, "online") +`</div>
+                  <div class="toshow` + index + `">
+                    <span class="toshow` + index + ` hidden font-semibold">Online: </span>
+                    <select
+                      id="newOnline` + index + `"
+                      name="newOnline` + index + `"
+                      type="text"
+                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                    >
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                    </div>
                   <div>
                     <span class="font-semibold">Company id: </span>
                     <button class="btn" onclick="copy(this)">` + id +`<i class="fa fa-copy"></i></button>
@@ -365,7 +387,7 @@
                       id="newName` + index + `"
                       value="` + name + `"
                       placeholder="Type new name"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1"
+                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div>
@@ -376,7 +398,7 @@
                       id="newEmail` + index + `"
                       value="` + email + `"
                       placeholder="Type new email"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1"
+                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                     <button class="btn tohidden` + index + `" onclick="copy(this)">` + email +`<i class="tohidden` + index +` fa fa-copy"></i></button>
                   </div>
@@ -388,7 +410,7 @@
                       id="newPassword` + index + `"
                       value="` + password + `"
                       placeholder="Type new password"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1"
+                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                     <button class="btn tohidden` + index + `" onclick="copy(this)">` + password +`<i class="tohidden` + index +` fa fa-copy"></i></button>
                   </div>
@@ -400,7 +422,7 @@
                       id="newOwner` + index + `"
                       value="` + owner + `"
                       placeholder="Type new owner"
-                      class="toshow` + index + ` hidden change px-1 rounded shadow-sm border-primary mb-1"
+                      class="toshow` + index + ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div>
@@ -443,7 +465,7 @@
                 </div>
                 <div class="hidden flex expandCard` + index + ` flex-col">
                   <div>
-                    <span class="font-semibold">Main pets: </span><span class="tohidden` + index + `">` +showArray(main_pets) + `</span>
+                    <span class="font-semibold">Main pets: </span><span class="tohidden` + index + `">` + showArray(main_pets) + `</span>
                   </div>
                   <div class="hidden toshow` + index +` ml-8">` +
                     listArray(main_pets, index, "Pet") +`
@@ -463,7 +485,7 @@
                         id="newMonday` + index +`"
                         value="` +cities.monday +`"
                         placeholder="Type new city for monday"
-                        class="change px-1 rounded shadow-sm border-primary"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
                     </div>
                     <div class="mb-1">
@@ -474,7 +496,7 @@
                         id="newTuesday` + index + `"
                         value="` + cities.tuesday + `"
                         placeholder="Type new city for tuesday"
-                        class="change px-1 rounded shadow-sm border-primary"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
                     </div>
                     <div class="mb-1">
@@ -485,7 +507,7 @@
                         id="newWednesday` + index + `"
                         value="` + cities.wednesday + `"
                         placeholder="Type new city for wednesday"
-                        class="change px-1 rounded shadow-sm border-primary"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
                     </div>
                     <div class="mb-1">
@@ -496,7 +518,7 @@
                         id="newThursday` + index + `"
                         value="` + cities.thursday + `"
                         placeholder="Type new city for thursday"
-                        class="change px-1 rounded shadow-sm border-primary"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />
                     </div>
                     <div class="mb-1">
@@ -507,7 +529,7 @@
                         id="newFriday` + index +`"
                         value="` + cities.friday + `"
                         placeholder="Type new city for friday"
-                        class="change px-1 rounded shadow-sm border-primary"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
                     </div>
                   </div>
@@ -519,7 +541,7 @@
                     name="newDescription` + index +`"
                     id="newDescription` + index + `"
                     placeholder="Type new description"
-                    class="toshow` + index +` hidden change px-1 rounded shadow-sm ml-8 border-primary mb-1"
+                    class="toshow` + index +` hidden change px-1 rounded shadow-sm ml-8 border-primary mb-1 bg-transparent"
                   >` +
                     description +`
                   </textarea>
@@ -534,7 +556,7 @@
                       id="newStart` + index + `"
                       value="` + formatBusiness(business_hours.start) + `"
                       placeholder="Type new start time"
-                      class="change px-1 rounded shadow-sm border-primary mb-1"
+                      class="change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div class="toshow` + index +` hidden">
@@ -545,7 +567,7 @@
                       id="newEnd` + index + `"
                       value="` + formatBusiness(business_hours.end) +`"
                       placeholder="Type new end time"
-                      class="change px-1 rounded shadow-sm border-primary mb-1"
+                      class="change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div>
@@ -556,7 +578,7 @@
                       id="newCost` + index + `"
                       value="` + cost_per_hour + `"
                       placeholder="Type new cost"
-                      class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1"
+                      class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                     €/h
                   </div>
@@ -570,28 +592,28 @@
               </div>
               <div class="flex flex-col self-center">
                 <button
-                  class="tohidden` + index +` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-                  onclick="{$('.tohidden` + index + `').addClass('hidden'); $('.toshow` + index + `').removeClass('hidden');$('.expandCard` + index + `').removeClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-col'); $('#bodyCard`+index+`').addClass('flex-row'); $('#showMore` + index + `').addClass('hidden')}"
+                  class="tohidden` + index +` btn bg-cyan-400 p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+                  onclick="{$('.tohidden` + index + `').addClass('hidden'); $('.toshow` + index + `').removeClass('hidden');$('.expandCard` + index + `').removeClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-col'); $('#bodyCard`+index+`').addClass('flex-row'); $('#showMore` + index + `').addClass('hidden'); setNewOnline(` + index + `, ` + online + `)}"
                 >
-                  Change data
+                  Update
                 </button>
                 
                 <button
                   class="tohidden` + index + ` btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
                   onclick="deleteCp('` + id + `')"
                   >
-                    delete
+                    Delete
                 </button>
 
                 <button
-                  class="toshow` + index + ` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+                  class="toshow` + index + ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
                   onclick="{updateData(`+index+`);$('.tohidden` + index + `').removeClass('hidden'); $('.toshow` + index + `').addClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-row'); $('#bodyCard`+index+`').addClass('flex-col');}"
                 >
                   SAVE
                 </button>
 
                 <button
-                  class="toshow` + index + ` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+                  class="toshow` + index + ` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center"
                   onclick="{$('.tohidden` + index + `').removeClass('hidden'); $('.toshow` + index +`').addClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-row'); $('#bodyCard`+index+`').addClass('flex-col');}"
                 >
                   CANCEL
