@@ -137,7 +137,7 @@ router.post("/cart/buy", async (req, res) => {
       await User.findOneAndUpdate(
         { _id: req.userid },
         {
-          cart: userCart,
+          cart: [],
         }
       );
       res.json({ message: "You just boght everything" });
