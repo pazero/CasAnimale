@@ -176,7 +176,6 @@
 
           if (filterRcps.length > 0) {
             filterRcps.forEach((item, i) => (htmlProd += makeItem(i, item)));
-            console.log(filterRcps.length);
             $("#receiptList").html(htmlProd);
           } else
             $("#receiptList").html("No receipts found with these filters!");

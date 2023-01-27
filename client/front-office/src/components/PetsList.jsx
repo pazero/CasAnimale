@@ -45,7 +45,7 @@ const PetsList = () => {
   }, [userId]);
 
   async function deleteP(pet) {
-    console.log(pet);
+    // console.log(pet);
     const ret = await PetManage.deletePet(pet);
     alert(ret.data.message);
     window.location.reload();

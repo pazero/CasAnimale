@@ -30,7 +30,7 @@ const Thread = () => {
       const ret = await PostManage.updatePost(params.id, {
         comments: [
           ...post.comments,
-          { userid: user._id, content: newComment, date: new Date() },
+          { user: user._id, content: newComment, date: new Date() },
         ],
       });
       alert(ret.data.message);
@@ -73,7 +73,7 @@ const Thread = () => {
         })
       );
 
-      console.log(postData.comments);
+      // console.log(postData.comments);
       setPost(postData);
     };
     fetchPost(params.id);

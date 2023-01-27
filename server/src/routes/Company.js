@@ -161,7 +161,7 @@ router.post("/claimMoney", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      console.log(req.userid);
+      // console.log(req.userid);
       var thisComp = await Company.find({ _id: req.userid });
       thisComp = thisComp[0];
 

@@ -21,7 +21,7 @@ const PrenotationsList = () => {
     async function fetchData() {
       var usr = await UserManage.getUser();
       const ret = await PrenotationManage.getPrenotations({
-        owner: usr.data._id,
+        user: usr.data._id,
       });
 
       const ptList = ret.data;

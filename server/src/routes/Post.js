@@ -63,7 +63,7 @@ router.delete("/:id", async (req, res) => {
 /* Update post's infos */
 router.post("/update/:id", async (req, res) => {
   try {
-    const updatedPost = await Post.findOneAndUpdate(
+    const ret = await Post.findOneAndUpdate(
       { _id: req.params.id },
       {
         user_id: req.body.userid,
