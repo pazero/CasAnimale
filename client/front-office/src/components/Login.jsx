@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
+import { useToast } from '@chakra-ui/react'
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const token = Cookies.get("token");
+  const toast = useToast();
 
   useEffect(() => {
     if (token) {
@@ -21,8 +23,24 @@ const Navbar = () => {
       email,
       password,
     });
-    alert(msg.data.message);
-    if (msg.data.success) navigate("/");
+    if (msg.data.success){
+      toast({
+        title: 'Logged in successfully!',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate("/");
+    } 
+    else
+      toast({
+        title: 'Ops something went wrong!',
+        description: 'Incorrect username or password.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top-center',
+      });
   };
 
   return (
