@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
+<!-- jtoast Js -->
+<script src="js/jtoast.js"></script>
     <link rel="stylesheet" href="../css/style.css" />
     <link
       rel="stylesheet"
@@ -32,14 +37,9 @@
           window.location.href = "http://localhost:5000/b/views/login.html"
       }
 
-      const getToken = async () => {
-        return await isUserLogged()
-      }
-
       const getCompanies = async () => {
         var ret = await fetch("http://localhost:5000/api/company", {
           method: "GET",
-          //body: {},
           credentials: "include",
         });
         companies = await ret.json();
@@ -49,26 +49,12 @@
       const sendData = async (index) => {
         var ret = await fetch("http://localhost:5000/api/company/update/" + toEditData[index]._id, {
           method: "POST",
-          body: {
-            name: toEditData[index].name,
-            email: toEditData[index].email,
-            password: toEditData[index].password,
-            type: toEditData[index].type,
-            description: toEditData[index].description,
-            cost_per_hour: toEditData[index].cost_per_hour,
-            owner: toEditData[index].owner,
-            cities: toEditData[index].cities,
-            business_hours: toEditData[index].business_hours,
-            main_pets: toEditData[index].main_pets,
-            study_info: toEditData[index].study_info,
-            professional_experience: toEditData[index].professional_experience,
-            actual_jobs: toEditData[index].actual_jobs,
-            photo: toEditData[index].photo,
-            online: toEditData[index].online,
-          },
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(toEditData[index]),
           credentials: "include",
         });
-        //alert(ret.json.message)
+        ret = await ret.json()
+        alert(ret.message)
         window.location.reload();
       } 
       //non funziona
@@ -747,6 +733,7 @@
         id="sidebar"
       ></div>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
+        <div id="toast"></div>
         <div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
           COMPANIES
         </div>
