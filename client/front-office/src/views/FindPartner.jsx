@@ -22,9 +22,9 @@ const FindPartner = () => {
       </div>
       <div className="flex flex-1">
         <Blog
-          name={"FindParter!"}
-          description={"Post on this board to find a parter for your pet!"}
-          type={"findparter"}
+          name={"FindPartner!"}
+          description={"Post on this board to find a partner for your pet!"}
+          type={"findpartner"}
           style={{ display: "flex", height: "100%" }}
         />
       </div>

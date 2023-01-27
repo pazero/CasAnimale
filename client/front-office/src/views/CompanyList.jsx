@@ -4,12 +4,38 @@ import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Checkbox,
+} from "@chakra-ui/react";
 
 const CompanyList = (props) => {
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [company, setCompany] = useState([]);
+  const [filteredCompany, setFilteredCompany] = useState([]);
   const [title, setTitle] = useState("");
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(); // lasciare senza niente sennò rompe tutto
+  const [liveFilters, setLiveFilters] = useState([]);
+  const [cityNumbered, setCityNumbered] = useState([]);
+
+  const setFiltersModal = (filterName) => {
+    var isInList = liveFilters.includes(filterName);
+
+    if (isInList) {
+      const newlist = liveFilters.filter((item) => item !== filterName);
+      setLiveFilters(newlist);
+    } else {
+      setLiveFilters((last) => [...last, filterName]);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -25,10 +51,25 @@ const CompanyList = (props) => {
         item["rcities"] = arr;
       });
 
+      // set filters
+      var filt = {};
+      companies.forEach((c) => {
+        var alreadyInsert = [];
+        Object.keys(c.cities).forEach((el) => {
+          if (filt[c.cities[el]] && !alreadyInsert.includes(c.cities[el]))
+            filt[c.cities[el]] += 1;
+          else filt[c.cities[el]] = 1;
+          alreadyInsert.push(c.cities[el]);
+        });
+      });
+      setCityNumbered(filt);
+
       setCompany(companies);
+      setFilteredCompany(companies);
 
       const { data } = await UserManage.getUser();
       setUser(data);
+      setLiveFilters([]); // lasciare, fixa un bug strano
     }
     fetchData();
 
@@ -55,7 +96,23 @@ const CompanyList = (props) => {
       if (!user.vip && (props.type === "vet" || props.type === "psy"))
         navigate("/");
     }
-  }, [user]);
+  }, [user, props.type, navigate]);
+
+  useEffect(() => {
+    if (liveFilters) {
+      const newlist = company.filter((el) => {
+        var ret = false;
+        liveFilters.forEach((filter) => {
+          Object.keys(el.cities).forEach((key) => {
+            if (el.cities[key] === filter) ret = true;
+          });
+        });
+        return ret;
+      });
+      setFilteredCompany(newlist);
+    }
+    if (liveFilters.length === 0) setFilteredCompany(company);
+  }, [company, liveFilters, props]);
 
   return (
     <div
@@ -74,15 +131,18 @@ const CompanyList = (props) => {
       <div className="flex flex-col" style={{ flex: "1 1 auto" }}>
         <div
           id="listTitle"
-          className="m-2 my-4 md:my-8 text-4xl md:text-6xl self-center font-bold uppercase"
+          className="m-2 mt-4 md:mt-8 text-4xl md:text-6xl self-center font-bold uppercase"
         >
           {title}
         </div>
+        <Button className="mx-auto" onClick={onOpen}>
+          Filters
+        </Button>
         <div
           className="flex flex-wrap justify-center h-full"
           style={{ flex: "0 1 auto" }}
         >
-          {company.map((comp, i) => (
+          {filteredCompany.map((comp, i) => (
             <div
               key={i}
               id={comp._id}
@@ -155,6 +215,31 @@ const CompanyList = (props) => {
       <div className="flex">
         <Footer />
       </div>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Filters</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody className="flex flex-col mb-2">
+            Group every service by checking the place which is better for you!
+            {Object.entries(cityNumbered).map((key, i) => {
+              return (
+                <Checkbox
+                  isChecked={liveFilters.indexOf(key[0]) !== -1}
+                  className={"checkbox-tag"}
+                  colorScheme="red"
+                  onChange={() => {
+                    setFiltersModal(key[0]);
+                  }}
+                >
+                  {key[0]} ({key[1]})
+                </Checkbox>
+              );
+            })}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

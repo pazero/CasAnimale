@@ -11,8 +11,8 @@ function addHours(numOfHours, str) {
 }
 
 function dateOverlaps(a_start, a_end, b_start, b_end) {
-  if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
-  if (a_start <= b_end && b_end <= a_end) return true; // b ends in a
+  if (a_start < b_start && b_start < a_end) return true; // b starts in a
+  if (a_start < b_end && b_end < a_end) return true; // b ends in a
   if (b_start < a_start && a_end < b_end) return true; // a in b
   return false;
 }
@@ -70,6 +70,9 @@ async function arePrenotationsOverlaping(req, res) {
 }
 
 async function isPlaceCorrect(req, res) {
+
+  if (req.body.place === "online") return true;
+
   const company = await Company.find({ _id: req.body.company });
   const compCities = company[0].cities;
 
@@ -145,8 +148,8 @@ router.put("/new", async (req, res) => {
       if (
         isDurationNegative(req, res) ||
         (await isDateInWorkingHours(req, res)) ||
-        (await arePrenotationsOverlaping(req, res)) ||
-        !(await isPlaceCorrect(req, res))
+        !(await isPlaceCorrect(req, res)) ||
+        (await arePrenotationsOverlaping(req, res))
       ) {
         console.log("Somethig went wrong...");
         return;

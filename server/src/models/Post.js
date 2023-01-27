@@ -9,7 +9,7 @@ const postSchema = new Schema({
   description: String,
   date: Date,
   type: String,
-  comments: [String], // id of another post
+  comments: [{ user: String, content: String, date: String }], // array of userid and comment's content
 });
 
 module.exports = mongoose.model("Post", postSchema);
