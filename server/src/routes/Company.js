@@ -93,12 +93,8 @@ router.put("/new", async (req, res) => {
       study_info: req.body.study_info,
       professional_experience: c.professional_experience,
       actual_jobs: req.body.actual_jobs,
-<<<<<<< HEAD
-      online: req.body.online,
-=======
       photo: req.body.photo,
       review: [],
->>>>>>> 5fa3d35052df7f3cb5eb167a0d5fc4ab8a6d4216
     });
     await company.save();
     res.json({ message: "New company created!" });
