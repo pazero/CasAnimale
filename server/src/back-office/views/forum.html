@@ -38,39 +38,41 @@
 		};
 
 
-			/* TODO filter by parola chiave !!!
-							visualizzare commenti !!! */
+			/* TODO filter by parola chiave !!! */
 	
 		const filterList = () => {
 			let reqId = $("#filterPostId").val();
-			let reqUsrId = $("#filterUserId").val();
+			let reqPostUsrId = $("#filterPostUserId").val();
 			let reqTitle = $("#filterPostTitle").val();
 			let reqType = $("#filterPostsType").val();
 			let reqDate = $("#filterDate").val();
 			let reqMinDate = $("#filterMinDate").val();
 			let reqMaxDate = $("#filterMaxDate").val();
+			let reqKeyWord = $("#filterKeyWord").val();			
 			let compareId = 0;
-			let compareUsrId = 0;
+			let comparePostUsrId = 0;
 			let compareTitle = 0;
 			let compareType = 0;
 			let compareDate = 0;
 			let compareMinDate = 0;
 			let compareMaxDate = 0;
+			let compareKeyWord = 0;
 			let tmp = "";
 			$(document).ready(function () {
 				if (posts !== undefined) {
 					let index = 0;
 					posts.map((item) => {
 						compareId = reqId === "" ? 0 : item._id.toLowerCase().includes(reqId.toLowerCase()) ? 0 : 1;
-						compareUsrId = reqUsrId === "" ? 0 : item.userid.toLowerCase().includes(reqUsrId.toLowerCase()) ? 0 : 1;
+						comparePostUsrId = reqPostUsrId === "" ? 0 : item.userid.toLowerCase().includes(reqPostUsrId.toLowerCase()) ? 0 : 1;
 						compareTitle = reqTitle === "" ? 0 : item.title.toLowerCase().includes(reqTitle.toLowerCase()) ? 0 : 1;
 						compareDate = reqDate === "" ? 0 : reqDate === item.date.substring(0, 10) ? 0 : 1;
 						compareMinDate = reqMinDate === "" ? 0 : new Date(reqMinDate).getTime() <= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
 						compareMaxDate = reqMaxDate === "" ? 0 : new Date(reqMaxDate).getTime() >= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
-						
 						compareType = reqType === "" ? 0 : reqType === item.type ? 0 : 1;
+						compareKeyWord = reqKeyWord === "" ? 0 : item.title.toLowerCase().includes(reqKeyWord.toLowerCase()) ? 0 : item.description.toLowerCase().includes(reqKeyWord.toLowerCase()) ? 0 : 1;
+
 						if (
-							compareId + compareUsrId + compareTitle + compareType + compareDate + compareMinDate + compareMaxDate === 0
+							compareId + comparePostUsrId + compareTitle + compareType + compareDate + compareMinDate + compareMaxDate + compareKeyWord === 0
 						) {
 							tmp += makeItemPost(
 								index,
@@ -156,17 +158,21 @@
 						</div>
 					</div>
 				</div>
-				<div id="comments` + index + `" class="hidden flex flex-col mb-3"> `
+				<div id="comments` + index + `" class="hidden flex flex-col mb-3 ml-6">`
 					+ printComments(comments, index) + `
 				</div>
 			</div >`
 			)
 		};
+
+		const makeCommentsTitle = () => {
+			return (`<div class="flex flex-1 font-semibold">Post's comments</div>`)
+		};
 		
 		const makeItemComment = (index, postIndex, id, user, date, content) => {
 			return (
 			`
-			<div class="flex flex-row my-3 ml-6">
+			<div class="flex flex-row my-3">
 				<span class="mr-1">`
 				+ (postIndex + 1) + `.` + (index + 1) + `.
 				</span>
@@ -226,7 +232,7 @@
 		const printComments = (comments, postIndex) => {
 			let cmt = ""
 			$(document).ready(function () {
-				console.log("comments " + postIndex + ": " + comments.length)
+				cmt += makeCommentsTitle();
 				if (comments !== undefined && comments.length > 0) {
 					comments.map((comment, i) => {
 						cmt += makeItemComment(
@@ -239,6 +245,9 @@
 						);
 					});
 				}
+				else
+					cmt += "This post has no comments.";
+				
 				let id = "#comments" + postIndex.toString();
 				$(id).html(cmt);
 			});
@@ -255,12 +264,12 @@
 
 		const printType = (type) => {
 			if(type === "eccoloqua")
-				return "<span class='text-red-300'> EccoloQua! </span>";
+				return "<span class='text-red-800'> EccoloQua! </span>";
 			else
 				if(type === "helpme")
-					return "<span class='text-indigo-300'> HelpMe! </span>";
+					return "<span class='text-indigo-800'> HelpMe! </span>";
 				else
-					return "<span class='text-green-400'> FindPartner </span>";
+					return "<span class='text-green-800'> FindPartner </span>";
 		};
 
 		const showFilters = () => {
@@ -279,12 +288,13 @@
 
 		const resetFilters = () => {
 			$("#filterPostId").val("");
-			$("#filterUserId").val("");
+			$("#filterPostUserId").val("");
 			$("#filterPostTitle").val("");
 			$("#filterPostsType").val("");
 			$("#filterDate").val("");
 			$("#filterMinDate").val("");
 			$("#filterMaxDate").val("");
+			$("#filterKeyWord").val("");
 			filterList();
 		};
 
@@ -336,10 +346,10 @@
 						<div class="flex flex-col lg:flex-row">
 							<div class="flex flex-col sm:flex-row lg:mr-4">
 								<span class="flex">
-									<label for="filterUserId" class="flex self-center primary font-semibold">Filter by user id:</label>
+									<label for="filterPostUserId" class="flex self-center primary font-semibold">Filter by post user id:</label>
 								</span>
 								<span>
-									<input id="filterUserId" name="filterUserId" type="text"
+									<input id="filterPostUserId" name="filterPostUserId" type="text"
 										placeholder="ex. 63cecdc93b2ad296f8ed3989" class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
 								</span>
 							</div>
@@ -403,6 +413,16 @@
 										class="px-1 m-1 rounded w-[12rem]" oninput="filterList()" />
 								</span>
 							</div>
+						</div>
+						<!-- ottavo filtro-->
+						<div class="flex flex-col lg:flex-row">
+							<span class="flex">
+								<label for="filterKeyWord" class="flex self-center primary font-semibold">Filter by key word:</label>
+							</span>
+							<span>
+								<input id="filterKeyWord" name="filterKeyWord" type="text" placeholder="ex. pet"
+									class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
+							</span>
 						</div>
 					</div>
 					<div id="totPosts" class="flex flex-col flex primary font-semibold my-4"></div>
