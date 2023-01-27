@@ -18,6 +18,8 @@
         method: "DELETE",
         credentials: "include",
       });
+      ret = await ret.json();
+      alert(ret.message);
       window.location.reload();
     };
 
@@ -47,8 +49,7 @@
               (item, i) => (htmlProd += makeItem(i, item))
             );
             $("#productList").html(htmlProd);
-          } else
-            $("#productList").html("No products found with these filters");
+          } else $("#productList").html("No products found with these filters");
 
           totProducts = filteredProducts.length;
         }
@@ -90,10 +91,7 @@
         `
                   </div>
                 </div>
-                <button class="btn bg-cyan-400 p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center">
-                  Update
-                </button>
-                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
+                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePr('` +
         item._id +
         `')">
                   Delete
