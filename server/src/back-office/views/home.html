@@ -8,7 +8,6 @@
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -17,7 +16,6 @@
 
       const setUser = async () => {
         user = await isUserLogged()
-        console.log(user)
         if(user === undefined)
           window.location.href = "http://localhost:5000/b/views/login.html"
       }

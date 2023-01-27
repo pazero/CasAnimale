@@ -39,7 +39,7 @@ router.put("/new", async (req, res) => {
 
     async function cont() {
       const receipt = new Receipt({
-        when: req.body.when,
+        timestamp: req.body.timestamp,
         type: req.body.type,
         description: req.body.description,
         amount: req.body.import,
@@ -76,7 +76,7 @@ router.post("/update", async (req, res) => {
       await Receipt.findOneAndUpdate(
         { _id: req.body.id },
         {
-          when: req.body.when,
+          timestamp: req.body.timestamp,
           type: req.body.type,
           description: req.body.description,
           amount: req.body.amount,
@@ -116,7 +116,7 @@ router.post("/claimVipIncomes", async (req, res) => {
       if (vipUser.length > 0) {
         const d = new Date();
         const receipt = new Receipt({
-          when: new Date(),
+          timestamp: new Date(),
           type: "vip",
           description: "vip gains of " + monthNames[d.getMonth()],
           amount: vipUser.length * 15,

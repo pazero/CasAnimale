@@ -27,7 +27,6 @@
       let reqPrice = $("#filterPrice").val();
       let reqSeller = $("#filterSeller").val();
       let htmlProd = "";
-      let index = 0;
 
       $(document).ready(() => {
         if (products) {
@@ -44,13 +43,12 @@
           }
 
           if (filteredProducts.length > 0) {
-            filteredProducts.forEach((item) => {
-              htmlProd += makeItem(index, item);
-              index++;
-            });
+            filteredProducts.forEach(
+              (item, i) => (htmlProd += makeItem(i, item))
+            );
             $("#productList").html(htmlProd);
           } else
-            $("#productList").html("No products founded with these filters");
+            $("#productList").html("No products found with these filters");
 
           totProducts = filteredProducts.length;
         }

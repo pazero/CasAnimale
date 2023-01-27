@@ -1,9 +1,17 @@
 <head>
   <script>
+    $(document).ready(() => {
+      const authHeader = document.cookie;
+      const tokenback = authHeader && authHeader.split("=");
+      if (tokenback) {
+        if (tokenback[0] === "tokenback" && tokenback[1] === "") logout();
+      } else logout();
+    });
+
     const logout = () => {
       document.cookie =
         "tokenback=;path=/;domain=localhost;expires=Thu, 01 Jan 1970 00:00:01 GMT";
-      window.location.reload();
+      window.location.href = "http://localhost:5000/b/views/login.html";
     };
     const home = () => {
       window.location.href = "home.html";
@@ -14,7 +22,6 @@
   <nav
     class="flex relative flex-row-reverse md:flex-col shrink-0 grow-0 justify-around gap-4 border-t border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 top-2/4 -translate-y-2/4 min-h-[auto] min-w-[64px] rounded-lg border"
   >
-
     <button
       class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:text-[#E1DEE3] hover:bg-[#826C7F] dark:text-gray-400 dark:hover:bg-slate-800"
     >

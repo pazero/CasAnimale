@@ -1,16 +1,74 @@
 <head>
   <script>
-    let receipts = [];
+    var receipts = [];
+    var filterRcps = [];
+    var user = {};
 
-    const getReceipts = async () => {
-      var ret = await fetch("http://localhost:5000/api/receipt/", {
-        method: "GET",
-        credentials: "include",
-      });
+    $(document).ready(async () => {
+      user = await getUser();
+      if (user.admin) {
+        $("#prenotationButton").css("display", "none");
+        $("#vipButton").css("display", "block");
+        getReceipts(null);
+      } else {
+        $("#prenotationButton").css("display", "block");
+        $("#vipButton").css("display", "none");
+        getReceipts(user.id);
+      }
+    });
+
+    const getUser = async () => {
+      try {
+        var ret = await fetch("http://localhost:5000/api/admin/getId", {
+          method: "POST",
+          credentials: "include",
+        });
+        ret = await ret.json();
+        return ret;
+      } catch {
+        return undefined;
+      }
+    };
+
+    const getReceipts = async (id) => {
+      var ret;
+      id
+        ? (ret = await fetch(
+            "http://localhost:5000/api/receipt?receiver=" + id,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          ))
+        : (ret = await fetch("http://localhost:5000/api/receipt", {
+            method: "GET",
+            credentials: "include",
+          }));
+
       ret.json().then((ret) => {
         receipts = ret;
         loadReceiptList();
       });
+    };
+
+    const delRcp = async (id) => {
+      var ret = await fetch("http://localhost:5000/api/receipt/" + id, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      ret = await ret.json();
+      alert(ret.message);
+      window.location.reload();
+    };
+
+    const claimCompanyIncomes = async () => {
+      var ret = await fetch("http://localhost:5000/api/company/claimMoney", {
+        method: "POST",
+        credentials: "include",
+      });
+      ret = await ret.json();
+      alert(ret.message);
+      window.location.reload();
     };
 
     const getVipIncomes = async () => {
@@ -45,6 +103,10 @@
         item.type +
         `
                   </div>
+                  <div><span class="font-semibold">Timestamp: </span>` +
+        item.timestamp.slice(0, 10) +
+        `
+                  </div>
                   <div><span class="font-semibold">Receipt description: </span>` +
         item.description +
         `
@@ -52,20 +114,21 @@
                   <div><span class="font-semibold">Amount: </span>` +
         item.amount +
         `
-                  </div>
+                  </div>` +
+        (user.admin
+          ? `
                   <div><span class="font-semibold">Receiver: </span>` +
-        item.receiver +
+            item.receiver +
+            `
+                  </div>`
+          : "") +
         `
-                  </div>
                   <div><span class="font-semibold">Giver: </span>` +
         item.giver +
         `
                   </div>
                 </div>
-                <button class="btn bg-cyan-400 p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center">
-                  Update
-                </button>
-                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deleteCp('` +
+                <button class="btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="delRcp('` +
         item._id +
         `')">
                   Delete
@@ -73,6 +136,54 @@
               </div>
             </div>`
       );
+    };
+
+    const filterList = () => {
+      let idFilt = $("#filterReceiptId").val();
+      let typeFilt = $("#filterType").val();
+      let descFilt = $("#filterDesc").val();
+      let timeFilt = $("#filterTime").val();
+      let amountFilt = $("#filterAmount").val();
+      let receiverFilt = $("#filterReceiver").val();
+      let giverFilt = $("#filterGiver").val();
+
+      let htmlProd = "";
+
+      $(document).ready(() => {
+        if (receipts) {
+          if (
+            (idFilt ||
+              typeFilt ||
+              descFilt ||
+              timeFilt ||
+              amountFilt ||
+              receiverFilt ||
+              giverFilt) === ""
+          )
+            filterRcps = receipts;
+          else {
+            filterRcps = receipts.filter(
+              (i) =>
+                (idFilt && i._id === idFilt) ||
+                (typeFilt && i.type.includes(typeFilt)) ||
+                (descFilt && i.description.includes(descFilt)) ||
+                (receiverFilt && i.receiver.includes(receiverFilt)) ||
+                (giverFilt && i.giver.includes(giverFilt)) ||
+                (timeFilt && new Date(timeFilt) <= new Date(i.timestamp)) ||
+                (amountFilt && parseFloat(i.amount) >= parseFloat(amountFilt))
+            );
+          }
+
+          if (filterRcps.length > 0) {
+            filterRcps.forEach((item, i) => (htmlProd += makeItem(i, item)));
+            console.log(filterRcps.length);
+            $("#receiptList").html(htmlProd);
+          } else
+            $("#receiptList").html("No receipts found with these filters!");
+        }
+
+        $("#totReceipts").html("TOTAL RESULTS: " + filterRcps.length);
+      });
     };
 
     const loadReceiptList = () => {
@@ -84,16 +195,15 @@
           });
         }
         $("#receiptList").html(html);
-        $("#totProducts").html("TOTAL RESULTS: " + receipts.length);
+        $("#totReceipts").html("TOTAL RESULTS: " + receipts.length);
+        if (receipts.length === 0) $("#receiptList").html("No receipts found!");
       });
     };
 
-    const deleteRc = async (id) => {
-      var ret = await fetch("http://localhost:5000/api/receipt/" + id, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      window.location.reload();
+    const showFilters = () => {
+      var val = $("#filters").css("display");
+      if (val === "none") $("#filters").css("display", "block");
+      else $("#filters").css("display", "none");
     };
 
     const copy = (that) => {
@@ -105,21 +215,178 @@
       inp.remove();
     };
 
-    getReceipts();
+    // getReceipts();
   </script>
 </head>
 <body>
   <div class="flex flex-col flex-1">
-    <div>
+    <div class="flex flex-1">
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        id="vipButton"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-1"
         onclick="getVipIncomes()"
       >
-        Get Vip incomes
+        Get Vip Incomes
+      </button>
+      <button
+        id="prenotationButton"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-1"
+        onclick="claimCompanyIncomes()"
+      >
+        Get Prenotation Incomes
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onclick="showFilters()"
+      >
+        Filters
       </button>
     </div>
+    <div id="filters" style="display: none" class="flex flex-col mt-2">
+      <div class="flex flex-col sm:flex-row">
+        <span class="flex">
+          <label
+            for="filterReceiptId"
+            class="flex self-center primary font-semibold"
+            >Filter by receipt id:</label
+          >
+        </span>
+        <span>
+          <input
+            id="filterReceiptId"
+            name="filterReceiptId"
+            type="text"
+            placeholder="ex. 63c282e29db4069ff8c23a76"
+            class="px-1 m-1 rounded w-[15rem]"
+            oninput="filterList()"
+          />
+        </span>
+      </div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterType"
+              class="flex self-center primary font-semibold"
+              >Filter by type:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterType"
+              name="filterType"
+              type="text"
+              placeholder="user id"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterTime"
+              class="flex self-center primary font-semibold"
+              >Filter by min timestamp</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterTime"
+              name="filterTime"
+              type="text"
+              placeholder="2023-01-01"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row">
+        <span class="flex">
+          <label for="filterDesc" class="flex self-center primary font-semibold"
+            >Filter by receipt description:</label
+          >
+        </span>
+        <span>
+          <input
+            id="filterDesc"
+            name="filterDesc"
+            type="text"
+            placeholder="ex. food"
+            class="px-1 m-1 rounded w-[15rem]"
+            oninput="filterList()"
+          />
+        </span>
+      </div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterReceiver"
+              class="flex self-center primary font-semibold"
+              >Filter by receiver:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterReceiver"
+              name="filterReceiver"
+              type="text"
+              placeholder="ex. casanimale"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterGiver"
+              class="flex self-center primary font-semibold"
+              >Filter by giver:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterGiver"
+              name="filterGiver"
+              type="text"
+              placeholder="user id"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col sm:flex-row lg:mr-4">
+          <span class="flex">
+            <label
+              for="filterAmount"
+              class="flex self-center primary font-semibold"
+              >Filter by minimum amount:</label
+            >
+          </span>
+          <span>
+            <input
+              id="filterAmount"
+              name="filterAmount"
+              type="number"
+              placeholder="ex. 42"
+              class="px-1 m-1 rounded w-[15rem]"
+              oninput="filterList()"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
     <div
-      id="totProducts"
+      id="totReceipts"
       class="flex flex-col flex primary font-semibold mt-4 my-2"
     ></div>
     <div id="receiptList" class="flex flex-col flex-1"></div>
