@@ -70,6 +70,14 @@
 						compareMaxDate = reqMaxDate === "" ? 0 : new Date(reqMaxDate).getTime() >= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
 						compareType = reqType === "" ? 0 : reqType === item.type ? 0 : 1;
 						compareKeyWord = reqKeyWord === "" ? 0 : item.title.toLowerCase().includes(reqKeyWord.toLowerCase()) ? 0 : item.description.toLowerCase().includes(reqKeyWord.toLowerCase()) ? 0 : 1;
+						// key word nei commenti
+						if (item.comments !== undefined && item.comments.length > 0 && compareKeyWord != 0) {
+							item.comments.map((comment, i) => {
+								if(comment.content.toLowerCase().includes(reqKeyWord.toLowerCase())){
+									compareKeyWord = 0;
+								}
+							});
+						}
 
 						if (
 							compareId + comparePostUsrId + compareTitle + compareType + compareDate + compareMinDate + compareMaxDate + compareKeyWord === 0
