@@ -8,24 +8,28 @@ import Cookies from "js-cookie";
 import { Image, Button } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
-import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast } from "@chakra-ui/react";
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useToast,
+} from "@chakra-ui/react";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState();
   const [name, setName] = useState();
-  const [actualName, setActualName] = useState();
   const [surname, setSurname] = useState();
-  const [actualSurname, setActualSurname] = useState();
   const [photo, setPhoto] = useState();
-  const [actualPhoto, setActualPhoto] = useState();
   const [birth, setBirth] = useState();
-  const [actualBirth, setActualBirth] = useState();
   const [email, setEmail] = useState();
-  const [actualEmail, setActualEmail] = useState();
   const [password, setPassword] = useState();
-  const [actualPassword, setActualPassword] = useState();
   const [favanimal, setFavanimal] = useState();
-  const [actualFavanimal, setActualFavanimal] = useState();
   const [vip, setVip] = useState(false);
   const token = Cookies.get("token");
   const toast = useToast();
@@ -50,16 +54,16 @@ const Profile = () => {
   useEffect(() => {
     async function fetchData() {
       await UserManage.getUser().then((res) => {
-        const user = res.data;
-        setActualName(user.name);
-        setActualSurname(user.surname);
-        setActualPhoto(user.photo);
-        setPhoto(user.photo);
-        setActualBirth(user.birth);
-        setActualEmail(user.email);
-        setActualPassword(user.password);
-        setActualFavanimal(user.favanimal);
-        setVip(user.vip);
+        const u = res.data;
+        setUser(u);
+        setName(u.name);
+        setSurname(u.surname);
+        setPhoto(u.photo);
+        setBirth(u.birth);
+        setEmail(u.email);
+        setPassword(u.password);
+        setFavanimal(u.favanimal);
+        setVip(u.vip);
       });
     }
     if (!token) {
@@ -67,55 +71,69 @@ const Profile = () => {
     } else {
       fetchData();
     }
-  }, [token, navigate]);
+  }, []);
 
   async function resetData() {
     await UserManage.getUser().then((res) => {
-      const user = res.data;
-      document.querySelector("#newName").value = user.name;
-      setName(user.name);
-      document.querySelector("#newSurname").value = user.surname;
-      setSurname(user.surname);
-      document.querySelector("#newBirth").value = actualBirth.substring(0, 10);
-      setBirth(user.birth);
-      document.querySelector("#newEmail").value = user.email;
-      setEmail(user.email);
-      document.querySelector("#newPassword").value = user.password;
-      setPassword(user.password);
-      document.querySelector("#newFavanimal").value = user.favanimal;
-      setFavanimal(user.favanimal);
+      const usr = res.data;
+      document.querySelector("#newName").value = usr.name;
+      setName(usr.name);
+      document.querySelector("#newSurname").value = usr.surname;
+      setSurname(usr.surname);
+      document.querySelector("#newBirth").value = user.birth.substring(0, 10);
+      setBirth(usr.birth);
+      document.querySelector("#newEmail").value = usr.email;
+      setEmail(usr.email);
+      document.querySelector("#newPassword").value = usr.password;
+      setPassword(usr.password);
+      document.querySelector("#newFavanimal").value = usr.favanimal;
+      setFavanimal(usr.favanimal);
     });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const msg = await UserManage.updateUser({
-      name,
-      surname,
-      photo,
-      birth,
-      email,
-      password,
-      favanimal,
-    });
-    if (msg.status.toString() === "200") {
+    const newUsr = {
+      name: name,
+      surname: surname,
+      photo: photo,
+      birth: birth,
+      email: email,
+      password: password,
+      favanimal: favanimal,
+      vip: vip,
+    };
+    const msg = await UserManage.updateUser(newUsr);
+
+    if (msg.status === 200) {
+      setUser(newUsr);
       toast({
         title: "Profile updated successfully!",
-        status: 'success',
-        duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        status: "success",
+        duration: 3000,
+        variant: "subtle",
+        position: "top-center",
       });
-      window.location = window.location;
-    }
-    else
+      document.querySelector("#saveBtn").hidden = true;
+      document.querySelector("#resetInfoBtn").hidden = true;
+      document.querySelector("#changeInfoBtn").hidden = false;
+
+      var changeElements = document.querySelectorAll(".changeInfo");
+      changeElements.forEach((element) => {
+        element.hidden = true;
+      });
+      var actualElements = document.querySelectorAll(".actualInfo");
+      actualElements.forEach((element) => {
+        element.hidden = false;
+      });
+    } else
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed updating try to re-access.",
-        status: 'error',
-        duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        status: "error",
+        duration: 3000,
+        variant: "subtle",
+        position: "top-center",
       });
   }
 
@@ -174,7 +192,7 @@ const Profile = () => {
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <Image
                         hidden={false}
-                        src={actualPhoto}
+                        src={user?.photo}
                         borderRadius="full"
                         className="actualInfo"
                         boxSize="150px"
@@ -222,14 +240,14 @@ const Profile = () => {
                     <dt className="text-lg font-medium text-gray-500">Name</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
-                        {actualName}
+                        {user?.name}
                       </span>
                       <input
                         hidden={true}
                         id="newName"
                         type="text"
                         name="new-name"
-                        defaultValue={actualName}
+                        defaultValue={user?.name}
                         placeholder="Type your new name here"
                         className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                         onChange={(e) => setName(e.target.value)}
@@ -242,14 +260,14 @@ const Profile = () => {
                     </dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
-                        {actualSurname}
+                        {user?.surname}
                       </span>
                       <input
                         hidden={true}
                         type="text"
                         name="new-surname"
                         id="newSurname"
-                        defaultValue={actualSurname}
+                        defaultValue={user?.surname}
                         placeholder="Type your new surname here"
                         className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                         onChange={(e) => setSurname(e.target.value)}
@@ -262,13 +280,13 @@ const Profile = () => {
                     </dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
-                        {actualBirth
-                          ? actualBirth.substring(5, 7) +
+                        {user?.birth
+                          ? user?.birth.substring(5, 7) +
                             "/" +
-                            actualBirth.substring(8, 10) +
+                            user?.birth.substring(8, 10) +
                             "/" +
-                            actualBirth.substring(0, 4)
-                          : actualBirth}
+                            user?.birth.substring(0, 4)
+                          : user?.birth}
                       </span>
                       <input
                         hidden={true}
@@ -276,9 +294,9 @@ const Profile = () => {
                         name="new-birth"
                         id="newBirth"
                         defaultValue={
-                          actualBirth
-                            ? actualBirth.substring(0, 10)
-                            : actualBirth
+                          user?.birth
+                            ? user?.birth.substring(0, 10)
+                            : user?.birth
                         }
                         placeholder="Type your new birthday here"
                         style={{ fontSize: "98%", minHeight: "0px" }}
@@ -291,14 +309,14 @@ const Profile = () => {
                     <dt className="text-lg font-medium text-gray-500">Email</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
-                        {actualEmail}
+                        {user?.email}
                       </span>
                       <input
                         hidden={true}
                         type="text"
                         name="new-email"
                         id="newEmail"
-                        defaultValue={actualEmail}
+                        defaultValue={user?.email}
                         placeholder="Type your new email here"
                         className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                         onChange={(e) => setEmail(e.target.value)}
@@ -311,16 +329,16 @@ const Profile = () => {
                     </dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
-                        {actualPassword
-                          ? "*".repeat(actualPassword.length)
-                          : actualPassword}
+                        {user?.password
+                          ? "*".repeat(user?.password.length)
+                          : user?.password}
                       </span>
                       <input
                         hidden={true}
                         type="text"
                         name="new-password"
                         id="newPassword"
-                        defaultValue={actualPassword}
+                        defaultValue={user?.password}
                         placeholder="Type your new password here"
                         className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                         onChange={(e) => setPassword(e.target.value)}
@@ -333,14 +351,14 @@ const Profile = () => {
                     </dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
-                        {actualFavanimal}
+                        {user?.favanimal}
                       </span>
                       <input
                         hidden={true}
                         type="text"
                         name="new-favanimal"
                         id="newFavanimal"
-                        defaultValue={actualFavanimal}
+                        defaultValue={user?.favanimal}
                         placeholder="Type your new favourite animal here"
                         className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
                         onChange={(e) => setFavanimal(e.target.value)}
@@ -480,26 +498,30 @@ const Profile = () => {
                           colorScheme="yellow"
                           onClick={async () => {
                             const ret = await UserManage.enableVip();
-                            if (ret.status.toString() === "200")
+                            if (ret.status === 200)
                               toast({
-                                title: "VIP membership subscribed successfully!",
-                                status: 'success',
+                                title:
+                                  "VIP membership subscribed successfully!",
+                                status: "success",
                                 duration: 3500,
-                                variant: 'subtle',
-                                position: 'top-center',
+                                variant: "subtle",
+                                position: "top-center",
                               });
                             else
                               toast({
                                 title: "Ops something went wrong!",
-                                description: "If you can't proceed subscribing your VIP membership try to re-access.",
-                                status: 'error',
+                                description:
+                                  "If you can't proceed subscribing your VIP membership try to re-access.",
+                                status: "error",
                                 duration: 3500,
-                                variant: 'subtle',
-                                position: 'top-center',
+                                variant: "subtle",
+                                position: "top-center",
                               });
                             setVip(true);
                             onCloseBecome();
-                            window.location = window.location;
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, 3500);
                           }}
                         >
                           YES
@@ -526,19 +548,20 @@ const Profile = () => {
                             if (ret.status.toString() === "200")
                               toast({
                                 title: "VIP membership deleted successfully!",
-                                status: 'success',
+                                status: "success",
                                 duration: 3500,
-                                variant: 'subtle',
-                                position: 'top-center',
+                                variant: "subtle",
+                                position: "top-center",
                               });
                             else
                               toast({
                                 title: "Ops something went wrong!",
-                                description: "If you can't proceed deleting your VIP membership try to re-access.",
-                                status: 'error',
+                                description:
+                                  "If you can't proceed deleting your VIP membership try to re-access.",
+                                status: "error",
                                 duration: 3500,
-                                variant: 'subtle',
-                                position: 'top-center',
+                                variant: "subtle",
+                                position: "top-center",
                               });
                             setVip(false);
                             onCloseStop();
