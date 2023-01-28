@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PetManage from "../services/PetManage";
 import UserManage from "../services/UserManage";
-import {
-  Image,
-  Stack,
-  Center,
-  Button,
-  Box,
-  Heading,
-  Text,
-  Container,
-} from "@chakra-ui/react";
+import { Image, Stack, Center, Button, Box, Heading, Text, Container, useToast } from "@chakra-ui/react";
 
 const PetsList = () => {
   const [petsList, setPetList] = useState([]);
   const [isPetFull, setIsPetFull] = useState();
   const [userId, setUserId] = useState();
   const [endList, setEnd] = useState();
+  const toast = useToast();
 
   useEffect(() => {
     async function getUserId() {
@@ -45,10 +37,27 @@ const PetsList = () => {
   }, [userId]);
 
   async function deleteP(pet) {
-    // console.log(pet);
     const ret = await PetManage.deletePet(pet);
-    alert(ret.data.message);
-    window.location.reload();
+    if (ret.status.toString() === "200") {
+      toast({
+        title: "Pet deleted successfully :(",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the removal try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   }
 
   return (
@@ -89,11 +98,7 @@ const PetsList = () => {
                           h={"7rem"}
                           w={"7rem"}
                           ml={{ base: "0", sm: "10" }}
-                          src={
-                            item.photo === ""
-                              ? "/speciesIcons/" + item.species + ".png"
-                              : item.photo
-                          }
+                          src={item.photo === "" ? "/f/speciesIcons/" + item.species + ".png" : item.photo}
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>

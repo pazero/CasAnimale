@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
-import { useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react';
 
-const Navbar = () => {
+const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -25,20 +25,21 @@ const Navbar = () => {
     });
     if (msg.data.success){
       toast({
-        title: 'Logged in successfully!',
+        title: "Signed-in successfully!",
         status: 'success',
-        duration: 5000,
-        isClosable: true,
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
       });
       navigate("/");
     } 
     else
       toast({
-        title: 'Ops something went wrong!',
-        description: 'Incorrect username or password.',
+        title: "Ops something went wrong!",
+        description: "Incorrect username or password.",
         status: 'error',
-        duration: 5000,
-        isClosable: true,
+        duration: 3500,
+        variant: 'subtle',
         position: 'top-center',
       });
   };
@@ -206,4 +207,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Login;

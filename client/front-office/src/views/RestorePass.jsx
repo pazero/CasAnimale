@@ -2,21 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
-
-import {
-  Button,
-  FormControl,
-  Flex,
-  Heading,
-  Input,
-  Stack,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Button, FormControl, Flex, Heading, Input, Stack, Text, useColorModeValue, useToast } from "@chakra-ui/react";
 
 export default function ForgotPasswordForm() {
   const navigate = useNavigate();
   const token = Cookies.get("token");
+  const toast = useToast();
   const [email, setEmail] = useState([]);
 
   useEffect(() => {
@@ -30,7 +21,24 @@ export default function ForgotPasswordForm() {
     const msg = await UserManage.restore({
       mail: email,
     });
-    alert(msg.data.message);
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Email restored successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
+    else
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed restoring your password try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
   };
 
   return (

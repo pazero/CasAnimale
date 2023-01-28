@@ -1,23 +1,35 @@
 import React from "react";
 import PostManage from "../services/PostManage";
 import { useNavigate } from "react-router-dom";
-import {
-  Image,
-  Box,
-  Heading,
-  Text,
-  HStack,
-  Button,
-  Show,
-} from "@chakra-ui/react";
+import { Image, Box, Heading, Text, HStack, Button, Show, useToast } from "@chakra-ui/react";
 
 const Post = (props) => {
+  const toast = useToast();
+
   const navigate = useNavigate();
 
   const deletePost = async () => {
     const { data: msg } = await PostManage.deletePost(props.data._id);
-    alert(msg.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Post deleted successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the removal try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   };
 
   return (

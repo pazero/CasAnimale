@@ -8,16 +8,7 @@ import Cookies from "js-cookie";
 import { Image, Button } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
-import {
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast } from "@chakra-ui/react";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -37,6 +28,7 @@ const Profile = () => {
   const [actualFavanimal, setActualFavanimal] = useState();
   const [vip, setVip] = useState(false);
   const token = Cookies.get("token");
+  const toast = useToast();
 
   const {
     isOpen: isOpenBecome,
@@ -106,8 +98,25 @@ const Profile = () => {
       password,
       favanimal,
     });
-    alert(msg.data.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Profile updated successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed updating try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
   }
 
   return (
@@ -471,10 +480,26 @@ const Profile = () => {
                           colorScheme="yellow"
                           onClick={async () => {
                             const ret = await UserManage.enableVip();
-                            alert(ret.data.message);
+                            if (ret.status.toString() === "200")
+                              toast({
+                                title: "VIP membership subscribed successfully!",
+                                status: 'success',
+                                duration: 3500,
+                                variant: 'subtle',
+                                position: 'top-center',
+                              });
+                            else
+                              toast({
+                                title: "Ops something went wrong!",
+                                description: "If you can't proceed subscribing your VIP membership try to re-access.",
+                                status: 'error',
+                                duration: 3500,
+                                variant: 'subtle',
+                                position: 'top-center',
+                              });
                             setVip(true);
                             onCloseBecome();
-                            window.location.reload();
+                            window.location = window.location;
                           }}
                         >
                           YES
@@ -498,10 +523,26 @@ const Profile = () => {
                           colorScheme="red"
                           onClick={async () => {
                             const ret = await UserManage.disableVip();
-                            alert(ret.data.message);
+                            if (ret.status.toString() === "200")
+                              toast({
+                                title: "VIP membership deleted successfully!",
+                                status: 'success',
+                                duration: 3500,
+                                variant: 'subtle',
+                                position: 'top-center',
+                              });
+                            else
+                              toast({
+                                title: "Ops something went wrong!",
+                                description: "If you can't proceed deleting your VIP membership try to re-access.",
+                                status: 'error',
+                                duration: 3500,
+                                variant: 'subtle',
+                                position: 'top-center',
+                              });
                             setVip(false);
                             onCloseStop();
-                            window.location.reload();
+                            window.location = window.location;
                           }}
                         >
                           Ok

@@ -5,20 +5,11 @@ import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
-import {
-  Image,
-  Box,
-  Heading,
-  Text,
-  HStack,
-  Show,
-  FormLabel,
-  Input,
-  Button,
-} from "@chakra-ui/react";
+import { Image, Box, Heading, Text, HStack, Show, FormLabel, Input, Button, useToast } from "@chakra-ui/react";
 
 const Thread = () => {
   const params = useParams();
+  const toast = useToast();
   const token = Cookies.get("token");
   const [post, setPost] = useState({});
   const [newComment, setNewComment] = useState("");
@@ -33,10 +24,33 @@ const Thread = () => {
           { user: user._id, content: newComment, date: new Date() },
         ],
       });
-      alert(ret.data.message);
-      window.location.reload();
+      if (ret.status.toString() === "200") {
+        toast({
+          title: "Comment posted successfully!",
+          status: 'success',
+          duration: 3500,
+          variant: 'subtle',
+          position: 'top-center',
+        });
+        window.location = window.location;
+      }
+      else
+        toast({
+          title: "Ops something went wrong!",
+          description: "If you can't proceed posting try to re-access.",
+          status: 'error',
+          duration: 3500,
+          variant: 'subtle',
+          position: 'top-center',
+        });
     } else {
-      alert("log in first");
+      toast({
+        title: "Log-in first!",
+        status: 'warning',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
     }
   };
 
