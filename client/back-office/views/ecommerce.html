@@ -13,14 +13,16 @@
     <script type="text/javascript" src="../script/index.js"></script>
     <title>CasAnimale - Back Office</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      $(document).ready(function () {
+      $(document).ready(async () => {
+        var user = await isUserLogged();
+        if (!user.admin)
+          window.location.href = "http://localhost:5000/b/views/home.html";
         $("#sidebar").load("../tabs/sidebar.html");
         $("#ecommerceInfo").load("../tabs/ecommerce-info.html");
       });
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <div class="flex flex-col md:flex-row flex-1 h-full">

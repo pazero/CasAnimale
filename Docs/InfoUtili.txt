@@ -86,25 +86,25 @@ TO DO:
 			[x] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende vedono solo i loro clienti, ma non possono modificare o eliminare
+			[ ] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
 		[/] Gestione delle bacheche [ FORUM ]
 			[ ] Form crea nuovo
 			[ ] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende non accedono a questa sezione
+			[x] Le aziende non accedono a questa sezione
 		[/] Gestione dei prodotti [ E-COMMERCE ]
 			[ ] Form crea nuovo
 			[ ] Update
 			[x] Delete
 			[/] Filtri
-			[ ] Le aziende non accedono a questa sezione
+			[x] Le aziende non accedono a questa sezione
 		[/] Gestione delle prenotazioni [ PRENOTATIONS ]
 			[ ] Form crea nuovo
 			[/] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende vedono solo le loro prenotazioni 
+			[x] Le aziende vedono solo le loro prenotazioni 
 		[/] Gestione delle ricevute [ BILLING ]
 			[ ] Form crea nuovo
 			[ ] Update
@@ -116,6 +116,6 @@ TO DO:
 			[x] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende accedono alle info solo della loro azienda
+			[x] Le aziende accedono alle info solo della loro azienda
 		[ ] Registrazione nuova azienda
 		[ ] Registrazione nuovo admin

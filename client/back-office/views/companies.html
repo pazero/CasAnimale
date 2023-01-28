@@ -14,50 +14,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      $(document).ready(function () {
-        $("#sidebar").load("../tabs/sidebar.html");
-      });
-    </script>
-    <script>
       let toEditData = [];
       let toUpdateLen = [];
       let companies = [];
       let totCompanies = 0;
+      var user;
+
+      $(document).ready(async () => {
+        setUser();
+        $("#sidebar").load("../tabs/sidebar.html");
+      });
 
       const setUser = async () => {
-        user = await isUserLogged()
-        if(user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html"
-      }
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html";
 
-      const getCompanies = async () => {
-        var ret = await fetch("http://localhost:5000/api/company", {
-          method: "GET",
-          credentials: "include",
-        });
+        if (user.admin) getCompanies("");
+        else getCompanies(user.id);
+      };
+
+      const getCompanies = async (id) => {
+        var ret;
+        id === ""
+          ? (ret = await fetch("http://localhost:5000/api/company", {
+              method: "GET",
+              credentials: "include",
+            }))
+          : (ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
+              method: "GET",
+              credentials: "include",
+            }));
         companies = await ret.json();
         toEditData = companies;
         await loadCompanyList();
       };
+
       const sendData = async (index) => {
-        var ret = await fetch("http://localhost:5000/api/company/update/" + toEditData[index]._id, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(toEditData[index]),
-          credentials: "include",
-        });
-        ret = await ret.json()
-        alert(ret.message)
+        var ret = await fetch(
+          "http://localhost:5000/api/company/update/" + toEditData[index]._id,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(toEditData[index]),
+            credentials: "include",
+          }
+        );
+        ret = await ret.json();
+        alert(ret.message);
         window.location.reload();
-      }
-      //non funziona
+      };
+
       const deleteCp = async (id) => {
         var ret = await fetch("http://localhost:5000/api/company/" + id, {
           method: "DELETE",
           credentials: "include",
         });
-        ret = await ret.json()
-        alert(ret.message)
+        ret = await ret.json();
+        alert(ret.message);
+        if (!user.admin) logout(); // todo testare
         window.location.reload();
       };
 
@@ -144,7 +159,16 @@
                   : item.email.toLowerCase().includes(reqEmail.toLowerCase())
                   ? 0
                   : 1;
-              compareOnline = reqOnline === "" ? 0 : reqOnline === 'true' ? (item.online === true ? 0 : 1) : (item.online !== true ? 0 : 1);
+              compareOnline =
+                reqOnline === ""
+                  ? 0
+                  : reqOnline === "true"
+                  ? item.online === true
+                    ? 0
+                    : 1
+                  : item.online !== true
+                  ? 0
+                  : 1;
               if (
                 compareCity +
                   compareCompany +
@@ -229,12 +253,22 @@
           let tmp = "";
           array.map((item, count) => {
             tmp +=
-            `<div>
+              `<div>
               <input
                 type="text"
-                name="new` + type + index + count + `"
-                id="new` + type + index + count + `"
-                value="` + item + `"
+                name="new` +
+              type +
+              index +
+              count +
+              `"
+                id="new` +
+              type +
+              index +
+              count +
+              `"
+                value="` +
+              item +
+              `"
                 placeholder="Type new field"
                 class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
               />
@@ -245,98 +279,140 @@
         return "-";
       };
 
-      const addField = (type,index, aux) => {
+      const addField = (type, index, aux) => {
         let count = -1;
-        if(aux==="expLen") {toUpdateLen[index].expLen++; count = toUpdateLen[index].expLen - 1}
-        if(aux==="petLen") {toUpdateLen[index].petLen++; count = toUpdateLen[index].petLen - 1}
-        if(aux==="studyLen") {toUpdateLen[index].studyLen++; count = toUpdateLen[index].studyLen - 1}
-        if(aux==="jobLen") {toUpdateLen[index].jobLen++; count = toUpdateLen[index].jobLen - 1}
-        if(count != -1) {
-          $("#add" + type + index).append(`
+        if (aux === "expLen") {
+          toUpdateLen[index].expLen++;
+          count = toUpdateLen[index].expLen - 1;
+        }
+        if (aux === "petLen") {
+          toUpdateLen[index].petLen++;
+          count = toUpdateLen[index].petLen - 1;
+        }
+        if (aux === "studyLen") {
+          toUpdateLen[index].studyLen++;
+          count = toUpdateLen[index].studyLen - 1;
+        }
+        if (aux === "jobLen") {
+          toUpdateLen[index].jobLen++;
+          count = toUpdateLen[index].jobLen - 1;
+        }
+        if (count != -1) {
+          $("#add" + type + index).append(
+            `
           <div>
             <input
               type="text"
               placeholder="Type new field"
-              name="new` + type + index + count + `"
-              id="new` + type + index + count + `"
+              name="new` +
+              type +
+              index +
+              count +
+              `"
+              id="new` +
+              type +
+              index +
+              count +
+              `"
               class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
             />
             </div>
-            `);
-          }
+            `
+          );
+        }
       };
 
-        const updateData = (index) => {
-          toEditData[index].description = $("#newDescription"+index).val()
-          if($("#newName"+index).val() !== "")
-            toEditData[index].name = $("#newName"+index).val()
-          if($("#newEmail"+index).val() !== "")
-            toEditData[index].email = $("#newEmail"+index).val()
-          if($("#newPassword"+index).val() !== "")
-            toEditData[index].password = $("#newPassword"+index).val()
-          if($("#newCost"+index).val() !== "")
-            toEditData[index].cost_per_hour = $("#newCost"+index).val()
-          if($("#newOwner"+index).val() !== "")
-            toEditData[index].owner = $("#newOwner"+index).val()
+      const updateData = (index) => {
+        toEditData[index].description = $("#newDescription" + index).val();
+        if ($("#newName" + index).val() !== "")
+          toEditData[index].name = $("#newName" + index).val();
+        if ($("#newEmail" + index).val() !== "")
+          toEditData[index].email = $("#newEmail" + index).val();
+        if ($("#newPassword" + index).val() !== "")
+          toEditData[index].password = $("#newPassword" + index).val();
+        if ($("#newCost" + index).val() !== "")
+          toEditData[index].cost_per_hour = $("#newCost" + index).val();
+        if ($("#newOwner" + index).val() !== "")
+          toEditData[index].owner = $("#newOwner" + index).val();
 
-          let startTime = $("#newStart"+index).val()
-          if((startTime.endsWith("am") || (startTime.endsWith("pm"))) && !isNaN(+(startTime.substring(0,startTime.length - 2))) && +(startTime.substring(0,startTime.length - 2)) > 0 && +(startTime.substring(0,startTime.length - 2)) < 13){
-            if(startTime.endsWith("am")) 
-              startTime = +startTime.substring(0,startTime.length - 2);
-            else
-              startTime = +startTime.substring(0,$("#newStart"+index).val().length - 2) + 12;
-          }
-          let endTime = $("#newEnd"+index).val()
-          if((endTime.endsWith("am") || (endTime.endsWith("pm"))) && !isNaN(+(endTime.substring(0,endTime.length - 2))) && +(endTime.substring(0,endTime.length - 2)) > 0 && +(endTime.substring(0,endTime.length - 2)) < 13){
-            if(endTime.endsWith("am")) 
-              endTime= +endTime.substring(0,endTime.length - 2);
-            else
-              endTime = +endTime.substring(0,endTime.length - 2) + 12;
-          }
-          if(startTime < endTime) {
-            if(startTime !== "am" && startTime !== "pm")
-              toEditData[index].business_hours.start = startTime
-            if(endTime !== "am" && endTime !== "pm")
-              toEditData[index].business_hours.end = endTime
-          }
-          toEditData[index].main_pets = []
-          for(let i = 0; i < toUpdateLen[index].petLen; i++) {
-            if($("#newPet"+ index + i).val() !== "") toEditData[index].main_pets.push($("#newPet"+ index + i).val())
-          }
-          toEditData[index].study_info = []
-          for(let i = 0; i < toUpdateLen[index].studyLen; i++) {
-            if($("#newStudy"+ index + i).val() !== "") toEditData[index].study_info.push($("#newStudy"+ index + i).val())
-          }
-          toEditData[index].professional_experience = []
-          for(let i = 0; i < toUpdateLen[index].expLen; i++) {
-            if($("#newExp"+ index + i).val() !== "") toEditData[index].professional_experience.push($("#newExp"+ index + i).val())
-          }
-          toEditData[index].actual_jobs = []
-          for(let i = 0; i < toUpdateLen[index].jobLen; i++) {
-            if($("#newJob"+ index + i).val() !== "") toEditData[index].actual_jobs.push($("#newJob"+ index + i).val())
-          }
-          if($("#newMonday"+index).val() !== "")
-            toEditData[index].cities.monday = $("#newMonday" + index).val()
-          if($("#newTuesday"+index).val() !== "")
-            toEditData[index].cities.tuesday = $("#newTuesday" + index).val()
-          if($("#newWednesday"+index).val() !== "")
-            toEditData[index].cities.wednesday = $("#newWednesday" + index).val()
-          if($("#newThursday"+index).val() !== "")
-            toEditData[index].cities.thursday = $("#newThursday" + index).val()
-          if($("#newFriday"+index).val() !== "")
-            toEditData[index].cities.friday = $("#newFriday" + index).val()
-          
-          toEditData[index].online = $("#newOnline" + index).val() === 'true' ? true : false
-
-          sendData(index);
+        let startTime = $("#newStart" + index).val();
+        if (
+          (startTime.endsWith("am") || startTime.endsWith("pm")) &&
+          !isNaN(+startTime.substring(0, startTime.length - 2)) &&
+          +startTime.substring(0, startTime.length - 2) > 0 &&
+          +startTime.substring(0, startTime.length - 2) < 13
+        ) {
+          if (startTime.endsWith("am"))
+            startTime = +startTime.substring(0, startTime.length - 2);
+          else
+            startTime =
+              +startTime.substring(0, $("#newStart" + index).val().length - 2) +
+              12;
         }
+        let endTime = $("#newEnd" + index).val();
+        if (
+          (endTime.endsWith("am") || endTime.endsWith("pm")) &&
+          !isNaN(+endTime.substring(0, endTime.length - 2)) &&
+          +endTime.substring(0, endTime.length - 2) > 0 &&
+          +endTime.substring(0, endTime.length - 2) < 13
+        ) {
+          if (endTime.endsWith("am"))
+            endTime = +endTime.substring(0, endTime.length - 2);
+          else endTime = +endTime.substring(0, endTime.length - 2) + 12;
+        }
+        if (startTime < endTime) {
+          if (startTime !== "am" && startTime !== "pm")
+            toEditData[index].business_hours.start = startTime;
+          if (endTime !== "am" && endTime !== "pm")
+            toEditData[index].business_hours.end = endTime;
+        }
+        toEditData[index].main_pets = [];
+        for (let i = 0; i < toUpdateLen[index].petLen; i++) {
+          if ($("#newPet" + index + i).val() !== "")
+            toEditData[index].main_pets.push($("#newPet" + index + i).val());
+        }
+        toEditData[index].study_info = [];
+        for (let i = 0; i < toUpdateLen[index].studyLen; i++) {
+          if ($("#newStudy" + index + i).val() !== "")
+            toEditData[index].study_info.push($("#newStudy" + index + i).val());
+        }
+        toEditData[index].professional_experience = [];
+        for (let i = 0; i < toUpdateLen[index].expLen; i++) {
+          if ($("#newExp" + index + i).val() !== "")
+            toEditData[index].professional_experience.push(
+              $("#newExp" + index + i).val()
+            );
+        }
+        toEditData[index].actual_jobs = [];
+        for (let i = 0; i < toUpdateLen[index].jobLen; i++) {
+          if ($("#newJob" + index + i).val() !== "")
+            toEditData[index].actual_jobs.push($("#newJob" + index + i).val());
+        }
+        if ($("#newMonday" + index).val() !== "")
+          toEditData[index].cities.monday = $("#newMonday" + index).val();
+        if ($("#newTuesday" + index).val() !== "")
+          toEditData[index].cities.tuesday = $("#newTuesday" + index).val();
+        if ($("#newWednesday" + index).val() !== "")
+          toEditData[index].cities.wednesday = $("#newWednesday" + index).val();
+        if ($("#newThursday" + index).val() !== "")
+          toEditData[index].cities.thursday = $("#newThursday" + index).val();
+        if ($("#newFriday" + index).val() !== "")
+          toEditData[index].cities.friday = $("#newFriday" + index).val();
 
-      const setNewOnline = (index, online) => {        
-        $(document).ready(function (){
-          (online === true) ? $("#newOnline"+index).val("true") : $("#newOnline"+ index).val("false");
-        })
-      }
-        
+        toEditData[index].online =
+          $("#newOnline" + index).val() === "true" ? true : false;
+
+        sendData(index);
+      };
+
+      const setNewOnline = (index, online) => {
+        $(document).ready(function () {
+          online === true
+            ? $("#newOnline" + index).val("true")
+            : $("#newOnline" + index).val("false");
+        });
+      };
+
       const makeItemCompany = (
         index,
         id,
@@ -376,17 +452,35 @@
         return (
           `
             <div class="flex flex-row my-3">
-              <span class="mr-1">` + (index + 1) +`.</span>
-              <div id="bodyCard`+index+`" class="flex flex-col flex-1 bg-white/50 p-2 rounded">
+              <span class="mr-1">` +
+          (index + 1) +
+          `.</span>
+              <div id="bodyCard` +
+          index +
+          `" class="flex flex-col flex-1 bg-white/50 p-2 rounded">
                 <div class="flex flex-col mr-20">
-                  <div class="tohidden` + index + ` font-semibold">` + isTrue(online, "online") +`</div>
-                  <div class="toshow` + index + `">
-                    <span class="toshow` + index + ` hidden font-semibold">Online: </span>
+                  <div class="tohidden` +
+          index +
+          ` font-semibold">` +
+          isTrue(online, "online") +
+          `</div>
+                  <div class="toshow` +
+          index +
+          `">
+                    <span class="toshow` +
+          index +
+          ` hidden font-semibold">Online: </span>
                     <select
-                      id="newOnline` + index + `"
-                      name="newOnline` + index + `"
+                      id="newOnline` +
+          index +
+          `"
+                      name="newOnline` +
+          index +
+          `"
                       type="text"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                      class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     >
                       <option value="true">Yes</option>
                       <option value="false">No</option>
@@ -394,113 +488,237 @@
                   </div>
                   <div>
                     <span class="font-semibold">Company id: </span>
-                    <button class="btn" onclick="copy(this)">` + id +`<i class="fa fa-copy"></i></button>
+                    <button class="btn" onclick="copy(this)">` +
+          id +
+          `<i class="fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <span class="font-semibold">Company name: </span><span class="tohidden` + index + `">` + name +`</span>
+                    <span class="font-semibold">Company name: </span><span class="tohidden` +
+          index +
+          `">` +
+          name +
+          `</span>
                     <input
                       type="text"
-                      name="newName` + index + `"
-                      id="newName` + index + `"
-                      value="` + name + `"
+                      name="newName` +
+          index +
+          `"
+                      id="newName` +
+          index +
+          `"
+                      value="` +
+          name +
+          `"
                       placeholder="Type new name"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                      class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div>
                     <span class="font-semibold">Email: </span>
                     <input
                       type="text"
-                      name="newEmail` + index + `"
-                      id="newEmail` + index + `"
-                      value="` + email + `"
+                      name="newEmail` +
+          index +
+          `"
+                      id="newEmail` +
+          index +
+          `"
+                      value="` +
+          email +
+          `"
                       placeholder="Type new email"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                      class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
-                    <button class="btn tohidden` + index + `" onclick="copy(this)">` + email +`<i class="tohidden` + index +` fa fa-copy"></i></button>
+                    <button class="btn tohidden` +
+          index +
+          `" onclick="copy(this)">` +
+          email +
+          `<i class="tohidden` +
+          index +
+          ` fa fa-copy"></i></button>
                   </div>
                   <div>
                     <span class="font-semibold">Password: </span>
                     <input
                       type="text"
-                      name="newPassword` + index + `"
-                      id="newPassword` + index + `"
-                      value="` + password + `"
+                      name="newPassword` +
+          index +
+          `"
+                      id="newPassword` +
+          index +
+          `"
+                      value="` +
+          password +
+          `"
                       placeholder="Type new password"
-                      class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                      class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
-                    <button class="btn tohidden` + index + `" onclick="copy(this)">` + password +`<i class="tohidden` + index +` fa fa-copy"></i></button>
+                    <button class="btn tohidden` +
+          index +
+          `" onclick="copy(this)">` +
+          password +
+          `<i class="tohidden` +
+          index +
+          ` fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <span class="font-semibold">Company owner: </span><span class="tohidden` + index + `">` + owner + `</span>
+                    <span class="font-semibold">Company owner: </span><span class="tohidden` +
+          index +
+          `">` +
+          owner +
+          `</span>
                     <input
                       type="text"
-                      name="newOwner`+ index +`"
-                      id="newOwner` + index + `"
-                      value="` + owner + `"
+                      name="newOwner` +
+          index +
+          `"
+                      id="newOwner` +
+          index +
+          `"
+                      value="` +
+          owner +
+          `"
                       placeholder="Type new owner"
-                      class="toshow` + index + ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                      class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div>
-                    <span class="font-semibold">Profession: </span>` + title + `
+                    <span class="font-semibold">Profession: </span>` +
+          title +
+          `
                   </div>
-                  <button id="showMore` + index +`"
-                    onclick="{$('.expandCard` + index + `').removeClass('hidden'); $('#showMore` + index + `').addClass('hidden');$('#showLess` + index + `').removeClass('hidden')}"
+                  <button id="showMore` +
+          index +
+          `"
+                    onclick="{$('.expandCard` +
+          index +
+          `').removeClass('hidden'); $('#showMore` +
+          index +
+          `').addClass('hidden');$('#showLess` +
+          index +
+          `').removeClass('hidden')}"
                     class="flex gray text-xs m-1"
                   >
                     <u>Show more</u>
                   </button>
-                  <div class="hidden expandCard` + index + ` flex flex-col">
+                  <div class="hidden expandCard` +
+          index +
+          ` flex flex-col">
                     <div>
-                      <span class="font-semibold">Professional experience: </span><span class="tohidden` + index + `">` + showArray(professional_experience) + `</span>
+                      <span class="font-semibold">Professional experience: </span><span class="tohidden` +
+          index +
+          `">` +
+          showArray(professional_experience) +
+          `</span>
                     </div>
-                    <div class="hidden toshow` + index +` ml-8">` +
-                      listArray(professional_experience, index, "Exp") +`
-                      <div id="addExp` + index +`"></div>
-                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Exp',`+index+`,'expLen')">+</button>
+                    <div class="hidden toshow` +
+          index +
+          ` ml-8">` +
+          listArray(professional_experience, index, "Exp") +
+          `
+                      <div id="addExp` +
+          index +
+          `"></div>
+                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Exp',` +
+          index +
+          `,'expLen')">+</button>
                     </div>
 
                     <div>
-                      <span class="font-semibold">Actual jobs: </span><span class="tohidden` + index + `">` + showArray(actual_jobs) + `</span>
+                      <span class="font-semibold">Actual jobs: </span><span class="tohidden` +
+          index +
+          `">` +
+          showArray(actual_jobs) +
+          `</span>
                     </div>
-                    <div class="hidden toshow` + index +` ml-8">` +
-                      listArray(actual_jobs, index, "Job") + `
-                      <div id="addJob` + index +`"></div>
-                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Job',`+index+`,'jobLen')">+</button>
+                    <div class="hidden toshow` +
+          index +
+          ` ml-8">` +
+          listArray(actual_jobs, index, "Job") +
+          `
+                      <div id="addJob` +
+          index +
+          `"></div>
+                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Job',` +
+          index +
+          `,'jobLen')">+</button>
                     </div>
 
                     <div>
-                      <span class="font-semibold">Study info: </span><span class="tohidden` + index +`">` + showArray(study_info) + `</span>
+                      <span class="font-semibold">Study info: </span><span class="tohidden` +
+          index +
+          `">` +
+          showArray(study_info) +
+          `</span>
                     </div>
-                    <div class="hidden toshow` + index + ` ml-8">` +
-                      listArray(study_info, index, "Study") +`
-                      <div id="addStudy` + index + `"></div>
-                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Study',`+index+`,'studyLen')">+</button>
+                    <div class="hidden toshow` +
+          index +
+          ` ml-8">` +
+          listArray(study_info, index, "Study") +
+          `
+                      <div id="addStudy` +
+          index +
+          `"></div>
+                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Study',` +
+          index +
+          `,'studyLen')">+</button>
                     </div>
                   </div>
                 </div>
-                <div class="hidden flex expandCard` + index + ` flex-col">
+                <div class="hidden flex expandCard` +
+          index +
+          ` flex-col">
                   <div>
-                    <span class="font-semibold">Main pets: </span><span class="tohidden` + index + `">` + showArray(main_pets) + `</span>
+                    <span class="font-semibold">Main pets: </span><span class="tohidden` +
+          index +
+          `">` +
+          showArray(main_pets) +
+          `</span>
                   </div>
-                  <div class="hidden toshow` + index +` ml-8">` +
-                    listArray(main_pets, index, "Pet") +`
-                    <div id="addPet` + index + `"></div>
-                    <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Pet',`+index+`,'petLen')">+</button>
+                  <div class="hidden toshow` +
+          index +
+          ` ml-8">` +
+          listArray(main_pets, index, "Pet") +
+          `
+                    <div id="addPet` +
+          index +
+          `"></div>
+                    <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Pet',` +
+          index +
+          `,'petLen')">+</button>
                   </div>
 
                   <div>
-                    <span class="font-semibold">Cities: </span><span class="tohidden` + index + `">` + showCities(cities) + `</span>
+                    <span class="font-semibold">Cities: </span><span class="tohidden` +
+          index +
+          `">` +
+          showCities(cities) +
+          `</span>
                   </div>
-                  <div class="hidden toshow` + index +` ml-8">
+                  <div class="hidden toshow` +
+          index +
+          ` ml-8">
                     <div class="mb-1">
                       <span class="font-semibold">Monday: </span>
                       <input
                         type="text"
-                        name="newMonday` + index +`"
-                        id="newMonday` + index +`"
-                        value="` +cities.monday +`"
+                        name="newMonday` +
+          index +
+          `"
+                        id="newMonday` +
+          index +
+          `"
+                        value="` +
+          cities.monday +
+          `"
                         placeholder="Type new city for monday"
                         class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
@@ -509,9 +727,15 @@
                       <span class="font-semibold">Tuesday: </span>
                       <input
                         type="text"
-                        name="newTuesday` + index +`"
-                        id="newTuesday` + index + `"
-                        value="` + cities.tuesday + `"
+                        name="newTuesday` +
+          index +
+          `"
+                        id="newTuesday` +
+          index +
+          `"
+                        value="` +
+          cities.tuesday +
+          `"
                         placeholder="Type new city for tuesday"
                         class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
@@ -520,9 +744,15 @@
                       <span class="font-semibold">Wednesday: </span>
                       <input
                         type="text"
-                        name="newWednesday` + index +`"
-                        id="newWednesday` + index + `"
-                        value="` + cities.wednesday + `"
+                        name="newWednesday` +
+          index +
+          `"
+                        id="newWednesday` +
+          index +
+          `"
+                        value="` +
+          cities.wednesday +
+          `"
                         placeholder="Type new city for wednesday"
                         class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
@@ -531,9 +761,15 @@
                       <span class="font-semibold">Thursday: </span>
                       <input
                         type="text"
-                        name="newThursday` + index +`"
-                        id="newThursday` + index + `"
-                        value="` + cities.thursday + `"
+                        name="newThursday` +
+          index +
+          `"
+                        id="newThursday` +
+          index +
+          `"
+                        value="` +
+          cities.thursday +
+          `"
                         placeholder="Type new city for thursday"
                         class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />
@@ -542,96 +778,201 @@
                       <span class="font-semibold">Friday: </span>
                       <input
                         type="text"
-                        name="newFriday` + index +`"
-                        id="newFriday` + index +`"
-                        value="` + cities.friday + `"
+                        name="newFriday` +
+          index +
+          `"
+                        id="newFriday` +
+          index +
+          `"
+                        value="` +
+          cities.friday +
+          `"
                         placeholder="Type new city for friday"
                         class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />  
                     </div>
                   </div>
                   <div>
-                    <span class="font-semibold align-top">Description: </span><span class="tohidden` +index + `"">` + description + `</span>
+                    <span class="font-semibold align-top">Description: </span><span class="tohidden` +
+          index +
+          `"">` +
+          description +
+          `</span>
                   </div>
                   <textarea
                     type="text"
-                    name="newDescription` + index +`"
-                    id="newDescription` + index + `"
+                    name="newDescription` +
+          index +
+          `"
+                    id="newDescription` +
+          index +
+          `"
                     placeholder="Type new description"
-                    class="toshow` + index +` hidden change px-1 rounded shadow-sm ml-8 border-primary mb-1 bg-transparent"
+                    class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm ml-8 border-primary mb-1 bg-transparent"
                   >` +
-                    description +`
+          description +
+          `
                   </textarea>
-                  <div class="tohidden` + index + `">
-                    <span class="font-semibold">Schedules: </span>` + formatBusiness(business_hours.start) + ` - ` + formatBusiness(business_hours.end) +`
+                  <div class="tohidden` +
+          index +
+          `">
+                    <span class="font-semibold">Schedules: </span>` +
+          formatBusiness(business_hours.start) +
+          ` - ` +
+          formatBusiness(business_hours.end) +
+          `
                   </div>
-                  <div class="toshow` + index + ` hidden">
+                  <div class="toshow` +
+          index +
+          ` hidden">
                     <span class="font-semibold">Start at: </span>
                     <input
                       type="text"
-                      name="newStart` + index +`"
-                      id="newStart` + index + `"
-                      value="` + formatBusiness(business_hours.start) + `"
+                      name="newStart` +
+          index +
+          `"
+                      id="newStart` +
+          index +
+          `"
+                      value="` +
+          formatBusiness(business_hours.start) +
+          `"
                       placeholder="Type new start time"
                       class="change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
-                  <div class="toshow` + index +` hidden">
+                  <div class="toshow` +
+          index +
+          ` hidden">
                     <span class="font-semibold">End at: </span>
                     <input
                       type="text"
-                      name="newEnd` + index +`"
-                      id="newEnd` + index + `"
-                      value="` + formatBusiness(business_hours.end) +`"
+                      name="newEnd` +
+          index +
+          `"
+                      id="newEnd` +
+          index +
+          `"
+                      value="` +
+          formatBusiness(business_hours.end) +
+          `"
                       placeholder="Type new end time"
                       class="change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                   </div>
                   <div>
-                    <span class="font-semibold">Cost per hour: </span><span class="tohidden` + index + `">` + cost_per_hour +`</span>
+                    <span class="font-semibold">Cost per hour: </span><span class="tohidden` +
+          index +
+          `">` +
+          cost_per_hour +
+          `</span>
                     <input
                       type="text"
-                      name="newCost` + index +`"
-                      id="newCost` + index + `"
-                      value="` + cost_per_hour + `"
+                      name="newCost` +
+          index +
+          `"
+                      id="newCost` +
+          index +
+          `"
+                      value="` +
+          cost_per_hour +
+          `"
                       placeholder="Type new cost"
-                      class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                      class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
                     />
                     €/h
                   </div>
                 </div>
-                <button id="showLess` + index +`"
-                  onclick="{$('.expandCard` + index + `').addClass('hidden'); $('#showMore` + index + `').removeClass('hidden');$('#showLess` + index + `').addClass('hidden')}"
-                  class="tohidden` + index + ` flex hidden gray text-xs m-1"
+                <button id="showLess` +
+          index +
+          `"
+                  onclick="{$('.expandCard` +
+          index +
+          `').addClass('hidden'); $('#showMore` +
+          index +
+          `').removeClass('hidden');$('#showLess` +
+          index +
+          `').addClass('hidden')}"
+                  class="tohidden` +
+          index +
+          ` flex hidden gray text-xs m-1"
                 >
                   <u>Show less</u>
                 </button>
               </div>
               <div class="flex flex-col self-center">
                 <button
-                  class="tohidden` + index +` btn bg-cyan-400 p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-                  onclick="{$('.tohidden` + index + `').addClass('hidden'); $('.toshow` + index + `').removeClass('hidden');$('.expandCard` + index + `').removeClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-col'); $('#bodyCard`+index+`').addClass('flex-row'); $('#showMore` + index + `').addClass('hidden'); setNewOnline(` + index + `, ` + online + `)}"
+                  class="tohidden` +
+          index +
+          ` btn bg-cyan-400 p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+                  onclick="{$('.tohidden` +
+          index +
+          `').addClass('hidden'); $('.toshow` +
+          index +
+          `').removeClass('hidden');$('.expandCard` +
+          index +
+          `').removeClass('hidden'); $('#bodyCard` +
+          index +
+          `').removeClass('flex-col'); $('#bodyCard` +
+          index +
+          `').addClass('flex-row'); $('#showMore` +
+          index +
+          `').addClass('hidden'); setNewOnline(` +
+          index +
+          `, ` +
+          online +
+          `)}"
                 >
                   Update
                 </button>
                 
                 <button
-                  class="tohidden` + index + ` btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-                  onclick="deleteCp('` + id + `')"
+                  class="tohidden` +
+          index +
+          ` btn bg-danger p-1 mx-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+                  onclick="deleteCp('` +
+          id +
+          `')"
                   >
                     Delete
                 </button>
 
                 <button
-                  class="toshow` + index + ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
-                  onclick="{updateData(`+index+`);$('.tohidden` + index + `').removeClass('hidden'); $('.toshow` + index + `').addClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-row'); $('#bodyCard`+index+`').addClass('flex-col');}"
+                  class="toshow` +
+          index +
+          ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+                  onclick="{updateData(` +
+          index +
+          `);$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden'); $('#bodyCard` +
+          index +
+          `').removeClass('flex-row'); $('#bodyCard` +
+          index +
+          `').addClass('flex-col');}"
                 >
                   SAVE
                 </button>
 
                 <button
-                  class="toshow` + index + ` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center"
-                  onclick="{$('.tohidden` + index + `').removeClass('hidden'); $('.toshow` + index +`').addClass('hidden'); $('#bodyCard`+index+`').removeClass('flex-row'); $('#bodyCard`+index+`').addClass('flex-col');}"
+                  class="toshow` +
+          index +
+          ` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center"
+                  onclick="{$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden'); $('#bodyCard` +
+          index +
+          `').removeClass('flex-row'); $('#bodyCard` +
+          index +
+          `').addClass('flex-col');}"
                 >
                   CANCEL
                   </button>
@@ -668,10 +1009,9 @@
                 expLen: item.professional_experience.length,
                 jobLen: item.actual_jobs.length,
                 studyLen: item.study_info.length,
-                petLen: item.main_pets.length
-              })
-            }
-            );
+                petLen: item.main_pets.length,
+              });
+            });
           }
           $("#companyList").html(tmp);
           $("#totCompanies").html("TOTAL RESULTS: " + totCompanies);
@@ -716,10 +1056,10 @@
         filterCompanyList();
       };
 
-      getCompanies();
+      // getCompanies();
     </script>
   </head>
-  <body onload="setUser()">
+  <body>
     <div class="flex flex-col md:flex-row flex-1 h-full">
       <div
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"

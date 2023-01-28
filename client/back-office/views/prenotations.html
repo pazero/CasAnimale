@@ -14,23 +14,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      $(document).ready(function () {
-        $("#sidebar").load("../tabs/sidebar.html");
-        //$("#list").load("../tabs/prenotation-list.html");
-      });
-    </script>
-    <script>
       let pts = [];
       let totPrenotations = 0;
+      var user;
 
-      const getPts = async () => {
-        var ret = await fetch("http://localhost:5000/api/prenotation", {
-          method: "GET",
-          //body: {},
-          credentials: "include",
-        });
+      $(document).ready(async () => {
+        user = await isUserLogged();
+        $("#sidebar").load("../tabs/sidebar.html");
+
+        if (user.admin) getPts("");
+        else getPts(user.id);
+      });
+
+      const getPts = async (id) => {
+        var ret;
+        id === ""
+          ? (ret = await fetch("http://localhost:5000/api/prenotation", {
+              method: "GET",
+              credentials: "include",
+            }))
+          : (ret = await fetch(
+              "http://localhost:5000/api/prenotation?company=" + id,
+              {
+                method: "GET",
+                credentials: "include",
+              }
+            ));
         pts = await ret.json();
-        await loadList();
+        loadList();
       };
 
       const deletePt = async (id) => {
@@ -315,7 +326,7 @@
         filterList();
       };
 
-      getPts();
+      // getPts();
     </script>
   </head>
   <body>
