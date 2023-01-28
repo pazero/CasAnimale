@@ -70,7 +70,6 @@ async function arePrenotationsOverlaping(req, res) {
 }
 
 async function isPlaceCorrect(req, res) {
-
   if (req.body.place === "online") return true;
 
   const company = await Company.find({ _id: req.body.company });

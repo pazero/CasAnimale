@@ -113,12 +113,8 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const removedCompany = await Company.findById(req.params.id);
-      if (req.userid == removedCompany.owner) {
-        // TODO da testare
-        const msg = await Company.deleteOne({ _id: req.params.id });
-        res.json(msg);
-      }
+      await Company.deleteOne({ _id: req.params.id });
+      res.json({ message: "Company deleted!" });
     }
   } catch (e) {
     res.json({ message: e });

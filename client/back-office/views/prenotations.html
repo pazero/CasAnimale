@@ -22,6 +22,7 @@
     <script>
       let pts = [];
       let totPrenotations = 0;
+
       const getPts = async () => {
         var ret = await fetch("http://localhost:5000/api/prenotation", {
           method: "GET",
@@ -31,7 +32,7 @@
         pts = await ret.json();
         await loadList();
       };
-      //TODO non funziona
+
       const deletePt = async (id) => {
         var ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
           method: "DELETE",
@@ -73,15 +74,27 @@
             let index = 0;
             pts.map((item) => {
               comparePrenotation =
-                reqPrenotation === "" ? 0 : item._id.includes(reqPrenotation) ? 0 : 1;
+                reqPrenotation === ""
+                  ? 0
+                  : item._id.includes(reqPrenotation)
+                  ? 0
+                  : 1;
               compareCompany =
-                reqCompany === "" ? 0 : item.company.includes(reqCompany) ? 0 : 1;
+                reqCompany === ""
+                  ? 0
+                  : item.company.includes(reqCompany)
+                  ? 0
+                  : 1;
               compareCustomer =
-                reqCustomer === "" ? 0 : item.user.includes(reqCustomer) ? 0 : 1;
+                reqCustomer === ""
+                  ? 0
+                  : item.user.includes(reqCustomer)
+                  ? 0
+                  : 1;
               compareSchedule =
                 reqSchedule === ""
                   ? 0
-                  : filterStartEndTime(item.start,0).includes(reqSchedule)
+                  : filterStartEndTime(item.start, 0).includes(reqSchedule)
                   ? 0
                   : 1;
               compareCity =
@@ -141,36 +154,58 @@
           place +
           `
                 </div>
-                <div><span class="font-semibold">Date: </span><span class=tohidden`+index+`>` +
+                <div><span class="font-semibold">Date: </span><span class=tohidden` +
+          index +
+          `>` +
           start.substring(0, 10) +
           `     </span><input
                 type="text"
                 name="newDate"
-                id="newTimes`+index+`"
-                value="`+start.substring(0, 10)+`"
+                id="newTimes` +
+          index +
+          `"
+                value="` +
+          start.substring(0, 10) +
+          `"
                 placeholder="Type new date"
-                class="toshow`+index+` hidden change px-1 rounded shadow-sm"
+                class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm"
               />
             </div>
-                <div class="tohidden`+index+`"><span class="font-semibold">Schedule: </span>` +
+                <div class="tohidden` +
+          index +
+          `"><span class="font-semibold">Schedule: </span>` +
           formatTime(start) +
           `</div>
-          <div class="toshow`+index+` hidden"><span class="font-semibold">Start at: </span>
+          <div class="toshow` +
+          index +
+          ` hidden"><span class="font-semibold">Start at: </span>
             <input
                 type="text"
                 name="newStart"
-                id="newStart`+index+`"
-                value="`+ filterStartEndTime(start, 0)+`"
+                id="newStart` +
+          index +
+          `"
+                value="` +
+          filterStartEndTime(start, 0) +
+          `"
                 placeholder="Type new start time"
                 class="change px-1 rounded shadow-sm"
               />
           </div>
-          <div class="toshow`+index+` hidden"><span class="font-semibold">End at: </span>
+          <div class="toshow` +
+          index +
+          ` hidden"><span class="font-semibold">End at: </span>
             <input
                 type="text"
                 name="newEnd"
-                id="newEnd`+index+`"
-                value="`+ filterStartEndTime(start, 1)+`"
+                id="newEnd` +
+          index +
+          `"
+                value="` +
+          filterStartEndTime(start, 1) +
+          `"
                 placeholder="Type new end time"
                 class="change px-1 rounded shadow-sm"
               />
@@ -187,17 +222,37 @@
                 </div>
               </div>
               <div class="flex flex-col self-center">
-              <button class="tohidden`+index+` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').addClass('hidden'); $('.toshow`+index+`').removeClass('hidden')}">
+              <button class="tohidden` +
+          index +
+          ` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
+          index +
+          `').addClass('hidden'); $('.toshow` +
+          index +
+          `').removeClass('hidden')}">
                 Update
               </button>
-              <button class="toshow`+index+` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+              <button class="toshow` +
+          index +
+          ` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden')}">
                 CANCEL
               </button>
-              <button class="toshow`+index+` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+              <button class="toshow` +
+          index +
+          ` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden')}">
                 SAVE
               </button>
-              <button class="tohidden`+index+` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt('` +
-          company +
+              <button class="tohidden` +
+          index +
+          ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="deletePt('` +
+          id +
           `')">
                 Delete
               </button>

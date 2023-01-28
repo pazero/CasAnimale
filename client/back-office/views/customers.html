@@ -65,7 +65,6 @@
 			toEditData = cstmrs;
 			await loadList();
 		};
-		//TODO non funziona
 		const deleteCstmr = async (id) => {
 			var ret = await fetch("http://localhost:5000/api/user/" + id, {
 				method: "DELETE",

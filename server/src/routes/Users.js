@@ -17,7 +17,6 @@ router.get("", async (req, res) => {
   }
 });
 
-
 /* Login user */
 router.post("/login", async (req, res) => {
   try {
@@ -172,8 +171,8 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const removeUser = await User.deleteOne({ _id: req.params.id });
-      res.json(removeUser);
+      await User.deleteOne({ _id: req.params.id });
+      res.json({ message: "User deleted!" });
     }
   } catch (e) {
     res.json({ message: e });
