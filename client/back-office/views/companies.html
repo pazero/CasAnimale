@@ -54,9 +54,10 @@
       const deleteCp = async (id) => {
         var ret = await fetch("http://localhost:5000/api/company/" + id, {
           method: "DELETE",
-          body: {},
           credentials: "include",
         });
+        ret = await ret.json()
+        alert(ret.message)
         window.location.reload();
       };
 

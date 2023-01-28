@@ -59,7 +59,6 @@
 		const getCusts = async () => {
 			var ret = await fetch("http://localhost:5000/api/user", {
 				method: "GET",
-				//body: {},
 				credentials: "include",
 			});
 			cstmrs = await ret.json();
