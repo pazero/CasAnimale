@@ -64,16 +64,16 @@
 			});
 			cstmrs = await ret.json();
 			toEditData = cstmrs;
-			console.log(toEditData)
 			await loadList();
 		};
 		//TODO non funziona
 		const deleteCstmr = async (id) => {
 			var ret = await fetch("http://localhost:5000/api/user/" + id, {
 				method: "DELETE",
-				body: {},
 				credentials: "include",
 			});
+			ret = await ret.json()
+			alert(ret.message)
 			window.location.reload();
 		};
 		const filterStartTime = (time) => {
