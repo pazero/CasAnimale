@@ -185,18 +185,34 @@ router.post("/update", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      await User.findOneAndUpdate(
-        { _id: req.userid },
-        {
-          name: req.body.name,
-          surname: req.body.surname,
-          photo: req.body.photo,
-          birth: req.body.birth,
-          email: req.body.email,
-          password: req.body.password,
-          favanimal: req.body.favanimal,
-        }
-      );
+      if (req.admin) {
+        await User.findOneAndUpdate(
+          { _id: req.body._id },
+          {
+            name: req.body.name,
+            surname: req.body.surname,
+            photo: req.body.photo,
+            birth: req.body.birth,
+            email: req.body.email,
+            password: req.body.password,
+            favanimal: req.body.favanimal,
+            vip: req.body.vip,
+          }
+        );
+      } else {
+        await User.findOneAndUpdate(
+          { _id: req.userid },
+          {
+            name: req.body.name,
+            surname: req.body.surname,
+            photo: req.body.photo,
+            birth: req.body.birth,
+            email: req.body.email,
+            password: req.body.password,
+            favanimal: req.body.favanimal,
+          }
+        );
+      }
       res.json({ message: "Update done!" });
     }
   } catch (e) {

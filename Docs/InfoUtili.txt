@@ -83,10 +83,10 @@ TO DO:
 		[x] Home page
 		[/] Gestione info clienti (anagrafica clienti)	[ CUSTOMERS ]
 			[ ] Form crea nuovo
-			[/] Update
+			[x] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende vedono solo i loro clienti
+			[ ] Le aziende vedono solo i loro clienti, ma non possono modificare o eliminare
 		[/] Gestione delle bacheche [ FORUM ]
 			[ ] Form crea nuovo
 			[ ] Update
@@ -119,6 +119,3 @@ TO DO:
 			[ ] Le aziende accedono alle info solo della loro azienda
 		[ ] Registrazione nuova azienda
 		[ ] Registrazione nuovo admin
-
-- Back end
-	[ ] Aggiungere api per fatturazione dei servizi
