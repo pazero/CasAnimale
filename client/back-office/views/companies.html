@@ -16,7 +16,6 @@
     <script>
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
-        //$("#allFilters").load("../tabs/company-info.html");
       });
     </script>
     <script>
@@ -50,7 +49,7 @@
         ret = await ret.json()
         alert(ret.message)
         window.location.reload();
-      } 
+      }
       //non funziona
       const deleteCp = async (id) => {
         var ret = await fetch("http://localhost:5000/api/company/" + id, {
@@ -144,7 +143,7 @@
                   : item.email.toLowerCase().includes(reqEmail.toLowerCase())
                   ? 0
                   : 1;
-              compareOnline = reqOnline === "" ? 0 : reqOnline === 'true' ? (item.online === true ? 0 : 1) : (item.online === false || item.online === undefined ? 0 : 1);
+              compareOnline = reqOnline === "" ? 0 : reqOnline === 'true' ? (item.online === true ? 0 : 1) : (item.online !== true ? 0 : 1);
               if (
                 compareCity +
                   compareCompany +
@@ -328,8 +327,7 @@
           
           toEditData[index].online = $("#newOnline" + index).val() === 'true' ? true : false
 
-          //chiamare API post con toEditData[index] per aggiornare dati
-          sendData(index)
+          sendData(index);
         }
 
       const setNewOnline = (index, online) => {        
@@ -380,7 +378,7 @@
               <span class="mr-1">` + (index + 1) +`.</span>
               <div id="bodyCard`+index+`" class="flex flex-col flex-1 bg-white/50 p-2 rounded">
                 <div class="flex flex-col mr-20">
-                  <div class="tohidden` + index + ` font-semibold">` + isTrue(toEditData[index].online, "online") +`</div>
+                  <div class="tohidden` + index + ` font-semibold">` + isTrue(online, "online") +`</div>
                   <div class="toshow` + index + `">
                     <span class="toshow` + index + ` hidden font-semibold">Online: </span>
                     <select
@@ -392,7 +390,7 @@
                       <option value="true">Yes</option>
                       <option value="false">No</option>
                     </select>
-                    </div>
+                  </div>
                   <div>
                     <span class="font-semibold">Company id: </span>
                     <button class="btn" onclick="copy(this)">` + id +`<i class="fa fa-copy"></i></button>

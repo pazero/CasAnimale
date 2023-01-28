@@ -35,11 +35,13 @@
       const deletePt = async (id) => {
         var ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
           method: "DELETE",
-          body: {},
           credentials: "include",
         });
+        ret = await ret.json();
+        alert(ret.message);
         window.location.reload();
       };
+
       const filterStartEndTime = (time, end) => {
         let hours = +time.substring(11, 13) + 1 + +end;
         time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
@@ -186,7 +188,7 @@
               </div>
               <div class="flex flex-col self-center">
               <button class="tohidden`+index+` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').addClass('hidden'); $('.toshow`+index+`').removeClass('hidden')}">
-                Change data
+                Update
               </button>
               <button class="toshow`+index+` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
                 CANCEL

@@ -15,9 +15,47 @@
 		$(document).ready(function () {
 			$("#sidebar").load("../tabs/sidebar.html");
 		});
-		
+	</script>
+	<script>
 		let cstmrs = [];
 		let totCustomers = 0;
+		let toEditData = [];
+
+		const setUser = async () => {
+			user = await isUserLogged()
+			if(user === undefined)
+			window.location.href = "http://localhost:5000/b/views/login.html"
+		}
+		const sendData = async (index) => {
+			console.log(toEditData[index])
+			var ret = await fetch("http://localhost:5000/api/user/update/", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(toEditData[index]),
+				credentials: "include",
+			});
+			ret = await ret.json()
+			alert(ret.message)
+			window.location.reload();
+		}
+		
+		const updateData = (index) => {
+			if($("#newName"+index).val() !== "")
+            	toEditData[index].name = $("#newName"+index).val()
+			if($("#newSurname"+index).val() !== "")
+				toEditData[index].surname = $("#newSurname"+index).val()
+			if($("#newEmail"+index).val() !== "")
+				toEditData[index].email = $("#newEmail"+index).val()
+			if($("#newPassword"+index).val() !== "")
+				toEditData[index].password = $("#newPassword"+index).val()
+			if($("#newFavanimal"+index).val() !== "")
+				toEditData[index].favanimal = $("#newFavanimal"+index).val()
+			console.log(toEditData)
+			
+			toEditData[index].vip = $("#newVip" + index).val() === 'true' ? true : false
+			
+			sendData(index);
+		}
 		const getCusts = async () => {
 			var ret = await fetch("http://localhost:5000/api/user", {
 				method: "GET",
@@ -25,6 +63,8 @@
 				credentials: "include",
 			});
 			cstmrs = await ret.json();
+			toEditData = cstmrs;
+			console.log(toEditData)
 			await loadList();
 		};
 		//TODO non funziona
@@ -100,7 +140,11 @@
 				totCustomers = 0;
 			});
 		};
-		
+		const setNewVip = (index, vip) => {        
+			$(document).ready(function (){
+			(vip === true) ? $("#newVip"+index).val("true") : $("#newVip"+ index).val("false");
+			})
+		}
 		const makeItemCustomer = (index, id, name, surname, birth, email, password, favanimal, cart, vip) => {
 			return (
 			`
@@ -115,58 +159,126 @@
 								+ id + `
 								<i class="fa fa-copy"></i>
 							</button>
-							<span class="font-semibold">`
+							<span class="tohidden` + index + ` font-semibold">`
 								+ isVIP(vip) + `
 							</span>
+							<div class="toshow` + index + `">
+								<span class="toshow` + index + ` hidden font-semibold">Vip: </span>
+								<select
+									id="newVip` + index + `"
+									name="newVip` + index + `"
+									type="text"
+									class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+								>
+								<option value="true">Yes</option>
+								<option value="false">No</option>
+								</select>
+							</div>
 						</div>
-						<div><span class="font-semibold">Name: </span>`
+						<div><span class="font-semibold">Name: </span><span class="tohidden` + index + `">`
 							+ name + `
+						</span>
+						<input
+							type="text"
+							name="newName` + index +`"
+							id="newName` + index + `"
+							value="` + name + `"
+							placeholder="Type new name"
+							class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+						/>
 						</div>
-						<div><span class="font-semibold">Surname: </span>`
+						<div><span class="font-semibold">Surname: </span><span class="tohidden` + index + `">`
 							+ surname + `
+						</span>
+						<input
+							type="text"
+							name="newSurname` + index +`"
+							id="newSurname` + index + `"
+							value="` + surname + `"
+							placeholder="Type new surname"
+							class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+						/>
 						</div>
 						<div><span class="font-semibold">Birth date: </span>`
 							+ birth.substring(0, 10) + `
 						</div>
 						<div><span class="font-semibold">Email: </span>
-							<button class="btn" onclick="copy(this)">`
+							<button class="btn tohidden` + index + `" onclick="copy(this)">`
 								+ email + `
 								<i class="fa fa-copy"></i>
 							</button>
+							<input
+								type="text"
+								name="newEmail` + index +`"
+								id="newEmail` + index + `"
+								value="` + email + `"
+								placeholder="Type new email"
+								class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+							/>
 						</div>
 						<button id="showMore` + index + `"
-										onclick="{$('#card` + index + `').removeClass('hidden');
+										onclick="{$('#expandCard` + index + `').removeClass('hidden');
 															$('#showMore` + index + `').addClass('hidden');
 															$('#showLess` + index + `').removeClass('hidden')}" 
 										class="flex gray text-xs m-1">
 							<u>Show more</u>
 						</button>
-							<div id="card` + index + `" class="hidden flex flex-col">
-								<div><span class="font-semibold">Password: </span>`
+							<div id="expandCard` + index + `" class="hidden flex flex-col">
+								<div><span class="font-semibold">Password: </span><span class="tohidden` + index +`">`
 									+ password + `
+								</span>
+								<input
+									type="text"
+									name="newPassword` + index +`"
+									id="newPassword` + index + `"
+									value="` + password + `"
+									placeholder="Type new password"
+									class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+								/>
 								</div>
-								<div><span class="font-semibold">Favorite animal: </span>`
+								<div><span class="font-semibold">Favorite animal: </span><span class="tohidden` + index + `">`
 									+ favanimal + `
+								</span>
+								<input
+									type="text"
+									name="newFavanimal` + index +`"
+									id="newFavanimal` + index + `"
+									value="` + favanimal + `"
+									placeholder="Type new favorite animal"
+									class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+								/>
 								</div>
 								<div><span class="font-semibold">Cart: </span>`
 									+ showCart(cart) + `
 								</div>
 							</div>
 						<button id="showLess` + index + `"
-										onclick="{$('#card` + index + `').addClass('hidden');
+										onclick="{$('#expandCard` + index + `').addClass('hidden');
 															$('#showMore` + index + `').removeClass('hidden');
 															$('#showLess` + index + `').addClass('hidden')}"
-										class="flex hidden gray text-xs m-1">
+										class="tohidden` + index + ` flex hidden gray text-xs m-1">
 							<u>Show less</u>
 						</button>
 					</div>
+					</div>
 					<div class="flex flex-col self-center">
+						<button class="tohidden`+index+` btn bg-cyan-400 p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+								onclick="{$('.tohidden`+index+`').addClass('hidden'); $('.toshow`+index+`').removeClass('hidden'); $('#expandCard` + index + `').removeClass('hidden'); $('#showMore` + index + `').addClass('hidden');setNewVip(` + index + `, ` + vip + `)}">
+							Update
+						</button>
+						<button class="toshow`+index+` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+								onclick="{updateData(` + index + `); $('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+							SAVE
+						</button>
+						<button class="toshow`+index+` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center"
+								onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden');}">
+							CANCEL
+						</button>
 						<button class="tohidden`+ index + ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-										onclick="deleteCstmr('` + id + `')">
+								onclick="deleteCstmr('` + id + `')">
 							Delete
 						</button>
 					</div>
-				</div>
 			</div>`
 		)};
 
@@ -264,7 +376,7 @@
 				Click on a customer id to copy it!
 				<i class="fa fa-copy"></i>
 			</div>
-			<div class="flex flex-row mt-2">
+			<div class="flex flex-row mt-2 mx-4 mb-1">
 				<button id="showBtn" class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
 				onclick="showFilters()">
 				Show filters
@@ -365,10 +477,3 @@
 </body>
 
 </html>
-
-
-<!--
-	amministratori vedono tutti i clienti e modificano prenotazioni
-	
-	company vede clienti che hanno avuto a che fare con lei
--->
