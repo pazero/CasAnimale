@@ -27,9 +27,10 @@ TO DO:
 	    [x] aggiungere servizi vip accessibili solo ai vip
 	    [x] rendere opzione online solo per i vip
 - GENERALI
-	[ ] Convertire gli alert con dei toast
-	[ ] Controllare accessibilità, stile e responsive di tutto
+	[/] Convertire gli alert con dei toast
+	[/] Controllare accessibilità, stile e responsive di tutto
 	[/] Portare il progetto su gocker (creato docker)
+	[ ] far funzionare tutto senza errori
 	[ ] Documentazione API con swagger
 
 TO DO:
@@ -42,7 +43,7 @@ TO DO:
 		[x] Home page
 		[x] card con pagina per pubblicizzare servizi CasAnimale
 		[x] inserire img sfondo banner
-		[x] card per visualizzare prodotti e-commerce			| GENO è facile? bisogna solo avere una pagina in cui si vedono i prodotti offerti rimanendo nel game, senza andare nel front-office
+		[x] card per visualizzare prodotti e-commerce
 		[x] raggiungere velocemente servizi CasAnimale
 		[x] raggiungere velocemente e-commerce CasAnimale
 		[x] Curiosità generali 
@@ -75,26 +76,49 @@ TO DO:
 		[x] -fac- Psicologo
 		[x] Gestione delle prenotazioni
 		[x] -fac- Videochiamata
-		[ ] Implementare sistema di fatturazione dei servizi e del vip
+		[x] Implementare sistema di fatturazione dei servizi e del vip
  	
 	- BACK OFFICE
-		Dipendenti CasAnimale
-			[/] Login
-			[/] Home page
-			[ ] Gestione info clienti (anagrafica clienti) (vedi settings GitHub) | lista degli users con info editabili	[ CUSTOMERS ]
-			[ ] Gestione di servizi (bacheche) | lista dei post, con relativi commenti, possibilittà di cancellarli [ FORUMS ]
-			[ ] Gestione eCommerce (categorie, disponibilità, immagini, ...) | aggiungere e togliere prodotti, prezzi, descrizioni	[ E-COMMERCE ]
-			[ ] Gestione servizi in presenza (prenotazioni, disponibilità, ...) | visualizzare tutte le prenotazioni in presenza di tutte le aziende (?)
-			[ ] -fac- Gestione servizi online | visualizzare tutte le prenotazioni online di tutte le aziende (?)
-			[ ] Registrazione nuova azienda
-			[ ] Visualizzazione delle aziende + modifica [ PROFILE ]
-			[ ] Fatturazione dei servizi e dei prodotti, con gestione di totali e statistiche	[ BILLING (?) ]
-		Aziende (vet, petsitter, toelettatura, ...)
-			[/] Login
-			[/] Home page
-			[ ] gestione prenotazioni (appuntamenti dell'azienda) in presenza e online	[ SCHEDULES ]
-			[ ] Visualizzazione dell'azienda + modifica	[ PROFILE ]
-			[ ] Visualizzazione elenco dei clienti che l'azienda ha avuto | problema che adesso vengono cancellate le prenotazioni
+		[x] Login
+		[x] Home page
+		[/] Gestione info clienti (anagrafica clienti)	[ CUSTOMERS ]
+			[ ] Form crea nuovo
+			[/] Update
+			[x] Delete
+			[x] Filtri
+			[ ] Le aziende vedono solo i loro clienti
+		[/] Gestione delle bacheche [ FORUM ]
+			[ ] Form crea nuovo
+			[ ] Update
+			[x] Delete
+			[x] Filtri
+			[ ] Le aziende non accedono a questa sezione
+		[/] Gestione dei prodotti [ E-COMMERCE ]
+			[ ] Form crea nuovo
+			[ ] Update
+			[x] Delete
+			[/] Filtri
+			[ ] Le aziende non accedono a questa sezione
+		[/] Gestione delle prenotazioni [ PRENOTATIONS ]
+			[ ] Form crea nuovo
+			[/] Update
+			[x] Delete
+			[x] Filtri
+			[ ] Le aziende vedono solo le loro prenotazioni 
+		[/] Gestione delle ricevute [ BILLING ]
+			[ ] Form crea nuovo
+			[ ] Update
+			[x] Delete
+			[x] Filtri
+			[x] Differenziare
+		[/] Gestione servizi presenza e online [ COMPANIES ]
+			[ ] Form crea nuovo
+			[x] Update
+			[x] Delete
+			[x] Filtri
+			[ ] Le aziende accedono alle info solo della loro azienda
+		[ ] Registrazione nuova azienda
+		[ ] Registrazione nuovo admin
 
 - Back end
 	[ ] Aggiungere api per fatturazione dei servizi
