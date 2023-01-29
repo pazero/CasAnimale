@@ -87,7 +87,7 @@ const Thread = () => {
   };
 
   useEffect(() => {
-    const fetchPost = async (id) => {
+    async function fetchPost(id) {
       // get current user
       try {
         const { data: userData } = await UserManage.getUser();
@@ -120,9 +120,9 @@ const Thread = () => {
       );
 
       setPost(postData);
-    };
+    }
     fetchPost(params.id);
-  }, [post]);
+  }, []);
 
   return (
     <div
@@ -242,11 +242,11 @@ const Thread = () => {
                   {post?.comments?.map((item, i) => {
                     if (item === null) return;
                     return (
-                      <Box>
+                      <Box key={i}>
                         <div className="my-2 sm:my-4">
                           <Divider orientation='horizontal' />
                         </div>
-                        <Box className="p-2 m-2 mt-0" flex='1' width="100%" key={i}>
+                        <Box className="p-2 m-2 mt-0" flex='1' width="100%">
                           <Box display="flex" flexDirection="row">
                             <Box
                               display={"flex"}
