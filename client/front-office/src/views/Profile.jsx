@@ -194,7 +194,7 @@ const Profile = () => {
                           <div className="flex flex-1">
                             <button
                               hidden={true}
-                              className="changeInfo"
+                              className="changeInfo rounded border-dashed border-2 border-gray-300 p-1"
                               onClick={onClick}
                             >
                               <Image
@@ -209,6 +209,7 @@ const Profile = () => {
                                 icon={<EditIcon />}
                               />
                             </button>
+                            
                           </div>
                         )}
                       </UploadButton>
