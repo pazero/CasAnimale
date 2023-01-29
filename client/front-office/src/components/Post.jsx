@@ -64,21 +64,18 @@ const Post = (props) => {
 
           {props.data?.photo ? (
             <Box display="flex" flexDirection={{ base: "column", sm: "row" }}>
-              <Box display={"flex"} justifyContent={"center"} flexShrink="0">
+              <Box display={"flex"} justifyContent={"center"} flexShrink="0" marginTop="3">
                 <Image
                   src={props.data?.photo}
                   boxSize="fill"
-                  h={"8rem"}
-                  w={"8rem"}
+                  h={"max"}
+                  w={"max"}
+                  maxWidth={"10rem"}
+                  maxHeight={"10rem"}
                   alt="post-img"
                 />
               </Box>
-              <Text
-                as="p"
-                marginTop="3"
-                marginLeft={{ base: "0", sm: "3" }}
-                fontSize={{ base: "md", sm: "lg" }}
-              >
+              <Text marginLeft={{ base: "0", sm: "3" }} fontSize={{ base: "md", sm: "lg" }}>
                 <div>{props.data.description}</div>
               </Text>
             </Box>

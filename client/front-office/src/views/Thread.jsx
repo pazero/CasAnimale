@@ -203,8 +203,11 @@ const Thread = () => {
                           <Image
                             src={post.photo}
                             borderRadius="md"
-                            h={{base:"10rem", md:"16rem"}}
-                            w={{ base: "10rem", md: "16rem" }}
+                            marginTop={'1'}
+                            h={"max"}
+                            w={"max"}
+                            maxWidth={"20rem"}
+                            maxHeight={"20rem"}
                             alt="post-img"
                             justify={"center"}
                           />
