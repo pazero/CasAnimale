@@ -15,12 +15,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       let user;
+      let data;
       $(document).ready(async () => {
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
 
         if (user.admin) {
-          $("#adminInfo").removeClass("hidden");
           $("#title").html("PERSONAL PROFILE");
           getAdminInfo(user.id);
         } else {
@@ -28,24 +28,63 @@
           $("#title").html("COMPANY PROFILE");
           getAccountInfo(user.id);
         }
+        $(".tab").addClass("ml-10")
       });
       const showTab = (divId) => {
         $(".tab").addClass("hidden");
+        $(".btnInfo").removeClass("bg-primary");
         $("#" + divId).removeClass("hidden");
+        $("#" + divId + "Btn").addClass("bg-primary");
       };
       const getAccountInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
-        ret = await ret.json();
+        data = await ret.json();
+        fillCompany();
       };
       const getAdminInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
-        ret = await ret.json();
+        data = await ret.json();
+        console.log(data);
+        fillAdmin();
+      };
+      const fillAdmin = () => {
+        $(".adminOnly").removeClass("hidden");
+        $("#newName").val(data[0].name);
+        $("#newSurname").val(data[0].surname);
+        $("#newPassword").val(data[0].password);
+        $("#newEmail").val(data[0].email);
+        $("#adminId").html(data[0]._id);
+      };
+      const fillCompany = () => {
+        $(".companyOnly").removeClass("hidden");
+        $("#newName").val(data[0].name);
+        $("#newSurname").val(data[0].surname);
+        $("#newOwner").val(data[0].owner);
+        $("#newPassword").val(data[0].password);
+        $("#newEmail").val(data[0].email);
+        $("#adminId").html(data[0]._id);
+        switch (data[0].type) {
+          case "psy":
+            $("#newProfession").html("psychologist");
+            break;
+          case "vet":
+            $("#newProfession").html("veterinary");
+            break;
+          case "petsitter":
+            $("#newProfession").html("petsitter");
+            break;
+          case "groomer":
+            $("#newProfession").html("groomer");
+            break;
+          default:
+            $("#newProfession").html("groomer");
+        }
       };
     </script>
   </head>
@@ -60,41 +99,178 @@
           id="title"
           class="flex font-bold text-4xl sm:text-6xl m-4 self-center"
         ></div>
-        <div id="adminInfo" class="hidden flex mt-4">
-          <div id="bar" class="flex h-screen flex-col w-80 bg-secondary">
+        <div id="info" class="flex flex-1 mt-4">
+          <div
+            id="bar"
+            class="flex h-screen flex-col w-80 bg-secondary"
+            style="flex: 0 0 auto"
+          >
             <button
-              class="border-b-light thirdColor font-bold text-xl py-3"
+              id="publicInfoBtn"
+              class="btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50 bg-primary"
               onclick="showTab('publicInfo')"
             >
               Public information
             </button>
             <button
-              class="border-b-light thirdColor font-bold text-xl py-3"
+              id="privateInfoBtn"
+              class="btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('privateInfo')"
             >
               Privacy and security
             </button>
             <button
-              class="border-b-light thirdColor font-bold text-xl py-3"
+              id="placesBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('places')"
             >
               Working places
             </button>
             <button
-              class="border-b-light thirdColor font-bold text-xl py-3"
+              id="servicesInfoBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('servicesInfo')"
             >
               Services
             </button>
+            <button
+              id="newAdminBtn"
+              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('newAdmin')"
+            >
+              Create new admin user
+            </button>
           </div>
-          <div>
-            <div id="publicInfo" class="tab">public</div>
-            <div id="places" class="tab hidden">places</div>
-            <div id="privateInfo" class="tab hidden">private</div>
-            <div id="servicesInfo" class="tab hidden">services info</div>
+          <div
+            class="flex flex-1 text-xl ml-4 border-t-solid border-t-[1px] border-t-[#59114d]"
+          >
+            <div id="publicInfo" class="tab">
+              <div class="my-8">
+                <span class="adminOnly hidden primary font-semibold"
+                  >Name:</span
+                >
+                <span class="companyOnly hidden primary font-semibold"
+                  >Company name:</span
+                >
+                <input
+                  id="newName"
+                  name="newNameAdmin"
+                  placeholder="Type new name"
+                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                />
+              </div>
+              <div class="adminOnly hidden my-8">
+                <span class="primary font-semibold">Surname:</span>
+                <input
+                  id="newSurname"
+                  name="newSurname"
+                  placeholder="Type new surname"
+                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                />
+              </div>
+              <div class="companyOnly hidden my-8">
+                <span class="primary font-semibold"
+                  >Company owner:</span
+                >
+                <input
+                  id="newOwner"
+                  name="newOwner"
+                  placeholder="Type new owner"
+                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                />
+              </div>
+              <div class="companyOnly hidden my-8">
+                <span class="primary font-semibold">Profession:</span>
+                <span
+                  id="newProfession"
+                  class="change px-1 ml-3 bg-transparent"
+                ></span>
+              </div>
+            </div>
+            <div id="privateInfo" class="tab hidden">
+              <div class="my-8">
+                <span class="primary font-semibold">Password:</span>
+                <input
+                  id="newPassword"
+                  name="newPassword"
+                  placeholder="Type new password"
+                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                />
+              </div>
+              <div class="my-8">
+                <span class="primary font-semibold">Email:</span>
+                <input
+                  id="newEmail"
+                  name="newEmail"
+                  placeholder="Type new email"
+                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                />
+              </div>
+              <div class="my-8">
+                <span class="primary font-semibold">Id:</span>
+                <span id="adminId" class= ml-3"></span>
+              </div>
+            </div>
+            <div id="newAdmin" class="tab companyOnly hidden">
+              <div class="adminOnly hidden my-8">
+                <div class="primary font-semibold">
+                  These credentials will create a new admin account.
+                </div>
+                <div class="primary font-semibold mb-16">
+                  They will be able to access back office and modify every data
+                  and information about customers, companies and prenotations.
+                </div>
+                <div class="flex flex-col" id="createNewAdminTab">
+                  <div class="primary my-8">
+                    <span class="font-semibold">New admin name:</span>
+                    <input
+                      id="createAdminName"
+                      name="createAdminName"
+                      placeholder="Type new admin name"
+                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                    />
+                  </div>
+                  <div class="primary my-8">
+                    <span class="font-semibold">New admin surname:</span>
+                    <input
+                      id="createAdminSurname"
+                      name="createAdminSurname"
+                      placeholder="Type new admin surname"
+                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                    />
+                  </div>
+                  <div class="primary my-8">
+                    <span class="font-semibold">New admin email:</span>
+                    <input
+                      id="createAdminEmail"
+                      name="createAdminEmail"
+                      placeholder="Type new admin email"
+                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                    />
+                  </div>
+                  <div class="primary my-8">
+                    <span class="font-semibold">New admin password:</span>
+                    <input
+                      id="createAdminPassword"
+                      name="createAdminPassword"
+                      placeholder="Type new admin password"
+                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                    />
+                  </div>
+                    <button class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75">CREATE NEW ADMIN</button>
+                </div>
+                <span
+                  id="newProfession"
+                  class="change px-1 ml-3 bg-transparent"
+                ></span>
+              </div>
+            </div>
+            <div id="places" class="tab companyOnly hidden">places</div>
+            <div id="servicesInfo" class="tab companyOnly hidden">
+              services info
+            </div>
           </div>
         </div>
-        <div id="adminInfo" class="hidden flex mt-4"></div>
       </div>
     </div>
   </body>
