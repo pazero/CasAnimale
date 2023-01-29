@@ -28,7 +28,7 @@ html {
 }
 
 .bg-secondary {
-  background-color: #114d59;
+  background-color: #826c7f;
 }
 
 .bg-save {
@@ -63,4 +63,9 @@ html {
 
 .bg-update {
   background-color: rgb(34 211 238);;
+}
+
+.border-light {
+  border-color: #e1dee3;
+  border-width: 1px;
 }

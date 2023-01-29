@@ -1,0 +1,32 @@
+<head>
+    <script>
+        const showPublic = () => {
+            $("#privateInfo").addClass('hidden');
+            $("#servicesInfo").addClass('hidden');
+            $("#publicInfo").removeClass('hidden');
+        }
+        const showPrivate = () => {
+            $("#servicesInfo").addClass('hidden');
+            $("#publicInfo").addClass('hidden');
+            $("#privateInfo").removeClass('hidden');
+        }
+        const showServices = () => {
+            $("#privateInfo").addClass('hidden');
+            $("#publicInfo").addClass('hidden');
+            $("#servicesInfo").removeClass('hidden');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="flex flex-col md:flex-row">
+    <div id="bar" class=" flex flex-col w-80 bg-secondary">
+        <button class="border-light thirdColor font-bold text-xl" onclick="showPublic()">Public information</button>
+        <button class="border-light thirdColor font-bold text-xl" onclick="showPrivate()">Privacy and security</button>
+        <button class="border-light thirdColor font-bold text-xl" onclick="showServices()">Services</button>
+      </div>
+    <div id="publicInfo">public</div>
+    <div id="privateInfo" class="hidden">private</div>
+    <div id="servicesInfo" class="hidden">services info</div>
+    </div>
+</body>
