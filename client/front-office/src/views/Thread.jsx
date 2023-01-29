@@ -10,8 +10,9 @@ import {
   Box,
   Heading,
   Text,
-  HStack,
-  Show,
+  Divider,
+  Container,
+  Center,
   FormLabel,
   Input,
   Button,
@@ -162,7 +163,6 @@ const Thread = () => {
           <Box
             display="flex"
             flex="1"
-            marginRight={{ base: "0", sm: "3" }}
             position="relative"
             alignItems="center"
           >
@@ -173,68 +173,67 @@ const Thread = () => {
               justifyContent="center"
               marginTop={{ base: "3", sm: "0" }}
               padding="2"
-              paddingLeft="4"
-              backgroundColor="gray.50"
               borderRadius="md"
             >
-              <Heading marginTop="1" fontSize={{ base: "xl", sm: "3xl" }}>
-                <div>{post.title}</div>
-              </Heading>
-
-              {post.photo !== "" ? (
-                <Box
-                  display="flex"
-                  flexDirection={{ base: "column", sm: "row" }}
-                >
-                  <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    flexShrink="0"
-                  >
-                    <Image
-                      src={post.photo}
-                      boxSize="fill"
-                      h={"8rem"}
-                      w={"8rem"}
-                      alt="post-img"
-                    />
-                  </Box>
-                  <Text
-                    as="p"
-                    marginTop="3"
-                    marginLeft={{ base: "0", sm: "3" }}
-                    fontSize={{ base: "md", sm: "lg" }}
-                  >
-                    <div>{post.description}</div>
-                  </Text>
+              <Container display="flex" maxW='3xl' flexDirection="row" backgroundColor="gray.50" padding={{ base: "2", sm: "4" }} className="rounded-lg gap-4">
+                <Box display={"flex"} flexShrink="0">
+                  <Image
+                    borderRadius="full"
+                    boxSize={{ base: "35px", sm:"45px", md: "80px" }}
+                    src={op.photo === "" || op.photo === undefined ? "/f/userIcon.svg" : op.photo}
+                    alt="user profile image"
+                  />
                 </Box>
-              ) : (
-                <Text as="p" marginTop="2" fontSize={{ base: "md", sm: "lg" }}>
-                  <div>{post.description}</div>
-                </Text>
-              )}
+                <Box>
+                  <Box spacing="2" display="flex" flexDirection="column">
+                    <span className="font-semibold text-md md:text-lg">
+                      {op.name} {op.surname}
+                    </span>
+                    <span className="text-sm md:text-md">
+                      {post.date?.replace("T", " ").slice(0, -5).substring(0, 16)}
+                    </span>
+                  </Box>
+                  <Heading fontSize={{ base: "xl", sm: "3xl" }} marginTop={"2"}>
+                    <div className="sm:text-center">{post.title}</div>
+                  </Heading>
 
-              <HStack
-                marginTop="2"
-                spacing="2"
-                display="flex"
-                flexDirection={{ base: "column", sm: "row" }}
-                alignItems="center"
-                fontSize={{ base: "md", sm: "lg" }}
-              >
-                <Text fontWeight="medium">
-                  Posted by:{" "}
-                  <span className="font-bold">
-                    {op.name} {op.surname}
-                  </span>
-                </Text>
-                <Show above="sm">&nbsp;—</Show>
-                <Text>{post.date?.replace("T", " ").slice(0, -5)}</Text>
-              </HStack>
+                  {post.photo !== "" ? (
+                    <Box display="flex" flexDirection="column">
+                      <Box
+                        display={"flex"}
+                        justifyContent={"center"}
+                        flexDirection="column"
+                      >
+                        <Text
+                          as="p"
+                          marginTop={{ base: "1", sm: "2" }}
+                          fontSize={{ base: "md", sm: "lg" }}
+                        >
+                          <div className="break-words">{post.description}</div>
+                        </Text>
+                        <Center>
+                          <Image
+                            src={post.photo}
+                            borderRadius="md"
+                            h={{base:"10rem", md:"16rem"}}
+                            w={{ base: "10rem", md: "16rem" }}
+                            alt="post-img"
+                            justify={"center"}
+                          />
+                        </Center>
+                      </Box>
+                    </Box>
+                  ) : (
+                    <Text as="p" marginTop="2" fontSize={{ base: "md", sm: "lg" }}>
+                        <div className="break-words">{post.description}</div>
+                    </Text>
+                  )}
+                </Box>
+              </Container>
 
-              <div className="mt-5 p-2 border rounded">
-                <div>
-                  <FormLabel>Write a comment under this post!</FormLabel>
+              <div className="mt-5 p-2">
+                <div className="mb-3">
+                  <FormLabel fontWeight={'semibold'}>Write a comment under this post!</FormLabel>
                   <Input
                     value={newComment}
                     type="text"
@@ -244,7 +243,7 @@ const Thread = () => {
                   <Button
                     className="mt-2"
                     size={"sm"}
-                    colorScheme={"red"}
+                    colorScheme={"green"}
                     onClick={addComment}
                   >
                     Comment
@@ -255,66 +254,68 @@ const Thread = () => {
                   {post?.comments?.map((item, i) => {
                     if (item === null) return;
                     return (
-                      <Box className="p-2 m-2 mt-0" key={i}>
-                        <Box
-                          display="flex"
-                          flexDirection={{ base: "column", sm: "row" }}
-                        >
-                          <Box
-                            display={"flex"}
-                            justifyContent={"center"}
-                            flexShrink="0"
-                          >
-                            <Image
-                              borderRadius="full"
-                              boxSize="75px"
-                              src={item?.user?.photo}
-                              alt="post-img"
-                            />
-                          </Box>
-                          <Text
-                            as="p"
-                            marginTop="3"
-                            marginLeft={{ base: "0", sm: "3" }}
-                            fontSize={{ base: "md", sm: "lg" }}
-                          >
-                            <div className="flex flex-col">
-                              <span className="text-md">{item?.content}</span>
-                              <span className="text-xs">
-                                Posted by{" "}
-                                <span className="font-bold mr-1">
+                      <Box>
+                        <div className="my-2 sm:my-4">
+                          <Divider orientation='horizontal' />
+                        </div>
+                        <Box className="p-2 m-2 mt-0" key={i}>
+                          <Box display="flex" flexDirection="row" width={"full"}>
+                            <Box
+                              display={"flex"}
+                              justifyContent={"center"}
+                              flexShrink="0"
+                            >
+                              <Image
+                                borderRadius="full"
+                                boxSize={{ base: "35px", md: "70px" }}
+                                src={item?.user?.photo === "" || item?.user?.photo === undefined ? "/f/userIcon.svg" : item?.user?.photo}
+                                alt=" user img"
+                              />
+                            </Box>
+                            <Text
+                              as="p"
+                              marginLeft={{ base: "3", sm: "4" }}
+                              fontSize={{ base: "md", sm: "lg" }}
+                              maxWidth={{ base: "sm", }}
+                            >
+                              <div className="flex flex-col">
+                                <span className="text-md font-semibold">
                                   {item?.user?.name} {item?.user?.surname}
                                 </span>
-                                on {item?.date?.replace("T", " ").slice(0, -5)}
-                              </span>
-                            </div>
-                          </Text>
+                                <span className="text-sm mb-1">
+                                  {item?.date?.replace("T", " ").slice(0, -5).substring(0,16)}
+                                </span>
+                                <span className="text-md ml-3">
+                                  {item?.content}
+                                </span>
+                              </div>
+                            </Text>
 
-                          {item.user._id === user._id && (
-                            <Button
-                              onClick={() => {
-                                delComment(item);
-                              }}
-                              className="ml-4 mt-3"
-                              colorScheme={"red"}
-                              size={"sm"}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="18"
-                                height="18"
+                            {item.user._id === user._id && (
+                              <Button
+                                onClick={() => {
+                                  delComment(item);
+                                }}
+                                className="ml-4 mt-3"
+                                colorScheme={"red"}
+                                size={"sm"}
                               >
-                                <path fill="none" d="M0 0h24v24H0z" />
-                                <path
-                                  d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
-                                  fill="rgba(255,255,255,1)"
-                                />
-                              </svg>
-                            </Button>
-                          )}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  width="18"
+                                  height="18"
+                                >
+                                  <path fill="none" d="M0 0h24v24H0z" />
+                                  <path
+                                    d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
+                                    fill="rgba(255,255,255,1)"
+                                  />
+                                </svg>
+                              </Button>
+                            )}
+                          </Box>
                         </Box>
-                        <div class="divider"></div>
                       </Box>
                     );
                   })}
