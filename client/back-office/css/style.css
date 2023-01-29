@@ -65,7 +65,6 @@ html {
   background-color: rgb(34 211 238);;
 }
 
-.border-light {
-  border-color: #e1dee3;
-  border-width: 1px;
+.border-b-light {
+  border-bottom: #e1dee3 1px solid;
 }

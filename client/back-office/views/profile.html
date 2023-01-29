@@ -19,33 +19,33 @@
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
 
-        if(user.admin){
-            $("#profileInfo").load("../tabs/admin-profile.html");
-            $("#title").html("PERSONAL PROFILE")
-            getAdminInfo(user.id);
+        if (user.admin) {
+          $("#adminInfo").removeClass("hidden");
+          $("#title").html("PERSONAL PROFILE");
+          getAdminInfo(user.id);
         } else {
-            $("#profileInfo").load("../tabs/company-profile.html") ;
-            $("#title").html("COMPANY PROFILE")
-            getAccountInfo(user.id);
+          $("#companyInfo").removeClass("hidden");
+          $("#title").html("COMPANY PROFILE");
+          getAccountInfo(user.id);
         }
       });
-
-      const getAdminInfo = async (id) => {
-        let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
-          method: "GET",
-          credentials: "include",
-        });
-        ret = await ret.json();
-        console.log(ret)
+      const showTab = (divId) => {
+        $(".tab").addClass("hidden");
+        $("#" + divId).removeClass("hidden");
       };
-
       const getAccountInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
         ret = await ret.json();
-        console.log(ret)
+      };
+      const getAdminInfo = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
+          method: "GET",
+          credentials: "include",
+        });
+        ret = await ret.json();
       };
     </script>
   </head>
@@ -59,10 +59,42 @@
         <div
           id="title"
           class="flex font-bold text-4xl sm:text-6xl m-4 self-center"
-        >
-          
+        ></div>
+        <div id="adminInfo" class="hidden flex mt-4">
+          <div id="bar" class="flex h-screen flex-col w-80 bg-secondary">
+            <button
+              class="border-b-light thirdColor font-bold text-xl py-3"
+              onclick="showTab('publicInfo')"
+            >
+              Public information
+            </button>
+            <button
+              class="border-b-light thirdColor font-bold text-xl py-3"
+              onclick="showTab('privateInfo')"
+            >
+              Privacy and security
+            </button>
+            <button
+              class="border-b-light thirdColor font-bold text-xl py-3"
+              onclick="showTab('places')"
+            >
+              Working places
+            </button>
+            <button
+              class="border-b-light thirdColor font-bold text-xl py-3"
+              onclick="showTab('servicesInfo')"
+            >
+              Services
+            </button>
+          </div>
+          <div>
+            <div id="publicInfo" class="tab">public</div>
+            <div id="places" class="tab hidden">places</div>
+            <div id="privateInfo" class="tab hidden">private</div>
+            <div id="servicesInfo" class="tab hidden">services info</div>
+          </div>
         </div>
-        <div id="profileInfo" class="flex mt-4"></div>
+        <div id="adminInfo" class="hidden flex mt-4"></div>
       </div>
     </div>
   </body>

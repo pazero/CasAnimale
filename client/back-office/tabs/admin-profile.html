@@ -1,32 +1,60 @@
 <head>
-    <script>
-        const showPublic = () => {
-            $("#privateInfo").addClass('hidden');
-            $("#servicesInfo").addClass('hidden');
-            $("#publicInfo").removeClass('hidden');
-        }
-        const showPrivate = () => {
-            $("#servicesInfo").addClass('hidden');
-            $("#publicInfo").addClass('hidden');
-            $("#privateInfo").removeClass('hidden');
-        }
-        const showServices = () => {
-            $("#privateInfo").addClass('hidden');
-            $("#publicInfo").addClass('hidden');
-            $("#servicesInfo").removeClass('hidden');
-        }
-    </script>
+  <script>
+    let data;
+    let userData;
+    $(document).ready(async () => {
+      user = await isUserLogged();
+      getAdminInfo(userData.id)
+    });
+    const showTab = (divId) => {
+      $(".tab").addClass("hidden");
+      $("#" + divId).removeClass("hidden");
+    };
+    const getAdminInfo = async (id) => {
+      let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
+        method: "GET",
+        credentials: "include",
+      });
+      data = await ret.json();
+      console.log(data);
+    };
+
+  </script>
 </head>
 
 <body>
-    <div class="flex flex-col md:flex-row">
-    <div id="bar" class=" flex flex-col w-80 bg-secondary">
-        <button class="border-light thirdColor font-bold text-xl" onclick="showPublic()">Public information</button>
-        <button class="border-light thirdColor font-bold text-xl" onclick="showPrivate()">Privacy and security</button>
-        <button class="border-light thirdColor font-bold text-xl" onclick="showServices()">Services</button>
-      </div>
-    <div id="publicInfo">public</div>
-    <div id="privateInfo" class="hidden">private</div>
-    <div id="servicesInfo" class="hidden">services info</div>
+  <div class="flex w-full flex-col md:flex-row">
+    <div id="bar" class="flex h-screen flex-col w-80 bg-secondary">
+      <button
+        class="border-b-light thirdColor font-bold text-xl py-3"
+        onclick="showTab('publicInfo')"
+      >
+        Public information
+      </button>
+      <button
+        class="border-b-light thirdColor font-bold text-xl py-3"
+        onclick="showTab('privateInfo')"
+      >
+        Privacy and security
+      </button>
+      <button
+        class="border-b-light thirdColor font-bold text-xl py-3"
+        onclick="showTab('places')"
+      >
+        Working places
+      </button>
+      <button
+        class="border-b-light thirdColor font-bold text-xl py-3"
+        onclick="showTab('servicesInfo')"
+      >
+        Services
+      </button>
     </div>
+    <div>
+      <div id="publicInfo" class="tab">public</div>
+      <div id="places" class="tab hidden">places</div>
+      <div id="privateInfo" class="tab hidden">private</div>
+      <div id="servicesInfo" class="tab hidden">services info</div>
+    </div>
+  </div>
 </body>
