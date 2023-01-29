@@ -232,10 +232,11 @@
           `       <i class="fa fa-copy"></i></button>
                 </div>
               </div>
+              </div>
               <div class="flex flex-col self-center">
               <button class="tohidden` +
           index +
-          ` btn bg-secondary p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
+          ` btn bg-update p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
           index +
           `').addClass('hidden'); $('.toshow` +
           index +
@@ -243,22 +244,22 @@
                 Update
               </button>
               <button class="toshow` +
+              index +
+              ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center" onclick="{$('.tohidden` +
+              index +
+              `').removeClass('hidden'); $('.toshow` +
+              index +
+              `').addClass('hidden')}">
+              SAVE
+              </button>
+              <button class="toshow` +
           index +
-          ` hidden btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
+          ` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center" onclick="{$('.tohidden` +
           index +
           `').removeClass('hidden'); $('.toshow` +
           index +
           `').addClass('hidden')}">
                 CANCEL
-              </button>
-              <button class="toshow` +
-          index +
-          ` hidden btn bg-save p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center" onclick="{$('.tohidden` +
-          index +
-          `').removeClass('hidden'); $('.toshow` +
-          index +
-          `').addClass('hidden')}">
-                SAVE
               </button>
               <button class="tohidden` +
           index +
@@ -267,7 +268,7 @@
           `')">
                 Delete
               </button>
-              </div>
+            
             </div>
           </div>`
         );
