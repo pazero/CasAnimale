@@ -293,6 +293,10 @@
           $("#totPrenotations").html("TOTAL RESULTS: " + totPrenotations);
           totPrenotations = 0;
         });
+        $(document).ready(function () {
+        if(user.admin)
+          $(".adminOnly").removeClass("hidden");
+      })
       };
 
       const copy = (that) => {
@@ -330,10 +334,6 @@
       };
 
       // getPts();
-      $(document).ready(function () {
-        if(user.admin)
-          $(".adminOnly").removeClass("hidden");
-      })
     </script>
   </head>
   <body>
