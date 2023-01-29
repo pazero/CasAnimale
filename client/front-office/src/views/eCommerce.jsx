@@ -201,9 +201,10 @@ const ECommerce = () => {
 
       <Box className="flex justify-evenly grow-0 w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
-          {products.map((product) => (
+          {products.map((product, i) => (
             <Product
               data={product}
+              key={i}
               isUserLoggedPost={product.seller === user._id}
             />
           ))}

@@ -125,9 +125,7 @@ const Product = (props) => {
           <Box className="mx-1.5">
             {props.data.quantity === 0 ? (
               <Image
-                src={
-                  props.data.photo === "" ? "/f/compra.png" : props.data.photo
-                }
+                src={props.data?.photo === "" || props.data?.photo === undefined ? "/f/compra.png" : props.data.photo}
                 borderRadius="lg"
                 className="w-full object-cover justify-self-center"
                 opacity="0.5"

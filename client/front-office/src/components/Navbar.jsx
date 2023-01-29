@@ -4,11 +4,13 @@ import Cookies from "js-cookie";
 import UserManage from "../services/UserManage";
 import { TbUserCircle, TbShoppingCart } from "react-icons/tb";
 import Const from "../services/utils";
+import { useToast } from "@chakra-ui/react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const token = Cookies.get("token");
+  const toast = useToast();
 
   const isUserLoggedIn = async () => {
     const ret = await UserManage.isLogged();
@@ -21,8 +23,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = await UserManage.getUser();
-      setUser(data);
+      try {
+        const { data: userData } = await UserManage.getUser();
+        setUser(userData);
+      } catch {
+        setUser(null);
+      }
     };
     fetchUser();
   }, []);
@@ -94,7 +100,25 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      if (user.vip) navigate("/helpme");
+                      user === null
+                      ? toast({
+                          title: "Ops log-in first!",
+                          description: "You have to be a VIP user to access this aerea!",
+                          status: 'error',
+                          duration: 3500,
+                          variant: 'subtle',
+                          position: 'top-center',
+                        })
+                      : user.vip 
+                        ? navigate("/helpme")
+                        : toast({
+                            title: "Ops it looks like you're not a VIP user!",
+                            description: "Subscribe to VIP in you profile aerea.",
+                            status: 'error',
+                            duration: 3500,
+                            variant: 'subtle',
+                            position: 'top-center',
+                          })
                     }}
                   >
                     HelpMe!
@@ -149,7 +173,25 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      if (user.vip) navigate("/vet");
+                      user === null
+                        ? toast({
+                          title: "Ops log-in first!",
+                          description: "You have to be a VIP user to access this aerea!",
+                          status: 'error',
+                          duration: 3500,
+                          variant: 'subtle',
+                          position: 'top-center',
+                        })
+                        : user.vip
+                          ? navigate("/vet")
+                          : toast({
+                            title: "Ops it looks like you're not a VIP user!",
+                            description: "Subscribe to VIP in you profile aerea.",
+                            status: 'error',
+                            duration: 3500,
+                            variant: 'subtle',
+                            position: 'top-center',
+                          })
                     }}
                   >
                     Veterinary
@@ -179,7 +221,25 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      if (user.vip) navigate("/psychologist");
+                      user === null
+                        ? toast({
+                          title: "Ops log-in first!",
+                          description: "You have to be a VIP user to access this aerea!",
+                          status: 'error',
+                          duration: 3500,
+                          variant: 'subtle',
+                          position: 'top-center',
+                        })
+                        : user.vip
+                          ? navigate("/psychologist")
+                          : toast({
+                            title: "Ops it looks like you're not a VIP user!",
+                            description: "Subscribe to VIP in you profile aerea.",
+                            status: 'error',
+                            duration: 3500,
+                            variant: 'subtle',
+                            position: 'top-center',
+                          })
                     }}
                   >
                     Psychologist
@@ -263,7 +323,25 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    if (user.vip) navigate("/helpme");
+                    user === null
+                      ? toast({
+                        title: "Ops log-in first!",
+                        description: "You have to be a VIP user to access this aerea!",
+                        status: 'error',
+                        duration: 3500,
+                        variant: 'subtle',
+                        position: 'top-center',
+                      })
+                      : user.vip
+                        ? navigate("/helpme")
+                        : toast({
+                          title: "Ops it looks like you're not a VIP user!",
+                          description: "Subscribe to VIP in you profile aerea.",
+                          status: 'error',
+                          duration: 3500,
+                          variant: 'subtle',
+                          position: 'top-center',
+                        })
                   }}
                 >
                   HelpMe!
@@ -318,7 +396,25 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    if (user.vip) navigate("/vet");
+                    user === null
+                      ? toast({
+                        title: "Ops log-in first!",
+                        description: "You have to be a VIP user to access this aerea!",
+                        status: 'error',
+                        duration: 3500,
+                        variant: 'subtle',
+                        position: 'top-center',
+                      })
+                      : user.vip
+                        ? navigate("/vet")
+                        : toast({
+                          title: "Ops it looks like you're not a VIP user!",
+                          description: "Subscribe to VIP in you profile aerea.",
+                          status: 'error',
+                          duration: 3500,
+                          variant: 'subtle',
+                          position: 'top-center',
+                        })
                   }}
                 >
                   Veterinary
@@ -348,7 +444,25 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    if (user.vip) navigate("/psychologist");
+                    user === null
+                      ? toast({
+                        title: "Ops log-in first!",
+                        description: "You have to be a VIP user to access this aerea!",
+                        status: 'error',
+                        duration: 3500,
+                        variant: 'subtle',
+                        position: 'top-center',
+                      })
+                      : user.vip
+                        ? navigate("/psychologist")
+                        : toast({
+                          title: "Ops it looks like you're not a VIP user!",
+                          description: "Subscribe to VIP in you profile aerea.",
+                          status: 'error',
+                          duration: 3500,
+                          variant: 'subtle',
+                          position: 'top-center',
+                        })
                   }}
                 >
                   Psychologist
