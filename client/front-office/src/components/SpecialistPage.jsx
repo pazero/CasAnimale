@@ -11,16 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
 import vetclinic from "../assets/vet-clinic.png";
-import {
-  Checkbox,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from "@chakra-ui/react";
+import { Checkbox, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Divider } from "@chakra-ui/react";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -606,6 +597,9 @@ const SpecialistPage = () => {
             <div className="opacity-10 fixed inset-0 z-40 bg-black"></div>
           </>
         ) : null}
+        <div className="flex justify-center my-1 md:my-4">
+          <Divider orientation='horizontal' width='80%' justify='center' border='0.2rem' borderColor='gray.300' />
+        </div>
         <div className="flex justify-center">
           <Review data={company} user={user} />
         </div>

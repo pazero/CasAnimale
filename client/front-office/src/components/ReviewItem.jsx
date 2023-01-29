@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import CompanyManage from "../services/CompanyManage";
 import Cookies from "js-cookie";
-import {
-  Image,
-  Box,
-  Text,
-  FormLabel,
-  Input,
-  Button,
-} from "@chakra-ui/react";
+import { Image, Box, Text, FormLabel, Textarea, Button, Hide, Container, Divider } from "@chakra-ui/react";
 
 const Review = ({ data, user }) => {
   const token = Cookies.get("token");
@@ -30,56 +23,64 @@ const Review = ({ data, user }) => {
   };
 
   return (
-    <div className="mt-5 p-2 border rounded">
-      <div>
-        <FormLabel>Write a review for this company!</FormLabel>
-        <Input
-          type="text"
-          placeholder="Write here..."
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-        <Button
-          className="mt-2"
-          size={"sm"}
-          colorScheme={"red"}
-          onClick={addReview}
-        >
-          Send
-        </Button>
-      </div>
-      {/* comment section */}
-      <div className="mt-2">
-        {data.review?.map((item, i) => (
-          <Box className="p-2 m-2" key={i}>
-            <Box display="flex" flexDirection={{ base: "column", sm: "row" }}>
-              <Box display={"flex"} justifyContent={"center"} flexShrink="0">
-                <Image
-                  borderRadius="full"
-                  boxSize="75px"
-                  src={item.user?.photo}
-                  alt="post-img"
-                />
+    <div className="flex flex-col my-4 mx-3">
+      <div className="my-2 md:my-4 self-center text-center text-xl font-semibold uppercase">Reviews</div>
+
+      <div className="flex flex-col md:flex-row">
+        <div className="sm:text-lg md:mr-6">
+          <FormLabel fontSize={{base:'md', lg:'lg'}} >Write a review for this company!</FormLabel>
+          <Textarea
+            placeholder="Write here..."
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <Button
+            className="mt-2"
+            size={"sm"}
+            colorScheme={"gray"}
+            onClick={addReview}
+          >
+            Send
+          </Button>
+        </div>
+        {/* comment section */}
+        <div className="md:ml-6 mt-3 sm:mt-0">
+          {data.review?.length === 0
+            ?<div className="text-md">Be the first one writing a review!</div>
+            : data.review?.map((item, i) => (
+            <Box className="px-3 py-2 rounded-lg border border-gray-100 bg-gray-50 my-2" key={i}>
+              <Box display="flex" flexDirection="row">
+                <Box display={"flex"} justifyContent={"center"} flexShrink="0">
+                  <Image
+                    borderRadius="full"
+                    boxSize={{base:"35px", md:"70px"}}
+                    src={item.user?.photo === "" || item.user?.photo === undefined ? "/f/userIcon.svg" : item.user?.photo}
+                    alt="user profile image"
+                  />
+                </Box>                
+                <Container maxW='md' marginLeft="1" paddingLeft="1">
+                  <Text
+                    as="p"
+                    marginLeft={{ base: "0", sm: "1" }}
+                    fontSize={{ base: "md", sm: "lg" }}
+                    maxWidth={{base:"sm", }}
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-md font-semibold mb-1">
+                        {item.user?.name} {item.user?.surname}
+                      </span>
+                      <span className="text-sm mb-1">
+                        {item.date?.substring(0, 10)}
+                      </span>
+                      <span className="text-md">
+                        {item.content}
+                      </span>
+                    </div>
+                  </Text>
+                </Container>
               </Box>
-              <Text
-                as="p"
-                marginTop="3"
-                marginLeft={{ base: "0", sm: "3" }}
-                fontSize={{ base: "md", sm: "lg" }}
-              >
-                <div className="flex flex-col">
-                  <span className="text-md">{item.content}</span>
-                  <span className="text-xs">
-                    Posted by{" "}
-                    <span className="font-bold mr-1">
-                      {item.user?.name} {item.user?.surname}
-                    </span>
-                    on {item.date?.replace("T", " ").slice(0, -5)}
-                  </span>
-                </div>
-              </Text>
             </Box>
-          </Box>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
