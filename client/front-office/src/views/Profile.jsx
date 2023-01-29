@@ -8,17 +8,8 @@ import Cookies from "js-cookie";
 import { Image, Button } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
-import {
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useToast,
-} from "@chakra-ui/react";
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast, Heading } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -165,38 +156,25 @@ const Profile = () => {
           <Sidebar />
         </div>
 
-        <div
-          className="sm:flex sm:flex-1 sm:inline-block"
-          style={{ height: "auto" }}
-        >
+        <div className="sm:flex sm:flex-1 sm:inline-block" style={{ height: "auto" }}>
           <form className="flex flex-1" style={{ height: "auto" }}>
-            <div
-              className="overflow-hidden bg-white shadow"
-              style={{ width: "100%" }}
-            >
-              <div className="px-4 py-5 px-6 bg-indigo-400">
-                <h3
-                  className="text-lg font-medium leading-6 text-black font-bold"
-                  style={{ fontSize: "200%" }}
-                >
-                  Your Profile Information
-                </h3>
-                <p className="mt-1 max-w-2xl text-lg text-indigo-900">
-                  Personal details
-                </p>
+            <div className="overflow-hidden bg-white shadow" style={{ width: "100%" }}>
+              <div className="px-4 py-5 px-6">
+                <Heading as="h1">Profile</Heading>
               </div>
-              <div className="border-t border-gray-200">
+              <div className="mx-2">
                 <dl>
-                  <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">Photo</dt>
+                  <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Photo</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <Image
                         hidden={false}
-                        src={user?.photo}
+                        src={(user?.photo === "" || user?.photo === undefined) ? "/f/userIcon.svg" : user?.photo}
                         borderRadius="full"
                         className="actualInfo"
                         boxSize="150px"
                         alt="propic"
+                        opacity={(user?.photo === "" || user?.photo === undefined) ? "0.5" : "1"}
                       />
 
                       <UploadButton
@@ -222,12 +200,13 @@ const Profile = () => {
                               <Image
                                 id="newPhoto"
                                 hidden={true}
-                                src={photo}
+                                src={(user?.photo === "" || user?.photo === undefined) ? "/f/userIcon.svg" : user?.photo}
                                 borderRadius="full"
                                 className="changeInfo"
                                 boxSize="150px"
                                 alt="propic"
-                                opacity={"0.5"}
+                                opacity={(user?.photo === "" || user?.photo === undefined) ? "0.5" : "1"}
+                                icon={<EditIcon />}
                               />
                             </button>
                           </div>
@@ -235,9 +214,8 @@ const Profile = () => {
                       </UploadButton>
                     </dd>
                   </div>
-
-                  <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">Name</dt>
+                  <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Name</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.name}
@@ -249,15 +227,13 @@ const Profile = () => {
                         name="new-name"
                         defaultValue={user?.name}
                         placeholder="Type your new name here"
-                        className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
+                        className="changeInfo bg-gray-100 px-1 block w-full rounded shadow-md text-lg"
                         onChange={(e) => setName(e.target.value)}
                       />
                     </dd>
                   </div>
-                  <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">
-                      Surname
-                    </dt>
+                  <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Surname</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.surname}
@@ -269,23 +245,21 @@ const Profile = () => {
                         id="newSurname"
                         defaultValue={user?.surname}
                         placeholder="Type your new surname here"
-                        className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
+                        className="changeInfo bg-gray-50 px-1 block w-full rounded border-gray-300 shadow-md focus:border-gray-500 focus:ring-gray-500 text-lg"
                         onChange={(e) => setSurname(e.target.value)}
                       />
                     </dd>
                   </div>
-                  <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">
-                      Birthday
-                    </dt>
+                  <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Birthday</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.birth
                           ? user?.birth.substring(5, 7) +
-                            "/" +
-                            user?.birth.substring(8, 10) +
-                            "/" +
-                            user?.birth.substring(0, 4)
+                          "/" +
+                          user?.birth.substring(8, 10) +
+                          "/" +
+                          user?.birth.substring(0, 4)
                           : user?.birth}
                       </span>
                       <input
@@ -300,13 +274,13 @@ const Profile = () => {
                         }
                         placeholder="Type your new birthday here"
                         style={{ fontSize: "98%", minHeight: "0px" }}
-                        className="changeInfo bg-indigo-50 px-1 py-0 m-0 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
+                        className="changeInfo bg-gray-100 px-1 block w-full rounded border-gray-300 shadow-md focus:border-gray-500 focus:ring-gray-500 text-lg"
                         onChange={(e) => setBirth(e.target.value)}
                       />
                     </dd>
                   </div>
-                  <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">Email</dt>
+                  <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Email</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.email}
@@ -318,15 +292,13 @@ const Profile = () => {
                         id="newEmail"
                         defaultValue={user?.email}
                         placeholder="Type your new email here"
-                        className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
+                        className="changeInfo bg-gray-50 px-1 block w-full rounded border-gray-300 shadow-md focus:border-gray-500 focus:ring-gray-500 text-lg"
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </dd>
                   </div>
-                  <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">
-                      Password
-                    </dt>
+                  <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Password</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.password
@@ -340,15 +312,13 @@ const Profile = () => {
                         id="newPassword"
                         defaultValue={user?.password}
                         placeholder="Type your new password here"
-                        className="changeInfo bg-indigo-50 px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
+                        className="changeInfo bg-gray-100 px-1 block w-full rounded border-gray-300 shadow-md focus:border-gray-500 focus:ring-gray-500 text-lg"
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </dd>
                   </div>
-                  <div className="bg-indigo-50 px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500">
-                      Favourite Animal
-                    </dt>
+                  <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold">Favourite Animal</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.favanimal}
@@ -360,13 +330,13 @@ const Profile = () => {
                         id="newFavanimal"
                         defaultValue={user?.favanimal}
                         placeholder="Type your new favourite animal here"
-                        className="changeInfo px-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg"
+                        className="changeInfo bg-gray-50 px-1 block w-full rounded border-gray-300 shadow-md focus:border-gray-500 focus:ring-gray-500 text-lg"
                         onChange={(e) => setFavanimal(e.target.value)}
                       />
                     </dd>
                   </div>
-                  <div className="bg-white px-4 py-5 grid grid-cols-3 gap-4 px-6">
-                    <dt className="text-lg font-medium text-gray-500 flex">
+                  <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
+                    <dt className="text-lg font-semibold flex">
                       <svg
                         className="mr-1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -426,7 +396,7 @@ const Profile = () => {
                     defaultValue="reset"
                     id="resetInfoBtn"
                     type="button"
-                    className="btn btn-ghost ml-4 bg-indigo-100"
+                    className="btn btn-ghost ml-4 "
                     onClick={() => {
                       resetData();
                     }}
