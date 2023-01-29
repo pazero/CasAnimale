@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import PetManage from "../services/PetManage";
-import { Image } from "@chakra-ui/react";
+import { Image, useToast } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
 const NewPet = () => {
+  const toast = useToast();
+
   const sendData = async (data) => {
     data.preventDefault();
     const msg = await PetManage.newPet({
@@ -14,15 +16,30 @@ const NewPet = () => {
       breed,
       birth,
     });
-    alert(msg.data.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Pet added successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else{
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the entering try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   };
 
   const [name, setName] = useState("");
-  const [species, setSpecies] =
-    useState(
-      "dog"
-    ); /** se non si seleziona attivamente dal menù, ma si lascia il dog di default non viene assegnato nel modo corretto */
+  const [species, setSpecies] = useState("dog"); /** se non si seleziona attivamente dal menù, ma si lascia il dog di default non viene assegnato nel modo corretto */
   const [breed, setBreed] = useState("");
   const [birth, setBirth] = useState(new Date());
   const [photo, setPhoto] = useState("");

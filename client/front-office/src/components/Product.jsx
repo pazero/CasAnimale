@@ -2,31 +2,38 @@ import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
 import UpdateProduct from "../components/UpdateProduct";
 import { DeleteIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
-import {
-  Image,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Card,
-  CardBody,
-  Box,
-  Divider,
-  CardFooter,
-  Tag,
-} from "@chakra-ui/react";
+import { Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react";
+import { Card, CardBody, Box, Divider, CardFooter, Tag, useToast } from "@chakra-ui/react";
 import { Stack, Heading, Text, Button } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
 const Product = (props) => {
   const token = Cookies.get("token");
   const [showModal, setShowModal] = useState(false);
+  const toast = useToast();
 
   const deleteItem = async () => {
     const { data: msg } = await ProductManage.deleteProduct(props.data._id);
-    alert(msg.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Item deleted successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the removal try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   };
 
   async function AddCart() {
@@ -34,7 +41,25 @@ const Product = (props) => {
       props.data._id,
       document.getElementById("Number" + props.data._id).value
     );
-    alert(msg.data.message);
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Item added to your cart!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed adding the item try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   }
 
   function outOfStock(qnt) {

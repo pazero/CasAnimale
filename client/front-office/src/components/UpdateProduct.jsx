@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
-import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react";
+import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useToast } from "@chakra-ui/react";
 
 const UpdateProduct = (props) => {
+  const toast = useToast();
 
   const [quantity, setNewQuantity] = useState(0);
   const prod_id = props.data._id;
@@ -13,8 +14,25 @@ const UpdateProduct = (props) => {
       prod_id,
       quantity,
     });
-    alert(msg.data.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Item's quantity updated successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed updating try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
   };
 
   return (

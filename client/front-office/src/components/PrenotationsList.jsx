@@ -3,19 +3,11 @@ import PrenotationManage from "../services/PrenotationManage";
 import UserManage from "../services/UserManage";
 import CompanyManage from "../services/CompanyManage";
 import vetclinic from "../assets/vet-clinic.png";
-import {
-  Box,
-  Heading,
-  Text,
-  Container,
-  Button,
-  Stack,
-  Center,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, Container, Button, Stack, Center, Image, useToast } from "@chakra-ui/react";
 
 const PrenotationsList = () => {
   const [completeList, setCompleteList] = useState([]);
+  const toast = useToast();
 
   useEffect(() => {
     async function fetchData() {
@@ -64,8 +56,26 @@ const PrenotationsList = () => {
 
   async function deletePrenotation(prenotation) {
     const ret = await PrenotationManage.deletePrenotation(prenotation);
-    alert(ret.data.message);
-    window.location.reload();
+    if (ret.status.toString() === "200") {
+      toast({
+        title: "Pronotation deleted successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the removal try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   }
 
   //aggiungiamo +1 perché nel database sono salvate GMT 0 ma noi siamo +1

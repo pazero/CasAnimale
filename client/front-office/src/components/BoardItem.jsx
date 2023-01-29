@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BoardManage from "../services/BoardManage";
 import UserManage from "../services/UserManage";
-import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Heading,
-  Container,
-  Card,
-  Image,
-  Stack,
-  Text,
-  CardBody,
-} from "@chakra-ui/react";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Heading, Container, Card, Image, Stack, Text, CardBody } from "@chakra-ui/react";
 
 function compare(a, b) {
   if (a.points < b.points) {

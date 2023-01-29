@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import PostManage from "../services/PostManage";
-import { Image } from "@chakra-ui/react";
+import { Image, useToast } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
 const NewPost = ({ type }) => {
+  const toast = useToast();
+
   const sendData = async (data) => {
     data.preventDefault();
     const msg = await PostManage.newPost({
@@ -13,8 +15,26 @@ const NewPost = ({ type }) => {
       type,
       description,
     });
-    alert(msg.data.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Post added successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the posting try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   };
 
   const [title, setTitle] = useState([]);

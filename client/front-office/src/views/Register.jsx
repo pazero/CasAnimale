@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
+import { useToast } from "@chakra-ui/react";
 
 const Register = () => {
   const navigate = useNavigate();
   const token = Cookies.get("token");
+  const toast = useToast();
 
   useEffect(() => {
     if (token) {
@@ -24,8 +26,26 @@ const Register = () => {
       password,
       favanimal,
     });
-    alert(msg.data.message);
-    navigate("/login");
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Signed-up uccessfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      navigate("/login");
+    }
+    else{
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed signing-up try reloading the page.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   };
 
   const [name, setName] = useState("");

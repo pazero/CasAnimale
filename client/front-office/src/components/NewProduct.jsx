@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
-import {
-  Image,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Button,
-  Input,
-} from "@chakra-ui/react";
+import { Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button, Input, useToast } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
 const NewProduct = () => {
+  const toast = useToast();
+
   const uploader = Uploader({
     apiKey: "free",
   });
@@ -44,8 +37,26 @@ const NewProduct = () => {
       price,
       quantity,
     });
-    alert(msg.data.message);
-    window.location.reload();
+    if (msg.status.toString() === "200") {
+      toast({
+        title: "Item added successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else {
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed with the entering try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+    }
   };
 
   const addTag = () => {

@@ -10,8 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
-import vetclinic from "../assets/vet-clinic.png";
-import { Checkbox, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Divider } from "@chakra-ui/react";
+import { Checkbox, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Divider, useToast } from "@chakra-ui/react";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -28,8 +27,10 @@ const SpecialistPage = () => {
   const [selectedCity, setSelectedCity] = useState();
   const [user, setUser] = useState([]);
   const token = Cookies.get("token");
+  const toast = useToast();
 
   useEffect(() => {
+
     async function fetchData() {
       try {
         const ret = await UserManage.getUser();
@@ -40,8 +41,6 @@ const SpecialistPage = () => {
       }
 
       CompanyManage.getCompany(params.id).then(async (res) => {
-        if (res.data.photo === undefined) res.data.photo = vetclinic;
-
         res.data.review = await Promise.all(
           res.data.review.map(async (item) => {
             const { data: userReviewData } = await UserManage.getUser(
@@ -167,15 +166,40 @@ const SpecialistPage = () => {
         duration: 1,
       });
     }
-    alert(res.data.message);
-    window.location.reload();
+    if (res.status.toString() === "200") {
+      toast({
+        title: "Appointment booked successfully!",
+        status: 'success',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
+      window.location = window.location;
+    }
+    else
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed booking try to re-access.",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
   };
 
   function calcSlot(slotDay) {
     let start = company.business_hours?.start;
     let end = company.business_hours?.end;
     let interval = end - start;
-    if (interval <= 0) alert("It is not possible to book an appointment");
+    if (interval <= 0)
+      toast({
+        title: "Error",     // qual è l'errore ?????????
+        description: "It's not possible to book an appointment!",
+        status: 'error',
+        duration: 3500,
+        variant: 'subtle',
+        position: 'top-center',
+      });
     let slots = [];
     const booked = [];
     companyPrenotation?.forEach((item) => {
@@ -241,8 +265,8 @@ const SpecialistPage = () => {
         <div className="md:text-center sm:text-lg">
           <div id="companyPhoto" className="flex justify-center shrink-0 pb-5">
             <img
-              src={company.photo}
-              alt=""
+              src={(company.photo === "" || company.photo === undefined) ? "/f/company.png" : company.photo}
+              alt="company logo"
               className="max-w-full h-auto rounded-full"
               resizemode="cover"
               style={{ aspectRatio: 1, height: "10rem", width: "10rem" }}
@@ -569,15 +593,17 @@ const SpecialistPage = () => {
                           bookSlot(
                             isOnline,
                             params.id,
-                            new Date(
-                              document.getElementById("slotDay").value +
-                                " " +
-                                startTime
-                            )
+                            new Date(document.getElementById("slotDay").value + " " + startTime)
                           );
                           setShowModal(false);
                         } else {
-                          alert("You must schedule your appointment");
+                          toast({
+                            title: "You must book your appointment!",
+                            status: 'warnign',
+                            duration: 3500,
+                            variant: 'subtle',
+                            position: 'top-center',
+                          });
                         }
                       }}
                     >

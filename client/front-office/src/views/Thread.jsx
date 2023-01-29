@@ -15,10 +15,12 @@ import {
   FormLabel,
   Input,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 
 const Thread = () => {
   const params = useParams();
+  const toast = useToast();
   const token = Cookies.get("token");
   const [post, setPost] = useState({});
   const [newComment, setNewComment] = useState("");
@@ -27,17 +29,72 @@ const Thread = () => {
 
   const addComment = async () => {
     if (token) {
+      var newCommObj = {
+        user: user._id,
+        content: newComment,
+        date: new Date().toISOString(),
+      };
+      var newComments = [...post.comments, newCommObj];
       const ret = await PostManage.updatePost(params.id, {
-        comments: [
-          ...post.comments,
-          { user: user._id, content: newComment, date: new Date() },
-        ],
+        comments: newComments,
       });
-      alert(ret.data.message);
-      window.location.reload();
+      if (ret.status === 200) {
+        toast({
+          title: "Comment posted successfully!",
+          status: "success",
+          duration: 3000,
+          variant: "subtle",
+          position: "top-center",
+        });
+        let newPost = post;
+        newPost.comments = newComments;
+        setNewComment("");
+        setPost(newPost);
+      } else
+        toast({
+          title: "Ops something went wrong!",
+          description: "If you can't proceed posting try to re-access.",
+          status: "error",
+          duration: 3000,
+          variant: "subtle",
+          position: "top-center",
+        });
     } else {
-      alert("log in first");
+      toast({
+        title: "Log-in first!",
+        status: "warning",
+        duration: 3000,
+        variant: "subtle",
+        position: "top-center",
+      });
     }
+  };
+
+  const delComment = async (item) => {
+    let newComments = post.comments.filter((i) => i !== item);
+    const ret = await PostManage.updatePost(params.id, {
+      comments: newComments,
+    });
+    if (ret.status.toString() === "200") {
+      let newPost = post;
+      newPost.comments = newComments;
+      setPost(newPost);
+      toast({
+        title: "Comment removed successfully!",
+        status: "success",
+        duration: 3500,
+        variant: "subtle",
+        position: "top-center",
+      });
+    } else
+      toast({
+        title: "Ops something went wrong!",
+        description: "If you can't proceed posting try to re-access.",
+        status: "error",
+        duration: 3500,
+        variant: "subtle",
+        position: "top-center",
+      });
   };
 
   useEffect(() => {
@@ -73,11 +130,10 @@ const Thread = () => {
         })
       );
 
-      // console.log(postData.comments);
       setPost(postData);
     };
     fetchPost(params.id);
-  }, []);
+  }, [post]);
 
   return (
     <div
@@ -180,6 +236,7 @@ const Thread = () => {
                 <div>
                   <FormLabel>Write a comment under this post!</FormLabel>
                   <Input
+                    value={newComment}
                     type="text"
                     placeholder="Write here..."
                     onChange={(e) => setNewComment(e.target.value)}
@@ -198,7 +255,7 @@ const Thread = () => {
                   {post?.comments?.map((item, i) => {
                     if (item === null) return;
                     return (
-                      <Box className="p-2 m-2" key={i}>
+                      <Box className="p-2 m-2 mt-0" key={i}>
                         <Box
                           display="flex"
                           flexDirection={{ base: "column", sm: "row" }}
@@ -232,7 +289,32 @@ const Thread = () => {
                               </span>
                             </div>
                           </Text>
+
+                          {item.user._id === user._id && (
+                            <Button
+                              onClick={() => {
+                                delComment(item);
+                              }}
+                              className="ml-4 mt-3"
+                              colorScheme={"red"}
+                              size={"sm"}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="18"
+                                height="18"
+                              >
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                  d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
+                                  fill="rgba(255,255,255,1)"
+                                />
+                              </svg>
+                            </Button>
+                          )}
                         </Box>
+                        <div class="divider"></div>
                       </Box>
                     );
                   })}
