@@ -5,20 +5,7 @@ import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
-import {
-  Image,
-  Box,
-  Heading,
-  Text,
-  Divider,
-  Container,
-  Center,
-  FormLabel,
-  Flex,
-  Input,
-  Button,
-  useToast,
-} from "@chakra-ui/react";
+import {Image,Box,Heading,Text,Divider,Container,Center,FormLabel,Flex,Input,Button,useToast} from "@chakra-ui/react";
 
 const Thread = () => {
   const params = useParams();
@@ -27,12 +14,12 @@ const Thread = () => {
   const [post, setPost] = useState({});
   const [newComment, setNewComment] = useState("");
   const [op, setOp] = useState({});
-  const [user, setUser] = useState(null);
+  const [loggedUser, setUser] = useState("");
 
   const addComment = async () => {
     if (token) {
       var newCommObj = {
-        user: user._id,
+        user: loggedUser._id,
         content: newComment,
         date: new Date().toISOString(),
       };
@@ -105,7 +92,7 @@ const Thread = () => {
       try {
         const { data: userData } = await UserManage.getUser();
         setUser(userData);
-      } catch {
+      } catch(e) {
         setUser(null);
       }
 
@@ -291,7 +278,8 @@ const Thread = () => {
                               </div>
                             </Text>
 
-                            {item.user._id === user._id && (
+                            {loggedUser !== null
+                              ? item.user._id === loggedUser._id && (
                               <Flex flex='1' justify={'end'}>
                                 <Button
                                   onClick={() => {
@@ -316,7 +304,7 @@ const Thread = () => {
                                   </svg>
                                 </Button>
                               </Flex>
-                            )}
+                            ): null}
                           </Box>
                         </Box>
                       </Box>
