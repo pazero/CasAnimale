@@ -14,6 +14,7 @@ import {
   Container,
   Center,
   FormLabel,
+  Flex,
   Input,
   Button,
   useToast,
@@ -258,8 +259,8 @@ const Thread = () => {
                         <div className="my-2 sm:my-4">
                           <Divider orientation='horizontal' />
                         </div>
-                        <Box className="p-2 m-2 mt-0" key={i}>
-                          <Box display="flex" flexDirection="row" width={"full"}>
+                        <Box className="p-2 m-2 mt-0" flex='1' width="100%" key={i}>
+                          <Box display="flex" flexDirection="row">
                             <Box
                               display={"flex"}
                               justifyContent={"center"}
@@ -276,7 +277,6 @@ const Thread = () => {
                               as="p"
                               marginLeft={{ base: "3", sm: "4" }}
                               fontSize={{ base: "md", sm: "lg" }}
-                              maxWidth={{ base: "sm", }}
                             >
                               <div className="flex flex-col">
                                 <span className="text-md font-semibold">
@@ -292,27 +292,30 @@ const Thread = () => {
                             </Text>
 
                             {item.user._id === user._id && (
-                              <Button
-                                onClick={() => {
-                                  delComment(item);
-                                }}
-                                className="ml-4 mt-3"
-                                colorScheme={"red"}
-                                size={"sm"}
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  width="18"
-                                  height="18"
+                              <Flex flex='1' justify={'end'}>
+                                <Button
+                                  onClick={() => {
+                                    delComment(item);
+                                  }}
+                                  className="ml-4 mt-3"
+                                  colorScheme={"red"}
+                                  size={"sm"}
+                                  justify='center'
                                 >
-                                  <path fill="none" d="M0 0h24v24H0z" />
-                                  <path
-                                    d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
-                                    fill="rgba(255,255,255,1)"
-                                  />
-                                </svg>
-                              </Button>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="18"
+                                    height="18"
+                                  >
+                                    <path fill="none" d="M0 0h24v24H0z" />
+                                    <path
+                                      d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
+                                      fill="rgba(255,255,255,1)"
+                                    />
+                                  </svg>
+                                </Button>
+                              </Flex>
                             )}
                           </Box>
                         </Box>
