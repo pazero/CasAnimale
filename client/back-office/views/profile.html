@@ -16,10 +16,10 @@
     <script>
       let user;
       let data;
+      let adminsList;
       $(document).ready(async () => {
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
-
         if (user.admin) {
           $("#title").html("PERSONAL PROFILE");
           getAdminInfo(user.id);
@@ -28,7 +28,7 @@
           $("#title").html("COMPANY PROFILE");
           getAccountInfo(user.id);
         }
-        $(".tab").addClass("ml-10")
+        $(".tab").addClass("ml-10");
       });
       const showTab = (divId) => {
         $(".tab").addClass("hidden");
@@ -44,14 +44,45 @@
         data = await ret.json();
         fillCompany();
       };
+      const getAdminsList = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/admin", {
+          method: "GET",
+          credentials: "include",
+        });
+        adminsList = await ret.json();
+        fillAdminsList();
+      };
       const getAdminInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
         data = await ret.json();
-        console.log(data);
         fillAdmin();
+        getAdminsList();
+      };
+      const fillAdminsList = () => {
+        if (adminsList.length - 1 === 0)
+          $("#otherAdmins").html(
+            "<span class='mt-10 font-bold'>You are the only admin of CasAnimale.</span>"
+          );
+        let tmp =
+          adminsList.length - 1 === 1
+            ? `<div class='mt-10 font-bold'>There is 1 other admin.</div><div class="font-bold">Here their name and surname.</div>`
+            : `<div class='mt-10 font-bold'><span>There are </span>` +
+              (adminsList.length - 1) +
+              ` <span> other admins.</span></div><div class="font-bold">Here their names and surnames.`;
+        adminsList.map((item) => {
+          if (item._id.localeCompare(data[0]._id) !== 0)
+            tmp +=
+              `<div class="primary font-bold my-8">` +
+              item.name +
+              ` ` +
+              item.surname +
+              `</div>
+            `;
+        });
+        $("#otherAdmins").html(tmp);
       };
       const fillAdmin = () => {
         $(".adminOnly").removeClass("hidden");
@@ -138,7 +169,14 @@
               class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('newAdmin')"
             >
-              Create new admin user
+              Create new admin
+            </button>
+            <button
+              id="otherAdminsBtn"
+              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('otherAdmins')"
+            >
+              Other admins
             </button>
           </div>
           <div
@@ -169,9 +207,7 @@
                 />
               </div>
               <div class="companyOnly hidden my-8">
-                <span class="primary font-semibold"
-                  >Company owner:</span
-                >
+                <span class="primary font-semibold">Company owner:</span>
                 <input
                   id="newOwner"
                   name="newOwner"
@@ -189,15 +225,6 @@
             </div>
             <div id="privateInfo" class="tab hidden">
               <div class="my-8">
-                <span class="primary font-semibold">Password:</span>
-                <input
-                  id="newPassword"
-                  name="newPassword"
-                  placeholder="Type new password"
-                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                />
-              </div>
-              <div class="my-8">
                 <span class="primary font-semibold">Email:</span>
                 <input
                   id="newEmail"
@@ -207,8 +234,17 @@
                 />
               </div>
               <div class="my-8">
+                <span class="primary font-semibold">Password:</span>
+                <input
+                  id="newPassword"
+                  name="newPassword"
+                  placeholder="Type new password"
+                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                />
+              </div>
+              <div class="my-8">
                 <span class="primary font-semibold">Id:</span>
-                <span id="adminId" class= ml-3"></span>
+                <span id="adminId" class="ml-3"></span>
               </div>
             </div>
             <div id="newAdmin" class="tab companyOnly hidden">
@@ -257,7 +293,11 @@
                       class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                     />
                   </div>
-                    <button class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75">CREATE NEW ADMIN</button>
+                  <button
+                    class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
+                  >
+                    CREATE NEW ADMIN
+                  </button>
                 </div>
                 <span
                   id="newProfession"
@@ -265,6 +305,7 @@
                 ></span>
               </div>
             </div>
+            <div id="otherAdmins" class="tab hidden"></div>
             <div id="places" class="tab companyOnly hidden">places</div>
             <div id="servicesInfo" class="tab companyOnly hidden">
               services info
