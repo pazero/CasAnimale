@@ -18,15 +18,15 @@ const Post = (props) => {
   const navigate = useNavigate();
 
   const deletePost = async () => {
-    const { data: msg } = await PostManage.deletePost(props.data._id);
-    if (msg.status.toString() === "200") {
+    const data = await PostManage.deletePost(props.data._id);
+    if (data.status === 200) {
       toast({
         title: "Post deleted successfully!",
         status: "success",
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
+      document.getElementById(props.data._id).style.display = "none";
     } else {
       toast({
         title: "Ops something went wrong!",
@@ -40,7 +40,7 @@ const Post = (props) => {
 
   return (
     <Box
-      key={props.data._id}
+      id={props.data._id}
       marginTop={{ base: "1", sm: "5" }}
       display="flex"
       flexDirection={{ base: "column", sm: "row" }}
@@ -70,7 +70,12 @@ const Post = (props) => {
 
           {props.data?.photo ? (
             <Box display="flex" flexDirection={{ base: "column", sm: "row" }}>
-              <Box display={"flex"} justifyContent={"center"} flexShrink="0" marginTop="3">
+              <Box
+                display={"flex"}
+                justifyContent={"center"}
+                flexShrink="0"
+                marginTop="3"
+              >
                 <Image
                   src={props.data?.photo}
                   boxSize="fill"
@@ -81,7 +86,10 @@ const Post = (props) => {
                   alt="post-img"
                 />
               </Box>
-              <Text marginLeft={{ base: "0", sm: "3" }} fontSize={{ base: "md", sm: "lg" }}>
+              <Text
+                marginLeft={{ base: "0", sm: "3" }}
+                fontSize={{ base: "md", sm: "lg" }}
+              >
                 <div>{props.data.description}</div>
               </Text>
             </Box>

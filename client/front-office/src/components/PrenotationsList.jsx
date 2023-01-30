@@ -64,16 +64,19 @@ const PrenotationsList = () => {
     setCompleteList(array);
   }
 
-  async function deletePrenotation(prenotation) {
-    const ret = await PrenotationManage.deletePrenotation(prenotation);
-    if (ret.status.toString() === "200") {
+  async function delPrenotation(id) {
+    const ret = await PrenotationManage.deletePrenotation(id);
+    if (ret.status === 200) {
+      let newCompleteList = completeList.filter(
+        (c) => c.prenotation._id !== id
+      );
+      setCompleteList(newCompleteList);
       toast({
         title: "Pronotation deleted successfully!",
         status: "success",
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
     } else {
       toast({
         title: "Ops something went wrong!",
@@ -106,6 +109,7 @@ const PrenotationsList = () => {
               return (
                 <Box
                   key={i}
+                  id={item.prenotation._id}
                   marginTop={{ base: "1", sm: "5" }}
                   display="flex"
                   flexDirection={{ base: "column", sm: "row" }}
@@ -202,7 +206,7 @@ const PrenotationsList = () => {
                               bg={"red.400"}
                               _hover={{ bg: "red.500" }}
                               onClick={() =>
-                                deletePrenotation(item.prenotation._id)
+                                delPrenotation(item.prenotation._id)
                               }
                             >
                               Delete

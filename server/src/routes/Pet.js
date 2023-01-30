@@ -48,16 +48,8 @@ router.put("/new", async (req, res) => {
 /* Delete a pet */
 router.delete("/:id", async (req, res) => {
   try {
-    jwt.authenticateToken(req, res, cont);
-
-    async function cont() {
-      const removedPet = await Pet.findById(req.params.id);
-      if (req.userid == removedPet.owner) {
-        // TODO da testare
-        Pet.deleteOne({ _id: req.params.id });
-        res.json({ message: "Pet deleted succesfully!" });
-      }
-    }
+    await Pet.findByIdAndDelete(req.params.id);
+    res.json({ message: "Pet deleted succesfully!" });
   } catch (e) {
     res.json({ message: e });
   }

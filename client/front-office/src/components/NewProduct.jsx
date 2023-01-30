@@ -54,7 +54,6 @@ const NewProduct = () => {
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
     } else {
       toast({
         title: "Ops something went wrong!",

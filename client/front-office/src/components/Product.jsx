@@ -28,15 +28,15 @@ const Product = (props) => {
   const toast = useToast();
 
   const deleteItem = async () => {
-    const { data: msg } = await ProductManage.deleteProduct(props.data._id);
-    if (msg.status.toString() === "200") {
+    const data = await ProductManage.deleteProduct(props.data._id);
+    if (data.status.toString() === "200") {
+      document.getElementById(props.data._id).style.display = "none";
       toast({
         title: "Item deleted successfully!",
         status: "success",
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
     } else {
       toast({
         title: "Ops something went wrong!",

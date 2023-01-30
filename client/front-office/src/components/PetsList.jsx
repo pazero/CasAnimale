@@ -27,35 +27,38 @@ const PetsList = () => {
     }
 
     async function fetchData() {
-      const ret = await PetManage.getPets({ owner: userId });
-      const ptList = ret.data;
-      setPetList(
-        await Promise.all(
-          ptList.map((item) => {
-            // item = pets
-            setIsPetFull(true);
-            return {
-              ...item,
-            };
-          })
-        )
-      );
+      if (userId) {
+        const ret = await PetManage.getPets({ owner: userId });
+        const ptList = ret.data;
+        setPetList(
+          await Promise.all(
+            ptList.map((item) => {
+              setIsPetFull(true);
+              return {
+                ...item,
+              };
+            })
+          )
+        );
+      }
     }
     setEnd(true);
     getUserId();
+
     fetchData();
   }, [userId]);
 
-  async function deleteP(pet) {
-    const ret = await PetManage.deletePet(pet);
+  async function delPet(id) {
+    const ret = await PetManage.deletePet(id);
     if (ret.status.toString() === "200") {
+      let newPetList = petsList.filter((p) => p._id !== id);
+      setPetList(newPetList);
       toast({
         title: "Pet deleted successfully :(",
         status: "success",
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
     } else {
       toast({
         title: "Ops something went wrong!",
@@ -71,7 +74,7 @@ const PetsList = () => {
     <Container maxW="100%">
       <Container maxW={"7xl"} p="15" pt="10">
         <Heading as="h1">Your pets</Heading>
-        {isPetFull && endList ? (
+        {isPetFull && endList && petsList.length > 0 ? (
           <Text>
             {petsList.map((item, i) => (
               <Box
@@ -140,7 +143,7 @@ const PetsList = () => {
                           mb={{ base: "3", sm: "12" }}
                           bg={"red.400"}
                           _hover={{ bg: "red.500" }}
-                          onClick={() => deleteP(item._id)}
+                          onClick={() => delPet(item._id)}
                         >
                           Delete
                         </Button>

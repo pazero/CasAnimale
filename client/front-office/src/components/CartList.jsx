@@ -39,7 +39,7 @@ const CartItem = () => {
     if (qnt === 1 || available === 0) return true;
     else return false;
   }
-  
+
   function checkQntMax(qnt, available) {
     if (qnt === available || available === 0) return true;
     else return false;
@@ -48,13 +48,15 @@ const CartItem = () => {
   async function buy() {
     const msg = await UserManage.buyUserCart();
     if (msg.status.toString() === "200") {
+      setProdList([]);
+      setTotal(0);
+      setIsCartEmpty(true);
       toast({
         title: "Successful purchase!",
         status: "success",
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
     } else {
       toast({
         title: "Ops something went wrong!",
@@ -69,13 +71,24 @@ const CartItem = () => {
   async function deleteProductFromCart(id) {
     const msg = await ProductManage.updateCart(id, 0);
     if (msg.status.toString() === "200") {
+      let newProdList = prodList.filter((i) => {
+        if (i.id !== id) return true;
+        else {
+          setTotal(total - i.quantity * i.prod.price);
+          return false;
+        }
+      });
+      setProdList(newProdList);
+      if (newProdList.length === 0) {
+        setIsCartEmpty(true);
+        setTotal(0);
+      }
       toast({
         title: "Successful removal!",
         status: "info",
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
     } else {
       toast({
         title: "Ops something went wrong!",
