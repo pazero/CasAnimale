@@ -29,7 +29,7 @@ const Review = ({ data, user }) => {
         toast({
           title: "Review posted successfully!",
           status: "success",
-          duration: 3500,
+          duration: 3000,
           variant: "subtle",
         });
         window.location = window.location;
@@ -38,14 +38,14 @@ const Review = ({ data, user }) => {
           title: "Ops something went wrong!",
           description: "If you can't proceed reviewing try to re-access.",
           status: "error",
-          duration: 3500,
+          duration: 3000,
           variant: "subtle",
         });
     } else {
       toast({
         title: "Log-in first!",
         status: "warning",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     }

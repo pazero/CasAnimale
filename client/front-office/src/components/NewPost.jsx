@@ -19,7 +19,7 @@ const NewPost = ({ type }) => {
       toast({
         title: "Post added successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       window.location = window.location;
@@ -28,7 +28,7 @@ const NewPost = ({ type }) => {
         title: "Ops something went wrong!",
         description: "If you can't proceed with the posting try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     }

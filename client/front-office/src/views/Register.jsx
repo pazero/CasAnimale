@@ -30,7 +30,7 @@ const Register = () => {
       toast({
         title: "Signed-up uccessfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       navigate("/login");
@@ -39,7 +39,7 @@ const Register = () => {
         title: "Ops something went wrong!",
         description: "If you can't proceed signing-up try reloading the page.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     }

@@ -33,7 +33,7 @@ const Product = (props) => {
       toast({
         title: "Item deleted successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       window.location = window.location;
@@ -42,7 +42,7 @@ const Product = (props) => {
         title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     }
@@ -57,7 +57,7 @@ const Product = (props) => {
       toast({
         title: "Item added to your cart!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     } else {
@@ -65,7 +65,7 @@ const Product = (props) => {
         title: "Ops something went wrong!",
         description: "If you can't proceed adding the item try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     }

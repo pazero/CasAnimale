@@ -180,7 +180,7 @@ const SpecialistPage = () => {
       toast({
         title: "Appointment booked successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       window.location = window.location;
@@ -189,7 +189,7 @@ const SpecialistPage = () => {
         title: "Ops something went wrong!",
         description: "If you can't proceed booking try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
   };
@@ -203,7 +203,7 @@ const SpecialistPage = () => {
         title: "Error", // qual è l'errore ?????????
         description: "It's not possible to book an appointment!",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     let slots = [];
@@ -619,7 +619,7 @@ const SpecialistPage = () => {
                           toast({
                             title: "You must book your appointment!",
                             status: "warnign",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           });
                         }

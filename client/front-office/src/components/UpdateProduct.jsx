@@ -25,7 +25,7 @@ const UpdateProduct = (props) => {
       toast({
         title: "Item's quantity updated successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       window.location = window.location;
@@ -34,7 +34,7 @@ const UpdateProduct = (props) => {
         title: "Ops something went wrong!",
         description: "If you can't proceed updating try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
   };

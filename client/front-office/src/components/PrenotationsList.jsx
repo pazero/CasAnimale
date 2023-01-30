@@ -70,7 +70,7 @@ const PrenotationsList = () => {
       toast({
         title: "Pronotation deleted successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       window.location = window.location;
@@ -79,7 +79,7 @@ const PrenotationsList = () => {
         title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     }

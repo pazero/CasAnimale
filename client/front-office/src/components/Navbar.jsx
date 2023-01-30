@@ -38,7 +38,7 @@ const Navbar = () => {
     toast({
       title: "You logged out succesfully!",
       status: "success",
-      duration: 3500,
+      duration: 3000,
       variant: "subtle",
     });
     navigate("/");
@@ -112,7 +112,7 @@ const Navbar = () => {
                             description:
                               "You have to be a VIP user to access this aerea!",
                             status: "error",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           })
                         : user.vip
@@ -122,7 +122,7 @@ const Navbar = () => {
                             description:
                               "Subscribe to VIP in you profile aerea.",
                             status: "error",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           });
                     }}
@@ -185,7 +185,7 @@ const Navbar = () => {
                             description:
                               "You have to be a VIP user to access this aerea!",
                             status: "error",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           })
                         : user.vip
@@ -195,7 +195,7 @@ const Navbar = () => {
                             description:
                               "Subscribe to VIP in you profile aerea.",
                             status: "error",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           });
                     }}
@@ -233,7 +233,7 @@ const Navbar = () => {
                             description:
                               "You have to be a VIP user to access this aerea!",
                             status: "error",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           })
                         : user.vip
@@ -243,7 +243,7 @@ const Navbar = () => {
                             description:
                               "Subscribe to VIP in you profile aerea.",
                             status: "error",
-                            duration: 3500,
+                            duration: 3000,
                             variant: "subtle",
                           });
                     }}
@@ -335,7 +335,7 @@ const Navbar = () => {
                           description:
                             "You have to be a VIP user to access this aerea!",
                           status: "error",
-                          duration: 3500,
+                          duration: 3000,
                           variant: "subtle",
                         })
                       : user.vip
@@ -344,7 +344,7 @@ const Navbar = () => {
                           title: "Ops it looks like you're not a VIP user!",
                           description: "Subscribe to VIP in you profile aerea.",
                           status: "error",
-                          duration: 3500,
+                          duration: 3000,
                           variant: "subtle",
                         });
                   }}
@@ -407,7 +407,7 @@ const Navbar = () => {
                           description:
                             "You have to be a VIP user to access this aerea!",
                           status: "error",
-                          duration: 3500,
+                          duration: 3000,
                           variant: "subtle",
                         })
                       : user.vip
@@ -416,7 +416,7 @@ const Navbar = () => {
                           title: "Ops it looks like you're not a VIP user!",
                           description: "Subscribe to VIP in you profile aerea.",
                           status: "error",
-                          duration: 3500,
+                          duration: 3000,
                           variant: "subtle",
                         });
                   }}
@@ -454,7 +454,7 @@ const Navbar = () => {
                           description:
                             "You have to be a VIP user to access this aerea!",
                           status: "error",
-                          duration: 3500,
+                          duration: 3000,
                           variant: "subtle",
                         })
                       : user.vip
@@ -463,7 +463,7 @@ const Navbar = () => {
                           title: "Ops it looks like you're not a VIP user!",
                           description: "Subscribe to VIP in you profile aerea.",
                           status: "error",
-                          duration: 3500,
+                          duration: 3000,
                           variant: "subtle",
                         });
                   }}

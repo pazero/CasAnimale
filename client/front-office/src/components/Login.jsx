@@ -27,7 +27,7 @@ const Login = () => {
       toast({
         title: "Signed-in successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
       navigate("/");
@@ -36,7 +36,7 @@ const Login = () => {
         title: "Ops something went wrong!",
         description: "Incorrect username or password.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
   };

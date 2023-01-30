@@ -5,7 +5,20 @@ import UserManage from "../services/UserManage";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
-import {Image,Box,Heading,Text,Divider,Container,Center,FormLabel,Flex,Input,Button,useToast} from "@chakra-ui/react";
+import {
+  Image,
+  Box,
+  Heading,
+  Text,
+  Divider,
+  Container,
+  Center,
+  FormLabel,
+  Flex,
+  Input,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 
 const Thread = () => {
   const params = useParams();
@@ -68,7 +81,7 @@ const Thread = () => {
       toast({
         title: "Comment removed successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     } else
@@ -76,7 +89,7 @@ const Thread = () => {
         title: "Ops something went wrong!",
         description: "If you can't proceed posting try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
   };
@@ -87,7 +100,7 @@ const Thread = () => {
       try {
         const { data: userData } = await UserManage.getUser();
         setUser(userData);
-      } catch(e) {
+      } catch (e) {
         setUser(null);
       }
 
@@ -117,7 +130,7 @@ const Thread = () => {
       setPost(postData);
     }
     fetchPost(params.id);
-  }, []);
+  }, [post.comments]);
 
   return (
     <div
@@ -143,12 +156,7 @@ const Thread = () => {
           flexDirection={{ base: "column", sm: "row" }}
           justifyContent="space-between"
         >
-          <Box
-            display="flex"
-            flex="1"
-            position="relative"
-            alignItems="center"
-          >
+          <Box display="flex" flex="1" position="relative" alignItems="center">
             <Box
               display="flex"
               flex="1"
@@ -158,12 +166,23 @@ const Thread = () => {
               padding="2"
               borderRadius="md"
             >
-              <Container display="flex" maxW='3xl' flexDirection="row" backgroundColor="gray.50" padding={{ base: "2", sm: "4" }} className="rounded-lg gap-4">
+              <Container
+                display="flex"
+                maxW="3xl"
+                flexDirection="row"
+                backgroundColor="gray.50"
+                padding={{ base: "2", sm: "4" }}
+                className="rounded-lg gap-4"
+              >
                 <Box display={"flex"} flexShrink="0">
                   <Image
                     borderRadius="full"
-                    boxSize={{ base: "35px", sm:"45px", md: "80px" }}
-                    src={op.photo === "" || op.photo === undefined ? "/f/userIcon.svg" : op.photo}
+                    boxSize={{ base: "35px", sm: "45px", md: "80px" }}
+                    src={
+                      op.photo === "" || op.photo === undefined
+                        ? "/f/userIcon.svg"
+                        : op.photo
+                    }
                     alt="user profile image"
                   />
                 </Box>
@@ -173,7 +192,10 @@ const Thread = () => {
                       {op.name} {op.surname}
                     </span>
                     <span className="text-sm md:text-md">
-                      {post.date?.replace("T", " ").slice(0, -5).substring(0, 16)}
+                      {post.date
+                        ?.replace("T", " ")
+                        .slice(0, -5)
+                        .substring(0, 16)}
                     </span>
                   </Box>
                   <Heading fontSize={{ base: "xl", sm: "3xl" }} marginTop={"2"}>
@@ -198,7 +220,7 @@ const Thread = () => {
                           <Image
                             src={post.photo}
                             borderRadius="md"
-                            marginTop={'1'}
+                            marginTop={"1"}
                             h={"max"}
                             w={"max"}
                             maxWidth={"20rem"}
@@ -210,8 +232,12 @@ const Thread = () => {
                       </Box>
                     </Box>
                   ) : (
-                    <Text as="p" marginTop="2" fontSize={{ base: "md", sm: "lg" }}>
-                        <div className="break-words">{post.description}</div>
+                    <Text
+                      as="p"
+                      marginTop="2"
+                      fontSize={{ base: "md", sm: "lg" }}
+                    >
+                      <div className="break-words">{post.description}</div>
                     </Text>
                   )}
                 </Box>
@@ -219,7 +245,9 @@ const Thread = () => {
 
               <div className="mt-5 p-2">
                 <div className="mb-3">
-                  <FormLabel fontWeight={'semibold'}>Write a comment under this post!</FormLabel>
+                  <FormLabel fontWeight={"semibold"}>
+                    Write a comment under this post!
+                  </FormLabel>
                   <Input
                     value={newComment}
                     type="text"
@@ -242,9 +270,9 @@ const Thread = () => {
                     return (
                       <Box key={i}>
                         <div className="my-2 sm:my-4">
-                          <Divider orientation='horizontal' />
+                          <Divider orientation="horizontal" />
                         </div>
-                        <Box className="p-2 m-2 mt-0" flex='1' width="100%">
+                        <Box className="p-2 m-2 mt-0" flex="1" width="100%">
                           <Box display="flex" flexDirection="row">
                             <Box
                               display={"flex"}
@@ -254,7 +282,12 @@ const Thread = () => {
                               <Image
                                 borderRadius="full"
                                 boxSize={{ base: "35px", md: "70px" }}
-                                src={item?.user?.photo === "" || item?.user?.photo === undefined ? "/f/userIcon.svg" : item?.user?.photo}
+                                src={
+                                  item?.user?.photo === "" ||
+                                  item?.user?.photo === undefined
+                                    ? "/f/userIcon.svg"
+                                    : item?.user?.photo
+                                }
                                 alt=" user img"
                               />
                             </Box>
@@ -268,7 +301,10 @@ const Thread = () => {
                                   {item?.user?.name} {item?.user?.surname}
                                 </span>
                                 <span className="text-sm mb-1">
-                                  {item?.date?.replace("T", " ").slice(0, -5).substring(0,16)}
+                                  {item?.date
+                                    ?.replace("T", " ")
+                                    .slice(0, -5)
+                                    .substring(0, 16)}
                                 </span>
                                 <span className="text-md ml-3">
                                   {item?.content}
@@ -278,31 +314,32 @@ const Thread = () => {
 
                             {loggedUser !== null
                               ? item.user._id === loggedUser._id && (
-                              <Flex flex='1' justify={'end'}>
-                                <Button
-                                  onClick={() => {
-                                    delComment(item);
-                                  }}
-                                  className="ml-4 mt-3"
-                                  colorScheme={"red"}
-                                  size={"sm"}
-                                  justify='center'
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="18"
-                                    height="18"
-                                  >
-                                    <path fill="none" d="M0 0h24v24H0z" />
-                                    <path
-                                      d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
-                                      fill="rgba(255,255,255,1)"
-                                    />
-                                  </svg>
-                                </Button>
-                              </Flex>
-                            ): null}
+                                  <Flex flex="1" justify={"end"}>
+                                    <Button
+                                      onClick={() => {
+                                        delComment(item);
+                                      }}
+                                      className="ml-4 mt-3"
+                                      colorScheme={"red"}
+                                      size={"sm"}
+                                      justify="center"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="18"
+                                        height="18"
+                                      >
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path
+                                          d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"
+                                          fill="rgba(255,255,255,1)"
+                                        />
+                                      </svg>
+                                    </Button>
+                                  </Flex>
+                                )
+                              : null}
                           </Box>
                         </Box>
                       </Box>

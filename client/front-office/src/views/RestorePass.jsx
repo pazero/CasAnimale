@@ -35,7 +35,7 @@ export default function ForgotPasswordForm() {
       toast({
         title: "Email restored successfully!",
         status: "success",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
     } else
@@ -44,7 +44,7 @@ export default function ForgotPasswordForm() {
         description:
           "If you can't proceed restoring your password try to re-access.",
         status: "error",
-        duration: 3500,
+        duration: 3000,
         variant: "subtle",
       });
   };

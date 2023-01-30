@@ -506,7 +506,7 @@ const Profile = () => {
                                 title:
                                   "VIP membership subscribed successfully!",
                                 status: "success",
-                                duration: 3500,
+                                duration: 3000,
                                 variant: "subtle",
                               });
                             else
@@ -515,14 +515,14 @@ const Profile = () => {
                                 description:
                                   "If you can't proceed subscribing your VIP membership try to re-access.",
                                 status: "error",
-                                duration: 3500,
+                                duration: 3000,
                                 variant: "subtle",
                               });
                             setVip(true);
                             onCloseBecome();
                             setTimeout(() => {
                               window.location.reload();
-                            }, 3500);
+                            }, 3000);
                           }}
                         >
                           YES
@@ -550,7 +550,7 @@ const Profile = () => {
                               toast({
                                 title: "VIP membership deleted successfully!",
                                 status: "success",
-                                duration: 3500,
+                                duration: 3000,
                                 variant: "subtle",
                               });
                             else
@@ -559,7 +559,7 @@ const Profile = () => {
                                 description:
                                   "If you can't proceed deleting your VIP membership try to re-access.",
                                 status: "error",
-                                duration: 3500,
+                                duration: 3000,
                                 variant: "subtle",
                               });
                             setVip(false);
