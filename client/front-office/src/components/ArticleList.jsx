@@ -28,8 +28,12 @@ const ArticleList = ({ name, description, type }) => {
         )
       );
 
-      const { data: userData } = await UserManage.getUser();
-      setUser(userData);
+      try {
+        const { data: userData } = await UserManage.getUser();
+        setUser(userData);
+      } catch (e) {
+        setUser(null);
+      }
     }
     fetchData();
   }, []);
@@ -99,8 +103,10 @@ const ArticleList = ({ name, description, type }) => {
           {name}
         </Heading>
         <Text className="text-lg">{description}</Text>
-        {posts.map((post) => (
-          <Post data={post} isUserLoggedPost={post.userid === user._id} />
+        {posts.map((post, i) => (
+          user !== null
+          ? <Post data={post} isUserLoggedPost={post.userid === user._id} key={i} />
+          : <Post data={post} isUserLoggedPost={false} key={i} />
         ))}
       </Container>
     </Container>
