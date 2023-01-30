@@ -104,6 +104,7 @@
         $("#careerInfo").prepend(listArray("study_info"));
         $("#careerInfo").prepend(listArray("main_pets"));
         $("#careerInfo").prepend(listArray("actual_jobs"));
+        $("#places").prepend(fillDays())
         switch (data[0].type) {
           case "psy":
             $("#newProfession").html("psychologist");
@@ -112,7 +113,7 @@
             $("#newProfession").html("veterinary");
             break;
           case "petsitter":
-            $("#newProfession").html("petsitter");
+            $("#newProfession").html("pet sitter");
             break;
             case "groomer":
               $("#newProfession").html("groomer");
@@ -123,6 +124,68 @@
             $(".companyOnly").removeClass("hidden");
       };
 
+      const fillDays = () => {
+        return `
+          <div class="hidden companyOnly flex flex-col">
+            <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-2">WORKING PLACES</div>
+            <div class="my-4"><span class="primary font-semibold">Monday:</span>
+              <input
+                type="text"
+                name="newMonday"
+                id="newMonday"
+                value="` + data[0].cities.monday +
+              `"
+                placeholder="Type new monday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Tuesday:</span>
+              <input
+                type="text"
+                name="newTuesday"
+                id="newTuesday"
+                value="` + data[0].cities.tuesday +
+              `"
+                placeholder="Type new tuesday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Wednesday:</span>
+              <input
+                type="text"
+                name="newWednesday"
+                id="newWednesday"
+                value="` + data[0].cities.wednesday +
+              `"
+                placeholder="Type new wednesday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Thursday:</span>
+              <input
+                type="text"
+                name="newThursday"
+                id="newThursday"
+                value="` + data[0].cities.thursday +
+              `"
+                placeholder="Type new thursday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Friday:</span>
+              <input
+                type="text"
+                name="newFriday"
+                id="newFriday"
+                value="` + data[0].cities.friday +
+              `"
+                placeholder="Type new friday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div> 
+          </div>
+        `
+      }
       const getLenToUpdate = (type) => {
         switch(type){
               case 'actual_jobs':
@@ -166,7 +229,7 @@
             array = undefined;
         }
         console.log(array);
-        let tmp = `<div id="` + type + `"><div class="primary font-semibold mt-10">`+ title + `</div>`;
+        let tmp = `<div id="` + type + `"><div class="primary font-semibold">`+ title + `</div>`;
         if ( array !== undefined) {
           array.map((item, index) => {
             tmp +=
@@ -209,7 +272,7 @@
           console.log("len: " + lenToUpdate)
           tmp += `</div>
             <div id="add` + type + `"></div>
-              <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('` + type +`', (getLenToUpdate('` + type + `')+1))">+</button>`
+              <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1 mb-10" onclick="addField('` + type +`', (getLenToUpdate('` + type + `')+1))">+</button>`
           console.log(tmp)
         return tmp;
       };
@@ -231,7 +294,6 @@
               default:
             }
         $("#add" + type).append(
-        //console.log(  
         `<div>
             <input
               type="text"
@@ -290,19 +352,26 @@
             >
               Working places
             </button>
-            <button
+            <!--button
               id="servicesInfoBtn"
               class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('servicesInfo')"
             >
               Services
-          </button>
+          </button-->
           <button
-              id="careerInfoBtn"
+              id="businessTabBtn"
               class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-              onclick="showTab('careerInfo')"
+              onclick="showTab('businessTab')"
             >
-              Career
+              Career information
+            <button>
+          <button
+              id="careerTabBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('careerTab')"
+            >
+              Business information
             <button>
 
             </button>
@@ -324,7 +393,8 @@
           <div
             class="flex flex-1 text-xl ml-4 border-t-solid border-t-[1px] border-t-[#59114d]"
           >
-            <div id="publicInfo" class="tab">
+            <div id="publicInfo" class="tab flex flex-1 flex-col">
+              <div class="flex justify-center secondary text-3xl font-bold mt-4">PUBLIC INFORMATION</div>
               <div class="my-8">
                 <span class="adminOnly hidden primary font-semibold"
                   >Name:</span
@@ -370,7 +440,8 @@
               UPDATE
             </button>
             </div>
-            <div id="privateInfo" class="tab hidden">
+            <div id="privateInfo" class="tab hidden flex flex-1 flex-col">
+              <div class="flex justify-center secondary text-3xl font-bold mt-4">PRIVATE INFORMATION</div>
               <div class="my-8">
                 <span class="primary font-semibold">Email:</span>
                 <input
@@ -399,7 +470,8 @@
               UPDATE
             </button>
             </div>
-            <div id="newAdmin" class="tab hidden">
+            <div id="newAdmin" class="tab hidden flex flex-1 flex-col">
+              <div class="flex justify-center secondary text-3xl font-bold mt-4">CREATE ADMIN ACCOUNT</div>
               <div class="adminOnly hidden my-8">
                 <div class="primary font-semibold">
                   These credentials will create a new admin account.
@@ -445,36 +517,45 @@
                       class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                     />
                   </div>
+                </div>
                   <button
                     class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
                   >
                     CREATE NEW ADMIN
                   </button>
-                </div>
                 <span
                   id="newProfession"
                   class="change px-1 ml-3 bg-transparent"
                 ></span>
               </div>
             </div>
-            <div id="careerInfo" class="tab hidden mb-4">
+            <div id="careerTab" class="tab hidden mb-4 flex flex-1 flex-col">
+              <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-6">CAREER INFORMATION</div>
+              <div id="careerInfo"></div>
               <button
-              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+              class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
             >
               UPDATE
             </button>
             </div>
             <div id="otherAdmins" class="tab hidden"></div>
-            <div id="places" class="tab hidden">
+            <div id="places" class="tab hidden flex flex-1 flex-col">
               <button
               class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
             >
               UPDATE
             </button>
             </div>
-            <div id="servicesInfo" class="tab hidden">
-              services info
+            <div id="businessTab" class="tab hidden flex flex-1 flex-col">
+              <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-6">BUSINESS INFORMATION</div>
+              <div id="businessInfo"></div>
+              <button
+              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+            >
+              UPDATE
+            </button>
             </div>
+
           </div>
         </div>
       </div>
