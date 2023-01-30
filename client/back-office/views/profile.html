@@ -104,6 +104,7 @@
         $("#careerInfo").prepend(listArray("study_info"));
         $("#careerInfo").prepend(listArray("main_pets"));
         $("#careerInfo").prepend(listArray("actual_jobs"));
+        $("#businessInfo").prepend(fillBusiness())
         $("#places").prepend(fillDays())
         switch (data[0].type) {
           case "psy":
@@ -123,11 +124,102 @@
         }
             $(".companyOnly").removeClass("hidden");
       };
+      const formatBusiness = (hours) => {
+        return hours > 12 ? (hours % 12) + "pm" : hours + "am";
+      };
+      const fillBusiness = () => {
+        return `
+          <div class="mb-14 mt-6">
+            <span class="primary font-bold">Opening time:</span>
+            <span>` + formatBusiness((data[0].business_hours.start))+ `</span>
+            <select
+              id="newOpening"
+              name="newOpening"
+              type="text"
+              class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+            >
+              <option value="">--change--</option>
+              <option value="00">12am</option>
+              <option value="1">1am</option>
+              <option value="2">2am</option>
+              <option value="3">3am</option>
+              <option value="4">4am</option>
+              <option value="5">5am</option>
+              <option value="6">6am</option>
+              <option value="7">7am</option>
+              <option value="8">8am</option>
+              <option value="9">9am</option>
+              <option value="10">10am</option>
+              <option value="11">11am</option>
+              <option value="12">12pm</option>
+              <option value="1">1pm</option>
+              <option value="2">2pm</option>
+              <option value="3">3pm</option>
+              <option value="4">4pm</option>
+              <option value="5">5pm</option>
+              <option value="6">6pm</option>
+              <option value="7">7pm</option>
+              <option value="8">8pm</option>
+              <option value="9">9pm</option>
+              <option value="10">10am</option>
+              <option value="11">11am</option>
+            </select>
+          </div>
 
+          <div class="mb-14">
+            <span class="primary font-bold">Closing time:</span>
+            <span>` + formatBusiness((data[0].business_hours.end))+ `</span>
+            <select
+              id="newClosing"
+              name="newClosing"
+              type="text"
+              class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+            >
+              <option value="">--change--</option>
+              <option value="00">12am</option>
+              <option value="1">1am</option>
+              <option value="2">2am</option>
+              <option value="3">3am</option>
+              <option value="4">4am</option>
+              <option value="5">5am</option>
+              <option value="6">6am</option>
+              <option value="7">7am</option>
+              <option value="8">8am</option>
+              <option value="9">9am</option>
+              <option value="10">10am</option>
+              <option value="11">11am</option>
+              <option value="12">12pm</option>
+              <option value="1">1pm</option>
+              <option value="2">2pm</option>
+              <option value="3">3pm</option>
+              <option value="4">4pm</option>
+              <option value="5">5pm</option>
+              <option value="6">6pm</option>
+              <option value="7">7pm</option>
+              <option value="8">8pm</option>
+              <option value="9">9pm</option>
+              <option value="10">10am</option>
+              <option value="11">11am</option>
+            </select>
+          </div>
+
+          <div><span class="primary font-bold">Cost per hour:</span><span>
+            <input
+                type="text"
+                name="newCostPerHour"
+                id="newCostPerHour"
+                value="` + data[0].cost_per_hour +
+              `"
+                placeholder="Type new cost per hour"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              /> €/h</span>
+          </div>
+        `;
+      }
       const fillDays = () => {
         return `
           <div class="hidden companyOnly flex flex-col">
-            <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-2">WORKING PLACES</div>
+            <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-4">WORKING PLACES</div>
             <div class="my-4"><span class="primary font-semibold">Monday:</span>
               <input
                 type="text"
@@ -364,14 +456,14 @@
               class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('businessTab')"
             >
-              Career information
+              Business information
             <button>
           <button
               id="careerTabBtn"
               class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('careerTab')"
             >
-              Business information
+              Career information
             <button>
 
             </button>
