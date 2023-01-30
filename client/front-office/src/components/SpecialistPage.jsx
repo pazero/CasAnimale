@@ -43,24 +43,30 @@ const SpecialistPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const ret = await UserManage.getUser();
-        setUser(ret.data);
+        if (token) {
+          const ret = await UserManage.getUser();
+          setUser(ret.data);
+        }
       } catch (e) {
-        console.log(e);
-        setUser(null);
+        // setUser(null);
       }
 
       CompanyManage.getCompany(params.id).then(async (res) => {
         res.data.review = await Promise.all(
           res.data.review.map(async (item) => {
-            const { data: userReviewData } = await UserManage.getUser(
-              item.user
-            );
-            return {
-              user: userReviewData,
-              content: item.content,
-              date: item.date,
-            };
+            if (item.user) {
+              const { data: userReviewData } = await UserManage.getUsers({
+                _id: item.user,
+              });
+
+              return {
+                user: userReviewData[0],
+                content: item.content,
+                date: item.date,
+              };
+            } else {
+              return {};
+            }
           })
         );
 
@@ -76,6 +82,7 @@ const SpecialistPage = () => {
   }, []);
 
   useEffect(() => {
+    //serve per i filtri
     if (company?.cities) {
       var arr = {};
       Object.keys(company.cities).forEach((key) => {
@@ -235,6 +242,7 @@ const SpecialistPage = () => {
     }
     setAvailableSlots(slots);
   }
+
   const setFilter = (date) => {
     if (date === 1 && selectedCity === company.cities?.monday) return true;
     if (date === 2 && selectedCity === company.cities?.tuesday) return true;
@@ -243,6 +251,7 @@ const SpecialistPage = () => {
     if (date === 5 && selectedCity === company.cities?.friday) return true;
     return false;
   };
+
   return (
     <div
       data-theme="lemonade"
@@ -528,7 +537,7 @@ const SpecialistPage = () => {
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
-                    {user.vip && company.online !== undefined ? (
+                    {user?.vip && company.online !== undefined ? (
                       <Checkbox
                         className="mb-2"
                         size="lg"
@@ -656,7 +665,7 @@ const SpecialistPage = () => {
           />
         </div>
         <div className="flex justify-center">
-          <Review data={company} user={user} />
+          <Review company={company} setCompany={setCompany} user={user} />
         </div>
       </div>
       <div className="flex flex-1" style={{ height: "auto" }}>

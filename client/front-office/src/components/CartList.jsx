@@ -100,16 +100,42 @@ const CartItem = () => {
     }
   }
 
-  async function addQnt(id, qnt) {
-    const msg = await ProductManage.updateCart(id, qnt);
-    window.location = window.location;
-  }
+  useEffect(() => {
+    updateTotal();
+  }, [prodList]);
 
-  async function removeQnt(id, qnt) {
+  const updateTotal = () => {
+    var tmp = 0;
+    prodList.forEach((i) => {
+      tmp += i.quantity * i.prod.price;
+    });
+    setTotal(tmp);
+  };
+
+  async function updateQnt(id, qnt) {
     if (qnt === 0) deleteProductFromCart(id);
     else {
       const msg = await ProductManage.updateCart(id, qnt);
-      window.location = window.location;
+      if (msg.status === 200) {
+        toast({
+          title: "Successful update!",
+          status: "success",
+          duration: 3000,
+          variant: "subtle",
+        });
+        let newProdList = prodList.map((i) => {
+          if (i.id === id) i.quantity = qnt;
+          return i;
+        });
+        setProdList(newProdList);
+      } else {
+        toast({
+          title: "Successful removal!",
+          status: "danger",
+          duration: 3000,
+          variant: "subtle",
+        });
+      }
     }
   }
 
@@ -192,7 +218,7 @@ const CartItem = () => {
                 bg={"gray.300"}
                 _hover={{ bg: "gray.400", color: "white" }}
                 className="text-black text-semibold"
-                onClick={() => removeQnt(item.id, item.quantity - 1)}
+                onClick={() => updateQnt(item.id, item.quantity - 1)}
                 disabled={checkQntMin(item.quantity, item.prod?.quantity)}
               >
                 &#8722;
@@ -209,7 +235,7 @@ const CartItem = () => {
                 bg={"gray.300"}
                 _hover={{ bg: "gray.400", color: "white" }}
                 className="text-black align-middle text-semibold"
-                onClick={() => addQnt(item.id, item.quantity + 1)}
+                onClick={() => updateQnt(item.id, item.quantity + 1)}
                 disabled={checkQntMax(item.quantity, item.prod?.quantity)}
               >
                 &#43;
@@ -313,7 +339,7 @@ const CartItem = () => {
                     bg={"gray.300"}
                     _hover={{ bg: "gray.400", color: "white" }}
                     className="text-black text-semibold"
-                    onClick={() => removeQnt(item.id, item.quantity - 1)}
+                    onClick={() => updateQnt(item.id, item.quantity - 1)}
                     disabled={checkQntMin(item.quantity, item.prod?.quantity)}
                   >
                     &#8722;
@@ -333,7 +359,7 @@ const CartItem = () => {
                     bg={"gray.300"}
                     _hover={{ bg: "gray.400", color: "white" }}
                     className="text-black align-middle text-semibold"
-                    onClick={() => addQnt(item.id, item.quantity + 1)}
+                    onClick={() => updateQnt(item.id, item.quantity + 1)}
                     disabled={checkQntMax(item.quantity, item.prod?.quantity)}
                   >
                     &#43;

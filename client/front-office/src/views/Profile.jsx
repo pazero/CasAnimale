@@ -503,8 +503,8 @@ const Profile = () => {
                             const ret = await UserManage.enableVip();
                             if (ret.status === 200)
                               toast({
-                                title:
-                                  "VIP membership subscribed successfully!",
+                                title: "VIP membership subscribe successfully!",
+                                description: "Page will refresh",
                                 status: "success",
                                 duration: 3000,
                                 variant: "subtle",
@@ -549,6 +549,7 @@ const Profile = () => {
                             if (ret.status.toString() === "200")
                               toast({
                                 title: "VIP membership deleted successfully!",
+                                description: "Page will refresh",
                                 status: "success",
                                 duration: 3000,
                                 variant: "subtle",
@@ -564,7 +565,9 @@ const Profile = () => {
                               });
                             setVip(false);
                             onCloseStop();
-                            window.location = window.location;
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, 3000);
                           }}
                         >
                           Ok
