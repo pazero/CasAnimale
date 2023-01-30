@@ -19,27 +19,27 @@ const NewPet = () => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Pet added successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else{
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the entering try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   };
 
   const [name, setName] = useState("");
-  const [species, setSpecies] = useState("dog"); /** se non si seleziona attivamente dal menù, ma si lascia il dog di default non viene assegnato nel modo corretto */
+  const [species, setSpecies] =
+    useState(
+      "dog"
+    ); /** se non si seleziona attivamente dal menù, ma si lascia il dog di default non viene assegnato nel modo corretto */
   const [breed, setBreed] = useState("");
   const [birth, setBirth] = useState(new Date());
   const [photo, setPhoto] = useState("");

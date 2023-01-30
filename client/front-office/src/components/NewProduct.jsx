@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
-import { Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button, Input, useToast } from "@chakra-ui/react";
+import {
+  Image,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Button,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
@@ -40,21 +50,18 @@ const NewProduct = () => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Item added successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the entering try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   };
@@ -68,10 +75,8 @@ const NewProduct = () => {
   };
 
   function checkPhoto() {
-    if (photo === "")
-      return true;
-    else
-      return false;
+    if (photo === "") return true;
+    else return false;
   }
   return (
     <div data-theme="lemonade" className="flex flex-1 justify-center">
@@ -88,7 +93,10 @@ const NewProduct = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Set the name <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Set the name{" "}
+                      <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <input
                     required
@@ -115,11 +123,14 @@ const NewProduct = () => {
                       }
                     }}
                   >
-                    {({ onClick }) => (
+                    {({ onClick }) =>
                       checkPhoto() ? (
                         <>
                           <div className="rounded-lg pt-1 flex items-center justify-center border-dashed border-2 border-gray-300">
-                            <button className="text-gray-400 text-center" onClick={onClick}>
+                            <button
+                              className="text-gray-400 text-center"
+                              onClick={onClick}
+                            >
                               <Image
                                 id="changephoto"
                                 src={photo}
@@ -143,8 +154,9 @@ const NewProduct = () => {
                               />
                             </button>
                           </div>
-                        </>)
-                    )}
+                        </>
+                      )
+                    }
                   </UploadButton>
                 </div>
                 <div className="form-control">
@@ -178,7 +190,8 @@ const NewProduct = () => {
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">
-                      Type the description of the product <span className="text-sm text-gray-400">*</span>
+                      Type the description of the product{" "}
+                      <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <textarea
@@ -191,7 +204,10 @@ const NewProduct = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Set the quantity <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Set the quantity{" "}
+                      <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <NumberInput
                     required
@@ -210,7 +226,10 @@ const NewProduct = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Set the price <span className="text-sm text-gray-400">*</span></span>
+                    <span className="label-text">
+                      Set the price{" "}
+                      <span className="text-sm text-gray-400">*</span>
+                    </span>
                   </label>
                   <NumberInput
                     required

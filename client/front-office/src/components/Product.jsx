@@ -2,8 +2,23 @@ import React, { useState } from "react";
 import ProductManage from "../services/ProductManage";
 import UpdateProduct from "../components/UpdateProduct";
 import { DeleteIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
-import { Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react";
-import { Card, CardBody, Box, Divider, CardFooter, Tag, useToast } from "@chakra-ui/react";
+import {
+  Image,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Box,
+  Divider,
+  CardFooter,
+  Tag,
+  useToast,
+} from "@chakra-ui/react";
 import { Stack, Heading, Text, Button } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
@@ -17,21 +32,18 @@ const Product = (props) => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Item deleted successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   };
@@ -44,20 +56,17 @@ const Product = (props) => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Item added to your cart!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed adding the item try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   }
@@ -125,7 +134,11 @@ const Product = (props) => {
           <Box className="mx-1.5">
             {props.data.quantity === 0 ? (
               <Image
-                src={props.data?.photo === "" || props.data?.photo === undefined ? "/f/compra.png" : props.data.photo}
+                src={
+                  props.data?.photo === "" || props.data?.photo === undefined
+                    ? "/f/compra.png"
+                    : props.data.photo
+                }
                 borderRadius="lg"
                 className="w-full object-cover justify-self-center"
                 opacity="0.5"

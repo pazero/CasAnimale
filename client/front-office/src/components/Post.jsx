@@ -1,7 +1,16 @@
 import React from "react";
 import PostManage from "../services/PostManage";
 import { useNavigate } from "react-router-dom";
-import { Image, Box, Heading, Text, HStack, Button, Show, useToast } from "@chakra-ui/react";
+import {
+  Image,
+  Box,
+  Heading,
+  Text,
+  HStack,
+  Button,
+  Show,
+  useToast,
+} from "@chakra-ui/react";
 
 const Post = (props) => {
   const toast = useToast();
@@ -13,21 +22,18 @@ const Post = (props) => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Post deleted successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   };

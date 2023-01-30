@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import PetManage from "../services/PetManage";
 import UserManage from "../services/UserManage";
-import { Image, Stack, Center, Button, Box, Heading, Text, Container, useToast } from "@chakra-ui/react";
+import {
+  Image,
+  Stack,
+  Center,
+  Button,
+  Box,
+  Heading,
+  Text,
+  Container,
+  useToast,
+} from "@chakra-ui/react";
 
 const PetsList = () => {
   const [petsList, setPetList] = useState([]);
@@ -41,21 +51,18 @@ const PetsList = () => {
     if (ret.status.toString() === "200") {
       toast({
         title: "Pet deleted successfully :(",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   }
@@ -98,7 +105,11 @@ const PetsList = () => {
                           h={"7rem"}
                           w={"7rem"}
                           ml={{ base: "0", sm: "10" }}
-                          src={item.photo === "" ? "/f/speciesIcons/" + item.species + ".png" : item.photo}
+                          src={
+                            item.photo === ""
+                              ? "/f/speciesIcons/" + item.species + ".png"
+                              : item.photo
+                          }
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>

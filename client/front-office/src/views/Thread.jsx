@@ -44,7 +44,6 @@ const Thread = () => {
           status: "success",
           duration: 3000,
           variant: "subtle",
-          position: "top-center",
         });
         let newPost = post;
         newPost.comments = newComments;
@@ -57,7 +56,6 @@ const Thread = () => {
           status: "error",
           duration: 3000,
           variant: "subtle",
-          position: "top-center",
         });
     } else {
       toast({
@@ -65,7 +63,6 @@ const Thread = () => {
         status: "warning",
         duration: 3000,
         variant: "subtle",
-        position: "top-center",
       });
     }
   };
@@ -84,7 +81,6 @@ const Thread = () => {
         status: "success",
         duration: 3500,
         variant: "subtle",
-        position: "top-center",
       });
     } else
       toast({
@@ -93,7 +89,6 @@ const Thread = () => {
         status: "error",
         duration: 3500,
         variant: "subtle",
-        position: "top-center",
       });
   };
 

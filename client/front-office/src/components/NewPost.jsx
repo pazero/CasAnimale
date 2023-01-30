@@ -18,21 +18,18 @@ const NewPost = ({ type }) => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Post added successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the posting try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   };

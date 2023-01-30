@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
-import { useToast } from '@chakra-ui/react';
+import { useToast } from "@chakra-ui/react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,24 +23,21 @@ const Login = () => {
       email,
       password,
     });
-    if (msg.data.success){
+    if (msg.data.success) {
       toast({
         title: "Signed-in successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       navigate("/");
-    } 
-    else
+    } else
       toast({
         title: "Ops something went wrong!",
         description: "Incorrect username or password.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
   };
 

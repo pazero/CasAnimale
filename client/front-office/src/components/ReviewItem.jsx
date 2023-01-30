@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import CompanyManage from "../services/CompanyManage";
 import Cookies from "js-cookie";
-import { Image, Box, Text, FormLabel, Textarea, Button, useToast, Container } from "@chakra-ui/react";
+import {
+  Image,
+  Box,
+  Text,
+  FormLabel,
+  Textarea,
+  Button,
+  useToast,
+  Container,
+} from "@chakra-ui/react";
 
 const Review = ({ data, user }) => {
   const token = Cookies.get("token");
@@ -19,40 +28,40 @@ const Review = ({ data, user }) => {
       if (ret.status.toString() === "200") {
         toast({
           title: "Review posted successfully!",
-          status: 'success',
+          status: "success",
           duration: 3500,
-          variant: 'subtle',
-          position: 'top-center',
+          variant: "subtle",
         });
         window.location = window.location;
-      }
-      else
+      } else
         toast({
           title: "Ops something went wrong!",
           description: "If you can't proceed reviewing try to re-access.",
-          status: 'error',
+          status: "error",
           duration: 3500,
-          variant: 'subtle',
-          position: 'top-center',
+          variant: "subtle",
         });
     } else {
       toast({
         title: "Log-in first!",
-        status: 'warning',
+        status: "warning",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   };
 
   return (
     <div className="flex flex-col my-4 mx-3">
-      <div className="my-2 md:my-4 self-center text-center text-xl font-semibold uppercase">Reviews</div>
+      <div className="my-2 md:my-4 self-center text-center text-xl font-semibold uppercase">
+        Reviews
+      </div>
 
       <div className="flex flex-col md:flex-row">
         <div className="sm:text-lg md:mr-6">
-          <FormLabel fontSize={{base:'md', lg:'lg'}} >Write a review for this company!</FormLabel>
+          <FormLabel fontSize={{ base: "md", lg: "lg" }}>
+            Write a review for this company!
+          </FormLabel>
           <Textarea
             placeholder="Write here..."
             onChange={(e) => setNewComment(e.target.value)}
@@ -68,42 +77,54 @@ const Review = ({ data, user }) => {
         </div>
         {/* comment section */}
         <div className="md:ml-6 mt-3 sm:mt-0">
-          {data.review?.length === 0
-            ?<div className="text-md">Be the first one writing a review!</div>
-            : data.review?.map((item, i) => (
-            <Box className="px-3 py-2 rounded-lg border border-gray-100 bg-gray-50 my-2" key={i}>
-              <Box display="flex" flexDirection="row">
-                <Box display={"flex"} justifyContent={"center"} flexShrink="0">
-                  <Image
-                    borderRadius="full"
-                    boxSize={{base:"35px", md:"70px"}}
-                    src={item.user?.photo === "" || item.user?.photo === undefined ? "/f/userIcon.svg" : item.user?.photo}
-                    alt="user profile image"
-                  />
-                </Box>                
-                <Container maxW='md' marginLeft="1" paddingLeft="1">
-                  <Text
-                    as="p"
-                    marginLeft={{ base: "0", sm: "1" }}
-                    fontSize={{ base: "md", sm: "lg" }}
-                    maxWidth={{base:"sm", }}
+          {data.review?.length === 0 ? (
+            <div className="text-md">Be the first one writing a review!</div>
+          ) : (
+            data.review?.map((item, i) => (
+              <Box
+                className="px-3 py-2 rounded-lg border border-gray-100 bg-gray-50 my-2"
+                key={i}
+              >
+                <Box display="flex" flexDirection="row">
+                  <Box
+                    display={"flex"}
+                    justifyContent={"center"}
+                    flexShrink="0"
                   >
-                    <div className="flex flex-col">
-                      <span className="text-md font-semibold mb-1">
-                        {item.user?.name} {item.user?.surname}
-                      </span>
-                      <span className="text-sm mb-1">
-                        {item.date?.substring(0, 10)}
-                      </span>
-                      <span className="text-md">
-                        {item.content}
-                      </span>
-                    </div>
-                  </Text>
-                </Container>
+                    <Image
+                      borderRadius="full"
+                      boxSize={{ base: "35px", md: "70px" }}
+                      src={
+                        item.user?.photo === "" ||
+                        item.user?.photo === undefined
+                          ? "/f/userIcon.svg"
+                          : item.user?.photo
+                      }
+                      alt="user profile image"
+                    />
+                  </Box>
+                  <Container maxW="md" marginLeft="1" paddingLeft="1">
+                    <Text
+                      as="p"
+                      marginLeft={{ base: "0", sm: "1" }}
+                      fontSize={{ base: "md", sm: "lg" }}
+                      maxWidth={{ base: "sm" }}
+                    >
+                      <div className="flex flex-col">
+                        <span className="text-md font-semibold mb-1">
+                          {item.user?.name} {item.user?.surname}
+                        </span>
+                        <span className="text-sm mb-1">
+                          {item.date?.substring(0, 10)}
+                        </span>
+                        <span className="text-md">{item.content}</span>
+                      </div>
+                    </Text>
+                  </Container>
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -8,7 +8,18 @@ import Cookies from "js-cookie";
 import { Image, Button } from "@chakra-ui/react";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
-import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast, Heading } from "@chakra-ui/react";
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useToast,
+  Heading,
+} from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 
 const Profile = () => {
@@ -103,7 +114,6 @@ const Profile = () => {
         status: "success",
         duration: 3000,
         variant: "subtle",
-        position: "top-center",
       });
       document.querySelector("#saveBtn").hidden = true;
       document.querySelector("#resetInfoBtn").hidden = true;
@@ -124,7 +134,6 @@ const Profile = () => {
         status: "error",
         duration: 3000,
         variant: "subtle",
-        position: "top-center",
       });
   }
 
@@ -156,9 +165,15 @@ const Profile = () => {
           <Sidebar />
         </div>
 
-        <div className="sm:flex sm:flex-1 sm:inline-block" style={{ height: "auto" }}>
+        <div
+          className="sm:flex sm:flex-1 sm:inline-block"
+          style={{ height: "auto" }}
+        >
           <form className="flex flex-1" style={{ height: "auto" }}>
-            <div className="overflow-hidden bg-white shadow" style={{ width: "100%" }}>
+            <div
+              className="overflow-hidden bg-white shadow"
+              style={{ width: "100%" }}
+            >
               <div className="px-4 py-5 px-6">
                 <Heading as="h1">Profile</Heading>
               </div>
@@ -169,12 +184,20 @@ const Profile = () => {
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
                       <Image
                         hidden={false}
-                        src={(user?.photo === "" || user?.photo === undefined) ? "/f/userIcon.svg" : user?.photo}
+                        src={
+                          user?.photo === "" || user?.photo === undefined
+                            ? "/f/userIcon.svg"
+                            : user?.photo
+                        }
                         borderRadius="full"
                         className="actualInfo"
                         boxSize="150px"
                         alt="propic"
-                        opacity={(user?.photo === "" || user?.photo === undefined) ? "0.5" : "1"}
+                        opacity={
+                          user?.photo === "" || user?.photo === undefined
+                            ? "0.5"
+                            : "1"
+                        }
                       />
 
                       <UploadButton
@@ -200,16 +223,25 @@ const Profile = () => {
                               <Image
                                 id="newPhoto"
                                 hidden={true}
-                                src={(user?.photo === "" || user?.photo === undefined) ? "/f/userIcon.svg" : user?.photo}
+                                src={
+                                  user?.photo === "" ||
+                                  user?.photo === undefined
+                                    ? "/f/userIcon.svg"
+                                    : user?.photo
+                                }
                                 borderRadius="full"
                                 className="changeInfo"
                                 boxSize="150px"
                                 alt="propic"
-                                opacity={(user?.photo === "" || user?.photo === undefined) ? "0.5" : "1"}
+                                opacity={
+                                  user?.photo === "" ||
+                                  user?.photo === undefined
+                                    ? "0.5"
+                                    : "1"
+                                }
                                 icon={<EditIcon />}
                               />
                             </button>
-                            
                           </div>
                         )}
                       </UploadButton>
@@ -257,10 +289,10 @@ const Profile = () => {
                       <span hidden={false} className="actualInfo ml-1">
                         {user?.birth
                           ? user?.birth.substring(5, 7) +
-                          "/" +
-                          user?.birth.substring(8, 10) +
-                          "/" +
-                          user?.birth.substring(0, 4)
+                            "/" +
+                            user?.birth.substring(8, 10) +
+                            "/" +
+                            user?.birth.substring(0, 4)
                           : user?.birth}
                       </span>
                       <input
@@ -476,7 +508,6 @@ const Profile = () => {
                                 status: "success",
                                 duration: 3500,
                                 variant: "subtle",
-                                position: "top-center",
                               });
                             else
                               toast({
@@ -486,7 +517,6 @@ const Profile = () => {
                                 status: "error",
                                 duration: 3500,
                                 variant: "subtle",
-                                position: "top-center",
                               });
                             setVip(true);
                             onCloseBecome();
@@ -522,7 +552,6 @@ const Profile = () => {
                                 status: "success",
                                 duration: 3500,
                                 variant: "subtle",
-                                position: "top-center",
                               });
                             else
                               toast({
@@ -532,7 +561,6 @@ const Profile = () => {
                                 status: "error",
                                 duration: 3500,
                                 variant: "subtle",
-                                position: "top-center",
                               });
                             setVip(false);
                             onCloseStop();

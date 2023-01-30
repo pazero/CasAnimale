@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserManage from "../services/UserManage";
 import ProductManage from "../services/ProductManage";
 import { Image, Box, Heading, Text, Button } from "@chakra-ui/react";
-import { useToast } from '@chakra-ui/react';
+import { useToast } from "@chakra-ui/react";
 
 const CartItem = () => {
   const [prodList, setProdList] = useState([]);
@@ -39,6 +39,7 @@ const CartItem = () => {
     if (qnt === 1 || available === 0) return true;
     else return false;
   }
+  
   function checkQntMax(qnt, available) {
     if (qnt === available || available === 0) return true;
     else return false;
@@ -48,22 +49,19 @@ const CartItem = () => {
     const msg = await UserManage.buyUserCart();
     if (msg.status.toString() === "200") {
       toast({
-        title: 'Successful purchase!',
-        status: 'success',
+        title: "Successful purchase!",
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else{
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the purchase try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   }
@@ -72,22 +70,19 @@ const CartItem = () => {
     const msg = await ProductManage.updateCart(id, 0);
     if (msg.status.toString() === "200") {
       toast({
-        title: 'Successful removal!',
-        status: 'info',
+        title: "Successful removal!",
+        status: "info",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else{
+    } else {
       toast({
-        title: 'Ops something went wrong!',
+        title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   }
@@ -124,7 +119,9 @@ const CartItem = () => {
               <Box className="flex-none">
                 <Image
                   boxSize={{ base: "5rem", md: "8rem" }}
-                  src={item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo}
+                  src={
+                    item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo
+                  }
                   borderRadius="lg"
                   opacity="0.5"
                 />
@@ -133,7 +130,9 @@ const CartItem = () => {
               <Box className="flex-none">
                 <Image
                   boxSize={{ base: "5rem", md: "8rem", lg: "10rem" }}
-                  src={item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo}
+                  src={
+                    item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo
+                  }
                   borderRadius="lg"
                 />
               </Box>

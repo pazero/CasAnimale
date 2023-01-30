@@ -20,7 +20,7 @@ const Register = () => {
     const msg = await UserManage.newUser({
       name,
       surname,
-      "photo":"",
+      photo: "",
       birth,
       email,
       password,
@@ -29,24 +29,21 @@ const Register = () => {
     if (msg.status.toString() === "200") {
       toast({
         title: "Signed-up uccessfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       navigate("/login");
-    }
-    else{
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed signing-up try reloading the page.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
-  };
+  }
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");

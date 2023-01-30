@@ -2,7 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManage from "../services/UserManage";
 import Cookies from "js-cookie";
-import { Button, FormControl, Flex, Heading, Input, Stack, Text, useColorModeValue, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  Flex,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 
 export default function ForgotPasswordForm() {
   const navigate = useNavigate();
@@ -24,20 +34,18 @@ export default function ForgotPasswordForm() {
     if (msg.status.toString() === "200") {
       toast({
         title: "Email restored successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
-    }
-    else
+    } else
       toast({
         title: "Ops something went wrong!",
-        description: "If you can't proceed restoring your password try to re-access.",
-        status: 'error',
+        description:
+          "If you can't proceed restoring your password try to re-access.",
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
   };
 

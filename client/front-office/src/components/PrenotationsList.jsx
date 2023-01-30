@@ -3,7 +3,17 @@ import PrenotationManage from "../services/PrenotationManage";
 import UserManage from "../services/UserManage";
 import CompanyManage from "../services/CompanyManage";
 import vetclinic from "../assets/vet-clinic.png";
-import { Box, Heading, Text, Container, Button, Stack, Center, Image, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Container,
+  Button,
+  Stack,
+  Center,
+  Image,
+  useToast,
+} from "@chakra-ui/react";
 
 const PrenotationsList = () => {
   const [completeList, setCompleteList] = useState([]);
@@ -59,21 +69,18 @@ const PrenotationsList = () => {
     if (ret.status.toString() === "200") {
       toast({
         title: "Pronotation deleted successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else {
+    } else {
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed with the removal try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     }
   }

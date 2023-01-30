@@ -35,6 +35,12 @@ const Navbar = () => {
 
   const logout = () => {
     Cookies.remove("token", { path: "/" });
+    toast({
+      title: "You logged out succesfully!",
+      status: "success",
+      duration: 3500,
+      variant: "subtle",
+    });
     navigate("/");
   };
 
@@ -101,24 +107,24 @@ const Navbar = () => {
                   <button
                     onClick={() => {
                       user === null
-                      ? toast({
-                          title: "Ops log-in first!",
-                          description: "You have to be a VIP user to access this aerea!",
-                          status: 'error',
-                          duration: 3500,
-                          variant: 'subtle',
-                          position: 'top-center',
-                        })
-                      : user.vip 
+                        ? toast({
+                            title: "Ops log-in first!",
+                            description:
+                              "You have to be a VIP user to access this aerea!",
+                            status: "error",
+                            duration: 3500,
+                            variant: "subtle",
+                          })
+                        : user.vip
                         ? navigate("/helpme")
                         : toast({
                             title: "Ops it looks like you're not a VIP user!",
-                            description: "Subscribe to VIP in you profile aerea.",
-                            status: 'error',
+                            description:
+                              "Subscribe to VIP in you profile aerea.",
+                            status: "error",
                             duration: 3500,
-                            variant: 'subtle',
-                            position: 'top-center',
-                          })
+                            variant: "subtle",
+                          });
                     }}
                   >
                     HelpMe!
@@ -175,23 +181,23 @@ const Navbar = () => {
                     onClick={() => {
                       user === null
                         ? toast({
-                          title: "Ops log-in first!",
-                          description: "You have to be a VIP user to access this aerea!",
-                          status: 'error',
-                          duration: 3500,
-                          variant: 'subtle',
-                          position: 'top-center',
-                        })
-                        : user.vip
-                          ? navigate("/vet")
-                          : toast({
-                            title: "Ops it looks like you're not a VIP user!",
-                            description: "Subscribe to VIP in you profile aerea.",
-                            status: 'error',
+                            title: "Ops log-in first!",
+                            description:
+                              "You have to be a VIP user to access this aerea!",
+                            status: "error",
                             duration: 3500,
-                            variant: 'subtle',
-                            position: 'top-center',
+                            variant: "subtle",
                           })
+                        : user.vip
+                        ? navigate("/vet")
+                        : toast({
+                            title: "Ops it looks like you're not a VIP user!",
+                            description:
+                              "Subscribe to VIP in you profile aerea.",
+                            status: "error",
+                            duration: 3500,
+                            variant: "subtle",
+                          });
                     }}
                   >
                     Veterinary
@@ -223,23 +229,23 @@ const Navbar = () => {
                     onClick={() => {
                       user === null
                         ? toast({
-                          title: "Ops log-in first!",
-                          description: "You have to be a VIP user to access this aerea!",
-                          status: 'error',
-                          duration: 3500,
-                          variant: 'subtle',
-                          position: 'top-center',
-                        })
-                        : user.vip
-                          ? navigate("/psychologist")
-                          : toast({
-                            title: "Ops it looks like you're not a VIP user!",
-                            description: "Subscribe to VIP in you profile aerea.",
-                            status: 'error',
+                            title: "Ops log-in first!",
+                            description:
+                              "You have to be a VIP user to access this aerea!",
+                            status: "error",
                             duration: 3500,
-                            variant: 'subtle',
-                            position: 'top-center',
+                            variant: "subtle",
                           })
+                        : user.vip
+                        ? navigate("/psychologist")
+                        : toast({
+                            title: "Ops it looks like you're not a VIP user!",
+                            description:
+                              "Subscribe to VIP in you profile aerea.",
+                            status: "error",
+                            duration: 3500,
+                            variant: "subtle",
+                          });
                     }}
                   >
                     Psychologist
@@ -325,23 +331,22 @@ const Navbar = () => {
                   onClick={() => {
                     user === null
                       ? toast({
-                        title: "Ops log-in first!",
-                        description: "You have to be a VIP user to access this aerea!",
-                        status: 'error',
-                        duration: 3500,
-                        variant: 'subtle',
-                        position: 'top-center',
-                      })
+                          title: "Ops log-in first!",
+                          description:
+                            "You have to be a VIP user to access this aerea!",
+                          status: "error",
+                          duration: 3500,
+                          variant: "subtle",
+                        })
                       : user.vip
-                        ? navigate("/helpme")
-                        : toast({
+                      ? navigate("/helpme")
+                      : toast({
                           title: "Ops it looks like you're not a VIP user!",
                           description: "Subscribe to VIP in you profile aerea.",
-                          status: 'error',
+                          status: "error",
                           duration: 3500,
-                          variant: 'subtle',
-                          position: 'top-center',
-                        })
+                          variant: "subtle",
+                        });
                   }}
                 >
                   HelpMe!
@@ -398,23 +403,22 @@ const Navbar = () => {
                   onClick={() => {
                     user === null
                       ? toast({
-                        title: "Ops log-in first!",
-                        description: "You have to be a VIP user to access this aerea!",
-                        status: 'error',
-                        duration: 3500,
-                        variant: 'subtle',
-                        position: 'top-center',
-                      })
+                          title: "Ops log-in first!",
+                          description:
+                            "You have to be a VIP user to access this aerea!",
+                          status: "error",
+                          duration: 3500,
+                          variant: "subtle",
+                        })
                       : user.vip
-                        ? navigate("/vet")
-                        : toast({
+                      ? navigate("/vet")
+                      : toast({
                           title: "Ops it looks like you're not a VIP user!",
                           description: "Subscribe to VIP in you profile aerea.",
-                          status: 'error',
+                          status: "error",
                           duration: 3500,
-                          variant: 'subtle',
-                          position: 'top-center',
-                        })
+                          variant: "subtle",
+                        });
                   }}
                 >
                   Veterinary
@@ -446,23 +450,22 @@ const Navbar = () => {
                   onClick={() => {
                     user === null
                       ? toast({
-                        title: "Ops log-in first!",
-                        description: "You have to be a VIP user to access this aerea!",
-                        status: 'error',
-                        duration: 3500,
-                        variant: 'subtle',
-                        position: 'top-center',
-                      })
+                          title: "Ops log-in first!",
+                          description:
+                            "You have to be a VIP user to access this aerea!",
+                          status: "error",
+                          duration: 3500,
+                          variant: "subtle",
+                        })
                       : user.vip
-                        ? navigate("/psychologist")
-                        : toast({
+                      ? navigate("/psychologist")
+                      : toast({
                           title: "Ops it looks like you're not a VIP user!",
                           description: "Subscribe to VIP in you profile aerea.",
-                          status: 'error',
+                          status: "error",
                           duration: 3500,
-                          variant: 'subtle',
-                          position: 'top-center',
-                        })
+                          variant: "subtle",
+                        });
                   }}
                 >
                   Psychologist

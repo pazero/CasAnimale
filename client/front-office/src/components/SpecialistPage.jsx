@@ -10,7 +10,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 import Select from "react-select";
-import { Checkbox, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Divider, useToast } from "@chakra-ui/react";
+import {
+  Checkbox,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Divider,
+  useToast,
+} from "@chakra-ui/react";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
@@ -30,7 +41,6 @@ const SpecialistPage = () => {
   const toast = useToast();
 
   useEffect(() => {
-
     async function fetchData() {
       try {
         const ret = await UserManage.getUser();
@@ -169,21 +179,18 @@ const SpecialistPage = () => {
     if (res.status.toString() === "200") {
       toast({
         title: "Appointment booked successfully!",
-        status: 'success',
+        status: "success",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
       window.location = window.location;
-    }
-    else
+    } else
       toast({
         title: "Ops something went wrong!",
         description: "If you can't proceed booking try to re-access.",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
   };
 
@@ -193,12 +200,11 @@ const SpecialistPage = () => {
     let interval = end - start;
     if (interval <= 0)
       toast({
-        title: "Error",     // qual è l'errore ?????????
+        title: "Error", // qual è l'errore ?????????
         description: "It's not possible to book an appointment!",
-        status: 'error',
+        status: "error",
         duration: 3500,
-        variant: 'subtle',
-        position: 'top-center',
+        variant: "subtle",
       });
     let slots = [];
     const booked = [];
@@ -231,13 +237,13 @@ const SpecialistPage = () => {
     setAvailableSlots(slots);
   }
   const setFilter = (date) => {
-    if(date === 1 && selectedCity === company.cities?.monday) return true;
-    if(date === 2 && selectedCity === company.cities?.tuesday) return true;
-    if(date === 3 && selectedCity === company.cities?.wednesday) return true;
-    if(date === 4 && selectedCity === company.cities?.thursday) return true;
-    if(date === 5 && selectedCity === company.cities?.friday) return true;
+    if (date === 1 && selectedCity === company.cities?.monday) return true;
+    if (date === 2 && selectedCity === company.cities?.tuesday) return true;
+    if (date === 3 && selectedCity === company.cities?.wednesday) return true;
+    if (date === 4 && selectedCity === company.cities?.thursday) return true;
+    if (date === 5 && selectedCity === company.cities?.friday) return true;
     return false;
-  }
+  };
   return (
     <div
       data-theme="lemonade"
@@ -265,7 +271,11 @@ const SpecialistPage = () => {
         <div className="md:text-center sm:text-lg">
           <div id="companyPhoto" className="flex justify-center shrink-0 pb-5">
             <img
-              src={(company.photo === "" || company.photo === undefined) ? "/f/company.png" : company.photo}
+              src={
+                company.photo === "" || company.photo === undefined
+                  ? "/f/company.png"
+                  : company.photo
+              }
               alt="company logo"
               className="max-w-full h-auto rounded-full"
               resizemode="cover"
@@ -558,9 +568,14 @@ const SpecialistPage = () => {
                         }}
                         minDate={new Date()}
                         filterDate={(date) => {
-                          if(!isOnline)
-                            return setFilter(date.getDay()) && date.getDay() !== 0 && date.getDay() !== 6;
-                          else return date.getDay() !== 0 && date.getDay() !== 6;
+                          if (!isOnline)
+                            return (
+                              setFilter(date.getDay()) &&
+                              date.getDay() !== 0 &&
+                              date.getDay() !== 6
+                            );
+                          else
+                            return date.getDay() !== 0 && date.getDay() !== 6;
                         }}
                       />
                     </div>
@@ -593,16 +608,19 @@ const SpecialistPage = () => {
                           bookSlot(
                             isOnline,
                             params.id,
-                            new Date(document.getElementById("slotDay").value + " " + startTime)
+                            new Date(
+                              document.getElementById("slotDay").value +
+                                " " +
+                                startTime
+                            )
                           );
                           setShowModal(false);
                         } else {
                           toast({
                             title: "You must book your appointment!",
-                            status: 'warnign',
+                            status: "warnign",
                             duration: 3500,
-                            variant: 'subtle',
-                            position: 'top-center',
+                            variant: "subtle",
                           });
                         }
                       }}
@@ -612,7 +630,13 @@ const SpecialistPage = () => {
                     <button
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => {setShowModal(false); setIsOnline(false); setStartDate(); setSelectedCity(); setStartTime()}}
+                      onClick={() => {
+                        setShowModal(false);
+                        setIsOnline(false);
+                        setStartDate();
+                        setSelectedCity();
+                        setStartTime();
+                      }}
                     >
                       Close
                     </button>
@@ -624,7 +648,13 @@ const SpecialistPage = () => {
           </>
         ) : null}
         <div className="flex justify-center my-1 md:my-4">
-          <Divider orientation='horizontal' width='80%' justify='center' border='0.2rem' borderColor='gray.300' />
+          <Divider
+            orientation="horizontal"
+            width="80%"
+            justify="center"
+            border="0.2rem"
+            borderColor="gray.300"
+          />
         </div>
         <div className="flex justify-center">
           <Review data={company} user={user} />

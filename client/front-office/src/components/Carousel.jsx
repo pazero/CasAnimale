@@ -38,21 +38,22 @@ export default function CaptionCarousel() {
 
   // This list contains all the data for carousels
   // This can be static or loaded from a server
+  // in production/produzione cambiare url
   const cards = [
     {
       title: "Veterinary service",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "f/vet3.jpg",
+      image: "vet3.jpg",
     },
     {
       title: "Psychologist service",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "f/p2.jpg",
+      image: "p2.jpg",
     },
     {
       title: "Pet equipment shop",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "f/pet_toys.jpg",
+      image: "pet_toys.jpg",
     },
   ];
 
