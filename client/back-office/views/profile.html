@@ -17,6 +17,7 @@
       let user;
       let data;
       let adminsList;
+      let listLen =[{study_info : -1, professional_experience: -1, actual_jobs: -1, main_pets: -1}]
       $(document).ready(async () => {
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
@@ -93,13 +94,16 @@
         $("#adminId").html(data[0]._id);
       };
       const fillCompany = () => {
-        $(".companyOnly").removeClass("hidden");
         $("#newName").val(data[0].name);
         $("#newSurname").val(data[0].surname);
         $("#newOwner").val(data[0].owner);
         $("#newPassword").val(data[0].password);
         $("#newEmail").val(data[0].email);
         $("#adminId").html(data[0]._id);
+        $("#careerInfo").prepend(listArray("professional_experience"));
+        $("#careerInfo").prepend(listArray("study_info"));
+        $("#careerInfo").prepend(listArray("main_pets"));
+        $("#careerInfo").prepend(listArray("actual_jobs"));
         switch (data[0].type) {
           case "psy":
             $("#newProfession").html("psychologist");
@@ -110,13 +114,142 @@
           case "petsitter":
             $("#newProfession").html("petsitter");
             break;
-          case "groomer":
-            $("#newProfession").html("groomer");
+            case "groomer":
+              $("#newProfession").html("groomer");
+              break;
+          default:
+              $("#newProfession").html("groomer");
+        }
+            $(".companyOnly").removeClass("hidden");
+      };
+
+      const getLenToUpdate = (type) => {
+        switch(type){
+              case 'actual_jobs':
+                return (listLen[0].actual_jobs)
+                break;
+              case 'main_pets':
+                return (listLen[0].main_pets)
+                break;
+              case 'study_info':
+                return (listLen[0].study_info)
+                break;
+              case 'professional_experience':
+                return (listLen[0].professional_experience)
+                break;
+              default:
+            }
+      }
+      const listArray = (type) => {
+        let array;
+        let title;
+        let count = 0;
+        let lenToUpdate;
+        switch(type){
+          case 'actual_jobs':
+            array = data[0].actual_jobs;
+            title = data[0].name + "'s actual jobs:";
+            break;
+          case 'main_pets':
+            array = data[0].main_pets;
+            title = data[0].name + "'s main pets of interest:";
+            break;
+          case 'study_info':
+            array = data[0].study_info;
+            title = data[0].name + "'s study info:";
+            break;
+          case 'professional_experience':
+            array = data[0].professional_experience;
+            title = data[0].name + "'s professional experience:";
             break;
           default:
-            $("#newProfession").html("groomer");
+            array = undefined;
         }
+        console.log(array);
+        let tmp = `<div id="` + type + `"><div class="primary font-semibold mt-10">`+ title + `</div>`;
+        if ( array !== undefined) {
+          array.map((item, index) => {
+            tmp +=
+              `<div>
+              <input
+                type="text"
+                name="new` +
+              type +
+              index +
+              `"
+                id="new` +
+              type +
+              index +
+              `"
+                value="` +
+              item +
+              `"
+                placeholder="Type new field"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
+              />
+            </div>`;
+            count = index;
+            switch(type){
+              case 'actual_jobs':
+                lenToUpdate = ++listLen[0].actual_jobs
+                break;
+              case 'main_pets':
+                lenToUpdate = ++listLen[0].main_pets
+                break;
+              case 'study_info':
+                lenToUpdate = ++listLen[0].study_info
+                break;
+              case 'professional_experience':
+                lenToUpdate = ++listLen[0].professional_experience
+                break;
+              default:
+            }
+          });
+        }
+          console.log("len: " + lenToUpdate)
+          tmp += `</div>
+            <div id="add` + type + `"></div>
+              <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('` + type +`', (getLenToUpdate('` + type + `')+1))">+</button>`
+          console.log(tmp)
+        return tmp;
       };
+
+      const addField = (type, count) => {
+        switch(type){
+              case 'actual_jobs':
+                listLen[0].actual_jobs++
+                break;
+              case 'main_pets':
+                listLen[0].main_pets++
+                break;
+              case 'study_info':
+                listLen[0].study_info++
+                break;
+              case 'professional_experience':
+                listLen[0].professional_experience++
+                break;
+              default:
+            }
+        $("#add" + type).append(
+        //console.log(  
+        `<div>
+            <input
+              type="text"
+              name="new` +
+            type +
+            count +
+            `"
+              id="new` +
+            type +
+            count +
+            `"
+              placeholder="Type new field"
+              class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
+            />
+          </div>`
+        )
+      }
+
     </script>
   </head>
   <body>
@@ -125,7 +258,7 @@
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
       ></div>
-      <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
+      <div class="flex flex-col w-full p-5 pb-0 pt-0 ml-0 md:ml-[106px]">
         <div
           id="title"
           class="flex font-bold text-4xl sm:text-6xl m-4 self-center"
@@ -133,7 +266,7 @@
         <div id="info" class="flex flex-1 mt-4">
           <div
             id="bar"
-            class="flex h-screen flex-col w-80 bg-secondary"
+            class="flex h-full flex-col w-80 bg-secondary"
             style="flex: 0 0 auto"
           >
             <button
@@ -163,6 +296,15 @@
               onclick="showTab('servicesInfo')"
             >
               Services
+          </button>
+          <button
+              id="careerInfoBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('careerInfo')"
+            >
+              Career
+            <button>
+
             </button>
             <button
               id="newAdminBtn"
@@ -215,13 +357,18 @@
                   class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                 />
               </div>
-              <div class="companyOnly hidden my-8">
+              <div class="companyOnly hidden mt-8">
                 <span class="primary font-semibold">Profession:</span>
                 <span
                   id="newProfession"
                   class="change px-1 ml-3 bg-transparent"
                 ></span>
               </div>
+              <button
+              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+            >
+              UPDATE
+            </button>
             </div>
             <div id="privateInfo" class="tab hidden">
               <div class="my-8">
@@ -242,12 +389,17 @@
                   class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                 />
               </div>
-              <div class="my-8">
+              <div class="mt-8">
                 <span class="primary font-semibold">Id:</span>
                 <span id="adminId" class="ml-3"></span>
               </div>
+              <button
+              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+            >
+              UPDATE
+            </button>
             </div>
-            <div id="newAdmin" class="tab companyOnly hidden">
+            <div id="newAdmin" class="tab hidden">
               <div class="adminOnly hidden my-8">
                 <div class="primary font-semibold">
                   These credentials will create a new admin account.
@@ -305,9 +457,22 @@
                 ></span>
               </div>
             </div>
+            <div id="careerInfo" class="tab hidden mb-4">
+              <button
+              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+            >
+              UPDATE
+            </button>
+            </div>
             <div id="otherAdmins" class="tab hidden"></div>
-            <div id="places" class="tab companyOnly hidden">places</div>
-            <div id="servicesInfo" class="tab companyOnly hidden">
+            <div id="places" class="tab hidden">
+              <button
+              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+            >
+              UPDATE
+            </button>
+            </div>
+            <div id="servicesInfo" class="tab hidden">
               services info
             </div>
           </div>
