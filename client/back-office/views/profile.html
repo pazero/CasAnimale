@@ -64,7 +64,7 @@
       };
       const fillAdminsList = () => {
         if (adminsList.length - 1 === 0)
-          $("#otherAdmins").html(
+          $("#otherAdmins").append(
             "<span class='mt-10 font-bold'>You are the only admin of CasAnimale.</span>"
           );
         let tmp =
@@ -83,7 +83,7 @@
               `</div>
             `;
         });
-        $("#otherAdmins").html(tmp);
+        $("#otherAdmins").append(tmp);
       };
       const fillAdmin = () => {
         $(".adminOnly").removeClass("hidden");
@@ -630,7 +630,9 @@
               UPDATE
             </button>
             </div>
-            <div id="otherAdmins" class="tab hidden"></div>
+            <div id="otherAdmins" class="tab hidden flex flex-1 flex-col">
+              <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-2">OTHER ADMINS</div>
+            </div>
             <div id="places" class="tab hidden flex flex-1 flex-col">
               <button
               class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
