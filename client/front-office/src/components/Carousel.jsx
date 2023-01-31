@@ -146,7 +146,7 @@ export default function CaptionCarousel() {
                 transform="translate(0, -50%)"
                 position="absolute"
                 top="50vh"
-                /*className="p-3 bg-gray-100 bg-opacity-50 rounded-lg"*/
+                className="p-3 bg-gray-100 bg-opacity-50 rounded-lg"
               >
                 <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} className="text-black pb-6 uppercase">
                   {card.title}
