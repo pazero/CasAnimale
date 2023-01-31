@@ -412,6 +412,18 @@
         alert(ret.message)
         window.location.reload();
       }
+      const sendNewAdmin = async (newData) => {
+        console.log(newData)
+        var ret = await fetch("http://localhost:5000/api/admin/new/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newData),
+          credentials: "include",
+        });
+        ret = await ret.json()
+        alert(ret.message)
+        window.location.reload();
+      }
       const savePublic = () => {
         if($("#newName").val() != "")
           data[0].name = $("#newName").val();
@@ -426,11 +438,20 @@
       }
       const savePrivate = () => {
         if($("#newEmail").val() != "")
-          data[0].name = $("#newEmail").val();
+          data[0].email = $("#newEmail").val();
         if($("#newPassword").val() != "")
-          data[0].name = $("#newPassword").val();
+          data[0].password = $("#newPassword").val();
+        sendData(data)
       }
-      sendData(data)
+      const saveNewAdmin = () => {
+        let newData = {name: "", surname: "", email: "", password: ""};
+          newData.name = $("#createAdminName").val();
+          newData.surname = $("#createAdminSurname").val();
+          newData.email = $("#createAdminEmail").val();
+          newData.password = $("#createAdminPassword").val();
+          //se tutti campi sono != "" OK, se no fare toast che dice che mancano dei campi
+          sendNewAdmin(newData)
+        }
     </script>
   </head>
   <body>
@@ -602,8 +623,8 @@
                   and information about customers, companies and prenotations.
                 </div>
                 <div class="flex flex-col" id="createNewAdminTab">
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin name:</span>
+                  <div class="my-8">
+                    <span class="primary font-semibold">New admin name:</span>
                     <input
                       id="createAdminName"
                       name="createAdminName"
@@ -611,8 +632,8 @@
                       class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                     />
                   </div>
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin surname:</span>
+                  <div class="my-8">
+                    <span class="primary font-semibold">New admin surname:</span>
                     <input
                       id="createAdminSurname"
                       name="createAdminSurname"
@@ -620,8 +641,8 @@
                       class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                     />
                   </div>
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin email:</span>
+                  <div class="my-8">
+                    <span class="primary font-semibold">New admin email:</span>
                     <input
                       id="createAdminEmail"
                       name="createAdminEmail"
@@ -629,8 +650,8 @@
                       class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                     />
                   </div>
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin password:</span>
+                  <div class="my-8">
+                    <span class="primary font-semibold">New admin password:</span>
                     <input
                       id="createAdminPassword"
                       name="createAdminPassword"
@@ -641,6 +662,7 @@
                 </div>
                   <button
                     class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
+                    onclick="saveNewAdmin()"
                   >
                     CREATE NEW ADMIN
                   </button>
