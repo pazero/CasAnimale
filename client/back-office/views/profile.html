@@ -17,7 +17,14 @@
       let user;
       let data;
       let adminsList;
-      let listLen =[{study_info : -1, professional_experience: -1, actual_jobs: -1, main_pets: -1}]
+      let listLen = [
+        {
+          study_info: -1,
+          professional_experience: -1,
+          actual_jobs: -1,
+          main_pets: -1,
+        },
+      ];
       $(document).ready(async () => {
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
@@ -31,12 +38,14 @@
         }
         $(".tab").addClass("ml-10");
       });
+
       const showTab = (divId) => {
         $(".tab").addClass("hidden");
         $(".btnInfo").removeClass("bg-primary");
         $("#" + divId).removeClass("hidden");
         $("#" + divId + "Btn").addClass("bg-primary");
       };
+
       const getAccountInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
           method: "GET",
@@ -45,6 +54,7 @@
         data = await ret.json();
         fillCompany();
       };
+
       const getAdminsList = async (id) => {
         let ret = await fetch("http://localhost:5000/api/admin", {
           method: "GET",
@@ -53,6 +63,7 @@
         adminsList = await ret.json();
         fillAdminsList();
       };
+
       const getAdminInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
           method: "GET",
@@ -62,6 +73,7 @@
         fillAdmin();
         getAdminsList();
       };
+
       const fillAdminsList = () => {
         if (adminsList.length - 1 === 0)
           $("#otherAdmins").append(
@@ -85,6 +97,7 @@
         });
         $("#otherAdmins").append(tmp);
       };
+
       const fillAdmin = () => {
         $(".adminOnly").removeClass("hidden");
         $("#newName").val(data[0].name);
@@ -93,6 +106,7 @@
         $("#newEmail").val(data[0].email);
         $("#adminId").html(data[0]._id);
       };
+
       const fillCompany = () => {
         $("#newName").val(data[0].name);
         $("#newSurname").val(data[0].surname);
@@ -104,8 +118,8 @@
         $("#careerInfo").prepend(listArray("study_info"));
         $("#careerInfo").prepend(listArray("main_pets"));
         $("#careerInfo").prepend(listArray("actual_jobs"));
-        $("#businessInfo").prepend(fillBusiness())
-        $("#places").prepend(fillDays())
+        $("#businessInfo").prepend(fillBusiness());
+        $("#places").prepend(fillDays());
         switch (data[0].type) {
           case "psy":
             $("#newProfession").html("psychologist");
@@ -116,22 +130,27 @@
           case "petsitter":
             $("#newProfession").html("pet sitter");
             break;
-            case "groomer":
-              $("#newProfession").html("groomer");
-              break;
+          case "groomer":
+            $("#newProfession").html("groomer");
+            break;
           default:
-              $("#newProfession").html("groomer");
+            $("#newProfession").html("groomer");
         }
-            $(".companyOnly").removeClass("hidden");
+        $(".companyOnly").removeClass("hidden");
       };
+
       const formatBusiness = (hours) => {
         return hours > 12 ? (hours % 12) + "pm" : hours + "am";
       };
+
       const fillBusiness = () => {
-        return `
+        return (
+          `
           <div class="mb-14 mt-6">
             <span class="primary font-bold">Opening time:</span>
-            <span>` + formatBusiness((data[0].business_hours.start))+ `</span>
+            <span>` +
+          formatBusiness(data[0].business_hours.start) +
+          `</span>
             <select
               id="newOpening"
               name="newOpening"
@@ -168,7 +187,9 @@
 
           <div class="mb-14">
             <span class="primary font-bold">Closing time:</span>
-            <span>` + formatBusiness((data[0].business_hours.end))+ `</span>
+            <span>` +
+          formatBusiness(data[0].business_hours.end) +
+          `</span>
             <select
               id="newClosing"
               name="newClosing"
@@ -208,16 +229,19 @@
                 type="text"
                 name="newCostPerHour"
                 id="newCostPerHour"
-                value="` + data[0].cost_per_hour +
-              `"
+                value="` +
+          data[0].cost_per_hour +
+          `"
                 placeholder="Type new cost per hour"
                 class="change px-1 rounded shadow-sm border-primary bg-transparent"
               /> €/h</span>
           </div>
-        `;
-      }
+        `
+        );
+      };
       const fillDays = () => {
-        return `
+        return (
+          `
           <div class="hidden companyOnly flex flex-col">
             <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-4">WORKING PLACES</div>
             <div class="my-4"><span class="primary font-semibold">Monday:</span>
@@ -225,8 +249,9 @@
                 type="text"
                 name="newMonday"
                 id="newMonday"
-                value="` + data[0].cities.monday +
-              `"
+                value="` +
+          data[0].cities.monday +
+          `"
                 placeholder="Type new monday city"
                 class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
               />
@@ -236,8 +261,9 @@
                 type="text"
                 name="newTuesday"
                 id="newTuesday"
-                value="` + data[0].cities.tuesday +
-              `"
+                value="` +
+          data[0].cities.tuesday +
+          `"
                 placeholder="Type new tuesday city"
                 class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
               />
@@ -247,8 +273,9 @@
                 type="text"
                 name="newWednesday"
                 id="newWednesday"
-                value="` + data[0].cities.wednesday +
-              `"
+                value="` +
+          data[0].cities.wednesday +
+          `"
                 placeholder="Type new wednesday city"
                 class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
               />
@@ -258,8 +285,9 @@
                 type="text"
                 name="newThursday"
                 id="newThursday"
-                value="` + data[0].cities.thursday +
-              `"
+                value="` +
+          data[0].cities.thursday +
+          `"
                 placeholder="Type new thursday city"
                 class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
               />
@@ -269,59 +297,68 @@
                 type="text"
                 name="newFriday"
                 id="newFriday"
-                value="` + data[0].cities.friday +
-              `"
+                value="` +
+          data[0].cities.friday +
+          `"
                 placeholder="Type new friday city"
                 class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
               />
             </div> 
           </div>
         `
-      }
+        );
+      };
+
       const getLenToUpdate = (type) => {
-        switch(type){
-              case 'actual_jobs':
-                return (listLen[0].actual_jobs)
-                break;
-              case 'main_pets':
-                return (listLen[0].main_pets)
-                break;
-              case 'study_info':
-                return (listLen[0].study_info)
-                break;
-              case 'professional_experience':
-                return (listLen[0].professional_experience)
-                break;
-              default:
-            }
-      }
+        switch (type) {
+          case "actual_jobs":
+            return listLen[0].actual_jobs;
+            break;
+          case "main_pets":
+            return listLen[0].main_pets;
+            break;
+          case "study_info":
+            return listLen[0].study_info;
+            break;
+          case "professional_experience":
+            return listLen[0].professional_experience;
+            break;
+          default:
+        }
+      };
+
       const listArray = (type) => {
         let array;
         let title;
         let count = 0;
         let lenToUpdate;
-        switch(type){
-          case 'actual_jobs':
+        switch (type) {
+          case "actual_jobs":
             array = data[0].actual_jobs;
             title = data[0].name + "'s actual jobs:";
             break;
-          case 'main_pets':
+          case "main_pets":
             array = data[0].main_pets;
             title = data[0].name + "'s main pets of interest:";
             break;
-          case 'study_info':
+          case "study_info":
             array = data[0].study_info;
             title = data[0].name + "'s study info:";
             break;
-          case 'professional_experience':
+          case "professional_experience":
             array = data[0].professional_experience;
             title = data[0].name + "'s professional experience:";
             break;
           default:
             array = undefined;
         }
-        let tmp = `<div id="` + type + `"><div class="primary font-semibold">`+ title + `</div>`;
-        if ( array !== undefined) {
+        let tmp =
+          `<div id="` +
+          type +
+          `"><div class="primary font-semibold">` +
+          title +
+          `</div>`;
+        if (array !== undefined) {
           array.map((item, index) => {
             tmp +=
               `<div>
@@ -343,47 +380,54 @@
               />
             </div>`;
             count = index;
-            switch(type){
-              case 'actual_jobs':
-                lenToUpdate = ++listLen[0].actual_jobs
+            switch (type) {
+              case "actual_jobs":
+                lenToUpdate = ++listLen[0].actual_jobs;
                 break;
-              case 'main_pets':
-                lenToUpdate = ++listLen[0].main_pets
+              case "main_pets":
+                lenToUpdate = ++listLen[0].main_pets;
                 break;
-              case 'study_info':
-                lenToUpdate = ++listLen[0].study_info
+              case "study_info":
+                lenToUpdate = ++listLen[0].study_info;
                 break;
-              case 'professional_experience':
-                lenToUpdate = ++listLen[0].professional_experience
+              case "professional_experience":
+                lenToUpdate = ++listLen[0].professional_experience;
                 break;
               default:
             }
           });
         }
-          tmp += `</div>
-            <div id="add` + type + `"></div>
-              <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1 mb-10" onclick="addField('` + type +`', (getLenToUpdate('` + type + `')+1))">+</button>`
+        tmp +=
+          `</div>
+            <div id="add` +
+          type +
+          `"></div>
+              <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1 mb-10" onclick="addField('` +
+          type +
+          `', (getLenToUpdate('` +
+          type +
+          `')+1))">+</button>`;
         return tmp;
       };
 
       const addField = (type, count) => {
-        switch(type){
-              case 'actual_jobs':
-                listLen[0].actual_jobs++
-                break;
-              case 'main_pets':
-                listLen[0].main_pets++
-                break;
-              case 'study_info':
-                listLen[0].study_info++
-                break;
-              case 'professional_experience':
-                listLen[0].professional_experience++
-                break;
-              default:
-            }
+        switch (type) {
+          case "actual_jobs":
+            listLen[0].actual_jobs++;
+            break;
+          case "main_pets":
+            listLen[0].main_pets++;
+            break;
+          case "study_info":
+            listLen[0].study_info++;
+            break;
+          case "professional_experience":
+            listLen[0].professional_experience++;
+            break;
+          default:
+        }
         $("#add" + type).append(
-        `<div>
+          `<div>
             <input
               type="text"
               name="new` +
@@ -398,39 +442,60 @@
               class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
             />
           </div>`
-        )
-      }
-      const sendData = async () => {
-        console.log(data[0])
+        );
+      };
+
+      const sendUpdateData = async () => {
+        console.log(data[0]);
         var ret = await fetch("http://localhost:5000/api/admin/update/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data[0]),
           credentials: "include",
         });
-        ret = await ret.json()
-        alert(ret.message)
+        ret = await ret.json();
+        alert(ret.message);
         window.location.reload();
-      }
+      };
+
+      const createAdmin = () => {
+        data[0].name = $("#createAdminName").val();
+        data[0].surname = $("#createAdminSurname").val();
+        data[0].email = $("#createAdminEmail").val();
+        data[0].password = $("#createAdminPassword").val();
+        sendNewAdmin();
+      };
+
+      const sendNewAdmin = async () => {
+        console.log(data[0]);
+        var ret = await fetch("http://localhost:5000/api/admin/new/", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data[0]),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+
       const savePublic = () => {
-        if($("#newName").val() != "")
-          data[0].name = $("#newName").val();
-        if(user.admin){
-          if($("#newSurname").val() != "")
-          data[0].surname = $("#newSurname").val();
+        if ($("#newName").val() != "") data[0].name = $("#newName").val();
+        if (user.admin) {
+          if ($("#newSurname").val() != "")
+            data[0].surname = $("#newSurname").val();
         } else {
-          if($("#newOwner").val() != "")
-          data[0].owner = $("#newOwner").val();
+          if ($("#newOwner").val() != "") data[0].owner = $("#newOwner").val();
         }
-        sendData();
-      }
+        sendUpdateData();
+      };
       const savePrivate = () => {
-        if($("#newEmail").val() != "")
-          data[0].name = $("#newEmail").val();
-        if($("#newPassword").val() != "")
-          data[0].name = $("#newPassword").val();
-      }
-      sendData(data)
+        if ($("#newEmail").val() != "") data[0].email = $("#newEmail").val();
+        if ($("#newPassword").val() != "")
+          data[0].password = $("#newPassword").val();
+        sendUpdateData();
+      };
+      sendUpdateData(data);
     </script>
   </head>
   <body>
@@ -471,214 +536,235 @@
             >
               Working places
             </button>
-            <!--button
-              id="servicesInfoBtn"
-              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-              onclick="showTab('servicesInfo')"
-            >
-              Services
-          </button-->
-          <button
+            <button
               id="businessTabBtn"
               class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
               onclick="showTab('businessTab')"
             >
               Business information
-            <button>
-          <button
-              id="careerTabBtn"
-              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-              onclick="showTab('careerTab')"
-            >
-              Career information
-            <button>
-
-            </button>
-            <button
-              id="newAdminBtn"
-              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-              onclick="showTab('newAdmin')"
-            >
-              Create new admin
-            </button>
-            <button
-              id="otherAdminsBtn"
-              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-              onclick="showTab('otherAdmins')"
-            >
-              Other admins
-            </button>
-          </div>
-          <div
-            class="flex flex-1 text-xl ml-4 border-t-solid border-t-[1px] border-t-[#59114d]"
-          >
-            <div id="publicInfo" class="tab flex flex-1 flex-col">
-              <div class="flex justify-center secondary text-3xl font-bold mt-4">PUBLIC INFORMATION</div>
-              <div class="my-8">
-                <span class="adminOnly hidden primary font-semibold"
-                  >Name:</span
+              <button>
+                <div
+                  id="careerTabBtn"
+                  class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                  onclick="showTab('careerTab')"
                 >
-                <span class="companyOnly hidden primary font-semibold"
-                  >Company name:</span
-                >
-                <input
-                  id="newName"
-                  name="newName"
-                  placeholder="Type new name"
-                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                />
-              </div>
-              <div class="adminOnly hidden my-8">
-                <span class="primary font-semibold">Surname:</span>
-                <input
-                  id="newSurname"
-                  name="newSurname"
-                  placeholder="Type new surname"
-                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                />
-              </div>
-              <div class="companyOnly hidden my-8">
-                <span class="primary font-semibold">Company owner:</span>
-                <input
-                  id="newOwner"
-                  name="newOwner"
-                  placeholder="Type new owner"
-                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                />
-              </div>
-              <div class="companyOnly hidden mt-8">
-                <span class="primary font-semibold">Profession:</span>
-                <span
-                  id="newProfession"
-                  class="change px-1 ml-3 bg-transparent"
-                ></span>
-              </div>
-              <button
-              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-              onclick="savePublic()"
-            >
-              UPDATE
-            </button>
-            </div>
-            <div id="privateInfo" class="tab hidden flex flex-1 flex-col">
-              <div class="flex justify-center secondary text-3xl font-bold mt-4">PRIVATE INFORMATION</div>
-              <div class="my-8">
-                <span class="primary font-semibold">Email:</span>
-                <input
-                  id="newEmail"
-                  name="newEmail"
-                  placeholder="Type new email"
-                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                />
-              </div>
-              <div class="my-8">
-                <span class="primary font-semibold">Password:</span>
-                <input
-                  id="newPassword"
-                  name="newPassword"
-                  placeholder="Type new password"
-                  class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                />
-              </div>
-              <div class="mt-8">
-                <span class="primary font-semibold">Id:</span>
-                <span id="adminId" class="ml-3"></span>
-              </div>
-              <button
-              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-              onclick="savePrivate()"
-            >
-              UPDATE
-            </button>
-            </div>
-            <div id="newAdmin" class="tab hidden flex flex-1 flex-col">
-              <div class="flex justify-center secondary text-3xl font-bold mt-4">CREATE ADMIN ACCOUNT</div>
-              <div class="adminOnly hidden my-8">
-                <div class="primary font-semibold">
-                  These credentials will create a new admin account.
-                </div>
-                <div class="primary font-semibold mb-16">
-                  They will be able to access back office and modify every data
-                  and information about customers, companies and prenotations.
-                </div>
-                <div class="flex flex-col" id="createNewAdminTab">
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin name:</span>
-                    <input
-                      id="createAdminName"
-                      name="createAdminName"
-                      placeholder="Type new admin name"
-                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                    />
-                  </div>
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin surname:</span>
-                    <input
-                      id="createAdminSurname"
-                      name="createAdminSurname"
-                      placeholder="Type new admin surname"
-                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                    />
-                  </div>
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin email:</span>
-                    <input
-                      id="createAdminEmail"
-                      name="createAdminEmail"
-                      placeholder="Type new admin email"
-                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                    />
-                  </div>
-                  <div class="primary my-8">
-                    <span class="font-semibold">New admin password:</span>
-                    <input
-                      id="createAdminPassword"
-                      name="createAdminPassword"
-                      placeholder="Type new admin password"
-                      class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
-                    />
-                  </div>
-                </div>
+                  Career information
                   <button
-                    class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
+                    id="newAdminBtn"
+                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                    onclick="showTab('newAdmin')"
                   >
-                    CREATE NEW ADMIN
+                    Create new admin
                   </button>
-                <span
-                  id="newProfession"
-                  class="change px-1 ml-3 bg-transparent"
-                ></span>
-              </div>
-            </div>
-            <div id="careerTab" class="tab hidden mb-4 flex flex-1 flex-col">
-              <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-6">CAREER INFORMATION</div>
-              <div id="careerInfo"></div>
-              <button
-              class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
-            >
-              UPDATE
+                  <button
+                    id="otherAdminsBtn"
+                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                    onclick="showTab('otherAdmins')"
+                  >
+                    Other admins
+                  </button>
+                </div>
+                <div
+                  class="flex flex-1 text-xl ml-4 border-t-solid border-t-[1px] border-t-[#59114d]"
+                >
+                  <div id="publicInfo" class="tab flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                    >
+                      PUBLIC INFORMATION
+                    </div>
+                    <div class="my-8">
+                      <span class="adminOnly hidden primary font-semibold"
+                        >Name:</span
+                      >
+                      <span class="companyOnly hidden primary font-semibold"
+                        >Company name:</span
+                      >
+                      <input
+                        id="newName"
+                        name="newName"
+                        placeholder="Type new name"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="adminOnly hidden my-8">
+                      <span class="primary font-semibold">Surname:</span>
+                      <input
+                        id="newSurname"
+                        name="newSurname"
+                        placeholder="Type new surname"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="companyOnly hidden my-8">
+                      <span class="primary font-semibold">Company owner:</span>
+                      <input
+                        id="newOwner"
+                        name="newOwner"
+                        placeholder="Type new owner"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="companyOnly hidden mt-8">
+                      <span class="primary font-semibold">Profession:</span>
+                      <span
+                        id="newProfession"
+                        class="change px-1 ml-3 bg-transparent"
+                      ></span>
+                    </div>
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="savePublic()"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="privateInfo" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                    >
+                      PRIVATE INFORMATION
+                    </div>
+                    <div class="my-8">
+                      <span class="primary font-semibold">Email:</span>
+                      <input
+                        id="newEmail"
+                        name="newEmail"
+                        placeholder="Type new email"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="my-8">
+                      <span class="primary font-semibold">Password:</span>
+                      <input
+                        id="newPassword"
+                        name="newPassword"
+                        placeholder="Type new password"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="mt-8">
+                      <span class="primary font-semibold">Id:</span>
+                      <span id="adminId" class="ml-3"></span>
+                    </div>
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="savePrivate()"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="newAdmin" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                    >
+                      CREATE ADMIN ACCOUNT
+                    </div>
+                    <div class="adminOnly hidden my-8">
+                      <div class="primary font-semibold">
+                        These credentials will create a new admin account.
+                      </div>
+                      <div class="primary font-semibold mb-16">
+                        They will be able to access back office and modify every
+                        data and information about customers, companies and
+                        prenotations.
+                      </div>
+                      <div class="flex flex-col" id="createNewAdminTab">
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin name:</span>
+                          <input
+                            id="createAdminName"
+                            name="createAdminName"
+                            placeholder="Type new admin name"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin surname:</span>
+                          <input
+                            id="createAdminSurname"
+                            name="createAdminSurname"
+                            placeholder="Type new admin surname"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin email:</span>
+                          <input
+                            id="createAdminEmail"
+                            name="createAdminEmail"
+                            placeholder="Type new admin email"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin password:</span>
+                          <input
+                            id="createAdminPassword"
+                            name="createAdminPassword"
+                            placeholder="Type new admin password"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                      </div>
+                      <button
+                        class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
+                        onclick="createAdmin()"
+                      >
+                        CREATE NEW ADMIN
+                      </button>
+                      <span
+                        id="newProfession"
+                        class="change px-1 ml-3 bg-transparent"
+                      ></span>
+                    </div>
+                  </div>
+                  <div
+                    id="careerTab"
+                    class="tab hidden mb-4 flex flex-1 flex-col"
+                  >
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
+                    >
+                      CAREER INFORMATION
+                    </div>
+                    <div id="careerInfo"></div>
+                    <button
+                      class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="otherAdmins" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
+                    >
+                      OTHER ADMINS
+                    </div>
+                  </div>
+                  <div id="places" class="tab hidden flex flex-1 flex-col">
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="businessTab" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
+                    >
+                      BUSINESS INFORMATION
+                    </div>
+                    <div id="businessInfo"></div>
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                </div>
+              </button>
             </button>
-            </div>
-            <div id="otherAdmins" class="tab hidden flex flex-1 flex-col">
-              <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-2">OTHER ADMINS</div>
-            </div>
-            <div id="places" class="tab hidden flex flex-1 flex-col">
-              <button
-              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-            >
-              UPDATE
-            </button>
-            </div>
-            <div id="businessTab" class="tab hidden flex flex-1 flex-col">
-              <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-6">BUSINESS INFORMATION</div>
-              <div id="businessInfo"></div>
-              <button
-              class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-            >
-              UPDATE
-            </button>
-            </div>
-
           </div>
         </div>
       </div>
