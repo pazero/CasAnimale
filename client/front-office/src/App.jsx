@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./views/Home";
 import Register from "./views/Register";
@@ -17,13 +17,20 @@ import Thread from "./views/Thread";
 import CompanyList from "./views/CompanyList";
 import Cookies from "js-cookie";
 import SpecialistPage from "./components/SpecialistPage";
+import { useToast } from "@chakra-ui/react";
 
 const App = () => {
-  
+  const toast = useToast();
+
   useEffect(() => {
     const token = Cookies.get("tokenback");
     if (token) {
-      alert("Log out from back office first");
+      toast({
+        title: "Log out from back office first!",
+        status: "error",
+        duration: 3000,
+        variant: "subtle",
+      });
       window.location.href = "http://localhost:5000/b/views/home.html";
     }
   }, []);
@@ -38,7 +45,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/pets" element={<ProfilePets />} />
-          <Route path="/profile/prenotations" element={<ProfilePrenotations />} />
+          <Route
+            path="/profile/prenotations"
+            element={<ProfilePrenotations />}
+          />
           <Route path="/forum" element={<Forum />} />
           <Route path="/helpme" element={<HelpMe />} />
           <Route path="/findpartner" element={<FindPartner />} />

@@ -113,6 +113,7 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
+      await Prenotation.deleteMany({ company: req.params.id });
       await Company.deleteOne({ _id: req.params.id });
       res.json({ message: "Company deleted!" });
     }

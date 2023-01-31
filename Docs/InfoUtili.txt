@@ -120,4 +120,4 @@ TO DO:
 		[ ] Registrazione nuova azienda
 		[ ] Registrazione nuovo admin
 		[ ] Sezione password da rifare
-		[ ] Se elimini una azienda o un utente eliminare tutte le cose collegate oppure fare in modo che l'app non si rompa
+		[x] Se elimini una azienda o un utente eliminare tutte le cose collegate oppure fare in modo che l'app non si rompa

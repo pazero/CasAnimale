@@ -2,12 +2,12 @@ const express = require("express");
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Receipt = require("../models/Receipt");
+const Prenotation = require("../models/Prenotation");
+const Pet = require("../models/Pet");
+const Post = require("../models/Post");
 const jwt = require("../services/jwtUtils");
 const router = express.Router();
 
-const VIPFee = 15; // each month
-
-/* TODO: remove later on, temporary  query for debugging */
 router.get("", async (req, res) => {
   try {
     const users = await User.find(req.query);
@@ -171,6 +171,10 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
+      await Prenotation.deleteMany({ user: req.params.id });
+      await Product.deleteMany({ seller: req.params.id });
+      await Pet.deleteMany({ seller: req.params.id });
+      await Post.deleteMany({ seller: req.params.id });
       await User.deleteOne({ _id: req.params.id });
       res.json({ message: "User deleted!" });
     }
