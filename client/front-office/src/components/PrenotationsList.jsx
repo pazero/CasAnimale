@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, startTransition } from "react";
 import PrenotationManage from "../services/PrenotationManage";
 import UserManage from "../services/UserManage";
 import CompanyManage from "../services/CompanyManage";
@@ -70,10 +70,18 @@ const PrenotationsList = () => {
 
   //aggiungiamo +1 perché nel database sono salvate GMT 0 ma noi siamo +1
   function calcTime(time) {
-    let start_hours =
-      +time + 1 > 12 ? ((+time + 1) % 12) + "pm" : +time + 1 + "am";
-    let end_hours =
-      +time + 2 > 12 ? ((+time + 2) % 12) + "pm" : +time + 2 + "am";
+    let start_hours;
+    let end_hours;
+    if(+time + 1 === 12) start_hours = "12pm"
+    else {
+      if(+time + 1 === 0) start_hours = "12am"
+      else start_hours = +time + 1 > 12 ? ((+time + 1) % 12) + "pm" : +time + 1 + "am";
+    }
+    if(+time + 2 === 12) end_hours = "12pm"
+    else {
+      if(+time + 2 === 0) end_hours = "12am"
+      else end_hours = +time + 2 > 12 ? ((+time + 2) % 12) + "pm" : +time + 2 + "am";
+    }
     return start_hours + " - " + end_hours;
   }
 

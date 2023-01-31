@@ -140,6 +140,8 @@
       };
 
       const formatBusiness = (hours) => {
+        if( hours === 0) return "12am"
+        if( hours === 12) return "12pm"
         return hours > 12 ? (hours % 12) + "pm" : hours + "am";
       };
 
@@ -158,7 +160,7 @@
               class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
             >
               <option value="">--change--</option>
-              <option value="00">12am</option>
+              <option value="0">12am</option>
               <option value="1">1am</option>
               <option value="2">2am</option>
               <option value="3">3am</option>
@@ -171,17 +173,17 @@
               <option value="10">10am</option>
               <option value="11">11am</option>
               <option value="12">12pm</option>
-              <option value="1">1pm</option>
-              <option value="2">2pm</option>
-              <option value="3">3pm</option>
-              <option value="4">4pm</option>
-              <option value="5">5pm</option>
-              <option value="6">6pm</option>
-              <option value="7">7pm</option>
-              <option value="8">8pm</option>
-              <option value="9">9pm</option>
-              <option value="10">10am</option>
-              <option value="11">11am</option>
+              <option value="13">1pm</option>
+              <option value="14">2pm</option>
+              <option value="15">3pm</option>
+              <option value="16">4pm</option>
+              <option value="17">5pm</option>
+              <option value="18">6pm</option>
+              <option value="19">7pm</option>
+              <option value="20">8pm</option>
+              <option value="21">9pm</option>
+              <option value="22">10am</option>
+              <option value="23">11am</option>
             </select>
           </div>
 
@@ -197,7 +199,7 @@
               class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
             >
               <option value="">--change--</option>
-              <option value="00">12am</option>
+              <option value="0">12am</option>
               <option value="1">1am</option>
               <option value="2">2am</option>
               <option value="3">3am</option>
@@ -210,17 +212,17 @@
               <option value="10">10am</option>
               <option value="11">11am</option>
               <option value="12">12pm</option>
-              <option value="1">1pm</option>
-              <option value="2">2pm</option>
-              <option value="3">3pm</option>
-              <option value="4">4pm</option>
-              <option value="5">5pm</option>
-              <option value="6">6pm</option>
-              <option value="7">7pm</option>
-              <option value="8">8pm</option>
-              <option value="9">9pm</option>
-              <option value="10">10am</option>
-              <option value="11">11am</option>
+              <option value="13">1pm</option>
+              <option value="14">2pm</option>
+              <option value="15">3pm</option>
+              <option value="16">4pm</option>
+              <option value="17">5pm</option>
+              <option value="18">6pm</option>
+              <option value="19">7pm</option>
+              <option value="20">8pm</option>
+              <option value="21">9pm</option>
+              <option value="22">10am</option>
+              <option value="23">11am</option>
             </select>
           </div>
 
@@ -447,7 +449,8 @@
 
       const sendUpdateData = async () => {
         console.log(data[0]);
-        var ret = await fetch("http://localhost:5000/api/admin/update/", {
+        let url = user.admin ? "http://localhost:5000/api/admin/update/" : "http://localhost:5000/api/company/update/" + data[0]._id;
+        var ret = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data[0]),
@@ -459,19 +462,24 @@
       };
 
       const createAdmin = () => {
-        data[0].name = $("#createAdminName").val();
-        data[0].surname = $("#createAdminSurname").val();
-        data[0].email = $("#createAdminEmail").val();
-        data[0].password = $("#createAdminPassword").val();
-        sendNewAdmin();
+        let newData = {name: "", surname: "", email: "", password: ""}
+        if($("#createAdminName").val() === "" || $("#createAdminSurname").val() === "" || $("#createAdminEmail").val() === "" || $("#createAdminPassword").val() === "" ) {
+          alert("Missing data!")
+        } else { 
+          newData.name = $("#createAdminName").val();
+          newData.surname = $("#createAdminSurname").val();
+          newData.email = $("#createAdminEmail").val();
+          newData.password = $("#createAdminPassword").val();
+          sendNewAdmin(newData);
+        }
       };
 
-      const sendNewAdmin = async () => {
-        console.log(data[0]);
+      const sendNewAdmin = async (newData) => {
+        console.log(newData);
         var ret = await fetch("http://localhost:5000/api/admin/new/", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data[0]),
+          body: JSON.stringify(newData),
           credentials: "include",
         });
         ret = await ret.json();
@@ -480,22 +488,76 @@
       };
 
       const savePublic = () => {
-        if ($("#newName").val() != "") data[0].name = $("#newName").val();
         if (user.admin) {
-          if ($("#newSurname").val() != "")
+          console.log($("#newSurname").val() === "")
+          console.log($("#newName").val() === "")
+          console.log($("#newSurname").val() === "" || $("#newName").val() === "")
+          if($("#newSurname").val() === "" || $("#newName").val() === "") {
+            alert("Missing data!")
+          } else {
             data[0].surname = $("#newSurname").val();
+            data[0].name = $("#newName").val();
+            sendUpdateData();
+          }
         } else {
-          if ($("#newOwner").val() != "") data[0].owner = $("#newOwner").val();
+          console.log($("#newOwner").val() === "")
+          console.log($("#newName").val() === "")
+          console.log($("#newOwner").val() === "" || $("#newName").val() === "")
+          if ($("#newOwner").val() === "" || $("#newName").val() === "")
+            alert("Missing data!")
+          else {
+            data[0].owner = $("#newOwner").val();
+            data[0].name = $("#newName").val();
+            sendUpdateData();
+          }
         }
-        sendUpdateData();
       };
       const savePrivate = () => {
-        if ($("#newEmail").val() != "") data[0].email = $("#newEmail").val();
-        if ($("#newPassword").val() != "")
+        if($("#newPassword").val() === "" || $("#newEmail").val() === "" ) {
+          alert("Missing data!")
+        } else {
+          data[0].email = $("#newEmail").val();
           data[0].password = $("#newPassword").val();
-        sendUpdateData();
+          sendUpdateData();
+        }
       };
-      sendUpdateData(data);
+
+      const saveCities = () => {
+        if($("#newMonday").val() === "" || $("#newTuesday").val() === "" || $("#newWednesday").val() === "" || $("#newThursday").val() === "" || $("#newFriday").val() === "") {
+          alert("Missing data!")
+        } else {
+          data[0].cities.monday = $("#newMonday").val()
+          data[0].cities.tuesday = $("#newTuesday").val()
+          data[0].cities.wednesday = $("#newWednesday").val()
+          data[0].cities.thursday = $("#newThursday").val()
+          data[0].cities.friday = $("#newFriday").val()
+          sendUpdateData()
+        }
+      }
+
+      const saveBusiness = () => {
+        if($("#newCostPerHour").val() === "") {
+          alert("Missing data!")
+        } else {
+          data[0].cost_per_hour=$("#newCostPerHour").val()
+          let checkStart = data[0].business_hours.start
+          let checkEnd = data[0].business_hours.end
+          if($("#newOpening").val() !== ""){
+            data[0].business_hours.start=$("#newOpening").val()
+            checkStart = $("#newOpening").val()
+          }
+          if($("#newClosing").val() !== ""){
+            data[0].business_hours.end=$("#newClosing").val()
+            checkEnd = $("#newClosing").val()
+          }
+          console.log("check da " + checkStart + " a " + checkEnd)
+          console.log(+checkStart >= +checkEnd)
+          if(+checkStart >= +checkEnd)
+            alert("Incorrect data")
+          else sendUpdateData()
+
+        }
+      }
     </script>
   </head>
   <body>
@@ -745,7 +807,8 @@
                   <div id="places" class="tab hidden flex flex-1 flex-col">
                     <button
                       class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-                    >
+                      onclick="saveCities()"
+                     >
                       UPDATE
                     </button>
                   </div>
@@ -758,6 +821,7 @@
                     <div id="businessInfo"></div>
                     <button
                       class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="saveBusiness()"
                     >
                       UPDATE
                     </button>

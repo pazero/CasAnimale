@@ -246,6 +246,8 @@
         else return "";
       };
       const formatBusiness = (hours) => {
+        if( hours === 0) return "12am"
+        if( hours === 12) return "12pm"
         return hours > 12 ? (hours % 12) + "pm" : hours + "am";
       };
       const listArray = (array, index, type) => {

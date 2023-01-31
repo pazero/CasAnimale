@@ -76,7 +76,13 @@
 		};
 		const filterStartTime = (time) => {
 			let hours = +time.substring(11, 13) + 1;
-			time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
+			if( hours === 0) time = "12am"
+			else {
+				if( hours === 12) time ="12pm"
+				else {
+					time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
+				}
+			}
 			return time;
 		};
 		var toUTC = function (date) {

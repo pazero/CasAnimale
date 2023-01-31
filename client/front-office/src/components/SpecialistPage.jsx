@@ -202,12 +202,19 @@ const SpecialistPage = () => {
             continue;
           }
         }
-        let start_app =
-          start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
-        let end_app =
-          start + i + 1 > 12
-            ? ((start + i + 1) % 12) + "pm"
-            : start + i + 1 + "am";
+        let start_app, end_app;
+
+        if(start + i === 12) start_app = "12pm"
+        else{
+          if(start + i === 0) start_app = "12am"
+          else start_app = start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
+        }
+
+        if(start + i + 1 === 12) end_app = "12pm"
+        else{
+          if(start + i + 1 === 0) end_app = "12am"
+          else end_app = start + i + 1 > 12 ? ((start + i + 1) % 12) + "pm" : start + i + 1 + "am";
+        }
 
         let moment = start_app + " - " + end_app;
         slots.push({ value: start_app, label: moment });
