@@ -148,10 +148,16 @@ export default function CaptionCarousel() {
                 top="50vh"
                 className="p-3 bg-gray-100 bg-opacity-50 rounded-lg"
               >
-                <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} className="text-black pb-6 uppercase">
+                <Heading
+                  fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                  className="text-black pb-6 uppercase"
+                >
                   {card.title}
                 </Heading>
-                <Text fontSize={{ base: "md", lg: "lg" }} className="font-semibold">
+                <Text
+                  fontSize={{ base: "md", lg: "lg" }}
+                  className="font-semibold"
+                >
                   {card.text}
                 </Text>
               </div>
