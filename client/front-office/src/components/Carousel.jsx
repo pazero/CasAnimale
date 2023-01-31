@@ -71,7 +71,7 @@ export default function CaptionCarousel() {
       image: "/f/carousel/game.jpeg",
     },
     {
-      title: "Chat platforms!",
+      title: "Chat platforms",
       text: "Post your opinions, fun facts, curiosities and everithing you want about you and your animals on our chat platforms: EccoloQua!, FindPartner and HelpMe! (only for VIP users)",
       image: "/f/carousel/chat.jpg",
     },
@@ -134,7 +134,7 @@ export default function CaptionCarousel() {
             backgroundSize="cover"
             backgroundImage={`linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url(${card.image})`}
           >
-            {/* This is the block you need to change, to customize the caption */}
+            {/* caption */}
             <Container
               display={"flex"}
               alignItems={"center"}
@@ -146,6 +146,7 @@ export default function CaptionCarousel() {
                 transform="translate(0, -50%)"
                 position="absolute"
                 top="50vh"
+                /*className="p-3 bg-gray-100 bg-opacity-50 rounded-lg"*/
               >
                 <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} className="text-black pb-6 uppercase">
                   {card.title}
