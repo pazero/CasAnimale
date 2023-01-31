@@ -91,13 +91,14 @@ const NewProduct = () => {
                   Sell a new product!
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="productName">
                     <span className="label-text">
                       Set the name{" "}
                       <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <input
+                    id="productName"
                     required
                     type="text"
                     placeholder="Name"
@@ -106,10 +107,11 @@ const NewProduct = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="productImage">
                     <span className="label-text">Set a photo</span>
                   </label>
                   <UploadButton
+                    id="productImage"
                     uploader={uploader} // Required.
                     options={options} // Optional.
                     onComplete={(files) => {
@@ -160,15 +162,17 @@ const NewProduct = () => {
                 </div>
                 <div className="form-control">
                   <div className="flex flex-1">
-                    <label className="label">
+                    <label className="label" for="productTag">
                       <span className="label-text">Set some tags</span>
                     </label>
-                    <Button size="sm" className="mr-2" onClick={addTag}>
-                      +
-                    </Button>
-                    <Button size="sm" onClick={delTag}>
-                      -
-                    </Button>
+                    <span id="productTag">
+                      <Button size="sm" className="mr-2" onClick={addTag}>
+                        +
+                      </Button>
+                      <Button size="sm" onClick={delTag}>
+                        -
+                      </Button>
+                    </span>
                   </div>
                   {tagInput > 0 ? (
                     <div className="input mt-1">
@@ -187,13 +191,14 @@ const NewProduct = () => {
                   ) : null}
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="productDescription">
                     <span className="label-text">
                       Type the description of the product{" "}
                       <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <textarea
+                    id="productDescription"
                     required
                     maxLength={300}
                     className="input input-bordered w-full"
@@ -202,13 +207,14 @@ const NewProduct = () => {
                   ></textarea>
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="productQuantity">
                     <span className="label-text">
                       Set the quantity{" "}
                       <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <NumberInput
+                    id="productQuantity"
                     required
                     size="md"
                     maxW={20}
@@ -224,13 +230,14 @@ const NewProduct = () => {
                   </NumberInput>
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="productPrice">
                     <span className="label-text">
                       Set the price{" "}
                       <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <NumberInput
+                    id="productPrice"
                     required
                     maxW={100}
                     min={0.01}
@@ -245,7 +252,7 @@ const NewProduct = () => {
                   </NumberInput>
                 </div>
                 <div>
-                  <button type="submit" className="btn btn-secondary mt-1">
+                  <button type="submit" className="btn btn-secondary mt-1" aria-pressed="submitted">
                     Submit
                   </button>
                 </div>
