@@ -320,7 +320,6 @@
           default:
             array = undefined;
         }
-        console.log(array);
         let tmp = `<div id="` + type + `"><div class="primary font-semibold">`+ title + `</div>`;
         if ( array !== undefined) {
           array.map((item, index) => {
@@ -361,11 +360,9 @@
             }
           });
         }
-          console.log("len: " + lenToUpdate)
           tmp += `</div>
             <div id="add` + type + `"></div>
               <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1 mb-10" onclick="addField('` + type +`', (getLenToUpdate('` + type + `')+1))">+</button>`
-          console.log(tmp)
         return tmp;
       };
 
@@ -403,7 +400,37 @@
           </div>`
         )
       }
-
+      const sendData = async () => {
+        console.log(data[0])
+        var ret = await fetch("http://localhost:5000/api/admin/update/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data[0]),
+          credentials: "include",
+        });
+        ret = await ret.json()
+        alert(ret.message)
+        window.location.reload();
+      }
+      const savePublic = () => {
+        if($("#newName").val() != "")
+          data[0].name = $("#newName").val();
+        if(user.admin){
+          if($("#newSurname").val() != "")
+          data[0].surname = $("#newSurname").val();
+        } else {
+          if($("#newOwner").val() != "")
+          data[0].owner = $("#newOwner").val();
+        }
+        sendData();
+      }
+      const savePrivate = () => {
+        if($("#newEmail").val() != "")
+          data[0].name = $("#newEmail").val();
+        if($("#newPassword").val() != "")
+          data[0].name = $("#newPassword").val();
+      }
+      sendData(data)
     </script>
   </head>
   <body>
@@ -496,7 +523,7 @@
                 >
                 <input
                   id="newName"
-                  name="newNameAdmin"
+                  name="newName"
                   placeholder="Type new name"
                   class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                 />
@@ -528,6 +555,7 @@
               </div>
               <button
               class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+              onclick="savePublic()"
             >
               UPDATE
             </button>
@@ -558,6 +586,7 @@
               </div>
               <button
               class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+              onclick="savePrivate()"
             >
               UPDATE
             </button>

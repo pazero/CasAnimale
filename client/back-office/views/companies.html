@@ -326,6 +326,7 @@
         toEditData[index].description = $("#newDescription" + index).val();
         if ($("#newName" + index).val() !== "")
           toEditData[index].name = $("#newName" + index).val();
+        else {console.log("FALSE")}
         if ($("#newEmail" + index).val() !== "")
           toEditData[index].email = $("#newEmail" + index).val();
         if ($("#newPassword" + index).val() !== "")
