@@ -47,8 +47,8 @@ const SpecialistPage = () => {
           const ret = await UserManage.getUser();
           setUser(ret.data);
         }
-      } catch (e) {
-        // setUser(null);
+      } catch {
+        setUser(null);
       }
 
       CompanyManage.getCompany(params.id).then(async (res) => {

@@ -13,8 +13,10 @@ const Navbar = () => {
   const toast = useToast();
 
   const isUserLoggedIn = async () => {
-    const ret = await UserManage.isLogged();
-    if (!ret.data.success) logout();
+    const ret = await UserManage.isLogged().catch(() => {
+      return null;
+    });
+    if (ret && !ret.data.success) logout();
   };
 
   useEffect(() => {
