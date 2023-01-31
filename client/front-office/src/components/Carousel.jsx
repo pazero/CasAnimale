@@ -42,18 +42,38 @@ export default function CaptionCarousel() {
   const cards = [
     {
       title: "Veterinary service",
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "vet3.jpg",
+      text: "Look at our associated vets, choose the one you prefere and book an appointment! Are you a freelancer vet or an agencie? Contanct us if you want to collaborate!",
+      image: "/f/carousel/vet.jpg",
     },
     {
       title: "Psychologist service",
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "p2.jpg",
+      text: "Your pet looks sad and needs a shoulder to cry on? We have a pool of psychologists from witch you can choose. Book an appointment! Are you a freelancer pet psychologist or an agencie? Contanct us if you want to collaborate!",
+      image: "/f/carousel/psychologist.jpg",
+    },
+    {
+      title: "Pet sitting service",
+      text: "You have to go on vacation with your soulmate, or alone, and you don't know where to leave your pet? Book an appointment with one of our pet sitter! Are you a freelancer pet sitter or an agencie? Contanct us if you want to collaborate!",
+      image: "/f/carousel/petsitting.jpeg",
     },
     {
       title: "Pet equipment shop",
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: "pet_toys.jpg",
+      text: "Need a new blanket for your cangaroo? We have it! Check our e-commerce, there you can find everithing you may need!",
+      image: "/f/carousel/pet_toys.jpg",
+    },
+    {
+      title: "Grooming service",
+      text: "Your bunny is a little stinky? That's not good! Bring it to one of our goomers, but remember to book an appointment first! Are you a freelancer groomer or an agencie? Contanct us if you want to collaborate!",
+      image: "/f/carousel/grooming.jpg",
+    },
+    {
+      title: "It's time to play!",
+      text: "Play some fun games in our game area. There you will find some cute animal based game, some funny animals videos and even some usefull informations! Don't play too much, remember to go for a walk.",
+      image: "/f/carousel/game.jpeg",
+    },
+    {
+      title: "Chat platforms!",
+      text: "Post your opinions, fun facts, curiosities and everithing you want about you and your animals on our chat platforms: EccoloQua!, FindPartner and HelpMe! (only for VIP users)",
+      image: "/f/carousel/chat.jpg",
     },
   ];
 
@@ -112,7 +132,7 @@ export default function CaptionCarousel() {
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
-            backgroundImage={`url(${card.image})`}
+            backgroundImage={`linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url(${card.image})`}
           >
             {/* This is the block you need to change, to customize the caption */}
             <Container
@@ -126,19 +146,11 @@ export default function CaptionCarousel() {
                 transform="translate(0, -50%)"
                 position="absolute"
                 top="50vh"
-                className="bg-gray-300 bg-opacity-85 p-2 rounded"
               >
-                <Heading
-                  fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-                  className="text-black pb-6"
-                  style={{ color: "black" }}
-                >
+                <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} className="text-black pb-6 uppercase">
                   {card.title}
                 </Heading>
-                <Text
-                  fontSize={{ base: "md", lg: "lg" }}
-                  className="text-black"
-                >
+                <Text fontSize={{ base: "md", lg: "lg" }} className="font-semibold">
                   {card.text}
                 </Text>
               </div>
