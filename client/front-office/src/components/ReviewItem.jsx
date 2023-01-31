@@ -59,10 +59,11 @@ const Review = ({ data, user }) => {
 
       <div className="flex flex-col md:flex-row">
         <div className="sm:text-lg md:mr-6">
-          <FormLabel fontSize={{ base: "md", lg: "lg" }}>
+          <FormLabel fontSize={{ base: "md", lg: "lg" }} for="comment">
             Write a review for this company!
           </FormLabel>
           <Textarea
+            id="comment"
             placeholder="Write here..."
             onChange={(e) => setNewComment(e.target.value)}
           />
@@ -94,13 +95,8 @@ const Review = ({ data, user }) => {
                     <Image
                       borderRadius="full"
                       boxSize={{ base: "35px", md: "70px" }}
-                      src={
-                        item.user?.photo === "" ||
-                        item.user?.photo === undefined
-                          ? "/f/userIcon.svg"
-                          : item.user?.photo
-                      }
-                      alt="user profile image"
+                      src={item.user?.photo === "" || item.user?.photo === undefined ? "/f/userIcon.svg" : item.user?.photo}
+                      alt={item.user?.email === "" || item.user?.email === undefined ? item.user?.name + " " + item.user?.surname + " propic" : item.user?.email + " propic"}
                     />
                   </Box>
                   <Container maxW="md" marginLeft="1" paddingLeft="1">

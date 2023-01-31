@@ -72,16 +72,17 @@ const NewPet = () => {
           <form onSubmit={sendData} className="flex justify-center w-full">
             <div className="mx-3 mt-0 card justify-center w-full ">
               <div className="card-body text-center py-0">
-                <div className="card-title justify-center uppercase">
+                <h1 className="card-title text-md font-semibold justify-center uppercase">
                   Add a new pet!
-                </div>
+                </h1>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="petName">
                     <span className="label-text">
                       Name <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <input
+                    id="petName"
                     type="text"
                     placeholder="Lulu"
                     className="input input-bordered"
@@ -89,15 +90,15 @@ const NewPet = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label" for="spc">
+                  <label className="label" for="species">
                     <span className="label-text">
                       Species <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <select
-                    id="spc"
+                    id="species"
                     className="input input-bordered"
-                    name="spc"
+                    name="species"
                     required
                     onChange={(e) => setSpecies(e.target.value)}
                   >
@@ -120,12 +121,13 @@ const NewPet = () => {
                   </select>
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="petBreed">
                     <span className="label-text">
                       Breed <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <input
+                    id="petBreed"
                     type="text"
                     placeholder="Dobermann"
                     className="input input-bordered"
@@ -134,12 +136,13 @@ const NewPet = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="petBirthDate">
                     <span className="label-text">
                       Birth <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <input
+                    id="petBirthDate"
                     type="date"
                     placeholder="Birth date"
                     className="input input-bordered"
@@ -149,10 +152,11 @@ const NewPet = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="petPhoto">
                     <span className="label-text">Photo</span>
                   </label>
                   <UploadButton
+                    id="petPhoto"
                     uploader={uploader} // Required.
                     options={options} // Optional.
                     onComplete={(files) => {

@@ -261,21 +261,14 @@ const SpecialistPage = () => {
       </div>
 
       <div className="flex flex-1 flex-col m-3" style={{ height: "auto" }}>
-        <div
-          id="specialistName"
-          className="my-4 md:mt-6 md:mb-5 self-center text-center text-3xl font-semibold sm:text-5xl md:text-6xl uppercase"
-        >
+        <h1 id="specialistName" className="my-4 md:mt-6 md:mb-5 self-center text-center text-3xl font-semibold sm:text-5xl md:text-6xl uppercase">
           {company.name}
-        </div>
+        </h1>
         <div className="md:text-center sm:text-lg">
           <div id="companyPhoto" className="flex justify-center shrink-0 pb-5">
             <img
-              src={
-                company.photo === "" || company.photo === undefined
-                  ? "/f/company.png"
-                  : company.photo
-              }
-              alt="company logo"
+              src={ company.photo === "" || company.photo === undefined ? "/f/company.png" : company.photo}
+              alt={company.name + " company logo"}
               className="max-w-full h-auto rounded-full"
               resizemode="cover"
               style={{ aspectRatio: 1, height: "10rem", width: "10rem" }}
@@ -522,9 +515,9 @@ const SpecialistPage = () => {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">
+                    <h1 className="text-3xl font-semibold">
                       Book an appointment!
-                    </h3>
+                    </h1>
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
@@ -545,8 +538,9 @@ const SpecialistPage = () => {
 
                     {!isOnline && (
                       <div className="mb-2">
-                        <span className="font-bold">Place:</span>
+                        <span className="font-semibold" for="place">Place:</span>
                         <Select
+                          id="place"
                           options={rcities}
                           onChange={(e) => setSelectedCity(e.value)}
                         />
@@ -554,8 +548,8 @@ const SpecialistPage = () => {
                     )}
 
                     {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
-                    <div className="font-bold">Data</div>
-                    <div>
+                    <div className="font-semibold" for="date">Date</div>
+                    <div id="date">
                       <DatePicker
                         id="slotDay"
                         className="text-center border-solid border-4 rounded-lg px-1"
@@ -578,7 +572,7 @@ const SpecialistPage = () => {
                         }}
                       />
                     </div>
-                    <div className="font-bold">
+                    <div className="font-semibold my-1">
                       Schedule
                       <div id="slotSelect" className="font-normal">
                         <Select
@@ -587,10 +581,10 @@ const SpecialistPage = () => {
                         />
                       </div>
                     </div>
-                    <div className="font-bold">
+                    <div className="font-semibold my-1">
                       Duration <span className="font-normal">1 hour</span>
                     </div>
-                    <div className="font-bold">
+                    <div className="font-semibold my-1">
                       Total price{" "}
                       <span className="font-normal">
                         €{company.cost_per_hour}

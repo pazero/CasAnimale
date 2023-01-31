@@ -59,17 +59,18 @@ const NewPost = ({ type }) => {
           <form onSubmit={sendData} className="flex justify-center w-full">
             <div className="mx-3 mt-0 card justify-center w-full ">
               <div className="card-body text-center py-0">
-                <div className="card-title justify-center uppercase">
+                <h1 className="card-title font-semibold text-md justify-center uppercase">
                   Create a new post!
-                </div>
+                </h1>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="postTitle">
                     <span className="label-text">
                       Type the title{" "}
                       <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <input
+                    id="postTitle"
                     required
                     type="text"
                     placeholder="Title"
@@ -78,13 +79,14 @@ const NewPost = ({ type }) => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="postDescription">
                     <span className="label-text">
                       Type the description of the post{" "}
                       <span className="text-sm text-gray-400">*</span>
                     </span>
                   </label>
                   <textarea
+                    id="postDescription"
                     className="input input-bordered w-full"
                     placeholder="Type the text"
                     required
@@ -92,10 +94,11 @@ const NewPost = ({ type }) => {
                   ></textarea>
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="postPhoto">
                     <span className="label-text">Set a photo</span>
                   </label>
                   <UploadButton
+                    id="postPhoto"
                     uploader={uploader} // Required.
                     options={options} // Optional.
                     onComplete={(files) => {

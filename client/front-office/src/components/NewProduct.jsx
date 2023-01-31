@@ -87,9 +87,9 @@ const NewProduct = () => {
           <form onSubmit={sendData} className="flex justify-center w-full">
             <div className="mx-3 mt-0 card justify-center w-full ">
               <div className="card-body text-center py-0">
-                <div className="card-title justify-center uppercase">
+                <h1 className="card-title font-semibold text-md justify-center uppercase">
                   Sell a new product!
-                </div>
+                </h1>
                 <div className="form-control">
                   <label className="label" for="productName">
                     <span className="label-text">

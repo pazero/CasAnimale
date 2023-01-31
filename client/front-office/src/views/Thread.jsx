@@ -197,11 +197,7 @@ const Thread = () => {
                   <Image
                     borderRadius="full"
                     boxSize={{ base: "35px", sm: "45px", md: "80px" }}
-                    src={
-                      op.photo === "" || op.photo === undefined
-                        ? "/f/userIcon.svg"
-                        : op.photo
-                    }
+                    src={op.photo === "" || op.photo === undefined ? "/f/userIcon.svg" : op.photo}
                     alt={op.email + " propic"}
                   />
                 </Box>

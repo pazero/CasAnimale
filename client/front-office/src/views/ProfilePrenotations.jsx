@@ -44,14 +44,14 @@ const ProfilePrenotations = () => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
+                  <h1 className="text-3xl font-semibold">
                     Book an appointment!
-                  </h3>
+                  </h1>
                 </div>
                 {/*body*/}
                 <div className="flex relative p-6 flex-col flex-auto justify-center" style={{flex: "0 1 auto"}}>
                   {specialists.map((item) => {
-                    return <button className="flex my-2 items-center btn border-0 text-[#191A3E] bg-[#f0f2f3] hover:bg-[#b9b9ff]" onClick={() => {navigate(item.onclick)}}>
+                    return <button className="flex my-2 items-center btn border-0 text-black bg-gray-200 hover:bg-gray-300" onClick={() => {navigate(item.onclick)}}>
                       {item.job}
                     </button>;
                   })}
@@ -79,8 +79,8 @@ const ProfilePrenotations = () => {
         <Navbar />
       </div>
 
-      <div className="hidden sm:flex static inline-flex">
-        <div className="inline-block">
+      <div className="hidden sm:flex static inline-flex flex-1">
+        <div className="inline-block flex">
           <Sidebar />
         </div>
 
@@ -98,7 +98,7 @@ const ProfilePrenotations = () => {
         </div>
       </div>
 
-      <div className="sm:hidden flex flex-col justify-items-stretch">
+      <div className="sm:hidden flex flex-col justify-items-stretch flex-1">
         <div className="flex w-full justify-evenly">
           <Sidebar />
         </div>
@@ -115,16 +115,13 @@ const ProfilePrenotations = () => {
             </button>
           </div>
 
-          <div
-            className="flex object-left-top w-full h-full"
-            style={{ height: "auto" }}
-          >
+          <div className="flex object-left-top w-full" style={{ height: "auto" }}>
             <PrenotationsList />
           </div>
         </div>
       </div>
 
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex" style={{ height: "auto" }}>
         <Footer />
       </div>
     </div>
