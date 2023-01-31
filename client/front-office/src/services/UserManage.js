@@ -28,7 +28,11 @@ const Authentication = {
     return Api().post(BASE + "cart/buy");
   },
   isLogged() {
-    return Api().post(BASE + "isLoggedIn");
+    return Api()
+      .post(BASE + "isLoggedIn")
+      .catch(() => {
+        return null;
+      });
   },
   restore(mail) {
     return Api().put("restore/new", mail);

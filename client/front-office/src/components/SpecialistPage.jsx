@@ -46,7 +46,7 @@ const SpecialistPage = () => {
         const ret = await UserManage.getUser();
         setUser(ret.data);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         setUser(null);
       }
 

@@ -102,7 +102,6 @@ const Thread = () => {
   };
 
   useEffect(() => {
-    console.log("sono stati aggiornati i commenti\n", post?.comments);
     setCommentData();
   }, [post, post?.comments]);
 
@@ -125,7 +124,7 @@ const Thread = () => {
       );
       setComments(tmp);
     } else {
-      console.log("nulli");
+      // console.log("nulli");
     }
   };
 
