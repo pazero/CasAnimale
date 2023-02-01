@@ -196,12 +196,8 @@ const Thread = () => {
                   <Image
                     borderRadius="full"
                     boxSize={{ base: "35px", sm: "45px", md: "80px" }}
-                    src={
-                      op.photo === "" || op.photo === undefined
-                        ? "/f/userIcon.svg"
-                        : op.photo
-                    }
-                    alt="user profile image"
+                    src={op.photo === "" || op.photo === undefined ? "/f/userIcon.svg" : op.photo}
+                    alt={op.email + " propic"}
                   />
                 </Box>
                 <Box>
@@ -217,7 +213,7 @@ const Thread = () => {
                     </span>
                   </Box>
                   <Heading fontSize={{ base: "xl", sm: "3xl" }} marginTop={"2"}>
-                    <div className="sm:text-center">{post?.title}</div>
+                    <h1 className="sm:text-center font-semibold">{post?.title}</h1>
                   </Heading>
 
                   {post?.photo !== "" ? (
@@ -243,7 +239,7 @@ const Thread = () => {
                             w={"max"}
                             maxWidth={"20rem"}
                             maxHeight={"20rem"}
-                            alt="post-img"
+                            alt="post image"
                             justify={"center"}
                           />
                         </Center>
@@ -263,10 +259,11 @@ const Thread = () => {
 
               <div className="mt-5 p-2">
                 <div className="mb-3">
-                  <FormLabel fontWeight={"semibold"}>
+                  <FormLabel fontWeight={"semibold"} for="writeComment">
                     Write a comment under this post!
                   </FormLabel>
                   <Input
+                    id="writeComment"
                     value={newComment}
                     type="text"
                     placeholder="Write here..."
@@ -306,7 +303,7 @@ const Thread = () => {
                                     ? "/f/userIcon.svg"
                                     : item?.user?.photo
                                 }
-                                alt=" user img"
+                                alt={item?.user?.email != undefined ? item?.user?.email + " propic" : item?.user?.name + " propic"} 
                               />
                             </Box>
                             <Text
@@ -341,7 +338,10 @@ const Thread = () => {
                                       colorScheme={"red"}
                                       size={"sm"}
                                       justify="center"
+                                      value="delete"
+                                    aria-label="delete"
                                     >
+                                      <span className="hidden">delete</span>
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"

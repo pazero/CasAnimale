@@ -129,12 +129,12 @@ const CompanyList = (props) => {
         <Navbar />
       </div>
       <div className="flex flex-col" style={{ flex: "1 1 auto" }}>
-        <div
+        <h1
           id="listTitle"
-          className="m-2 mt-4 md:mt-8 text-4xl md:text-6xl self-center font-bold uppercase"
+          className="m-2 mt-4 md:mt-8 text-4xl md:text-6xl self-center font-semibold uppercase"
         >
           {title}
-        </div>
+        </h1>
         <Button className="mx-auto" onClick={onOpen}>
           Filters
         </Button>

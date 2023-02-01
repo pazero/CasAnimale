@@ -9,7 +9,7 @@ const ProfilePets = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div data-theme="lemonade" className="flex h-screen flex-1" style={{ flexDirection: "column", justifyContent: "space-between", maxHeight: "100%"}} >
+    <div data-theme="lemonade" className="flex h-screen flex-1" style={{ flexDirection: "column", maxHeight: "100%"}} >
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -42,8 +42,8 @@ const ProfilePets = () => {
         <Navbar />
       </div>
 
-      <div className="hidden sm:flex static inline-flex">
-        <div className="inline-block">
+      <div className="hidden sm:flex static inline-flex flex-1">
+        <div className="inline-block flex">
           <Sidebar />
         </div>
 
@@ -54,7 +54,7 @@ const ProfilePets = () => {
         </div>
       </div>
 
-      <div className="sm:hidden flex flex-col justify-items-stretch">
+      <div className="sm:hidden flex flex-col justify-items-stretch flex-1">
         <div className="flex w-full justify-evenly">
           <Sidebar />
         </div>
@@ -64,13 +64,13 @@ const ProfilePets = () => {
             <button onClick={() => { setShowModal(true); }} className="btn btn-secondary" >New pet</button>
           </div>
 
-          <div className="flex object-left-top w-full h-full" style={{ height: "auto" }}>
+          <div className="flex object-left-top w-full" style={{ height: "auto" }}>
             <PetsList />
           </div>
         </div>
       </div>
 
-      <div className="flex flex-1" style={{ height: "auto" }}>
+      <div className="flex" style={{ height: "auto" }}>
         <Footer />
       </div>
     </div>

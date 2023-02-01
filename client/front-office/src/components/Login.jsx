@@ -73,14 +73,15 @@ const Login = () => {
           >
             <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body text-center">
-                <div className="card-title justify-center">
+                <h1 className="card-title font-semibold text-md justify-center">
                   Sign in to CasAnimale!
-                </div>
+                </h1>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="loginEmail">
                     <span className="label-text">Email</span>
                   </label>
                   <input
+                    id="loginEmail"
                     type="text"
                     placeholder="example@email.org"
                     className="input input-bordered"
@@ -88,17 +89,18 @@ const Login = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="loginPassword">
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    id="loginPassword"
                     type="password"
                     placeholder="password"
                     className="input input-bordered"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <div>
-                    <button className="btn btn-secondary m-1">sign in</button>
+                    <button className="btn btn-secondary my-2">sign in</button>
                   </div>
                   <label className="label">
                     <button
@@ -111,8 +113,9 @@ const Login = () => {
                     </button>
                   </label>
                 </div>
-                <label className="label">
+                <label className="label" for="signInButton">
                   <button
+                    id="signInButton"
                     onClick={() => {
                       navigate("/register");
                     }}
@@ -147,14 +150,15 @@ const Login = () => {
           >
             <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body text-center">
-                <div className="card-title justify-center">
+                <h1 className="card-title text-md font-semibold justify-center">
                   Sign in to CasAnimale!
-                </div>
+                </h1>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="loginEmailSmallScreen">
                     <span className="label-text">Email</span>
                   </label>
                   <input
+                    id="loginEmailSmallScreen"
                     type="text"
                     placeholder="example@email.org"
                     className="input input-bordered"
@@ -162,17 +166,18 @@ const Login = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="loginPasswordSmallScreen">
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    id="loginPasswordSmallScreen"
                     type="password"
                     placeholder="password"
                     className="input input-bordered"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <div>
-                    <button className="btn btn-secondary m-1">sign in</button>
+                    <button className="btn btn-secondary my-2">sign in</button>
                   </div>
                   <label className="label">
                     <button
@@ -185,8 +190,9 @@ const Login = () => {
                     </button>
                   </label>
                 </div>
-                <label className="label">
+                <label className="label" for="signInButton">
                   <button
+                    id="signInButton"
                     onClick={() => {
                       navigate("/register");
                     }}

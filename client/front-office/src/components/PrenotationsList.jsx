@@ -145,9 +145,7 @@ const PrenotationsList = () => {
                         <Center>
                           <Image
                             ml={{ base: "0", sm: "10" }}
-                            src={
-                              item.photo !== undefined ? item.photo : vetclinic
-                            }
+                            src={item.photo !== undefined ? item.photo : vetclinic}
                             className="rounded-full"
                             resizemode="cover"
                             style={{

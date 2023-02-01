@@ -134,22 +134,18 @@ const Product = (props) => {
           <Box className="mx-1.5">
             {props.data.quantity === 0 ? (
               <Image
-                src={
-                  props.data?.photo === "" || props.data?.photo === undefined
-                    ? "/f/compra.png"
-                    : props.data.photo
-                }
+                src={props.data?.photo === "" || props.data?.photo === undefined ? "/f/compra.png" : props.data.photo}
                 borderRadius="lg"
                 className="w-full object-cover justify-self-center"
                 opacity="0.5"
+                alt={props.data.name + "product image"}
               />
             ) : (
               <Image
-                src={
-                  props.data.photo === "" ? "/f/compra.png" : props.data.photo
-                }
+                src={props.data?.photo === "" || props.data?.photo === undefined ? "/f/compra.png" : props.data.photo}
                 borderRadius="lg"
                 className="w-full justify-self-center"
+                alt={props.data.name + "product image"}
               />
             )}
           </Box>
@@ -247,6 +243,7 @@ const Product = (props) => {
             </Box>
           ) : (
             <Box className="flex justify-evenly w-full">
+              <label for={"Number" + props.data._id} className="hidden">alter quantity </label>
               <NumberInput
                 id={"Number" + props.data._id}
                 className="mr-2 rounded grow-0"
@@ -256,6 +253,7 @@ const Product = (props) => {
                 defaultValue={1}
                 min={1}
                 max={props.data.quantity}
+                aria-label={"alter quantity of " + props.data.name}
               >
                 <NumberInputField />
                 <NumberInputStepper>

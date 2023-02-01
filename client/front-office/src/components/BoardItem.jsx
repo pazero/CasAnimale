@@ -59,7 +59,7 @@ const Board = () => {
                     "https://cdn1.iconfinder.com/data/icons/basic-ui-set-v5-user-outline/64/Account_profile_user_avatar_questions-128.png";
                   var name = score.name;
                   if (score.userid !== "") {
-                    imgsrc = score.user?.photo;
+                    imgsrc = score.user?.photo === "" || score.user?.photo === undefined ? "/f/userIcon.svg" : score.user?.photo;
                     name = score.user?.name + " " + score.user?.surname;
                   }
                   return (
@@ -74,7 +74,7 @@ const Board = () => {
                         borderRadius="full"
                         boxSize="100px"
                         src={imgsrc}
-                        alt="userimg"
+                        alt={name + " propic"}
                       />
                       <Stack>
                         <CardBody>

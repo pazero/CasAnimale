@@ -105,14 +105,11 @@ const PetsList = () => {
                     <Stack direction={["column", "row"]} spacing={6}>
                       <Center>
                         <Image
+                          alt={item.name + " animal pic"}
                           h={"7rem"}
                           w={"7rem"}
                           ml={{ base: "0", sm: "10" }}
-                          src={
-                            item.photo === ""
-                              ? "/f/speciesIcons/" + item.species + ".png"
-                              : item.photo
-                          }
+                          src={item.photo === "" ? "/f/speciesIcons/" + item.species + ".png" : item.photo}
                         />
                       </Center>
                       <Box w={"20rem"} pl={{ base: 10 }}>

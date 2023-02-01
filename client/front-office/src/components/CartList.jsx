@@ -158,9 +158,8 @@ const CartItem = () => {
               <Box className="flex-none">
                 <Image
                   boxSize={{ base: "5rem", md: "8rem" }}
-                  src={
-                    item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo
-                  }
+                  src={item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo}
+                  alt={item.prod?.name + " image"}
                   borderRadius="lg"
                   opacity="0.5"
                 />
@@ -169,9 +168,8 @@ const CartItem = () => {
               <Box className="flex-none">
                 <Image
                   boxSize={{ base: "5rem", md: "8rem", lg: "10rem" }}
-                  src={
-                    item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo
-                  }
+                  src={item.prod?.photo === "" ? "/f/compra.png" : item.prod?.photo}
+                  alt={item.prod?.name + " image"}
                   borderRadius="lg"
                 />
               </Box>
@@ -313,9 +311,8 @@ const CartItem = () => {
                 <Box className="flex-none">
                   <Image
                     boxSize={"8rem"}
-                    src={
-                      item.prod?.photo === "" ? "/compra.png" : item.prod?.photo
-                    }
+                    src={item.prod?.photo === "" ? "/compra.png" : item.prod?.photo}
+                    alt={item.prod?.name + " image"}
                     borderRadius="lg"
                     opacity="0.5"
                   />
@@ -324,9 +321,8 @@ const CartItem = () => {
                 <Box className="flex-none">
                   <Image
                     boxSize={"8rem"}
-                    src={
-                      item.prod?.photo === "" ? "/compra.png" : item.prod?.photo
-                    }
+                    src={item.prod?.photo === "" ? "/compra.png" : item.prod?.photo}
+                    alt={item.prod?.name + " image"}
                     borderRadius="lg"
                   />
                 </Box>

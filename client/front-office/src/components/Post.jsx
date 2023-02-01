@@ -83,7 +83,7 @@ const Post = (props) => {
                   w={"max"}
                   maxWidth={"10rem"}
                   maxHeight={"10rem"}
-                  alt="post-img"
+                  alt={"post " + props.data.title + " img"}
                 />
               </Box>
               <Text

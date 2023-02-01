@@ -85,18 +85,19 @@ const Register = () => {
           >
             <div className="card flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
               <div className="card-body text-center hidden sm:flex">
-                <div className="card-title justify-center">
+                <h1 className="card-title font-semibold text-md justify-center">
                   Sign up to CasAnimale!
-                </div>
+                </h1>
                 <div className="form-control flex flex-row">
                   <div
                     className="flex mr-2"
                     style={{ flex: "1 0 auto", flexDirection: "column" }}
                   >
-                    <label className="label">
+                    <label className="label" for="registerName">
                       <span className="label-text">Name</span>
                     </label>
                     <input
+                      id="registerName"
                       type="text"
                       placeholder="Mario"
                       className="input input-bordered"
@@ -108,10 +109,11 @@ const Register = () => {
                     className="flex ml-2"
                     style={{ flex: "1 0 auto", flexDirection: "column" }}
                   >
-                    <label className="label">
+                    <label className="label" for="registerSurname">
                       <span className="label-text">Surname</span>
                     </label>
                     <input
+                      id="registerSurname"
                       type="text"
                       placeholder="Draghi"
                       className="input input-bordered"
@@ -125,10 +127,11 @@ const Register = () => {
                     className="flex mr-2"
                     style={{ flex: "1 0 auto", flexDirection: "column" }}
                   >
-                    <label className="label">
+                    <label className="label" for="registerBirthDate">
                       <span className="label-text">Birth Date</span>
                     </label>
                     <input
+                      id="registerBirthDate"
                       type="date"
                       placeholder="01/01/1900"
                       className="input input-bordered"
@@ -140,10 +143,11 @@ const Register = () => {
                     className="flex ml-2"
                     style={{ flex: "1 0 auto", flexDirection: "column" }}
                   >
-                    <label className="label">
+                    <label className="label" for="registerFavouriteAnimal">
                       <span className="label-text">Favourite animal</span>
                     </label>
                     <input
+                      id="registerFavouriteAnimal"
                       type="text"
                       placeholder="platypus"
                       className="input input-bordered"
@@ -153,10 +157,11 @@ const Register = () => {
                   </div>
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerEmail">
                     <span className="label-text">Email</span>
                   </label>
                   <input
+                    id="registerEmail"
                     type="text"
                     placeholder="example@email.org"
                     className="input input-bordered"
@@ -164,10 +169,11 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerPassword">
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    id="registerPassword"
                     type="password"
                     placeholder="password"
                     className="input input-bordered"
@@ -216,14 +222,15 @@ const Register = () => {
           >
             <div className="flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
               <div className="card-body text-center">
-                <div className="card-title justify-center">
+                <h1 className="card-title text-md font-semibold justify-center">
                   Sign up to CasAnimale!
-                </div>
+                </h1>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerNameSmallScreen">
                     <span className="label-text">Name</span>
                   </label>
                   <input
+                    id="registerNameSmallScreen"
                     type="text"
                     placeholder="Mario"
                     className="input input-bordered"
@@ -231,10 +238,11 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerSurnameSmallScreen">
                     <span className="label-text">Surname</span>
                   </label>
                   <input
+                    id="registerSurnameSmallScreen"
                     type="text"
                     placeholder="Draghi"
                     className="input input-bordered"
@@ -242,10 +250,11 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerBirthDateSmallScreen">
                     <span className="label-text">Birth Date</span>
                   </label>
                   <input
+                    id="registerBirthDateSmallScreen"
                     type="text"
                     placeholder="31/12/2000"
                     className="input input-bordered"
@@ -254,10 +263,11 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerFavouriteAnimalSmallScreen">
                     <span className="label-text">Favourite animal</span>
                   </label>
                   <input
+                    id="registerFavouriteAnimalSmallScreen"
                     type="text"
                     placeholder="platypus"
                     className="input input-bordered"
@@ -265,10 +275,11 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerEmailSmallScreen">
                     <span className="label-text">Email</span>
                   </label>
                   <input
+                    id="registerEmailSmallScreen"
                     type="text"
                     placeholder="example@email.org"
                     className="input input-bordered"
@@ -276,10 +287,11 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label" for="registerPasswordSmallScreen">
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    id="registerPasswordSmallScreen"
                     type="password"
                     placeholder="password"
                     className="input input-bordered"
