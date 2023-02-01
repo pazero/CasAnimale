@@ -194,14 +194,15 @@ const CompanyList = (props) => {
                   </ul>
                 </div>
               </div>
-
+              {/*Opened from {comp.business_hours.start % 12}
+                    {comp.business_hours.start > 12 ? "pm" : "am"} to{" "}
+                    {comp.business_hours.end % 12}
+                    {comp.business_hours.end > 12 ? "pm" : "am"}*/}
               <div className="flex items-end flex-1">
                 <div className="flex justify-between mb-2 mx-2 font-semibold">
                   <div className="mr-6 self-center">
-                    Opened from {comp.business_hours.start % 12}
-                    {comp.business_hours.start > 12 ? "pm" : "am"} to{" "}
-                    {comp.business_hours.end % 12}
-                    {comp.business_hours.end > 12 ? "pm" : "am"}
+                    Opened from {comp.business_hours.start === 12 ? "12pm" : comp.business_hours.start === 0 ? "12am" :comp.business_hours.start > 12 ? ((comp.business_hours.start) % 12) + "pm" : comp.business_hours.start + "am"}{" "}
+                    to{" "}{comp.business_hours.end === 12 ? "12pm" : comp.business_hours.end === 0 ? "12am" : comp.business_hours.end > 12 ? ((comp.business_hours.end) % 12) + "pm" : comp.business_hours.end + "am"}
                   </div>
                   <div className="ml-2 px-2 py-1 rounded text-lg flex flex-wrap self-center font-semibold bg-blue-200 text-blue-700">
                     {comp.cost_per_hour} € / h

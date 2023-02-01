@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="text/javascript" src="../script/index.js"></script>
+    <title>CasAnimale - Back Office</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      let user;
+      let data;
+      let adminsList;
+      let listLen = {
+          study_info: -1,
+          professional_experience: -1,
+          actual_jobs: -1,
+          main_pets: -1,
+        }
+      $(document).ready(async () => {
+        user = await isUserLogged();
+        $("#sidebar").load("../tabs/sidebar.html");
+        if (user.admin) {
+          $("#title").html("PERSONAL PROFILE");
+          getAdminInfo(user.id);
+        } else {
+          $("#companyInfo").removeClass("hidden");
+          $("#title").html("COMPANY PROFILE");
+          getAccountInfo(user.id);
+        }
+        $(".tab").addClass("ml-10");
+      });
+
+      const showTab = (divId) => {
+        $(".tab").addClass("hidden");
+        $(".btnInfo").removeClass("bg-primary");
+        $("#" + divId).removeClass("hidden");
+        $("#" + divId + "Btn").addClass("bg-primary");
+      };
+
+      const getAccountInfo = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
+          method: "GET",
+          credentials: "include",
+        });
+        data = await ret.json();
+        fillCompany();
+      };
+
+      const getAdminsList = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/admin", {
+          method: "GET",
+          credentials: "include",
+        });
+        adminsList = await ret.json();
+        fillAdminsList();
+      };
+
+      const getAdminInfo = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
+          method: "GET",
+          credentials: "include",
+        });
+        data = await ret.json();
+        fillAdmin();
+        getAdminsList();
+      };
+
+      const fillAdminsList = () => {
+        if (adminsList.length - 1 === 0)
+          $("#otherAdmins").append(
+            "<span class='mt-10 font-bold'>You are the only admin of CasAnimale.</span>"
+          );
+        let tmp =
+          adminsList.length - 1 === 1
+            ? `<div class='mt-10 font-bold'>There is 1 other admin.</div><div class="font-bold">Here their name and surname.</div>`
+            : `<div class='mt-10 font-bold'><span>There are </span>` +
+              (adminsList.length - 1) +
+              ` <span> other admins.</span></div><div class="font-bold">Here their names and surnames.`;
+        adminsList.map((item) => {
+          if (item._id.localeCompare(data[0]._id) !== 0)
+            tmp +=
+              `<div class="primary font-bold my-8">` +
+              item.name +
+              ` ` +
+              item.surname +
+              `</div>
+            `;
+        });
+        $("#otherAdmins").append(tmp);
+      };
+
+      const fillAdmin = () => {
+        $(".adminOnly").removeClass("hidden");
+        $("#newName").val(data[0].name);
+        $("#newSurname").val(data[0].surname);
+        $("#newPassword").val(data[0].password);
+        $("#newEmail").val(data[0].email);
+        $("#adminId").html(data[0]._id);
+      };
+
+      const fillCompany = () => {
+        $("#newName").val(data[0].name);
+        $("#newSurname").val(data[0].surname);
+        $("#newOwner").val(data[0].owner);
+        $("#newPassword").val(data[0].password);
+        $("#newEmail").val(data[0].email);
+        $("#adminId").html(data[0]._id);
+        $("#careerInfo").prepend(listArray("professional_experience"));
+        $("#careerInfo").prepend(listArray("study_info"));
+        $("#careerInfo").prepend(listArray("main_pets"));
+        $("#careerInfo").prepend(listArray("actual_jobs"));
+        $("#businessInfo").prepend(fillBusiness());
+        $("#places").prepend(fillDays());
+        switch (data[0].type) {
+          case "psy":
+            $("#newProfession").html("psychologist");
+            break;
+          case "vet":
+            $("#newProfession").html("veterinary");
+            break;
+          case "petsitter":
+            $("#newProfession").html("pet sitter");
+            break;
+          case "groomer":
+            $("#newProfession").html("groomer");
+            break;
+          default:
+            $("#newProfession").html("groomer");
+        }
+        $(".companyOnly").removeClass("hidden");
+      };
+
+      const formatBusiness = (hours) => {
+        if( hours === 0) return "12am"
+        if( hours === 12) return "12pm"
+        return hours > 12 ? (hours % 12) + "pm" : hours + "am";
+      };
+
+      const fillBusiness = () => {
+        return (
+          `
+          <div class="mb-14 mt-6">
+            <span class="primary font-bold">Opening time:</span>
+            <span>` +
+          formatBusiness(data[0].business_hours.start) +
+          `</span>
+            <select
+              id="newOpening"
+              name="newOpening"
+              type="text"
+              class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+            >
+              <option value="">--change--</option>
+              <option value="0">12am</option>
+              <option value="1">1am</option>
+              <option value="2">2am</option>
+              <option value="3">3am</option>
+              <option value="4">4am</option>
+              <option value="5">5am</option>
+              <option value="6">6am</option>
+              <option value="7">7am</option>
+              <option value="8">8am</option>
+              <option value="9">9am</option>
+              <option value="10">10am</option>
+              <option value="11">11am</option>
+              <option value="12">12pm</option>
+              <option value="13">1pm</option>
+              <option value="14">2pm</option>
+              <option value="15">3pm</option>
+              <option value="16">4pm</option>
+              <option value="17">5pm</option>
+              <option value="18">6pm</option>
+              <option value="19">7pm</option>
+              <option value="20">8pm</option>
+              <option value="21">9pm</option>
+              <option value="22">10am</option>
+              <option value="23">11am</option>
+            </select>
+          </div>
+
+          <div class="mb-14">
+            <span class="primary font-bold">Closing time:</span>
+            <span>` +
+          formatBusiness(data[0].business_hours.end) +
+          `</span>
+            <select
+              id="newClosing"
+              name="newClosing"
+              type="text"
+              class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+            >
+              <option value="">--change--</option>
+              <option value="0">12am</option>
+              <option value="1">1am</option>
+              <option value="2">2am</option>
+              <option value="3">3am</option>
+              <option value="4">4am</option>
+              <option value="5">5am</option>
+              <option value="6">6am</option>
+              <option value="7">7am</option>
+              <option value="8">8am</option>
+              <option value="9">9am</option>
+              <option value="10">10am</option>
+              <option value="11">11am</option>
+              <option value="12">12pm</option>
+              <option value="13">1pm</option>
+              <option value="14">2pm</option>
+              <option value="15">3pm</option>
+              <option value="16">4pm</option>
+              <option value="17">5pm</option>
+              <option value="18">6pm</option>
+              <option value="19">7pm</option>
+              <option value="20">8pm</option>
+              <option value="21">9pm</option>
+              <option value="22">10am</option>
+              <option value="23">11am</option>
+            </select>
+          </div>
+
+          <div><span class="primary font-bold">Cost per hour:</span><span>
+            <input
+                type="text"
+                name="newCostPerHour"
+                id="newCostPerHour"
+                value="` +
+          data[0].cost_per_hour +
+          `"
+                placeholder="Type new cost per hour"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              /> €/h</span>
+          </div>
+        `
+        );
+      };
+      const fillDays = () => {
+        return (
+          `
+          <div class="hidden companyOnly flex flex-col">
+            <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-4">WORKING PLACES</div>
+            <div class="my-4"><span class="primary font-semibold">Monday:</span>
+              <input
+                type="text"
+                name="newMonday"
+                id="newMonday"
+                value="` +
+          data[0].cities.monday +
+          `"
+                placeholder="Type new monday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Tuesday:</span>
+              <input
+                type="text"
+                name="newTuesday"
+                id="newTuesday"
+                value="` +
+          data[0].cities.tuesday +
+          `"
+                placeholder="Type new tuesday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Wednesday:</span>
+              <input
+                type="text"
+                name="newWednesday"
+                id="newWednesday"
+                value="` +
+          data[0].cities.wednesday +
+          `"
+                placeholder="Type new wednesday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Thursday:</span>
+              <input
+                type="text"
+                name="newThursday"
+                id="newThursday"
+                value="` +
+          data[0].cities.thursday +
+          `"
+                placeholder="Type new thursday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div>
+            <div class="my-4"><span class="primary font-semibold">Friday:</span>
+              <input
+                type="text"
+                name="newFriday"
+                id="newFriday"
+                value="` +
+          data[0].cities.friday +
+          `"
+                placeholder="Type new friday city"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+              />
+            </div> 
+          </div>
+        `
+        );
+      };
+
+      const getLenToUpdate = (type) => {
+        switch (type) {
+          case "actual_jobs":
+            return listLen.actual_jobs;
+            break;
+          case "main_pets":
+            return listLen.main_pets;
+            break;
+          case "study_info":
+            return listLen.study_info;
+            break;
+          case "professional_experience":
+            return listLen.professional_experience;
+            break;
+          default:
+        }
+      };
+
+      const listArray = (type) => {
+        let array;
+        let title;
+        let count = 0;
+        let lenToUpdate;
+        switch (type) {
+          case "actual_jobs":
+            array = data[0].actual_jobs;
+            title = data[0].name + "'s actual jobs:";
+            break;
+          case "main_pets":
+            array = data[0].main_pets;
+            title = data[0].name + "'s main pets of interest:";
+            break;
+          case "study_info":
+            array = data[0].study_info;
+            title = data[0].name + "'s study info:";
+            break;
+          case "professional_experience":
+            array = data[0].professional_experience;
+            title = data[0].name + "'s professional experience:";
+            break;
+          default:
+            array = undefined;
+        }
+        let tmp =
+          `<div id="` +
+          type +
+          `"><div class="primary font-semibold">` +
+          title +
+          `</div>`;
+        if (array !== undefined) {
+          array.map((item, index) => {
+            tmp +=
+              `<div>
+              <input
+                type="text"
+                name="new` +
+              type +
+              index +
+              `"
+                id="new` +
+              type +
+              index +
+              `"
+                value="` +
+              item +
+              `"
+                placeholder="Type new field"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
+              />
+            </div>`;
+            count = index;
+            switch (type) {
+              case "actual_jobs":
+                lenToUpdate = ++listLen.actual_jobs;
+                break;
+              case "main_pets":
+                lenToUpdate = ++listLen.main_pets;
+                break;
+              case "study_info":
+                lenToUpdate = ++listLen.study_info;
+                break;
+              case "professional_experience":
+                lenToUpdate = ++listLen.professional_experience;
+                break;
+              default:
+            }
+          });
+        }
+        tmp +=
+          `</div>
+            <div id="add` +
+          type +
+          `"></div>
+              <button class="btn my-2 ml-16 px-1 rounded font-bold bg-primary text-white mt-1 mb-10" onclick="addField('` +
+          type +
+          `', (getLenToUpdate('` +
+          type +
+          `')+1))">+</button>`;
+        return tmp;
+      };
+
+      const addField = (type, count) => {
+        switch (type) {
+          case "actual_jobs":
+            listLen.actual_jobs++;
+            break;
+          case "main_pets":
+            listLen.main_pets++;
+            break;
+          case "study_info":
+            listLen.study_info++;
+            break;
+          case "professional_experience":
+            listLen.professional_experience++;
+            break;
+          default:
+        }
+        $("#add" + type).append(
+          `<div>
+            <input
+              type="text"
+              name="new` +
+            type +
+            count +
+            `"
+              id="new` +
+            type +
+            count +
+            `"
+              placeholder="Type new field"
+              class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
+            />
+          </div>`
+        );
+      };
+
+      const sendUpdateData = async () => {
+        console.log(data[0]);
+        let url = user.admin ? "http://localhost:5000/api/admin/update/" : "http://localhost:5000/api/company/update/" + data[0]._id;
+        var ret = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data[0]),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+
+      const createAdmin = () => {
+        let newData = {name: "", surname: "", email: "", password: ""}
+        if($("#createAdminName").val() === "" || $("#createAdminSurname").val() === "" || $("#createAdminEmail").val() === "" || $("#createAdminPassword").val() === "" ) {
+          alert("Missing data!")
+        } else { 
+          newData.name = $("#createAdminName").val();
+          newData.surname = $("#createAdminSurname").val();
+          newData.email = $("#createAdminEmail").val();
+          newData.password = $("#createAdminPassword").val();
+          sendNewAdmin(newData);
+        }
+      };
+
+      const sendNewAdmin = async (newData) => {
+        console.log(newData);
+        var ret = await fetch("http://localhost:5000/api/admin/new/", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newData),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+
+      const savePublic = () => {
+        if (user.admin) {
+          console.log($("#newSurname").val() === "")
+          console.log($("#newName").val() === "")
+          console.log($("#newSurname").val() === "" || $("#newName").val() === "")
+          if($("#newSurname").val() === "" || $("#newName").val() === "") {
+            alert("Missing data!")
+          } else {
+            data[0].surname = $("#newSurname").val();
+            data[0].name = $("#newName").val();
+            sendUpdateData();
+          }
+        } else {
+          console.log($("#newOwner").val() === "")
+          console.log($("#newName").val() === "")
+          console.log($("#newOwner").val() === "" || $("#newName").val() === "")
+          if ($("#newOwner").val() === "" || $("#newName").val() === "")
+            alert("Missing data!")
+          else {
+            data[0].owner = $("#newOwner").val();
+            data[0].name = $("#newName").val();
+            sendUpdateData();
+          }
+        }
+      };
+      const savePrivate = () => {
+        if($("#newPassword").val() === "" || $("#newEmail").val() === "" ) {
+          alert("Missing data!")
+        } else {
+          data[0].email = $("#newEmail").val();
+          data[0].password = $("#newPassword").val();
+          sendUpdateData();
+        }
+      };
+
+      const saveCities = () => {
+        if($("#newMonday").val() === "" || $("#newTuesday").val() === "" || $("#newWednesday").val() === "" || $("#newThursday").val() === "" || $("#newFriday").val() === "") {
+          alert("Missing data!")
+        } else {
+          data[0].cities.monday = $("#newMonday").val()
+          data[0].cities.tuesday = $("#newTuesday").val()
+          data[0].cities.wednesday = $("#newWednesday").val()
+          data[0].cities.thursday = $("#newThursday").val()
+          data[0].cities.friday = $("#newFriday").val()
+          sendUpdateData()
+        }
+      }
+
+      const saveBusiness = () => {
+        if($("#newCostPerHour").val() === "") {
+          alert("Missing data!")
+        } else {
+          data[0].cost_per_hour=$("#newCostPerHour").val()
+          let checkStart = data[0].business_hours.start
+          let checkEnd = data[0].business_hours.end
+          if($("#newOpening").val() !== ""){
+            data[0].business_hours.start=$("#newOpening").val()
+            checkStart = $("#newOpening").val()
+          }
+          if($("#newClosing").val() !== ""){
+            data[0].business_hours.end=$("#newClosing").val()
+            checkEnd = $("#newClosing").val()
+          }
+          console.log("check da " + checkStart + " a " + checkEnd)
+          console.log(+checkStart >= +checkEnd)
+          if(+checkStart >= +checkEnd)
+            alert("Incorrect data")
+          else sendUpdateData()
+
+        }
+      }
+
+      const saveCareer = () => {
+        console.log(listLen)
+        data[0].actual_jobs = []
+        data[0].main_pets = []
+        data[0].study_info = []
+        data[0].professional_experience = []
+        for(let i = 0; i <= listLen.actual_jobs; i++){
+          if($("#newactual_jobs"+i).val() !== "")
+          data[0].actual_jobs.push($("#newactual_jobs"+i).val())
+        }
+        for(let i = 0; i <= listLen.main_pets; i++){
+          if($("#newmain_pets"+i).val() !== "")
+          data[0].main_pets.push($("#newmain_pets"+i).val())
+        }
+        for(let i = 0; i <= listLen.study_info; i++){
+          if($("#newstudy_info"+i).val() !== "")
+          data[0].study_info.push($("#newstudy_info"+i).val())
+        }
+        for(let i = 0; i <= listLen.professional_experience; i++){
+          if($("#newprofessional_experience"+i).val() !== "")
+          data[0].professional_experience.push($("#newprofessional_experience"+i).val())
+        }
+        sendUpdateData()
+      }
+    </script>
+  </head>
+  <body>
+    <div class="flex flex-col md:flex-row flex-1 h-full">
+      <div
+        class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
+        id="sidebar"
+      ></div>
+      <div class="flex flex-col w-full p-5 pb-0 pt-0 ml-0 md:ml-[106px]">
+        <div
+          id="title"
+          class="flex font-bold text-4xl sm:text-6xl m-4 self-center"
+        ></div>
+        <div id="info" class="flex flex-1 mt-4">
+          <div
+            id="bar"
+            class="flex h-full flex-col w-80 bg-secondary"
+            style="flex: 0 0 auto"
+          >
+            <button
+              id="publicInfoBtn"
+              class="btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50 bg-primary"
+              onclick="showTab('publicInfo')"
+            >
+              Public information
+            </button>
+            <button
+              id="privateInfoBtn"
+              class="btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('privateInfo')"
+            >
+              Privacy and security
+            </button>
+            <button
+              id="placesBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('places')"
+            >
+              Working places
+            </button>
+            <button
+              id="businessTabBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('businessTab')"
+            >
+              Business information
+              <button>
+                <div
+                  id="careerTabBtn"
+                  class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                  onclick="showTab('careerTab')"
+                >
+                  Career information
+                  <button
+                    id="newAdminBtn"
+                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                    onclick="showTab('newAdmin')"
+                  >
+                    Create new admin
+                  </button>
+                  <button
+                    id="otherAdminsBtn"
+                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                    onclick="showTab('otherAdmins')"
+                  >
+                    Other admins
+                  </button>
+                </div>
+                <div
+                  class="flex flex-1 text-xl ml-4 border-t-solid border-t-[1px] border-t-[#59114d]"
+                >
+                  <div id="publicInfo" class="tab flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                    >
+                      PUBLIC INFORMATION
+                    </div>
+                    <div class="my-8">
+                      <span class="adminOnly hidden primary font-semibold"
+                        >Name:</span
+                      >
+                      <span class="companyOnly hidden primary font-semibold"
+                        >Company name:</span
+                      >
+                      <input
+                        id="newName"
+                        name="newName"
+                        placeholder="Type new name"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="adminOnly hidden my-8">
+                      <span class="primary font-semibold">Surname:</span>
+                      <input
+                        id="newSurname"
+                        name="newSurname"
+                        placeholder="Type new surname"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="companyOnly hidden my-8">
+                      <span class="primary font-semibold">Company owner:</span>
+                      <input
+                        id="newOwner"
+                        name="newOwner"
+                        placeholder="Type new owner"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="companyOnly hidden mt-8">
+                      <span class="primary font-semibold">Profession:</span>
+                      <span
+                        id="newProfession"
+                        class="change px-1 ml-3 bg-transparent"
+                      ></span>
+                    </div>
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="savePublic()"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="privateInfo" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                    >
+                      PRIVATE INFORMATION
+                    </div>
+                    <div class="my-8">
+                      <span class="primary font-semibold">Email:</span>
+                      <input
+                        id="newEmail"
+                        name="newEmail"
+                        placeholder="Type new email"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="my-8">
+                      <span class="primary font-semibold">Password:</span>
+                      <input
+                        id="newPassword"
+                        name="newPassword"
+                        placeholder="Type new password"
+                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                      />
+                    </div>
+                    <div class="mt-8">
+                      <span class="primary font-semibold">Id:</span>
+                      <span id="adminId" class="ml-3"></span>
+                    </div>
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="savePrivate()"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="newAdmin" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                    >
+                      CREATE ADMIN ACCOUNT
+                    </div>
+                    <div class="adminOnly hidden my-8">
+                      <div class="primary font-semibold">
+                        These credentials will create a new admin account.
+                      </div>
+                      <div class="primary font-semibold mb-16">
+                        They will be able to access back office and modify every
+                        data and information about customers, companies and
+                        prenotations.
+                      </div>
+                      <div class="flex flex-col" id="createNewAdminTab">
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin name:</span>
+                          <input
+                            id="createAdminName"
+                            name="createAdminName"
+                            placeholder="Type new admin name"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin surname:</span>
+                          <input
+                            id="createAdminSurname"
+                            name="createAdminSurname"
+                            placeholder="Type new admin surname"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin email:</span>
+                          <input
+                            id="createAdminEmail"
+                            name="createAdminEmail"
+                            placeholder="Type new admin email"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                        <div class="primary my-8">
+                          <span class="font-semibold">New admin password:</span>
+                          <input
+                            id="createAdminPassword"
+                            name="createAdminPassword"
+                            placeholder="Type new admin password"
+                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                          />
+                        </div>
+                      </div>
+                      <button
+                        class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
+                        onclick="createAdmin()"
+                      >
+                        CREATE NEW ADMIN
+                      </button>
+                      <span
+                        id="newProfession"
+                        class="change px-1 ml-3 bg-transparent"
+                      ></span>
+                    </div>
+                  </div>
+                  <div
+                    id="careerTab"
+                    class="tab hidden mb-4 flex flex-1 flex-col"
+                  >
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
+                    >
+                      CAREER INFORMATION
+                    </div>
+                    <div id="careerInfo"></div>
+                    <button
+                      class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="saveCareer()"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="otherAdmins" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
+                    >
+                      OTHER ADMINS
+                    </div>
+                  </div>
+                  <div id="places" class="tab hidden flex flex-1 flex-col">
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="saveCities()"
+                     >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div id="businessTab" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
+                    >
+                      BUSINESS INFORMATION
+                    </div>
+                    <div id="businessInfo"></div>
+                    <button
+                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="saveBusiness()"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                </div>
+              </button>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

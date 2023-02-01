@@ -59,7 +59,7 @@ router.delete("/:id", async (req, res) => {
 router.post("/update", async (req, res) => {
   try {
     const updatedAdmin = await Admin.findOneAndUpdate(
-      { _id: req.body.pet_id },
+      { _id: req.body._id },
       {
         name: req.body.name,
         surname: req.body.surname,
@@ -68,7 +68,7 @@ router.post("/update", async (req, res) => {
         until: req.body.until,
       }
     );
-    res.json(updatedAdmin);
+    res.json({message: "Update done!"});
   } catch (e) {
     res.json({ message: e });
   }
