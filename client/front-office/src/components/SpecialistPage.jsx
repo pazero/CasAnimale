@@ -99,7 +99,7 @@ const SpecialistPage = () => {
     let hours = "";
 
     hours += time[0] + (len > 3 ? time[1] : "");
-    time = moment === "pm" ? +hours + 12 : +hours;
+    time = (moment === "pm" && hours !== "12") ? +hours + 12 : +hours;
     time += ":00";
     setStartTime(time);
   }
