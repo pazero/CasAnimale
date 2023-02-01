@@ -58,15 +58,15 @@ const ArticleList = ({ name, description, type }) => {
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div class="flex items-start justify-between p-4 rounded-t dark:border-gray-600">
+                <div className="flex items-start justify-between p-4 rounded-t dark:border-gray-600">
                   <button
                     type="button"
-                    class="z-30 absolute top-3 right-2.5 text-red-500 bg-transparent hover:text-red-700 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                    className="z-30 absolute top-3 right-2.5 text-red-500 bg-transparent hover:text-red-700 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     onClick={() => setShowModal(false)}
                   >
                     <svg
                       aria-hidden="true"
-                      class="w-5 h-5"
+                      className="w-5 h-5"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@ const ArticleList = ({ name, description, type }) => {
                         clip-rule="evenodd"
                       ></path>
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span className="sr-only">Close modal</span>
                   </button>
                 </div>
                 {/*body*/}

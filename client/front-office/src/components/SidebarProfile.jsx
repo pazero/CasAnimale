@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import UserManage from "../services/UserManage";
 import { TbFish, TbUserCircle, TbCalendarEvent } from "react-icons/tb";
 
 export default function Sidebar() {
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      var ret = await UserManage.getUser();
+      setUser(ret.data);
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div className="flex flex-1">
@@ -49,6 +59,38 @@ export default function Sidebar() {
                       alt="calendar icon"
                     />
                     <span>Prenotations</span>
+                  </div>
+                </li>
+                <li className="rounded-sm">
+                  <div
+                    onClick={() => {
+                      navigate("/profile/notifications");
+                    }}
+                    className="flex items-center p-2 space-x-3 rounded-md"
+                  >
+                    {user && user.notification?.length > 0 ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        className="block h-6 w-6"
+                        alt="notification icon"
+                      >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M22 20H2v-2h1v-6.969C3 6.043 7.03 2 12 2s9 4.043 9 9.031V18h1v2zM9.5 21h5a2.5 2.5 0 1 1-5 0z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        className="block h-6 w-6"
+                        alt="notification icon"
+                      >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M22 20H2v-2h1v-6.969C3 6.043 7.03 2 12 2s9 4.043 9 9.031V18h1v2zM5 18h14v-6.969C19 7.148 15.866 4 12 4s-7 3.148-7 7.031V18zm4.5 3h5a2.5 2.5 0 1 1-5 0z" />
+                      </svg>
+                    )}
+
+                    <span>Notifications</span>
                   </div>
                 </li>
               </ul>
@@ -98,6 +140,40 @@ export default function Sidebar() {
             >
               <TbCalendarEvent className="block h-6 w-6" alt="fish icon" />
               <span>Prenotations</span>
+            </div>
+          </li>
+          <li
+            className="rounded-sm m-4 ml-4 basis-1/3"
+            style={{ flex: "1 1 auto" }}
+          >
+            <div
+              onClick={() => {
+                navigate("/profile/notifications");
+              }}
+              className="flex flex-row items-center space-x-3 rounded-md"
+            >
+              {user && user.notification?.length > 0 ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="block h-6 w-6"
+                  alt="notification icon"
+                >
+                  <path fill="none" d="M0 0h24v24H0z" />
+                  <path d="M22 20H2v-2h1v-6.969C3 6.043 7.03 2 12 2s9 4.043 9 9.031V18h1v2zM9.5 21h5a2.5 2.5 0 1 1-5 0z" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="block h-6 w-6"
+                  alt="notification icon"
+                >
+                  <path fill="none" d="M0 0h24v24H0z" />
+                  <path d="M22 20H2v-2h1v-6.969C3 6.043 7.03 2 12 2s9 4.043 9 9.031V18h1v2zM5 18h14v-6.969C19 7.148 15.866 4 12 4s-7 3.148-7 7.031V18zm4.5 3h5a2.5 2.5 0 1 1-5 0z" />
+                </svg>
+              )}
+              <span>Notifications</span>
             </div>
           </li>
         </ul>

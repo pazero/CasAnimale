@@ -2,6 +2,7 @@ const express = require("express");
 const Prenotation = require("../models/Prenotation");
 const Company = require("../models/Company");
 const jwt = require("../services/jwtUtils");
+const User = require("../models/User");
 const router = express.Router();
 
 function addHours(numOfHours, str) {
@@ -187,19 +188,46 @@ router.delete("/:id", async (req, res) => {
 /* Update prenotation's infos */
 router.post("/update", async (req, res) => {
   try {
-    const updatedPrenotation = await Post.findOneAndUpdate(
-      { _id: req.body.prenotation_id },
+    const oldPr = await Prenotation.findById(req.body.id);
+    const usr = await User.findById(oldPr.user);
+
+    var msg =
+      "The prenotation on " +
+      oldPr.start.toISOString().substring(0, 10) +
+      " in " +
+      oldPr.place +
+      " has been modified from the company. Check your prenotations!";
+
+    usr.notification.push({
+      content: msg,
+      timestamp: new Date(),
+      from: oldPr.company,
+      read: false,
+    });
+
+    var newNotification = usr.notification;
+
+    await Prenotation.findOneAndUpdate(
+      { _id: req.body.id },
       {
         company: req.body.company,
         place: req.body.place,
         start: req.body.start,
+        claimed: req.body.claimed,
         duration: req.body.duration,
         user: req.body.user,
       }
     );
-    res.json(updatedPrenotation);
+
+    await User.findOneAndUpdate(
+      { _id: oldPr.user },
+      {
+        notification: newNotification,
+      }
+    );
+    res.json({ message: "Update done!" });
   } catch (e) {
-    res.json({ message: e });
+    console.log(e);
   }
 });
 

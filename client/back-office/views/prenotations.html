@@ -56,27 +56,28 @@
 
       const filterStartEndTime = (time, end) => {
         let hours = +time.substring(11, 13) + 1 + +end;
-        if( hours === 0) return "12am"
-        if( hours === 12) return "12pm"
+        if (hours === 0) return "12am";
+        if (hours === 12) return "12pm";
         time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
         return time;
       };
 
       const formatTime = (time) => {
         let hours = +time.substring(11, 13) + 1;
-        if( hours === 0) time += "12am"
+        if (hours === 0) time += "12am";
         else {
-          if( hours === 12) time += "12pm"
+          if (hours === 12) time += "12pm";
           else {
             time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
           }
         }
         time += " - ";
-        if( (hours+1) === 0) time += "12am"
+        if (hours + 1 === 0) time += "12am";
         else {
-          if( (hours+1) === 12) time += "12pm"
+          if (hours + 1 === 12) time += "12pm";
           else {
-            time += hours + 1 > 12 ? ((hours + 1) % 12) + "pm" : hours + 1 + "am";
+            time +=
+              hours + 1 > 12 ? ((hours + 1) % 12) + "pm" : hours + 1 + "am";
           }
         }
         return time;
@@ -142,7 +143,8 @@
                   item.place,
                   item.start,
                   item.user,
-                  item.company
+                  item.company,
+                  item.claimed
                 );
                 index++;
                 totPrenotations = index;
@@ -159,7 +161,46 @@
         });
       };
 
-      const makeItemPrenotation = (index, id, place, start, user, company) => {
+      const sendUpdate = async (id, date, i) => {
+        let newCity = $("#newPlace" + i).val();
+        let newDate = $("#newDate" + i).val();
+        let newStart = $("#newStart" + i).val();
+        let newEnd = $("#newEnd" + i).val();
+        let newClaimed = $("#newIsClaimed0").is(":checked");
+        newStart = newStart.substring(0, newStart.length - 2);
+        newEnd = newEnd.substring(0, newEnd.length - 2);
+        var newDuration = parseInt(newEnd) - parseInt(newStart);
+
+        newDate = new Date(newDate);
+        newDate.setHours(newStart);
+
+        var data = {
+          id,
+          place: newCity,
+          start: newDate,
+          duration: newDuration,
+          claimed: newClaimed,
+        };
+
+        var ret = await fetch("http://localhost:5000/api/prenotation/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+
+      const makeItemPrenotation = (
+        index,
+        id,
+        place,
+        start,
+        user,
+        company,
+        isClaimed
+      ) => {
         return (
           `
           <div class="flex flex-row my-3">
@@ -175,9 +216,25 @@
           `
             <i class="fa fa-copy"></i></button>
                 </div>
-                <div><span class="font-semibold">City: </span>` +
+                <div><span class="font-semibold">City: </span><span class=tohidden` +
+          index +
+          `>` +
           place +
-          `
+          `</span>
+          <input
+                type="text"
+                name="newPlace"
+                id="newPlace` +
+          index +
+          `"
+                value="` +
+          place +
+          `"
+                placeholder="Type new date"
+                class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm"
+              />
                 </div>
                 <div><span class="font-semibold">Date: </span><span class=tohidden` +
           index +
@@ -186,7 +243,7 @@
           `     </span><input
                 type="text"
                 name="newDate"
-                id="newTimes` +
+                id="newDate` +
           index +
           `"
                 value="` +
@@ -235,6 +292,26 @@
                 class="change px-1 rounded shadow-sm"
               />
           </div>
+          <div class="tohidden` +
+          index +
+          `"><span class="font-semibold">Is claimed </span>` +
+          isClaimed +
+          `</div>
+          <div class="toshow` +
+          index +
+          ` hidden"><span class="font-semibold">Is claimed: </span>
+            <input
+                type="checkbox"
+                name="newIsClaimed"
+                id="newIsClaimed` +
+          index +
+          `"
+                class="change px-1 rounded shadow-sm"
+                  ` +
+          (isClaimed ? "checked" : "") +
+          `
+              >
+          </div>
                 <div><span class="font-semibold">Company id: </span>
                   <button class="btn" onclick="copy(this)">` +
           company +
@@ -258,12 +335,20 @@
                 Update
               </button>
               <button class="toshow` +
-              index +
-              ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center" onclick="{$('.tohidden` +
-              index +
-              `').removeClass('hidden'); $('.toshow` +
-              index +
-              `').addClass('hidden')}">
+          index +
+          ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center" onclick="{$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden');
+            sendUpdate('` +
+          id +
+          `','` +
+          start +
+          `',` +
+          index +
+          `);
+            }">
               SAVE
               </button>
               <button class="toshow` +
@@ -282,7 +367,7 @@
           `')">
                 Delete
               </button>
-            
+
             </div>
           </div>`
         );
@@ -298,7 +383,8 @@
                 item.place,
                 item.start,
                 item.user,
-                item.company
+                item.company,
+                item.claimed
               );
               totPrenotations = index + 1;
             });
@@ -308,9 +394,8 @@
           totPrenotations = 0;
         });
         $(document).ready(function () {
-        if(user.admin)
-          $(".adminOnly").removeClass("hidden");
-      })
+          if (user.admin) $(".adminOnly").removeClass("hidden");
+        });
       };
 
       const copy = (that) => {
@@ -327,8 +412,7 @@
         $("#showBtn").addClass("hidden");
         $("#hideBtn").removeClass("hidden");
         $("#resetBtn").removeClass("hidden");
-        if(user.admin)
-          $(".adminOnly").removeClass("hidden");
+        if (user.admin) $(".adminOnly").removeClass("hidden");
       };
 
       const hideFilters = () => {
@@ -346,8 +430,6 @@
         $("#filterCity").val("");
         filterList();
       };
-
-      // getPts();
     </script>
   </head>
   <body>

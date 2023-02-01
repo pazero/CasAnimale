@@ -101,7 +101,7 @@ TO DO:
 			[x] Le aziende non accedono a questa sezione
 		[/] Gestione delle prenotazioni [ PRENOTATIONS ]
 			[ ] Form crea nuovo
-			[/] Update
+			[x] Update
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende vedono solo le loro prenotazioni 
