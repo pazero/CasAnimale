@@ -17,14 +17,12 @@
       let user;
       let data;
       let adminsList;
-      let listLen = [
-        {
+      let listLen = {
           study_info: -1,
           professional_experience: -1,
           actual_jobs: -1,
           main_pets: -1,
-        },
-      ];
+        }
       $(document).ready(async () => {
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
@@ -314,16 +312,16 @@
       const getLenToUpdate = (type) => {
         switch (type) {
           case "actual_jobs":
-            return listLen[0].actual_jobs;
+            return listLen.actual_jobs;
             break;
           case "main_pets":
-            return listLen[0].main_pets;
+            return listLen.main_pets;
             break;
           case "study_info":
-            return listLen[0].study_info;
+            return listLen.study_info;
             break;
           case "professional_experience":
-            return listLen[0].professional_experience;
+            return listLen.professional_experience;
             break;
           default:
         }
@@ -384,16 +382,16 @@
             count = index;
             switch (type) {
               case "actual_jobs":
-                lenToUpdate = ++listLen[0].actual_jobs;
+                lenToUpdate = ++listLen.actual_jobs;
                 break;
               case "main_pets":
-                lenToUpdate = ++listLen[0].main_pets;
+                lenToUpdate = ++listLen.main_pets;
                 break;
               case "study_info":
-                lenToUpdate = ++listLen[0].study_info;
+                lenToUpdate = ++listLen.study_info;
                 break;
               case "professional_experience":
-                lenToUpdate = ++listLen[0].professional_experience;
+                lenToUpdate = ++listLen.professional_experience;
                 break;
               default:
             }
@@ -415,16 +413,16 @@
       const addField = (type, count) => {
         switch (type) {
           case "actual_jobs":
-            listLen[0].actual_jobs++;
+            listLen.actual_jobs++;
             break;
           case "main_pets":
-            listLen[0].main_pets++;
+            listLen.main_pets++;
             break;
           case "study_info":
-            listLen[0].study_info++;
+            listLen.study_info++;
             break;
           case "professional_experience":
-            listLen[0].professional_experience++;
+            listLen.professional_experience++;
             break;
           default:
         }
@@ -557,6 +555,31 @@
           else sendUpdateData()
 
         }
+      }
+
+      const saveCareer = () => {
+        console.log(listLen)
+        data[0].actual_jobs = []
+        data[0].main_pets = []
+        data[0].study_info = []
+        data[0].professional_experience = []
+        for(let i = 0; i <= listLen.actual_jobs; i++){
+          if($("#newactual_jobs"+i).val() !== "")
+          data[0].actual_jobs.push($("#newactual_jobs"+i).val())
+        }
+        for(let i = 0; i <= listLen.main_pets; i++){
+          if($("#newmain_pets"+i).val() !== "")
+          data[0].main_pets.push($("#newmain_pets"+i).val())
+        }
+        for(let i = 0; i <= listLen.study_info; i++){
+          if($("#newstudy_info"+i).val() !== "")
+          data[0].study_info.push($("#newstudy_info"+i).val())
+        }
+        for(let i = 0; i <= listLen.professional_experience; i++){
+          if($("#newprofessional_experience"+i).val() !== "")
+          data[0].professional_experience.push($("#newprofessional_experience"+i).val())
+        }
+        sendUpdateData()
       }
     </script>
   </head>
@@ -793,6 +816,7 @@
                     <div id="careerInfo"></div>
                     <button
                       class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                      onclick="saveCareer()"
                     >
                       UPDATE
                     </button>
