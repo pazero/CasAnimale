@@ -47,10 +47,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-blue-200" style={{ minHeight: "5%" }}>
+    <nav className="navbar bg-blue-50" role="navigation" aria-label="Main" style={{ minHeight: "5%" }}>
       <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+        <div className="dropdown lg:hidden">
+          <label tabIndex={0} className="btn btn-ghost" aria-label="Dropdown menu">
+            <span className="hidden">hamburger menu</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -74,7 +75,7 @@ const Navbar = () => {
               <a href={Const.GAMEURL}>Game Area</a>
             </li>
             <li tabIndex={0}>
-              <div className="justify-between">
+              <div className="justify-between" aria-label="community dropdown menu">
                 Community
                 <svg
                   className="fill-current"
@@ -88,20 +89,12 @@ const Navbar = () => {
               </div>
               <ul className="p-2 border bg-base-100 z-10">
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/forum");
-                    }}
-                  >
+                  <button onClick={() => {navigate("/forum");}}>
                     EccoloQua!
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/findpartner");
-                    }}
-                  >
+                  <button onClick={() => {navigate("/findpartner");}}>
                     FindPartner
                   </button>
                 </li>
@@ -135,6 +128,7 @@ const Navbar = () => {
                       viewBox="0 0 24 24"
                       width="24"
                       height="24"
+                      alt="VIP icon"
                     >
                       <path fill="none" d="M0 0h24v24H0z" />
                       <path
@@ -145,17 +139,13 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/boards");
-                    }}
-                  >
+                  <button onClick={() => {navigate("/boards");}}>
                     Leaderboard
                   </button>
                 </li>
               </ul>
             </li>
-            <li tabIndex={0}>
+            <li tabIndex={0} aria-label="Services dropdown menu">
               <div className="justify-between">
                 Services
                 <svg
@@ -169,12 +159,8 @@ const Navbar = () => {
                 </svg>
               </div>
               <ul className="p-2 border bg-base-100 z-10">
-                <li>
-                  <button
-                    onClick={() => {
-                      navigate("/compra");
-                    }}
-                  >
+                <li >
+                  <button onClick={() => {navigate("/compra");}}>
                     eCommerce
                   </button>
                 </li>
@@ -218,11 +204,7 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/petsitter");
-                    }}
-                  >
+                  <button onClick={() => {navigate("/petsitter");}}>
                     Pet Sitter
                   </button>
                 </li>
@@ -266,28 +248,20 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/grooming");
-                    }}
-                  >
+                  <button onClick={() => {navigate("/grooming");}}>
                     Grooming
                   </button>
                 </li>
               </ul>
             </li>
             <li>
-              <button
-                onClick={() => {
-                  window.location.href = Const.BOURL;
-                }}
-              >
+              <button onClick={() => { window.location.href = Const.BOURL;}}>
                 Reserved Section
               </button>
             </li>
           </ul>
         </div>
-        <a href={Const.FOURL} className="btn btn-ghost normal-case text-xl">
+        <a href={Const.FOURL} className="btn btn-ghost normal-case text-xl" aria-label="home button">
           CasAnimale
         </a>
       </div>
@@ -297,7 +271,7 @@ const Navbar = () => {
             <a href={Const.GAMEURL}>Game Area</a>
           </li>
           <li tabIndex={0}>
-            <div className="justify-between">
+            <div className="justify-between" aria-label="community dropdown menu">
               Community
               <svg
                 className="fill-current"
@@ -311,20 +285,12 @@ const Navbar = () => {
             </div>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/forum");
-                  }}
-                >
+                <button onClick={() => {navigate("/forum");}}>
                   EccoloQua!
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/findpartner");
-                  }}
-                >
+                <button onClick={() => {navigate("/findpartner");}}>
                   FindPartner
                 </button>
               </li>
@@ -367,18 +333,14 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/boards");
-                  }}
-                >
+                <button onClick={() => {navigate("/boards");}}>
                   Leaderboard
                 </button>
               </li>
             </ul>
           </li>
           <li tabIndex={0}>
-            <div className="justify-between">
+            <div className="justify-between" aria-label="Services dropdown menu">
               Services
               <svg
                 className="fill-current"
@@ -392,11 +354,7 @@ const Navbar = () => {
             </div>
             <ul className="p-2 border bg-base-100 z-10">
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/compra");
-                  }}
-                >
+                <button onClick={() => {navigate("/compra");}}>
                   eCommerce
                 </button>
               </li>
@@ -439,11 +397,7 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/petsitter");
-                  }}
-                >
+                <button onClick={() => {navigate("/petsitter");}}>
                   Pet Sitter
                 </button>
               </li>
@@ -486,22 +440,14 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/grooming");
-                  }}
-                >
+                <button onClick={() => {navigate("/grooming");}}>
                   Grooming
                 </button>
               </li>
             </ul>
           </li>
           <li>
-            <button
-              onClick={() => {
-                window.location.href = Const.BOURL;
-              }}
-            >
+            <button onClick={() => { window.location.href = Const.BOURL;}}>
               Reserved Section
             </button>
           </li>
@@ -512,19 +458,14 @@ const Navbar = () => {
           <div className="hidden sm:flex">
             <label
               tabIndex={0}
-              className="btn btn-primary mr-2"
-              onClick={() => {
-                navigate("/cart");
-              }}
-            >
+              className="btn font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900 mr-2"
+              onClick={() => {navigate("/cart");}}>
               <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
             </label>
 
             <button
-              className="btn btn-primary mr-2"
-              onClick={() => {
-                navigate("/profile");
-              }}
+              className="btn font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900 mr-2"
+              onClick={() => {navigate("/profile");}}
             >
               <TbUserCircle className="block h-6 w-6 mr-1" alt="user icon" />
               Profile
@@ -536,32 +477,28 @@ const Navbar = () => {
           <div className="sm:hidden">
             <label
               tabIndex={0}
-              className="btn btn-primary"
-              onClick={() => {
-                navigate("/cart");
-              }}
+              className="btn border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900"
+              onClick={() => {navigate("/cart");}}
             >
               <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
             </label>
-            <div className="dropdown">
-              <label tabIndex={0} className="btn btn-primary m-2">
+            <div className="dropdown ml-2">
+              <label tabIndex={0} className="btn font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900 ">
                 <TbUserCircle className="block h-6 w-6" alt="user icon" />
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
+                className="menu menu-compact dropdown-content mt-3 shadow bg-gray-100 p-0 rounded-box w-full"
               >
                 <li>
-                  <button
-                    onClick={() => {
-                      navigate("/profile");
-                    }}
-                  >
+                  <button onClick={() => {navigate("/profile");}}>
                     Profile
                   </button>
                 </li>
                 <li>
-                  <button onClick={logout}>Log out</button>
+                  <button onClick={logout}>
+                    Log out
+                  </button>
                 </li>
               </ul>
             </div>
@@ -570,28 +507,21 @@ const Navbar = () => {
       ) : (
         <div className="navbar-end">
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-primary mr-2">
+              <label tabIndex={0} className="btn mr-2 font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900" for="dropdown">
               <span>login</span>
             </label>
             <ul
+              id="dropdown"
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 p-0 rounded-box w-full"
+              className="menu menu-compact dropdown-content mt-3 shadow bg-gray-100 focus:indigo-200 p-0 rounded-box w-full"
             >
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
+                <button onClick={() => {navigate("/login");}}>
                   Sign in
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => {
-                    navigate("/register");
-                  }}
-                >
+                <button onClick={() => {navigate("/register");}}>
                   Sign up
                 </button>
               </li>
@@ -599,7 +529,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 
