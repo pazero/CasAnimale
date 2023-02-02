@@ -106,7 +106,7 @@ const SpecialistPage = () => {
     let hours = "";
 
     hours += time[0] + (len > 3 ? time[1] : "");
-    time = (moment === "pm" && hours !== "12") ? +hours + 12 : +hours;
+    time = moment === "pm" && hours !== "12" ? +hours + 12 : +hours;
     time += ":00";
     setStartTime(time);
   }
@@ -231,16 +231,22 @@ const SpecialistPage = () => {
         }
         let start_app, end_app;
 
-        if(start + i === 12) start_app = "12pm"
-        else{
-          if(start + i === 0) start_app = "12am"
-          else start_app = start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
+        if (start + i === 12) start_app = "12pm";
+        else {
+          if (start + i === 0) start_app = "12am";
+          else
+            start_app =
+              start + i > 12 ? ((start + i) % 12) + "pm" : start + i + "am";
         }
 
-        if(start + i + 1 === 12) end_app = "12pm"
-        else{
-          if(start + i + 1 === 0) end_app = "12am"
-          else end_app = start + i + 1 > 12 ? ((start + i + 1) % 12) + "pm" : start + i + 1 + "am";
+        if (start + i + 1 === 12) end_app = "12pm";
+        else {
+          if (start + i + 1 === 0) end_app = "12am";
+          else
+            end_app =
+              start + i + 1 > 12
+                ? ((start + i + 1) % 12) + "pm"
+                : start + i + 1 + "am";
         }
 
         let moment = start_app + " - " + end_app;
@@ -277,13 +283,20 @@ const SpecialistPage = () => {
       </div>
 
       <div className="flex flex-1 flex-col m-3" style={{ height: "auto" }}>
-        <h1 id="specialistName" className="my-4 md:mt-6 md:mb-5 self-center text-center text-3xl font-semibold sm:text-5xl md:text-6xl uppercase">
+        <h1
+          id="specialistName"
+          className="my-4 md:mt-6 md:mb-5 self-center text-center text-3xl font-semibold sm:text-5xl md:text-6xl uppercase"
+        >
           {company.name}
         </h1>
         <div className="md:text-center sm:text-lg">
           <div id="companyPhoto" className="flex justify-center shrink-0 pb-5">
             <img
-              src={ company.photo === "" || company.photo === undefined ? "/f/company.png" : company.photo}
+              src={
+                company.photo === "" || company.photo === undefined
+                  ? "/f/company.png"
+                  : company.photo
+              }
               alt={company.name + " company logo"}
               className="max-w-full h-auto rounded-full"
               resizemode="cover"
@@ -536,7 +549,7 @@ const SpecialistPage = () => {
                     </h1>
                   </div>
                   {/*body*/}
-                  <div className="relative p-6 flex-auto">
+                  <form className="relative p-6 flex-auto">
                     {user?.vip && company.online !== undefined ? (
                       <Checkbox
                         className="mb-2"
@@ -554,7 +567,9 @@ const SpecialistPage = () => {
 
                     {!isOnline && (
                       <div className="mb-2">
-                        <span className="font-semibold" for="place">Place:</span>
+                        <span className="font-semibold" for="place">
+                          Place:
+                        </span>
                         <Select
                           id="place"
                           options={rcities}
@@ -564,7 +579,9 @@ const SpecialistPage = () => {
                     )}
 
                     {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
-                    <div className="font-semibold" for="date">Date</div>
+                    <div className="font-semibold" for="date">
+                      Date
+                    </div>
                     <div id="date">
                       <DatePicker
                         id="slotDay"
@@ -606,7 +623,7 @@ const SpecialistPage = () => {
                         €{company.cost_per_hour}
                       </span>
                     </div>
-                  </div>
+                  </form>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                     <button
@@ -624,14 +641,13 @@ const SpecialistPage = () => {
                             )
                           );
                           setShowModal(false);
-                        } else {
+                        } else
                           toast({
                             title: "You must book your appointment!",
-                            status: "warnign",
+                            status: "warning",
                             duration: 3000,
                             variant: "subtle",
                           });
-                        }
                       }}
                     >
                       Confirm

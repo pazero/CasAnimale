@@ -65,7 +65,7 @@
       };
 
       const sendUpdatePt = async (index) => {
-        console.log(pts[index]);
+        // console.log(pts[index]);
         var ret = await fetch("http://localhost:5000/api/prenotation/update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -84,8 +84,7 @@
         });
         let tmp = await ret.json();
         companies.push(tmp[0]);
-        fillDaysChange(index);
-        setWorkingCities(index);
+        return tmp[0];
       };
 
       const getPts = async (id) => {
@@ -144,10 +143,10 @@
         }
         return time;
       };
-      const fillDaysChange = (index) => {
+      const fillDaysChange = (index, cmp) => {
         let list = [];
-        if (companies[index]?.online !== undefined)
-          if (companies[index]?.online === true) {
+        if (cmp?.online !== undefined)
+          if (cmp?.online === true) {
             $("#possiblePlaces" + index).append(
               `
             <option value="online` +
@@ -156,62 +155,62 @@
             `
             );
           }
-        if (!list.includes(companies[index]?.cities.monday)) {
-          list.push(companies[index]?.cities.monday);
+        if (!list.includes(cmp?.cities.monday)) {
+          list.push(cmp?.cities.monday);
           $("#possiblePlaces" + index).append(
             `
           <option value="` +
-              companies[index]?.cities.monday +
+              cmp?.cities.monday +
               `">` +
-              companies[index]?.cities.monday +
+              cmp?.cities.monday +
               `</option>
           `
           );
         }
-        if (!list.includes(companies[index]?.cities.tuesday)) {
-          list.push(companies[index]?.cities.tuesday);
+        if (!list.includes(cmp?.cities.tuesday)) {
+          list.push(cmp?.cities.tuesday);
           $("#possiblePlaces" + index).append(
             `
           <option value="` +
-              companies[index]?.cities.tuesday +
+              cmp?.cities.tuesday +
               `">` +
-              companies[index]?.cities.tuesday +
+              cmp?.cities.tuesday +
               `</option>
           `
           );
         }
-        if (!list.includes(companies[index]?.cities.wednesday)) {
-          list.push(companies[index]?.cities.wednesday);
+        if (!list.includes(cmp?.cities.wednesday)) {
+          list.push(cmp?.cities.wednesday);
           $("#possiblePlaces" + index).append(
             `
           <option value="` +
-              companies[index]?.cities.wednesday +
+              cmp?.cities.wednesday +
               `">` +
-              companies[index]?.cities.wednesday +
+              cmp?.cities.wednesday +
               `</option>
           `
           );
         }
-        if (!list.includes(companies[index]?.cities.thursday)) {
-          list.push(companies[index]?.cities.thursday);
+        if (!list.includes(cmp?.cities.thursday)) {
+          list.push(cmp?.cities.thursday);
           $("#possiblePlaces" + index).append(
             `
           <option value="` +
-              companies[index]?.cities.thursday +
+              cmp?.cities.thursday +
               `">` +
-              companies[index]?.cities.thursday +
+              cmp?.cities.thursday +
               `</option>
           `
           );
         }
-        if (!list.includes(companies[index]?.cities.friday)) {
-          list.push(companies[index]?.cities.friday);
+        if (!list.includes(cmp?.cities.friday)) {
+          list.push(cmp?.cities.friday);
           $("#possiblePlaces" + index).append(
             `
           <option value="` +
-              companies[index]?.cities.friday +
+              cmp?.cities.friday +
               `">` +
-              companies[index]?.cities.friday +
+              cmp?.cities.friday +
               `</option>
           `
           );
@@ -309,24 +308,24 @@
           totPrenotations = 0;
         });
       };
-      const setWorkingCities = (index) => {
+      const setWorkingCities = (index, item) => {
         $("#workingCities" + index).append(
           `
         <div class="flex flex-col text-base ml-3">
           <div><span class="font-bold">Monday: </span>` +
-            companies[index]?.cities.monday +
+            item?.cities?.monday +
             `</div>
           <div><span class="font-bold">Tuesday: </span>` +
-            companies[index]?.cities.tuesday +
+            item?.cities?.tuesday +
             `</div>
           <div><span class="font-bold">Wednesday: </span>` +
-            companies[index]?.cities.wednesday +
+            item?.cities?.wednesday +
             `</div>
           <div><span class="font-bold">Thursday: </span>` +
-            companies[index]?.cities.thursday +
+            item?.cities?.thursday +
             `</div>
           <div><span class="font-bold">Friday: </span>` +
-            companies[index]?.cities.friday +
+            item?.cities?.friday +
             `</div>
           </div>
         `
@@ -396,7 +395,7 @@
           today +
           `" max="` +
           endPrenotation +
-          `">                   
+          `">
                   <span class=tohidden` +
           index +
           `>` +
@@ -507,9 +506,9 @@
       };
       const loadList = () => {
         let tmp = "";
-        $(document).ready(function () {
+        $(document).ready(() => {
           if (pts !== undefined) {
-            pts.map((item, index) => {
+            pts.map(async (item, index) => {
               tmp += makeItemPrenotation(
                 index,
                 item._id,
@@ -520,7 +519,10 @@
                 item.claimed
               );
               totPrenotations = index + 1;
-              getCompany(item.company, index);
+              var cmp = await getCompany(item.company, index);
+
+              fillDaysChange(index, cmp);
+              setWorkingCities(index, cmp);
             });
           }
           $("#ptsList").html(tmp);
