@@ -5,6 +5,7 @@ import {
   Container,
   Button,
   useToast,
+  Heading
 } from "@chakra-ui/react";
 
 const NotificationItem = ({ user, notifications }) => {
@@ -71,32 +72,32 @@ const NotificationItem = ({ user, notifications }) => {
   }, [notifications]);
 
   return (
-    <Container maxW="100%">
-      <div className="flex flex-col">
+    <Container maxW="100%" height={'full'}>
+      <Heading as="h1" className="my-3 md:my-5 md:ml-6">Your notifications</Heading>
+      <div className="flex flex-col justify-center md:ml-6">
         {not.length > 0
-          ? not?.map((i) => {
+          ? not?.map((alert, i) => {
               return (
-                <div className="flex flex-col mt-2">
-                  <span>{i.content}</span>
-                  <span>{i.timestamp}</span>
-                  <span>{i.from.name}</span>
-                  {!i.read && <span>Not read</span>}
-                  <span className="flex flex-1">
-                    <Button className="m-auto" onClick={() => setRead(i._id)}>
-                      {i.read ? "Set to unread" : "Set to read"}
+                <div className="flex flex-col md:flex-row self-start rounded-xl p-2 bg-gray-50 text-md" key={i}>
+                  <div className="flex flex-col mt-2">
+                    <span>{alert.content}</span>
+                    <span>Prenotation modified by <span className="font-semibold">{alert.from?.name === undefined ? "admin" : alert.from?.name}</span> on <span className="font-semibold">{alert.timestamp.substring(0, 10)}, {alert.timestamp.substring(11, 16)}</span></span>
+                    {!i.read && <span className="text-red-600 font-semibold">Not read</span>}
+                  </div>
+                  <div className="flex flex-row mt-2 md:mt-0 md:flex-col ml-6">
+                    <Button backgroundColor={'gray.300'} className="m-auto mb-2 rounded-lg font-semibold" onClick={() => setRead(alert._id)}>
+                      {i.read ? "mark as unread" : "mark as read"}
                     </Button>
-                    <Button
-                      colorScheme={"red"}
-                      className="m-auto"
-                      onClick={() => delNot(i._id)}
-                    >
+                    <Button backgroundColor={'red.200'} className="m-auto rounded-lg font-semibold" onClick={() => delNot(alert._id)}>
                       Delete
                     </Button>
-                  </span>
+                  </div>
                 </div>
               );
             })
-          : "No notifications"}
+          : (<div className="flex justify-center h-full">
+              <img src="/f/noNotification.jpg" alt="no notification yet image" className="self-center"/>
+            </div>)}
       </div>
     </Container>
   );
