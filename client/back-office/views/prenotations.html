@@ -17,6 +17,7 @@
       let pts = [];
       let totPrenotations = 0;
       var user;
+      var companies = [];
 
       $(document).ready(async () => {
         user = await isUserLogged();
@@ -25,6 +26,51 @@
         if (user.admin) getPts("");
         else getPts(user.id);
       });
+      const getDateString = (s) => {
+        var d = new Date(s);
+        return (
+          d.getFullYear().toString() +
+          "-" +
+          ((d.getMonth() + 1).toString().length === 2
+            ? (d.getMonth() + 1).toString()
+            : "0" + (d.getMonth() + 1).toString()) +
+          "-" +
+          (d.getDate().toString().length === 2
+            ? d.getDate().toString()
+            : "0" + d.getDate().toString())
+        );
+      };
+      let today = getDateString(new Date())
+      let endPrenotation = getDateString((new Date()).setFullYear((new Date()).getFullYear() + 1))
+      
+      //TODO ancora non c'è la struttura data per la prenoatazione da aggiornare
+      //creare savePrenotation() che aggiorna list, in modo da accedere tramite index
+      //controllare come si passa orario
+      const sendUpdatePt = async (index) => {
+        let url = "http://localhost:5000/api/prenotation/update/"+ pts[index]._id;
+        var ret = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data[0]),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+
+      const getCompany = async (id, index) => {
+        var ret;
+        ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
+          method: "GET",
+          credentials: "include",
+        });
+        let tmp = await ret.json()
+        companies.push(tmp[0]);
+        fillDaysChange(index);
+        setWorkingCities(index)
+
+      };
 
       const getPts = async (id) => {
         var ret;
@@ -56,32 +102,65 @@
 
       const filterStartEndTime = (time, end) => {
         let hours = +time.substring(11, 13) + 1 + +end;
-        if( hours === 0) return "12am"
-        if( hours === 12) return "12pm"
+        if (hours === 0) return "12am";
+        if (hours === 12) return "12pm";
         time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
         return time;
       };
 
       const formatTime = (time) => {
         let hours = +time.substring(11, 13) + 1;
-        if( hours === 0) time += "12am"
+        if (hours === 0) time += "12am";
         else {
-          if( hours === 12) time += "12pm"
+          if (hours === 12) time += "12pm";
           else {
             time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
           }
         }
         time += " - ";
-        if( (hours+1) === 0) time += "12am"
+        if (hours + 1 === 0) time += "12am";
         else {
-          if( (hours+1) === 12) time += "12pm"
+          if (hours + 1 === 12) time += "12pm";
           else {
-            time += hours + 1 > 12 ? ((hours + 1) % 12) + "pm" : hours + 1 + "am";
+            time +=
+              hours + 1 > 12 ? ((hours + 1) % 12) + "pm" : hours + 1 + "am";
           }
         }
         return time;
       };
-
+      const fillDaysChange = (index) => {
+        let list = []
+        if(!list.includes(companies[index].cities.monday)){
+          list.push(companies[index].cities.monday)
+          $("#possibleCities" + index).append(`
+          <option value="` + companies[index].cities.monday +`">` + companies[index].cities.monday + `</option>
+          `)
+        }
+        if(!list.includes(companies[index].cities.tuesday)){
+          list.push(companies[index].cities.tuesday)
+          $("#possibleCities" + index).append(`
+          <option value="` + companies[index].cities.tuesday +`">` + companies[index].cities.tuesday + `</option>
+          `)
+        }
+        if(!list.includes(companies[index].cities.wednesday)){
+          list.push(companies[index].cities.wednesday)
+          $("#possibleCities" + index).append(`
+          <option value="` + companies[index].cities.wednesday +`">` + companies[index].cities.wednesday + `</option>
+          `)
+        }
+        if(!list.includes(companies[index].cities.thursday)){
+          list.push(companies[index].cities.thursday)
+          $("#possibleCities" + index).append(`
+          <option value="` + companies[index].cities.thursday +`">` + companies[index].cities.thursday + `</option>
+          `)
+        }
+        if(!list.includes(companies[index].cities.friday)){
+          list.push(companies[index].cities.friday)
+          $("#possibleCities" + index).append(`
+          <option value="` + companies[index].cities.friday +`">` + companies[index].cities.friday + `</option>
+          `)
+        }
+      };
       const filterList = () => {
         let reqPrenotation = $("#filterPrenotationId").val();
         let reqCompany = $("#filterCompanyId").val();
@@ -157,12 +236,23 @@
           $("#totPrenotations").html("TOTAL RESULTS: " + totPrenotations);
           totPrenotations = 0;
         });
-      };
+      }
+      const setWorkingCities = (index) => {
+        $("#workingCities" + index).append(`
+        <div class="flex flex-col text-base ml-3">
+          <div><span class="font-bold">Monday: </span>` + companies[index].cities.monday + `</div>
+          <div><span class="font-bold">Tuesday: </span>` + companies[index].cities.tuesday + `</div>
+          <div><span class="font-bold">Wednesday: </span>` + companies[index].cities.wednesday + `</div>
+          <div><span class="font-bold">Thursday: </span>` + companies[index].cities.thursday + `</div>
+          <div><span class="font-bold">Friday: </span>` + companies[index].cities.friday + `</div>
+          </div>
+        `)
+      } 
 
       const makeItemPrenotation = (index, id, place, start, user, company) => {
         return (
           `
-          <div class="flex flex-row my-3">
+          <div class="flex flex-row my-3 text-xl">
             <span class="mr-1">` +
           (index + 1) +
           `.
@@ -175,28 +265,33 @@
           `
             <i class="fa fa-copy"></i></button>
                 </div>
+                <div id="workingCities` + index+ `" class="hidden toshow` + index + `"><span class="font-bold">Working cities:</span>
+                </div>
                 <div><span class="font-semibold">City: </span>` +
           place +
           `
+          <select
+              id="possibleCities` + index+ `"
+              name="possibleCities` + index+ `"
+              type="text"
+              class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary ml-2 my-2 mb-1 bg-transparent"
+            >
+                <option value="">--change--</option>
+            </select>
                 </div>
-                <div><span class="font-semibold">Date: </span><span class=tohidden` +
+                <div>
+                  <label class="font-semibold" for="newDate">Date:</label>
+
+                  <input type="date" id="newDate" class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary my-1 ml-2 bg-transparent" name="trip-start" value="` + start.substring(0, 10) + `" min="` + today +`" max="` + endPrenotation + `">                   
+                  <span class=tohidden` +
           index +
           `>` +
           start.substring(0, 10) +
-          `     </span><input
-                type="text"
-                name="newDate"
-                id="newTimes` +
-          index +
-          `"
-                value="` +
-          start.substring(0, 10) +
-          `"
-                placeholder="Type new date"
-                class="toshow` +
-          index +
-          ` hidden change px-1 rounded shadow-sm"
-              />
+          `     </span>
             </div>
                 <div class="tohidden` +
           index +
@@ -216,24 +311,13 @@
           filterStartEndTime(start, 0) +
           `"
                 placeholder="Type new start time"
-                class="change px-1 rounded shadow-sm"
+                class="change px-1 rounded shadow-sm border-primary my-1 ml-2 bg-transparent"
               />
           </div>
           <div class="toshow` +
           index +
-          ` hidden"><span class="font-semibold">End at: </span>
-            <input
-                type="text"
-                name="newEnd"
-                id="newEnd` +
-          index +
-          `"
-                value="` +
-          filterStartEndTime(start, 1) +
-          `"
-                placeholder="Type new end time"
-                class="change px-1 rounded shadow-sm"
-              />
+          ` hidden"><span class="font-semibold">Duration: </span>
+            <span>1 hour</span>
           </div>
                 <div><span class="font-semibold">Company id: </span>
                   <button class="btn" onclick="copy(this)">` +
@@ -254,16 +338,16 @@
           index +
           `').addClass('hidden'); $('.toshow` +
           index +
-          `').removeClass('hidden')}">
+          `').removeClass('hidden');}">
                 Update
               </button>
               <button class="toshow` +
-              index +
-              ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center" onclick="{$('.tohidden` +
-              index +
-              `').removeClass('hidden'); $('.toshow` +
-              index +
-              `').addClass('hidden')}">
+          index +
+          ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center" onclick="{$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden')}">
               SAVE
               </button>
               <button class="toshow` +
@@ -301,16 +385,17 @@
                 item.company
               );
               totPrenotations = index + 1;
+              getCompany(item.company, index)
             });
+            //console.log(companies)
           }
           $("#ptsList").html(tmp);
           $("#totPrenotations").html("TOTAL RESULTS: " + totPrenotations);
           totPrenotations = 0;
         });
         $(document).ready(function () {
-        if(user.admin)
-          $(".adminOnly").removeClass("hidden");
-      })
+          if (user.admin) $(".adminOnly").removeClass("hidden");
+        });
       };
 
       const copy = (that) => {
@@ -327,8 +412,7 @@
         $("#showBtn").addClass("hidden");
         $("#hideBtn").removeClass("hidden");
         $("#resetBtn").removeClass("hidden");
-        if(user.admin)
-          $(".adminOnly").removeClass("hidden");
+        if (user.admin) $(".adminOnly").removeClass("hidden");
       };
 
       const hideFilters = () => {
@@ -347,7 +431,6 @@
         filterList();
       };
 
-      // getPts();
     </script>
   </head>
   <body>
