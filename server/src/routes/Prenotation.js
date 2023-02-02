@@ -198,6 +198,7 @@ router.post("/update", async (req, res) => {
       }
     );
     res.json(updatedPrenotation);
+    //res.json({message: "Update done!"});
   } catch (e) {
     res.json({ message: e });
   }
