@@ -49,23 +49,27 @@
         if ($("#possiblePlaces" + index).val() != "") {
           pts[index].place = $("#possiblePlaces" + index).val();
         }
-        if ($("#newDate" + index).val() !== "" && $("#newStart" + index).val() !== "") {
-          pts[index].start = new Date($("#newDate" + index).val() + " " +chooseTime($("#newStart" + index).val()));
-          //console.log(pts[index])
+        if (
+          $("#newDate" + index).val() !== "" &&
+          $("#newStart" + index).val() !== ""
+        ) {
+          pts[index].start = new Date(
+            $("#newDate" + index).val() +
+              " " +
+              chooseTime($("#newStart" + index).val())
+          );
+          pts[index].start = pts[index].start.toISOString();
         }
-        sendUpdatePt(index)
+        pts[index].claimed = $("#newIsClaimed" + index).is(":checked");
+        sendUpdatePt(index);
       };
-      //TODO ancora non c'è la struttura data per la prenoatazione da aggiornare
-      //creare savePrenotation() che aggiorna list, in modo da accedere tramite index
-      //controllare come si passa orario
+
       const sendUpdatePt = async (index) => {
-        let url =
-          "http://localhost:5000/api/prenotation/update/";
-        var ret = await fetch(url, {
+        console.log(pts[index]);
+        var ret = await fetch("http://localhost:5000/api/prenotation/update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(pts[index]),
-          credentials: "include",
         });
         ret = await ret.json();
         alert(ret.message);
@@ -288,7 +292,8 @@
                   item.place,
                   item.start,
                   item.user,
-                  item.company
+                  item.company,
+                  item.claimed
                 );
                 index++;
                 totPrenotations = index;
@@ -328,7 +333,15 @@
         );
       };
 
-      const makeItemPrenotation = (index, id, place, start, user, company) => {
+      const makeItemPrenotation = (
+        index,
+        id,
+        place,
+        start,
+        user,
+        company,
+        isClaimed
+      ) => {
         return (
           `
           <div class="flex flex-row my-3 text-xl">
@@ -418,6 +431,26 @@
           ` hidden"><span class="font-semibold">Duration: </span>
             <span>1 hour</span>
           </div>
+          <div class="tohidden` +
+          index +
+          `"><span class="font-semibold">Is claimed </span>` +
+          isClaimed +
+          `</div>
+          <div class="toshow` +
+          index +
+          ` hidden"><span class="font-semibold">Is claimed: </span>
+            <input
+                type="checkbox"
+                name="newIsClaimed"
+                id="newIsClaimed` +
+          index +
+          `"
+                class="change px-1 rounded shadow-sm"
+                  ` +
+          (isClaimed ? "checked" : "") +
+          `
+              >
+          </div>
                 <div><span class="font-semibold">Company id: </span>
                   <button class="btn" onclick="copy(this)">` +
           company +
@@ -467,7 +500,7 @@
           `')">
                 Delete
               </button>
-            
+
             </div>
           </div>`
         );
@@ -483,7 +516,8 @@
                 item.place,
                 item.start,
                 item.user,
-                item.company
+                item.company,
+                item.claimed
               );
               totPrenotations = index + 1;
               getCompany(item.company, index);
