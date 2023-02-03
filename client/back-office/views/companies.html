@@ -414,17 +414,20 @@
           if($("#createExp"+i).val() !== "")
             newCompany.professional_experience.push($("#createExp"+i).val())
         }
+        console.log(newCompany)
 
-        if(newCompany.password === "" || newCompany.email === "" || newCompany.name === "" || newCompany.type === "" || newCompany.cost_per_hour === "" || newCompany.owner === "" || newCompany.cities.monday === "" || newCompany.cities.tuesday === "" || newCompany.cities.wednesday === "" || newCompany.cities.thursday === "" || newCompany.cities.friday === "" || newCompany.business_hours.start === "" || newCompany.business_hours.start === "") 
-          alert("Missing data!")
-        else {
-          sendCreateCp(newCompany);
-        }
-        //console.log(newCompany)
+        //if(newCompany.password === "" || newCompany.email === "" || newCompany.name === "" || newCompany.type === "" || newCompany.cost_per_hour === "" || newCompany.owner === "" || newCompany.cities.monday === "" || newCompany.cities.tuesday === "" || newCompany.cities.wednesday === "" || newCompany.cities.thursday === "" || newCompany.cities.friday === "" || newCompany.business_hours.start === "" || newCompany.business_hours.start === "") 
+        //  alert("Missing data!")
+        //else {
+        //  sendCreateCp(newCompany);
+        //}
+        console.log(newCompany)
       }
       
       const updateData = (index) => {
         toEditData[index].description = $("#newDescription" + index).val();
+        if($("#newPhoto" + index).val() !== undefined)
+          toEditData[index].photo = $("#newPhoto" + index).val();
         if ($("#newName" + index).val() !== "")
           toEditData[index].name = $("#newName" + index).val();
         if ($("#newEmail" + index).val() !== "")
@@ -990,9 +993,9 @@
                   <div>
                     <span class="font-semibold">Photo URL: </span><span class="tohidden` +
           index +
-          `"><button class="btn" onclick="copy(this)">` +
-          photo +
-          `<i class="fa fa-copy"></i></button></span>
+          `">` +
+          (photo !== 'undefined' ? `<button class="btn" onclick="copy(this)">` + photo + `<i class="fa fa-copy"></i></button>` : '-') +
+          `</span>
                     <input
                       type="text"
                       name="newPhoto` +
@@ -1002,7 +1005,7 @@
           index +
           `"
                       value="` +
-          photo +
+                      (photo !== 'undefined' ? photo : '') +
           `"
                       placeholder="Type new photo URL"
                       class="toshow` +
@@ -1104,7 +1107,7 @@
               </div>
             </div>`
         );
-      }; /*photo: c.photo,*/
+      };
 
       const fillNewCompany = () => {
         $("#tabToNewCompany").append(`
