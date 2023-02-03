@@ -40,8 +40,14 @@
             class="box-content h-64 w-64 p-1 border-4"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Color_icon_green.svg/800px-Color_icon_green.svg.png"
             @click="reveal(data)"
+            @keydown="
+              (e) => {
+                if (e.key === 'Enter') reveal(data);
+              }
+            "
             alt="face-down card"
-            aria-roledescription="flipping card"
+            aria-roledescription="flipping
+          card"
           />
           <img
             tabindex="0"
