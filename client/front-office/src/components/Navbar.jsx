@@ -77,17 +77,30 @@ const Navbar = () => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          >
+          <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <a href={Const.GAMEURL}>Game Area</a>
             </li>
-            <li tabIndex={0}>
+            <li>
               <div
+                tabIndex={0}
                 className="justify-between"
                 aria-label="community dropdown menu"
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    var tmp = document.getElementById("communitysmall");
+                    if (
+                      tmp.style.display === "" ||
+                      tmp.style.display === "none"
+                    ) {
+                      tmp.style.display = "block";
+                      tmp.setAttribute("aria-expanded", true);
+                    } else {
+                      tmp.style.display = "none";
+                      tmp.setAttribute("aria-expanded", false);
+                    }
+                  }
+                }}
               >
                 Community
                 <svg
@@ -101,8 +114,8 @@ const Navbar = () => {
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
               </div>
-              <ul className="p-2 border bg-base-100 z-10">
-                <li tabIndex={0}>
+              <ul id="communitysmall" className="p-2 border bg-base-100 z-10">
+                <li>
                   <button
                     onClick={() => {
                       navigate("/forum");
@@ -111,7 +124,7 @@ const Navbar = () => {
                     EccoloQua!
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       navigate("/findpartner");
@@ -120,7 +133,7 @@ const Navbar = () => {
                     FindPartner
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       user === null
@@ -161,7 +174,7 @@ const Navbar = () => {
                     </svg>
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       navigate("/boards");
@@ -172,8 +185,27 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
-            <li tabIndex={0} aria-label="Services dropdown menu">
-              <div className="justify-between">
+            <li aria-label="Services dropdown menu">
+              <div
+                tabIndex={0}
+                className="justify-between"
+                aria-label="Press enter to view community "
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    var tmp = document.getElementById("servicesmall");
+                    if (
+                      tmp.style.display === "" ||
+                      tmp.style.display === "none"
+                    ) {
+                      tmp.style.display = "block";
+                      tmp.setAttribute("aria-expanded", true);
+                    } else {
+                      tmp.style.display = "none";
+                      tmp.setAttribute("aria-expanded", false);
+                    }
+                  }
+                }}
+              >
                 Services
                 <svg
                   className="fill-current"
@@ -186,8 +218,8 @@ const Navbar = () => {
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
               </div>
-              <ul className="p-2 border bg-base-100 z-10">
-                <li tabIndex={0}>
+              <ul id="servicesmall" className="p-2 border bg-base-100 z-10">
+                <li>
                   <button
                     onClick={() => {
                       navigate("/compra");
@@ -196,7 +228,7 @@ const Navbar = () => {
                     eCommerce
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       user === null
@@ -236,7 +268,7 @@ const Navbar = () => {
                     </svg>
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       navigate("/petsitter");
@@ -245,7 +277,7 @@ const Navbar = () => {
                     Pet Sitter
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       user === null
@@ -285,7 +317,7 @@ const Navbar = () => {
                     </svg>
                   </button>
                 </li>
-                <li tabIndex={0}>
+                <li>
                   <button
                     onClick={() => {
                       navigate("/grooming");
@@ -296,7 +328,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
-            <li tabIndex={0}>
+            <li>
               <button
                 onClick={() => {
                   window.location.href = Const.BOURL;
@@ -311,7 +343,6 @@ const Navbar = () => {
           href={Const.FOURL}
           className="btn btn-ghost normal-case text-xl"
           aria-label="CasAnimale home button"
-          tabIndex={0}
         >
           CasAnimale
         </a>
@@ -321,10 +352,27 @@ const Navbar = () => {
           <li>
             <a href={Const.GAMEURL}>Game Area</a>
           </li>
-          <li tabIndex={0}>
-            <div
+          <li className="has-submenu">
+            <a
+              aria-expanded="false"
+              tabIndex={0}
               className="justify-between"
               aria-label="community dropdown menu"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  var tmp = document.getElementById("communitylarge");
+                  if (
+                    tmp.style.display === "" ||
+                    tmp.style.display === "none"
+                  ) {
+                    tmp.style.display = "block";
+                    tmp.setAttribute("aria-expanded", true);
+                  } else {
+                    tmp.style.display = "none";
+                    tmp.setAttribute("aria-expanded", false);
+                  }
+                }
+              }}
             >
               Community
               <svg
@@ -333,13 +381,16 @@ const Navbar = () => {
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                aria-label=""
               >
                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
               </svg>
-            </div>
-            <ul className="p-2 border bg-base-100 z-10">
-              <li tabIndex={0}>
+            </a>
+            <ul
+              id="communitylarge"
+              aria-expanded="false"
+              className="p-2 border bg-base-100 z-10"
+            >
+              <li>
                 <button
                   onClick={() => {
                     navigate("/forum");
@@ -348,7 +399,7 @@ const Navbar = () => {
                   EccoloQua!
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     navigate("/findpartner");
@@ -357,7 +408,7 @@ const Navbar = () => {
                   FindPartner
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     user === null
@@ -395,7 +446,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     navigate("/boards");
@@ -406,10 +457,26 @@ const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li tabIndex={0}>
-            <div
+          <li>
+            <button
+              tabIndex={0}
               className="justify-between"
               aria-label="Services dropdown menu"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  var tmp = document.getElementById("servicelarge");
+                  if (
+                    tmp.style.display === "" ||
+                    tmp.style.display === "none"
+                  ) {
+                    tmp.style.display = "block";
+                    tmp.setAttribute("aria-expanded", true);
+                  } else {
+                    tmp.style.display = "none";
+                    tmp.setAttribute("aria-expanded", false);
+                  }
+                }
+              }}
             >
               Services
               <svg
@@ -421,9 +488,9 @@ const Navbar = () => {
               >
                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
               </svg>
-            </div>
-            <ul className="p-2 border bg-base-100 z-10">
-              <li tabIndex={0}>
+            </button>
+            <ul id="servicelarge" className="p-2 border bg-base-100 z-10">
+              <li>
                 <button
                   onClick={() => {
                     navigate("/compra");
@@ -432,7 +499,7 @@ const Navbar = () => {
                   eCommerce
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     user === null
@@ -471,7 +538,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     navigate("/petsitter");
@@ -480,7 +547,7 @@ const Navbar = () => {
                   Pet Sitter
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     user === null
@@ -519,7 +586,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </li>
-              <li tabIndex={0}>
+              <li>
                 <button
                   onClick={() => {
                     navigate("/grooming");
@@ -530,7 +597,7 @@ const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li tabIndex={0}>
+          <li>
             <button
               onClick={() => {
                 window.location.href = Const.BOURL;
@@ -544,7 +611,7 @@ const Navbar = () => {
       {token ? (
         <div className="navbar-end">
           <div className="hidden sm:flex">
-            <label
+            <button
               tabIndex={0}
               className="btn font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900 mr-2"
               onClick={() => {
@@ -552,7 +619,7 @@ const Navbar = () => {
               }}
             >
               <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
-            </label>
+            </button>
 
             <button
               className="btn font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900 mr-2"
@@ -568,7 +635,7 @@ const Navbar = () => {
             </button>
           </div>
           <div className="sm:hidden">
-            <label
+            <button
               tabIndex={0}
               className="btn border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900"
               onClick={() => {
@@ -576,7 +643,7 @@ const Navbar = () => {
               }}
             >
               <TbShoppingCart className="block h-6 w-6" alt="cart icon" />
-            </label>
+            </button>
             <div className="dropdown ml-2">
               <label
                 tabIndex={0}
@@ -584,10 +651,7 @@ const Navbar = () => {
               >
                 <TbUserCircle className="block h-6 w-6" alt="user icon" />
               </label>
-              <ul
-                tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 shadow bg-gray-100 p-0 rounded-box w-full"
-              >
+              <ul className="menu menu-compact dropdown-content mt-3 shadow bg-gray-100 p-0 rounded-box w-full">
                 <li>
                   <button
                     onClick={() => {
@@ -616,7 +680,6 @@ const Navbar = () => {
             </label>
             <ul
               id="dropdown"
-              tabIndex={0}
               className="menu menu-compact dropdown-content mt-3 shadow bg-gray-100 focus:indigo-200 p-0 rounded-box w-full"
             >
               <li>

@@ -42,37 +42,37 @@ export default function CaptionCarousel() {
   const cards = [
     {
       title: "Veterinary service",
-      text: "Look at our associated vets, choose the one you prefere and book an appointment! Are you a freelancer vet or an agencie? Contanct us if you want to collaborate!",
+      text: "Look at our associated vets, choose the one you prefer and book an appointment! Are you a freelancer vet or an agencie? Contact us if you want to collaborate!",
       image: "/f/carousel/vet.jpg",
     },
     {
       title: "Psychologist service",
-      text: "Your pet looks sad and needs a shoulder to cry on? We have a pool of psychologists from witch you can choose. Book an appointment! Are you a freelancer pet psychologist or an agencie? Contanct us if you want to collaborate!",
+      text: "Your pet looks sad and needs a shoulder to cry on? We have a pool of psychologists from witch you can choose. Book an appointment! Are you a freelancer pet psychologist or an agencie? Contact us if you want to collaborate!",
       image: "/f/carousel/psychologist.jpg",
     },
     {
       title: "Pet sitting service",
-      text: "You have to go on vacation with your soulmate, or alone, and you don't know where to leave your pet? Book an appointment with one of our pet sitter! Are you a freelancer pet sitter or an agencie? Contanct us if you want to collaborate!",
+      text: "You have to go on vacation with your soulmate, or alone, and you don't know where to leave your pet? Book an appointment with one of our pet sitter! Are you a freelancer pet sitter or an agencie? Contact us if you want to collaborate!",
       image: "/f/carousel/petsitting.jpeg",
     },
     {
       title: "Pet equipment shop",
-      text: "Need a new blanket for your cangaroo? We have it! Check our e-commerce, there you can find everithing you may need!",
+      text: "Need a new blanket for your kangaroo? We have it! Check out the e-commerce, there you can find everything you may need!",
       image: "/f/carousel/pet_toys.jpg",
     },
     {
       title: "Grooming service",
-      text: "Your bunny is a little stinky? That's not good! Bring it to one of our goomers, but remember to book an appointment first! Are you a freelancer groomer or an agencie? Contanct us if you want to collaborate!",
+      text: "Your bunny is a little stinky? That's not good! Bring it to one of our goomers, but remember to book an appointment first! Are you a freelancer groomer or an agencie? Contact us if you want to collaborate!",
       image: "/f/carousel/grooming.jpg",
     },
     {
       title: "It's time to play!",
-      text: "Play some fun games in our game area. There you will find some cute animal based game, some funny animals videos and even some usefull informations! Don't play too much, remember to go for a walk.",
+      text: "Play some fun games in our game area. There you will find some cute animal based game, some funny animals videos and even some useful information! Don't play too much, remember to go for a walk.",
       image: "/f/carousel/game.jpeg",
     },
     {
       title: "Chat platforms",
-      text: "Post your opinions, fun facts, curiosities and everithing you want about you and your animals on our chat platforms: EccoloQua!, FindPartner and HelpMe! (only for VIP users)",
+      text: "Post your opinions, fun facts, curiosities and everything you want about you and your animals on our chat platforms: EccoloQua!, FindPartner and HelpMe! (only for VIP users)",
       image: "/f/carousel/chat.jpg",
     },
   ];
