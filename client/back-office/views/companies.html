@@ -374,7 +374,7 @@
       const createCp = () => {
         let newCompany = {
           name: $("#createName").val(),
-          photo: $("#createPhoto").val(),
+          photo: ($("#createPhoto").val() !== "" ? $("#createPhoto").val() : "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg?w=2000"),
           type: $("#createProfession").val(),
           description: $("#createDescription").val(),
           cost_per_hour: $("#createCost").val(),
@@ -987,6 +987,30 @@
                     />
                     €/h
                   </div>
+                  <div>
+                    <span class="font-semibold">Photo URL: </span><span class="tohidden` +
+          index +
+          `"><button class="btn" onclick="copy(this)">` +
+          photo +
+          `<i class="fa fa-copy"></i></button></span>
+                    <input
+                      type="text"
+                      name="newPhoto` +
+          index +
+          `"
+                      id="newPhoto` +
+          index +
+          `"
+                      value="` +
+          photo +
+          `"
+                      placeholder="Type new photo URL"
+                      class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                    />
+                  </div>
+
                 </div>
                 <button id="showLess` +
           index +
