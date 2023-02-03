@@ -22,7 +22,7 @@ const NewPost = ({ type }) => {
         duration: 3000,
         variant: "subtle",
       });
-      window.location = window.location;
+      window.location.reload();
     } else {
       toast({
         title: "Ops something went wrong!",

@@ -196,7 +196,11 @@ const Thread = () => {
                   <Image
                     borderRadius="full"
                     boxSize={{ base: "35px", sm: "45px", md: "80px" }}
-                    src={op.photo === "" || op.photo === undefined ? "/f/userIcon.svg" : op.photo}
+                    src={
+                      op.photo === "" || op.photo === undefined
+                        ? "/f/userIcon.svg"
+                        : op.photo
+                    }
                     alt={op.email + " propic"}
                   />
                 </Box>
@@ -213,7 +217,9 @@ const Thread = () => {
                     </span>
                   </Box>
                   <Heading fontSize={{ base: "xl", sm: "3xl" }} marginTop={"2"}>
-                    <h1 className="sm:text-center font-semibold">{post?.title}</h1>
+                    <h1 className="sm:text-center font-semibold">
+                      {post?.title}
+                    </h1>
                   </Heading>
 
                   {post?.photo !== "" ? (
@@ -303,7 +309,11 @@ const Thread = () => {
                                     ? "/f/userIcon.svg"
                                     : item?.user?.photo
                                 }
-                                alt={item?.user?.email != undefined ? item?.user?.email + " propic" : item?.user?.name + " propic"} 
+                                alt={
+                                  item?.user?.email !== undefined
+                                    ? item?.user?.email + " propic"
+                                    : item?.user?.name + " propic"
+                                }
                               />
                             </Box>
                             <Text
@@ -339,7 +349,7 @@ const Thread = () => {
                                       size={"sm"}
                                       justify="center"
                                       value="delete"
-                                    aria-label="delete"
+                                      aria-label="delete"
                                     >
                                       <span className="hidden">delete</span>
                                       <svg

@@ -122,7 +122,7 @@ const NotificationItem = ({ user, notifications }) => {
           <div className="flex justify-center h-full">
             <img
               src="/f/noNotification.jpg"
-              alt="no notification yet image"
+              alt="no notification yet"
               className="self-center"
             />
           </div>
