@@ -85,7 +85,7 @@ const Navbar = () => {
               <div
                 tabIndex={0}
                 className="justify-between"
-                aria-label="community dropdown menu"
+                aria-label="Press enter to view community"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
                     var tmp = document.getElementById("communitysmall");
@@ -189,7 +189,7 @@ const Navbar = () => {
               <div
                 tabIndex={0}
                 className="justify-between"
-                aria-label="Press enter to view community "
+                aria-label="Press enter to view servicies"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
                     var tmp = document.getElementById("servicesmall");
@@ -357,7 +357,7 @@ const Navbar = () => {
               aria-expanded="false"
               tabIndex={0}
               className="justify-between"
-              aria-label="community dropdown menu"
+                aria-label="Press enter to view community"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   var tmp = document.getElementById("communitylarge");
@@ -461,8 +461,8 @@ const Navbar = () => {
             <button
               tabIndex={0}
               className="justify-between"
-              aria-label="Services dropdown menu"
-              onKeyUp={(e) => {
+                aria-label="Press enter to view servicies"
+                onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   var tmp = document.getElementById("servicelarge");
                   if (
