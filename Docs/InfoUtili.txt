@@ -36,7 +36,7 @@ TO DO:
 TO DO:
 - MainComponents
 	[x] Header
-	[/] Carosello (inserire utleriori schede: vip, giochi, bacheche...)
+	[x] Carosello
 	[x] Footer
 - Pagine
 	- GAME
