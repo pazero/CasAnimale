@@ -67,6 +67,7 @@ const Navbar = () => {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              aria-label="hamburger icon"
             >
               <path
                 strokeLinecap="round"
@@ -95,12 +96,13 @@ const Navbar = () => {
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
+                  aria-label=""
                 >
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
               </div>
               <ul className="p-2 border bg-base-100 z-10">
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       navigate("/forum");
@@ -109,7 +111,7 @@ const Navbar = () => {
                     EccoloQua!
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       navigate("/findpartner");
@@ -118,7 +120,7 @@ const Navbar = () => {
                     FindPartner
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       user === null
@@ -149,6 +151,7 @@ const Navbar = () => {
                       width="24"
                       height="24"
                       alt="VIP icon"
+                      aria-label="vip icon"
                     >
                       <path fill="none" d="M0 0h24v24H0z" />
                       <path
@@ -158,7 +161,7 @@ const Navbar = () => {
                     </svg>
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       navigate("/boards");
@@ -178,12 +181,13 @@ const Navbar = () => {
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
+                  aria-label=""
                 >
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
               </div>
               <ul className="p-2 border bg-base-100 z-10">
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       navigate("/compra");
@@ -192,7 +196,7 @@ const Navbar = () => {
                     eCommerce
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       user === null
@@ -222,6 +226,7 @@ const Navbar = () => {
                       viewBox="0 0 24 24"
                       width="24"
                       height="24"
+                      aria-label="vip icon"
                     >
                       <path fill="none" d="M0 0h24v24H0z" />
                       <path
@@ -231,7 +236,7 @@ const Navbar = () => {
                     </svg>
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       navigate("/petsitter");
@@ -240,7 +245,7 @@ const Navbar = () => {
                     Pet Sitter
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       user === null
@@ -270,6 +275,7 @@ const Navbar = () => {
                       viewBox="0 0 24 24"
                       width="24"
                       height="24"
+                      aria-label="vip icon"
                     >
                       <path fill="none" d="M0 0h24v24H0z" />
                       <path
@@ -279,7 +285,7 @@ const Navbar = () => {
                     </svg>
                   </button>
                 </li>
-                <li>
+                <li tabIndex={0}>
                   <button
                     onClick={() => {
                       navigate("/grooming");
@@ -290,7 +296,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li tabIndex={0}>
               <button
                 onClick={() => {
                   window.location.href = Const.BOURL;
@@ -305,6 +311,7 @@ const Navbar = () => {
           href={Const.FOURL}
           className="btn btn-ghost normal-case text-xl"
           aria-label="CasAnimale home button"
+          tabIndex={0}
         >
           CasAnimale
         </a>
@@ -326,12 +333,13 @@ const Navbar = () => {
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
+                aria-label=""
               >
                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
               </svg>
             </div>
             <ul className="p-2 border bg-base-100 z-10">
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     navigate("/forum");
@@ -340,7 +348,7 @@ const Navbar = () => {
                   EccoloQua!
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     navigate("/findpartner");
@@ -349,7 +357,7 @@ const Navbar = () => {
                   FindPartner
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     user === null
@@ -387,7 +395,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     navigate("/boards");
@@ -415,7 +423,7 @@ const Navbar = () => {
               </svg>
             </div>
             <ul className="p-2 border bg-base-100 z-10">
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     navigate("/compra");
@@ -424,7 +432,7 @@ const Navbar = () => {
                   eCommerce
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     user === null
@@ -453,6 +461,7 @@ const Navbar = () => {
                     viewBox="0 0 24 24"
                     width="24"
                     height="24"
+                    aria-label="vip icon"
                   >
                     <path fill="none" d="M0 0h24v24H0z" />
                     <path
@@ -462,7 +471,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     navigate("/petsitter");
@@ -471,7 +480,7 @@ const Navbar = () => {
                   Pet Sitter
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     user === null
@@ -500,6 +509,7 @@ const Navbar = () => {
                     viewBox="0 0 24 24"
                     width="24"
                     height="24"
+                    aria-label=""
                   >
                     <path fill="none" d="M0 0h24v24H0z" />
                     <path
@@ -509,7 +519,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </li>
-              <li>
+              <li tabIndex={0}>
                 <button
                   onClick={() => {
                     navigate("/grooming");
@@ -520,7 +530,7 @@ const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li>
+          <li tabIndex={0}>
             <button
               onClick={() => {
                 window.location.href = Const.BOURL;

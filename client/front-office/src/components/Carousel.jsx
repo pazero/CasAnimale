@@ -98,7 +98,7 @@ export default function CaptionCarousel() {
       />
       {/* Left Icon */}
       <IconButton
-        aria-label="left-arrow"
+        aria-label="Slide card to left"
         variant="ghost"
         position="absolute"
         left={side}
@@ -111,7 +111,7 @@ export default function CaptionCarousel() {
       </IconButton>
       {/* Right Icon */}
       <IconButton
-        aria-label="right-arrow"
+        aria-label="Slide card to right"
         variant="ghost"
         position="absolute"
         right={side}
