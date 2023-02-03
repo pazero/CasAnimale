@@ -17,7 +17,7 @@
       $(document).ready(async () => {
         var user = await isUserLogged();
         if (!user.admin)
-          window.location.href = "http://localhost:5000/b/views/home.html";
+          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/home.html";
         $("#sidebar").load("../tabs/sidebar.html");
         $("#ecommerceInfo").load("../tabs/ecommerce-info.html");
       });

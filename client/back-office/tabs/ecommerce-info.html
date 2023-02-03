@@ -5,7 +5,7 @@
     let totProducts = 0;
 
     const getProducts = async () => {
-      var ret = await fetch("http://localhost:5000/api/product", {
+      var ret = await fetch("http://site212247.tw.cs.unibo.it/api/product", {
         method: "GET",
         credentials: "include",
       });
@@ -14,7 +14,7 @@
     };
 
     const deletePr = async (id) => {
-      var ret = await fetch("http://localhost:5000/api/product/" + id, {
+      var ret = await fetch("http://site212247.tw.cs.unibo.it/api/product/" + id, {
         method: "DELETE",
         credentials: "include",
       });

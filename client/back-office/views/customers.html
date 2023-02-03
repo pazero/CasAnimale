@@ -24,11 +24,11 @@
 		const setUser = async () => {
 			user = await isUserLogged()
 			if(user === undefined)
-			window.location.href = "http://localhost:5000/b/views/login.html"
+			window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html"
 		}
 		const sendData = async (index) => {
 			console.log(toEditData[index])
-			var ret = await fetch("http://localhost:5000/api/user/update/", {
+			var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user/update/", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(toEditData[index]),
@@ -57,7 +57,7 @@
 			sendData(index);
 		}
 		const getCusts = async () => {
-			var ret = await fetch("http://localhost:5000/api/user", {
+			var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user", {
 				method: "GET",
 				credentials: "include",
 			});
@@ -66,7 +66,7 @@
 			await loadList();
 		};
 		const deleteCstmr = async (id) => {
-			var ret = await fetch("http://localhost:5000/api/user/" + id, {
+			var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user/" + id, {
 				method: "DELETE",
 				credentials: "include",
 			});

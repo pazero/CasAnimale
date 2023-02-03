@@ -66,7 +66,7 @@
 
       const sendUpdatePt = async (index) => {
         // console.log(pts[index]);
-        var ret = await fetch("http://localhost:5000/api/prenotation/update", {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation/update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(pts[index]),
@@ -78,7 +78,7 @@
 
       const getCompany = async (id, index) => {
         var ret;
-        ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
+        ret = await fetch("http://site212247.tw.cs.unibo.it/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
@@ -90,12 +90,12 @@
       const getPts = async (id) => {
         var ret;
         id === ""
-          ? (ret = await fetch("http://localhost:5000/api/prenotation", {
+          ? (ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation", {
               method: "GET",
               credentials: "include",
             }))
           : (ret = await fetch(
-              "http://localhost:5000/api/prenotation?company=" + id,
+              "http://site212247.tw.cs.unibo.it/api/prenotation?company=" + id,
               {
                 method: "GET",
                 credentials: "include",
@@ -106,7 +106,7 @@
       };
 
       const deletePt = async (id) => {
-        var ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation/" + id, {
           method: "DELETE",
           credentials: "include",
         });
