@@ -32,7 +32,7 @@ const App = () => {
         duration: 3000,
         variant: "subtle",
       });
-      window.location.href = "http://site212247.tw.cs.unibo.it:5000/b/views/home.html";
+      window.location.href = "http://site212247.tw.cs.unibo.it/b/views/home.html";
     }
   }, []);
 
