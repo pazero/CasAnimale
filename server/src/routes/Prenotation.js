@@ -2,6 +2,7 @@ const express = require("express");
 const Prenotation = require("../models/Prenotation");
 const Company = require("../models/Company");
 const jwt = require("../services/jwtUtils");
+const User = require("../models/User");
 const router = express.Router();
 
 function addHours(numOfHours, str) {
@@ -176,7 +177,32 @@ router.delete("/:id", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
-      const msg = await Prenotation.deleteOne({ _id: req.params.id });
+      const oldPr = await Prenotation.findById(req.params.id);
+      const usr = await User.findById(oldPr.user);
+
+      var msg =
+        "The prenotation on " +
+        oldPr.start.toISOString().substring(0, 10) +
+        " in " +
+        oldPr.place +
+        " has been deleted!";
+
+      usr.notification.push({
+        content: msg,
+        timestamp: new Date(),
+        from: req.admin || req.userid,
+        read: false,
+      });
+
+      var newNotification = usr.notification;
+      
+      await Prenotation.deleteOne({ _id: req.params.id });
+      await User.findOneAndUpdate(
+        { _id: oldPr.user },
+        {
+          notification: newNotification,
+        }
+      );
       res.json({ message: "Prenotation eliminated" });
     }
   } catch (e) {
@@ -187,19 +213,50 @@ router.delete("/:id", async (req, res) => {
 /* Update prenotation's infos */
 router.post("/update", async (req, res) => {
   try {
-    const updatedPrenotation = await Post.findOneAndUpdate(
-      { _id: req.body.prenotation_id },
-      {
-        company: req.body.company,
-        place: req.body.place,
-        start: req.body.start,
-        duration: req.body.duration,
-        user: req.body.user,
-      }
-    );
-    res.json(updatedPrenotation);
+    jwt.authenticateToken(req, res, cont);
+
+    async function cont() {
+      const oldPr = await Prenotation.findById(req.body._id);
+      const usr = await User.findById(oldPr.user);
+
+      var msg =
+        "The prenotation on " +
+        oldPr.start.toISOString().substring(0, 10) +
+        " in " +
+        oldPr.place +
+        " has been modified. Check your prenotations!";
+
+      usr.notification.push({
+        content: msg,
+        timestamp: new Date(),
+        from: req.admin || req.userid,
+        read: false,
+      });
+
+      var newNotification = usr.notification;
+
+      await Prenotation.findOneAndUpdate(
+        { _id: req.body._id },
+        {
+          company: req.body.company,
+          place: req.body.place,
+          start: req.body.start,
+          claimed: req.body.claimed,
+          duration: req.body.duration,
+          user: req.body.user,
+        }
+      );
+
+      await User.findOneAndUpdate(
+        { _id: oldPr.user },
+        {
+          notification: newNotification,
+        }
+      );
+      res.json({ message: "Update done!" });
+    }
   } catch (e) {
-    res.json({ message: e });
+    console.log(e);
   }
 });
 

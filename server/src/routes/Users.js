@@ -160,6 +160,7 @@ router.put("/new", async (req, res) => {
     petOwned: req.body.petOwned,
     cart: [],
     vip: false,
+    notification: [],
   });
   await user.save();
   res.json({ message: "Registrazione effettuata con successo!" });
@@ -214,6 +215,7 @@ router.post("/update", async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             favanimal: req.body.favanimal,
+            notification: req.body.notification,
           }
         );
       }

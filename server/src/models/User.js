@@ -12,6 +12,12 @@ const userSchema = new Schema({
   favanimal: String,
   cart: [{ id: String, quantity: Number }], // product's id and quantity
   vip: Boolean,
+  notification: [{
+      content: String,
+      timestamp: Date,
+      read: Boolean,
+      from: String,
+    }],
 });
 
 module.exports = mongoose.model("User", userSchema);

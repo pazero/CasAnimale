@@ -17,6 +17,7 @@ import Thread from "./views/Thread";
 import CompanyList from "./views/CompanyList";
 import Cookies from "js-cookie";
 import SpecialistPage from "./components/SpecialistPage";
+import NotificationItem from "./views/Notifications";
 import { useToast } from "@chakra-ui/react";
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
             path="/profile/prenotations"
             element={<ProfilePrenotations />}
           />
+          <Route path="/profile/notifications" element={<NotificationItem />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/helpme" element={<HelpMe />} />
           <Route path="/findpartner" element={<FindPartner />} />
