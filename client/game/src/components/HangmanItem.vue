@@ -203,6 +203,7 @@
           >Name</label
         >
         <input
+          aria-label="Player name"
           @change="(event) => (playerName = event.target.value)"
           type="text"
           id="name"

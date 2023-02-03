@@ -35,16 +35,22 @@
       >
         <div v-for="data in animal_img">
           <img
+            tabindex="0"
             v-show="!data.revealed"
             class="box-content h-64 w-64 p-1 border-4"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Color_icon_green.svg/800px-Color_icon_green.svg.png"
             @click="reveal(data)"
+            alt="face-down card"
+            aria-roledescription="flipping card"
           />
           <img
+            tabindex="0"
             v-show="data.revealed"
             v-bind:id="'img' + data.id"
             class="box-content h-64 w-64 p-1 border-4"
             v-bind:src="data.img"
+            :alt="`animal ` + data.id"
+            aria-roledescription="flipped card"
           />
         </div>
       </div>
@@ -190,22 +196,19 @@ export default {
     },
 
     async sendData() {
-      const msg = await fetch(
-        Const.BEURL+"/api/leaderboard/memory/add",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify({
-            name: this.playerName,
-            points: this.totalPoints,
-            token: this.token,
-          }),
-        }
-      );
+      const msg = await fetch(Const.BEURL + "/api/leaderboard/memory/add", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          name: this.playerName,
+          points: this.totalPoints,
+          token: this.token,
+        }),
+      });
     },
 
     reset() {
