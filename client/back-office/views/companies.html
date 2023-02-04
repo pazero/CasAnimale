@@ -16,6 +16,7 @@
     <script>
       let toEditData = [];
       let toUpdateLen = [];
+      let toCreateLen = {study_info: 0, main_pets: 0, professional_experience: 0, actual_jobs: 0} 
       let companies = [];
       let totCompanies = 0;
       var user;
@@ -48,6 +49,7 @@
         companies = await ret.json();
         toEditData = companies;
         await loadCompanyList();
+        if (user.admin) $(".adminOnly").removeClass("hidden");
       };
 
       const sendData = async (index) => {
@@ -64,7 +66,18 @@
         alert(ret.message);
         window.location.reload();
       };
-
+      const sendCreateCp = async (data) => {
+        var ret = await fetch("http://localhost:5000/api/company/new/", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        console.log(ret)
+        alert(ret.message);
+        window.location.reload();
+      }
       const deleteCp = async (id) => {
         var ret = await fetch("http://localhost:5000/api/company/" + id, {
           method: "DELETE",
@@ -246,8 +259,8 @@
         else return "";
       };
       const formatBusiness = (hours) => {
-        if( hours === 0) return "12am"
-        if( hours === 12) return "12pm"
+        if (hours === 0) return "12am";
+        if (hours === 12) return "12pm";
         return hours > 12 ? (hours % 12) + "pm" : hours + "am";
       };
       const listArray = (array, index, type) => {
@@ -280,8 +293,44 @@
         }
         return "-";
       };
-
-      const addField = (type, index, aux) => {
+      const createField = (space, type, aux) => {
+        let count = -1;
+        if(aux === "professional_experience") {
+          count = ++toCreateLen.professional_experience;
+        }
+        if(aux === "main_pets") {
+          count = ++toCreateLen.main_pets;
+        }
+        if(aux === "study_info") {
+          count = ++toCreateLen.study_info;
+        }
+        if(aux === "actual_jobs") {
+          count = ++toCreateLen.actual_jobs;
+        }
+        if(count != -1){
+          $("#" + space + type).append(`
+            <div>
+              <input
+                type="text"
+                placeholder="Type new field"
+                name="` +
+                space +
+                type +
+                count +
+                `"
+                id="` +
+                space +
+                type +
+                count +
+                `"
+                class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
+              />
+            </div>
+            `
+          )
+        }
+      }
+      const addField = (space, type, index, aux) => {
         let count = -1;
         if (aux === "expLen") {
           toUpdateLen[index].expLen++;
@@ -300,35 +349,87 @@
           count = toUpdateLen[index].jobLen - 1;
         }
         if (count != -1) {
-          $("#add" + type + index).append(
-            `
-          <div>
-            <input
-              type="text"
-              placeholder="Type new field"
-              name="new` +
-              type +
-              index +
-              count +
-              `"
-              id="new` +
-              type +
-              index +
-              count +
-              `"
-              class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
-            />
+          $("#" + space + type + index).append(`
+            <div>
+              <input
+                type="text"
+                placeholder="Type new field"
+                name="new` +
+                type +
+                index +
+                count +
+                `"
+                id="new` +
+                type +
+                index +
+                count +
+                `"
+                class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
+              />
             </div>
             `
           );
         }
       };
 
+      const createCp = () => {
+        let newCompany = {
+          name: $("#createName").val(),
+          photo: ($("#createPhoto").val() !== "" ? $("#createPhoto").val() : "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg?w=2000"),
+          type: $("#createProfession").val(),
+          description: $("#createDescription").val(),
+          cost_per_hour: $("#createCost").val(),
+          owner: $("#createOwner").val(),
+          cities: {
+            monday: $("#createMonday").val(),
+            tuesday: $("#createTuesday").val(),
+            wednesday: $("#createWednesday").val(),
+            thursday: $("#createThursday").val(),
+            friday: $("#createFriday").val(),
+          },
+          business_hours: {
+            start: $("#createOpening").val(),
+            end: $("#createClosing").val()
+          },
+          email: $("#createEmail").val(),
+          password: $("#createPassword").val(),
+          main_pets: [],
+          study_info: [],
+          professional_experience: [],
+          actual_jobs: [],
+          online: ($("#createOnline").val() === 'true' ? true : false),
+        }
+        for(let i = 0; i <= toCreateLen.main_pets; i++){
+          if($("#createPet"+i).val() !== "")
+            newCompany.main_pets.push($("#createPet"+i).val())
+        }
+        for(let i = 0; i <= toCreateLen.study_info; i++){
+          if($("#createStudy"+i).val() !== "")
+            newCompany.study_info.push($("#createStudy"+i).val())
+        }
+        for(let i = 0; i <= toCreateLen.actual_jobs; i++){
+          if($("#createJob"+i).val() !== "")
+            newCompany.actual_jobs.push($("#createJob"+i).val())
+        }
+        for(let i = 0; i <= toCreateLen.professional_experience; i++){
+          if($("#createExp"+i).val() !== "")
+            newCompany.professional_experience.push($("#createExp"+i).val())
+        }
+        console.log(newCompany)
+
+        if(newCompany.password === "" || newCompany.email === "" || newCompany.name === "" || newCompany.type === "" || newCompany.cost_per_hour === "" || newCompany.owner === "" || newCompany.cities.monday === "" || newCompany.cities.tuesday === "" || newCompany.cities.wednesday === "" || newCompany.cities.thursday === "" || newCompany.cities.friday === "" || newCompany.business_hours.start === "" || newCompany.business_hours.start === "") 
+         alert("Missing data!")
+        else {
+         sendCreateCp(newCompany);
+        }
+      }
+      
       const updateData = (index) => {
         toEditData[index].description = $("#newDescription" + index).val();
+        if($("#newPhoto" + index).val() !== undefined)
+          toEditData[index].photo = $("#newPhoto" + index).val();
         if ($("#newName" + index).val() !== "")
           toEditData[index].name = $("#newName" + index).val();
-        else {console.log("FALSE")}
         if ($("#newEmail" + index).val() !== "")
           toEditData[index].email = $("#newEmail" + index).val();
         if ($("#newPassword" + index).val() !== "")
@@ -630,7 +731,7 @@
                       <div id="addExp` +
           index +
           `"></div>
-                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Exp',` +
+                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('add','Exp',` +
           index +
           `,'expLen')">+</button>
                     </div>
@@ -650,7 +751,7 @@
                       <div id="addJob` +
           index +
           `"></div>
-                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Job',` +
+                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('add','Job',` +
           index +
           `,'jobLen')">+</button>
                     </div>
@@ -670,7 +771,7 @@
                       <div id="addStudy` +
           index +
           `"></div>
-                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Study',` +
+                      <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('add','Study',` +
           index +
           `,'studyLen')">+</button>
                     </div>
@@ -694,7 +795,7 @@
                     <div id="addPet` +
           index +
           `"></div>
-                    <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('Pet',` +
+                    <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="addField('add','Pet',` +
           index +
           `,'petLen')">+</button>
                   </div>
@@ -798,7 +899,7 @@
                   <div>
                     <span class="font-semibold align-top">Description: </span><span class="tohidden` +
           index +
-          `"">` +
+          `">` +
           description +
           `</span>
                   </div>
@@ -889,6 +990,30 @@
                     />
                     €/h
                   </div>
+                  <div>
+                    <span class="font-semibold">Photo URL: </span><span class="tohidden` +
+          index +
+          `">` +
+          (photo !== 'undefined' ? `<button class="btn" onclick="copy(this)">` + photo + `<i class="fa fa-copy"></i></button>` : '-') +
+          `</span>
+                    <input
+                      type="text"
+                      name="newPhoto` +
+          index +
+          `"
+                      id="newPhoto` +
+          index +
+          `"
+                      value="` +
+                      (photo !== 'undefined' ? photo : '') +
+          `"
+                      placeholder="Type new photo URL"
+                      class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+                    />
+                  </div>
+
                 </div>
                 <button id="showLess` +
           index +
@@ -982,8 +1107,316 @@
               </div>
             </div>`
         );
-      }; /*photo: c.photo,*/
+      };
+
+      const fillNewCompany = () => {
+        $("#tabToNewCompany").append(`
+        <div class="flex flex-row justify-center">
+          <div class="flex flex-col mr-8 ml-3">
+            <div class="my-1">
+              <label for="createOnline" class="font-semibold">Online: </label>
+              <select
+              id="createOnline"
+              name="createOnline"
+              type="text"
+              class="px-1 rounded shadow-sm border-primary bg-transparent"
+              >
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+              </select>
+            </div>
+            <div class="my-1">
+              <label for="createPhoto" class="font-semibold">Company photo: </label>
+              <input
+                type = "text"
+                id = "createPhoto"
+                name = "createPhoto"
+                placeholder = "Type new photo URL"
+                class=" px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              />
+            </div>
+            <div class="my-1">
+              <label for="createName" class="font-semibold">*Company name: </label>
+              <input
+                type = "text"
+                id = "createName"
+                name = "createName"
+                placeholder = "Type new company name"
+                class=" px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              />
+            </div>
+            <div class="my-1">
+              <label for="createPassword" class="font-semibold">*Company password: </label>
+              <input
+                type = "text"
+                id = "createPassword"
+                name = "createPassword"
+                placeholder = "Type new company password"
+                class=" px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              />
+            </div>
+            <div class="my-1">
+              <label for="createEmail" class="font-semibold">*Company email: </label>
+              <input
+                type = "text"
+                id = "createEmail"
+                name = "createEmail"
+                placeholder = "Type new company email"
+                class=" px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              />
+            </div>
+            <div class="my-1">
+              <label for="createOwner" class="font-semibold">*Company owner: </label>
+              <input
+                type = "text"
+                id = "createOwner"
+                name = "createOwner"
+                placeholder = "Type new company owner"
+                class=" px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              />
+            </div>
+            <div class="my-1">
+              <label for="createProfession" class="font-semibold">*Profession: </label>
+              <select
+              id="createProfession"
+              name="createProfession"
+              type="text"
+              class="px-1 rounded shadow-sm border-primary bg-transparent"
+              >
+              <option value="" class="text-[#939798]">
+                --Choose an option--
+              </option>
+              <option value="psy">Psychologist</option>
+              <option value="petsitter">Pet Sitter</option>
+              <option value="vet">Veterinary</option>
+              <option value="groomer">Groomer</option>
+              </select>
+            </div>
+            <div class="my-1">
+              <label class="font-semibold align-top">Description: </span><span class="tohidden"></label>
+            </div>
+            <div class="flex my-1">
+              <textarea
+                type="text"
+                name="createDescription"
+                id="createDescription"
+                placeholder="Type new description"
+                class="flex flex-1 px-1 rounded shadow-sm ml-8 border-primary mb-1 bg-transparent"
+              ></textarea>
+            </div>
+            <div class="my-1">
+              <label for="createCost" class="font-semibold">*Company cost per hour: </label>
+              <input
+                type = "text"
+                id = "createCost"
+                name = "createCost"
+                placeholder = "Type new company cost"
+                class=" px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              /> €/h
+            </div>
+            <div class="my-1">
+              <label for="createOpening" class="font-semibold">*Company opening time: </label>
+              <select
+                id="createOpening"
+                name="createOpening"
+                type="text"
+                class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              >
+                <option value="">--choose--</option>
+                <option value="0">12am</option>
+                <option value="1">1am</option>
+                <option value="2">2am</option>
+                <option value="3">3am</option>
+                <option value="4">4am</option>
+                <option value="5">5am</option>
+                <option value="6">6am</option>
+                <option value="7">7am</option>
+                <option value="8">8am</option>
+                <option value="9">9am</option>
+                <option value="10">10am</option>
+                <option value="11">11am</option>
+                <option value="12">12pm</option>
+                <option value="13">1pm</option>
+                <option value="14">2pm</option>
+                <option value="15">3pm</option>
+                <option value="16">4pm</option>
+                <option value="17">5pm</option>
+                <option value="18">6pm</option>
+                <option value="19">7pm</option>
+                <option value="20">8pm</option>
+                <option value="21">9pm</option>
+                <option value="22">10am</option>
+                <option value="23">11am</option>
+              </select>
+            </div>
+            <div class="my-1">
+              <label for="createClosing" class="font-semibold">*Company closing time: </label>
+              <select
+                id="createClosing"
+                name="createClosing"
+                type="text"
+                class="px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+              >
+                <option value="">--choose--</option>
+                <option value="0">12am</option>
+                <option value="1">1am</option>
+                <option value="2">2am</option>
+                <option value="3">3am</option>
+                <option value="4">4am</option>
+                <option value="5">5am</option>
+                <option value="6">6am</option>
+                <option value="7">7am</option>
+                <option value="8">8am</option>
+                <option value="9">9am</option>
+                <option value="10">10am</option>
+                <option value="11">11am</option>
+                <option value="12">12pm</option>
+                <option value="13">1pm</option>
+                <option value="14">2pm</option>
+                <option value="15">3pm</option>
+                <option value="16">4pm</option>
+                <option value="17">5pm</option>
+                <option value="18">6pm</option>
+                <option value="19">7pm</option>
+                <option value="20">8pm</option>
+                <option value="21">9pm</option>
+                <option value="22">10am</option>
+                <option value="23">11am</option>
+              </select>
+            </div>
+            <div class="my-1">
+              <div>
+                <span class="font-semibold mr-1">Main pets of interest: </span>
+              </div>
+              <div class="ml-7 my-1">
+                <input
+                  type="text"
+                  name="createPet0"
+                  id="createPet0"
+                  placeholder="Type new field"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+                <div id="createPet"></div>
+                <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="createField('create','Pet','main_pets')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col ml-8 mr-3">
+            <div class="my-1">
+              <label for="createMonday" class="font-semibold">*Monday: </label>
+              <input
+                type="text"
+                name="createMonday"
+                id="createMonday"
+                placeholder="Type new city for monday"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              />  
+            </div>
+            <div class="my-1">
+              <label for="createTuesday" class="font-semibold">*Tuesday: </label>
+              <input
+                type="text"
+                name="createTuesday"
+                id="createTuesday"
+                placeholder="Type new city for tuesday"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              />  
+            </div>
+            <div class="my-1">
+              <label for="createWednesday" class="font-semibold">*Wednesday: </label>
+              <input
+                type="text"
+                name="createWednesday"
+                id="createWednesday"
+                placeholder="Type new city for wednesday"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              />  
+            </div>
+            <div class="my-1">
+              <label for="createThursday" class="font-semibold">*Thursday: </label>
+              <input
+                type="text"
+                name="createThursday"
+                id="createThursday"
+                placeholder="Type new city for thursday"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              />
+            </div>
+            <div class="my-1">
+              <label for="createFriday" class="font-semibold">*Friday: </label>
+              <input
+                type="text"
+                name="createFriday"
+                id="createFriday"
+                placeholder="Type new city for friday"
+                class="change px-1 rounded shadow-sm border-primary bg-transparent"
+              />  
+            </div>
+            <div class="my-1">
+              <div>
+                <span class="font-semibold mr-1">Professional experience: </span>
+              </div>
+              <div class="ml-7 my-1">
+                <input
+                  type="text"
+                  name="createExp0"
+                  id="createExp0"
+                  placeholder="Type new field"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+                <div id="createExp"></div>
+                <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="createField('create','Exp','professional_experience')">+</button>
+              </div>
+            </div>
+            <div class="my-1">
+              <div>
+                <span class="font-semibold mr-1">Actual jobs: </span>
+              </div>
+              <div class="ml-7 my-1">
+                <input
+                  type="text"
+                  name="createJob0"
+                  id="createJob0"
+                  placeholder="Type new field"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+                <div id="createJob"></div>
+                <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="createField('create','Job','actual_jobs')">+</button>
+              </div>
+            </div>
+            <div class="my-1">
+              <div>
+                <span class="font-semibold mr-1">Study information: </span>
+              </div>
+              <div class="ml-7 my-1">
+                <input
+                  type="text"
+                  name="createStudy0"
+                  id="createStudy0"
+                  placeholder="Type new field"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+                <div id="createStudy"></div>
+                <button class="btn px-1 rounded font-bold bg-primary text-white mt-1" onclick="createField('create','Study','study_info')">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        `);
+      };
+      const showNewCompany = () => {
+        $(".tocreate").removeClass("hidden");
+        $("#showNew").addClass("hidden");
+        $("#hideNew").removeClass("hidden");
+      };
+
+      const hideNewCompany = () => {
+        $(".tocreate").addClass("hidden");
+        $("#showNew").removeClass("hidden");
+        $("#hideNew").addClass("hidden");
+      };
       const loadCompanyList = () => {
+        fillNewCompany();
         let tmp = "";
         $(document).ready(function () {
           if (companies !== undefined) {
@@ -1058,12 +1491,10 @@
         $("#filterOnline").val("");
         filterCompanyList();
       };
-
-      // getCompanies();
     </script>
   </head>
   <body>
-    <div class="flex flex-col md:flex-row flex-1 h-full">
+    <div class="flex flex-col text-xl md:flex-row flex-1 h-full">
       <div
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
@@ -1077,6 +1508,31 @@
             Click on something followed by
             <i class="fa fa-copy"></i> to copy it!
           </div>
+          <button
+            id="showNew"
+            class="hidden adminOnly btn bg-danger mt-4 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+            onclick="showNewCompany()"
+          >
+            CREATE NEW COMPANY
+          </button>
+          <div id="hideNew" class="hidden flex flex-row self-center my-4">
+            <button
+              class="btn bg-save border-save border-2 p-1 px-4 mx-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+              onclick="createCp()"
+            >
+              CREATE
+            </button>
+            <button
+              class="btn border-primary primary border-2 primary p-1 px-4 mx-2 hover:opacity-80 font-bold rounded-lg self-center"
+              onclick="hideNewCompany()"
+            >
+              CANCEL
+            </button>
+          </div>
+          <div
+            id="tabToNewCompany"
+            class="tocreate hidden p-3 border-danger border-2 mb-4 rounded-lg flex self-center"
+          ></div>
           <div class="flex flex-row mt-2">
             <button
               id="showBtn"
@@ -1324,7 +1780,8 @@
             <div
               id="totCompanies"
               class="flex flex-col flex primary font-semibold my-2"
-            ></div>
+            >
+            </div>            
             <div id="companyList" class="flex flex-col flex-1"></div>
           </div>
         </div>
