@@ -29,9 +29,8 @@ TO DO:
 - GENERALI
 	[/] Convertire gli alert con dei toast
 	[/] Controllare accessibilità, stile e responsive di tutto
-	[x] Portare il progetto su gocker (creato docker)
+	[x] Portare il progetto su gocker
 	[/] far funzionare tutto senza errori
-	[ ] Documentazione API con swagger
 
 TO DO:
 - MainComponents
@@ -68,6 +67,7 @@ TO DO:
 		[x] Bacheca "cerco partner"			|
 		[x] Leadboard
 		[ ] Gestione degli animali nei servizi
+		[ ] Notifiche di vendita
 		[x] Filtro dei servizi per luogo
 		[x] Recensioni (facoltativo)		| migliorare stile
 		[x] Veterinario
@@ -82,36 +82,29 @@ TO DO:
 		[x] Login
 		[x] Home page
 		[/] Gestione info clienti (anagrafica clienti)	[ CUSTOMERS ]
-			[ ] Form crea nuovo
 			[x] Update
 			[x] Delete
 			[x] Filtri
 			[/] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
 		[/] Gestione delle bacheche [ FORUM ]
-			[ ] Form crea nuovo
-			[ ] Update
+			[ ] Eliminare commento
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende non accedono a questa sezione
 		[/] Gestione dei prodotti [ E-COMMERCE ]
-			[ ] Form crea nuovo
-			[ ] Update
 			[x] Delete
 			[/] Filtri
 			[x] Le aziende non accedono a questa sezione
-		[/] Gestione delle prenotazioni [ PRENOTATIONS ]
-			[ ] Form crea nuovo
+		[x] Gestione delle prenotazioni [ PRENOTATIONS ]
 			[x] Update
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende vedono solo le loro prenotazioni 
-		[/] Gestione delle ricevute [ BILLING ]
-			[ ] Form crea nuovo
-			[ ] Update
+		[x] Gestione delle ricevute [ BILLING ]
 			[x] Delete
 			[x] Filtri
 			[x] Differenziare
-		[/] Gestione servizi presenza e online [ COMPANIES ]
+		[x] Gestione servizi presenza e online [ COMPANIES ]
 			[x] Form crea nuovo
 			[x] Update
 			[x] Delete
