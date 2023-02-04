@@ -16,7 +16,12 @@
     <script>
       let toEditData = [];
       let toUpdateLen = [];
-      let toCreateLen = {study_info: 0, main_pets: 0, professional_experience: 0, actual_jobs: 0} 
+      let toCreateLen = {
+        study_info: 0,
+        main_pets: 0,
+        professional_experience: 0,
+        actual_jobs: 0,
+      };
       let companies = [];
       let totCompanies = 0;
       var user;
@@ -74,10 +79,9 @@
           credentials: "include",
         });
         ret = await ret.json();
-        console.log(ret)
         alert(ret.message);
         window.location.reload();
-      }
+      };
       const deleteCp = async (id) => {
         var ret = await fetch("http://localhost:5000/api/company/" + id, {
           method: "DELETE",
@@ -295,41 +299,42 @@
       };
       const createField = (space, type, aux) => {
         let count = -1;
-        if(aux === "professional_experience") {
+        if (aux === "professional_experience") {
           count = ++toCreateLen.professional_experience;
         }
-        if(aux === "main_pets") {
+        if (aux === "main_pets") {
           count = ++toCreateLen.main_pets;
         }
-        if(aux === "study_info") {
+        if (aux === "study_info") {
           count = ++toCreateLen.study_info;
         }
-        if(aux === "actual_jobs") {
+        if (aux === "actual_jobs") {
           count = ++toCreateLen.actual_jobs;
         }
-        if(count != -1){
-          $("#" + space + type).append(`
+        if (count != -1) {
+          $("#" + space + type).append(
+            `
             <div>
               <input
                 type="text"
                 placeholder="Type new field"
                 name="` +
-                space +
-                type +
-                count +
-                `"
+              space +
+              type +
+              count +
+              `"
                 id="` +
-                space +
-                type +
-                count +
-                `"
+              space +
+              type +
+              count +
+              `"
                 class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
               />
             </div>
             `
-          )
+          );
         }
-      }
+      };
       const addField = (space, type, index, aux) => {
         let count = -1;
         if (aux === "expLen") {
@@ -349,21 +354,22 @@
           count = toUpdateLen[index].jobLen - 1;
         }
         if (count != -1) {
-          $("#" + space + type + index).append(`
+          $("#" + space + type + index).append(
+            `
             <div>
               <input
                 type="text"
                 placeholder="Type new field"
                 name="new` +
-                type +
-                index +
-                count +
-                `"
+              type +
+              index +
+              count +
+              `"
                 id="new` +
-                type +
-                index +
-                count +
-                `"
+              type +
+              index +
+              count +
+              `"
                 class="change px-1 rounded shadow-sm border-primary mt-1 bg-transparent"
               />
             </div>
@@ -375,7 +381,10 @@
       const createCp = () => {
         let newCompany = {
           name: $("#createName").val(),
-          photo: ($("#createPhoto").val() !== "" ? $("#createPhoto").val() : "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg?w=2000"),
+          photo:
+            $("#createPhoto").val() !== ""
+              ? $("#createPhoto").val()
+              : "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg?w=2000",
           type: $("#createProfession").val(),
           description: $("#createDescription").val(),
           cost_per_hour: $("#createCost").val(),
@@ -389,7 +398,7 @@
           },
           business_hours: {
             start: $("#createOpening").val(),
-            end: $("#createClosing").val()
+            end: $("#createClosing").val(),
           },
           email: $("#createEmail").val(),
           password: $("#createPassword").val(),
@@ -397,36 +406,47 @@
           study_info: [],
           professional_experience: [],
           actual_jobs: [],
-          online: ($("#createOnline").val() === 'true' ? true : false),
+          online: $("#createOnline").val() === "true" ? true : false,
+        };
+        for (let i = 0; i <= toCreateLen.main_pets; i++) {
+          if ($("#createPet" + i).val() !== "")
+            newCompany.main_pets.push($("#createPet" + i).val());
         }
-        for(let i = 0; i <= toCreateLen.main_pets; i++){
-          if($("#createPet"+i).val() !== "")
-            newCompany.main_pets.push($("#createPet"+i).val())
+        for (let i = 0; i <= toCreateLen.study_info; i++) {
+          if ($("#createStudy" + i).val() !== "")
+            newCompany.study_info.push($("#createStudy" + i).val());
         }
-        for(let i = 0; i <= toCreateLen.study_info; i++){
-          if($("#createStudy"+i).val() !== "")
-            newCompany.study_info.push($("#createStudy"+i).val())
+        for (let i = 0; i <= toCreateLen.actual_jobs; i++) {
+          if ($("#createJob" + i).val() !== "")
+            newCompany.actual_jobs.push($("#createJob" + i).val());
         }
-        for(let i = 0; i <= toCreateLen.actual_jobs; i++){
-          if($("#createJob"+i).val() !== "")
-            newCompany.actual_jobs.push($("#createJob"+i).val())
+        for (let i = 0; i <= toCreateLen.professional_experience; i++) {
+          if ($("#createExp" + i).val() !== "")
+            newCompany.professional_experience.push($("#createExp" + i).val());
         }
-        for(let i = 0; i <= toCreateLen.professional_experience; i++){
-          if($("#createExp"+i).val() !== "")
-            newCompany.professional_experience.push($("#createExp"+i).val())
-        }
-        console.log(newCompany)
 
-        if(newCompany.password === "" || newCompany.email === "" || newCompany.name === "" || newCompany.type === "" || newCompany.cost_per_hour === "" || newCompany.owner === "" || newCompany.cities.monday === "" || newCompany.cities.tuesday === "" || newCompany.cities.wednesday === "" || newCompany.cities.thursday === "" || newCompany.cities.friday === "" || newCompany.business_hours.start === "" || newCompany.business_hours.start === "") 
-         alert("Missing data!")
-        else {
-         sendCreateCp(newCompany);
-        }
-      }
-      
+        if (
+          newCompany.password === "" ||
+          newCompany.email === "" ||
+          newCompany.name === "" ||
+          newCompany.type === "" ||
+          newCompany.cost_per_hour === "" ||
+          newCompany.owner === "" ||
+          newCompany.cities.monday === "" ||
+          newCompany.cities.tuesday === "" ||
+          newCompany.cities.wednesday === "" ||
+          newCompany.cities.thursday === "" ||
+          newCompany.cities.friday === "" ||
+          newCompany.business_hours.start === "" ||
+          newCompany.business_hours.start === ""
+        )
+          alert("Missing data!");
+        else sendCreateCp(newCompany);
+      };
+
       const updateData = (index) => {
         toEditData[index].description = $("#newDescription" + index).val();
-        if($("#newPhoto" + index).val() !== undefined)
+        if ($("#newPhoto" + index).val() !== undefined)
           toEditData[index].photo = $("#newPhoto" + index).val();
         if ($("#newName" + index).val() !== "")
           toEditData[index].name = $("#newName" + index).val();
@@ -994,7 +1014,11 @@
                     <span class="font-semibold">Photo URL: </span><span class="tohidden` +
           index +
           `">` +
-          (photo !== 'undefined' ? `<button class="btn" onclick="copy(this)">` + photo + `<i class="fa fa-copy"></i></button>` : '-') +
+          (photo !== "undefined"
+            ? `<button class="btn" onclick="copy(this)">` +
+              photo +
+              `<i class="fa fa-copy"></i></button>`
+            : "-") +
           `</span>
                     <input
                       type="text"
@@ -1005,7 +1029,7 @@
           index +
           `"
                       value="` +
-                      (photo !== 'undefined' ? photo : '') +
+          (photo !== "undefined" ? photo : "") +
           `"
                       placeholder="Type new photo URL"
                       class="toshow` +
@@ -1780,8 +1804,7 @@
             <div
               id="totCompanies"
               class="flex flex-col flex primary font-semibold my-2"
-            >
-            </div>            
+            ></div>
             <div id="companyList" class="flex flex-col flex-1"></div>
           </div>
         </div>
