@@ -74,6 +74,7 @@
           credentials: "include",
         });
         ret = await ret.json();
+        console.log(ret)
         alert(ret.message);
         window.location.reload();
       }
@@ -416,12 +417,11 @@
         }
         console.log(newCompany)
 
-        //if(newCompany.password === "" || newCompany.email === "" || newCompany.name === "" || newCompany.type === "" || newCompany.cost_per_hour === "" || newCompany.owner === "" || newCompany.cities.monday === "" || newCompany.cities.tuesday === "" || newCompany.cities.wednesday === "" || newCompany.cities.thursday === "" || newCompany.cities.friday === "" || newCompany.business_hours.start === "" || newCompany.business_hours.start === "") 
-        //  alert("Missing data!")
-        //else {
-        //  sendCreateCp(newCompany);
-        //}
-        console.log(newCompany)
+        if(newCompany.password === "" || newCompany.email === "" || newCompany.name === "" || newCompany.type === "" || newCompany.cost_per_hour === "" || newCompany.owner === "" || newCompany.cities.monday === "" || newCompany.cities.tuesday === "" || newCompany.cities.wednesday === "" || newCompany.cities.thursday === "" || newCompany.cities.friday === "" || newCompany.business_hours.start === "" || newCompany.business_hours.start === "") 
+         alert("Missing data!")
+        else {
+         sendCreateCp(newCompany);
+        }
       }
       
       const updateData = (index) => {

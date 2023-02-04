@@ -33,7 +33,7 @@ router.get("", async (req, res) => {
     );
     res.json(comp);
   } catch (e) {
-    res.json({ message: e });
+    console.log(e);
   }
 });
 
@@ -82,7 +82,7 @@ router.get("/:id", async (req, res) => {
 /* Create a new company */
 router.put("/new", async (req, res) => {
   try {
-    const company = new Company({
+    const c = new Company({
       name: req.body.name,
       type: req.body.type,
       photo: req.body.photo,
@@ -95,15 +95,15 @@ router.put("/new", async (req, res) => {
       password: req.body.password,
       main_pets: req.body.main_pets,
       study_info: req.body.study_info,
-      professional_experience: c.professional_experience,
+      professional_experience: req.body.professional_experience,
       actual_jobs: req.body.actual_jobs,
       photo: req.body.photo,
       review: [],
     });
-    await company.save();
+    await c.save();
     res.json({ message: "New company created!" });
   } catch (e) {
-    res.json({ message: e });
+    console.log(e);
   }
 });
 
