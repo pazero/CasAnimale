@@ -473,7 +473,6 @@
       };
 
       const sendNewAdmin = async (newData) => {
-        //console.log(newData);
         var ret = await fetch("http://localhost:5000/api/admin/new/", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -754,9 +753,9 @@
                         data and information about customers, companies and
                         prenotations.
                       </div>
-                      <div class="flex flex-col" id="createNewAdminTab">
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin name:</span>
+                      <div class="flex flex-col flex-1" id="createNewAdminTab">
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin name:</span>
                           <input
                             id="createAdminName"
                             name="createAdminName"
@@ -764,8 +763,8 @@
                             class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                           />
                         </div>
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin surname:</span>
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin surname:</span>
                           <input
                             id="createAdminSurname"
                             name="createAdminSurname"
@@ -773,8 +772,8 @@
                             class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                           />
                         </div>
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin email:</span>
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin email:</span>
                           <input
                             id="createAdminEmail"
                             name="createAdminEmail"
@@ -782,8 +781,8 @@
                             class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                           />
                         </div>
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin password:</span>
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin password:</span>
                           <input
                             id="createAdminPassword"
                             name="createAdminPassword"
@@ -791,12 +790,12 @@
                             class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
                           />
                         </div>
-                      </div>
-                      <button
+                        <button
                         class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
                         onclick="createAdmin()"
-                      >
+                        >
                         CREATE NEW ADMIN
+                      </div>
                       </button>
                       <span
                         id="newProfession"

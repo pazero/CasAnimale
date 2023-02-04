@@ -15,11 +15,12 @@
       var user;
 
       const setUser = async () => {
-        user = await isUserLogged()
-        if(user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html"
-        fillCards()
-      }
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html";
+        fillCards();
+        if (user.admin) $("#cards").addClass("md:grid-cols-3");
+      };
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
       });
@@ -32,53 +33,54 @@
           img: "../public/customers.png",
           alt: "customers icon",
           href: "customers.html",
-          diff: false
+          company: true,
         },
         {
           text: "forum",
           img: "../public/forum.png",
           alt: "forum icon",
           href: "forum.html",
-          diff: false
+          company: false,
         },
         {
           text: "e-commerce",
           img: "../public/shop.png",
           alt: "shop icon",
           href: "ecommerce.html",
-          diff: false
+          company: false,
         },
         {
           text: "prenotations",
           img: "../public/schedule.png",
           alt: "prenotation icon",
           href: "prenotations.html",
-          diff: false
+          company: true,
         },
         {
           text: "Billing",
           img: "../public/billing.png",
           alt: "billing icon",
           href: "billing.html",
-          diff: false
+          company: true,
         },
         {
           text: "profile",
           img: "../public/companies.png",
           alt: "companies icon",
           href: "profile.html",
-          diff: true
+          company: true,
         },
       ];
       const fillCards = () => {
         let tmp = "";
-        console.log(user)
-        if(user.admin) {
-          services[5].text = "companies"
-          services[5].href = "companies.html"
+        console.log(user);
+        if (user.admin) {
+          services[5].text = "companies";
+          services[5].href = "companies.html";
         }
         $(document).ready(function () {
           services.map((item) => {
+            if((item.company && user.admin) || user.admin)
             tmp +=
               `<div class="card flex justify-center">
               <button
@@ -98,14 +100,14 @@
           class="h-auto w-full object-cover object-center group-hover:opacity-75"
           />
           <p class="card-title py-4 font-bold text-center align-center">` +
-            item.text.toLocaleUpperCase() +
-          `</p>
+              item.text.toLocaleUpperCase() +
+              `</p>
           </div>
           </button>`;
             $("#cards").html(tmp);
           });
         });
-      }
+      };
     </script>
   </head>
   <body onload="setUser()">
@@ -127,7 +129,7 @@
           </div>
           <div
             id="cards"
-            class="grid grid-cols-1 mx-10 sm:mx-0 sm:grid-cols-2 md:grid-cols-3 gap-4"
+            class="grid grid-cols-1 mx-10 sm:mx-0 sm:grid-cols-2 gap-4"
             style="grid-auto-rows: 1fr"
           ></div>
         </div>
