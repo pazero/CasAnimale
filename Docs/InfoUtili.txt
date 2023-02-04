@@ -29,8 +29,8 @@ TO DO:
 - GENERALI
 	[/] Convertire gli alert con dei toast
 	[/] Controllare accessibilità, stile e responsive di tutto
-	[/] Portare il progetto su gocker (creato docker)
-	[ ] far funzionare tutto senza errori
+	[x] Portare il progetto su gocker (creato docker)
+	[/] far funzionare tutto senza errori
 	[ ] Documentazione API con swagger
 
 TO DO:
@@ -86,7 +86,7 @@ TO DO:
 			[x] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
+			[/] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
 		[/] Gestione delle bacheche [ FORUM ]
 			[ ] Form crea nuovo
 			[ ] Update
@@ -112,12 +112,12 @@ TO DO:
 			[x] Filtri
 			[x] Differenziare
 		[/] Gestione servizi presenza e online [ COMPANIES ]
-			[ ] Form crea nuovo
+			[x] Form crea nuovo
 			[x] Update
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende accedono alle info solo della loro azienda
-		[ ] Registrazione nuova azienda
-		[ ] Registrazione nuovo admin
+		[x] Registrazione nuova azienda
+		[x] Registrazione nuovo admin
 		[ ] Sezione password da rifare
 		[x] Se elimini una azienda o un utente eliminare tutte le cose collegate oppure fare in modo che l'app non si rompa
