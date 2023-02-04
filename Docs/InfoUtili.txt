@@ -86,8 +86,8 @@ TO DO:
 			[x] Delete
 			[x] Filtri
 			[/] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
-		[/] Gestione delle bacheche [ FORUM ]
-			[ ] Eliminare commento
+		[x] Gestione delle bacheche [ FORUM ]
+			[x] Eliminare commento
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende non accedono a questa sezione

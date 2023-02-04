@@ -23,6 +23,7 @@
 
       let posts = [];
       let totPosts = 0;
+      let currentComments = [];
 
       const getPosts = async () => {
         var ret = await fetch("http://localhost:5000/api/post", {
@@ -39,11 +40,28 @@
           credentials: "include",
         });
         ret = await ret.json();
-        alert(ret.message2);
+        alert(ret.message);
         window.location.reload();
       };
 
-      /* TODO filter by parola chiave !!! */
+      const deleteComment = async (postId, postIndex, commentId) => {
+        for (var i = 0; i < currentComments[postIndex].length; i++)
+          if(currentComments[postIndex][i]._id === commentId)
+            currentComments[postIndex].splice(i, 1);
+
+        let comments = currentComments[postIndex];
+
+        var ret = await fetch("http://localhost:5000/api/post/update/" + postId, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({comments: comments}),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+
 
       const filterList = () => {
         let reqId = $("#filterPostId").val();
@@ -67,85 +85,24 @@
           if (posts !== undefined) {
             let index = 0;
             posts.map((item) => {
-              compareId =
-                reqId === ""
-                  ? 0
-                  : item._id.toLowerCase().includes(reqId.toLowerCase())
-                  ? 0
-                  : 1;
-              comparePostUsrId =
-                reqPostUsrId === ""
-                  ? 0
-                  : item.userid
-                      .toLowerCase()
-                      .includes(reqPostUsrId.toLowerCase())
-                  ? 0
-                  : 1;
-              compareTitle =
-                reqTitle === ""
-                  ? 0
-                  : item.title.toLowerCase().includes(reqTitle.toLowerCase())
-                  ? 0
-                  : 1;
-              compareDate =
-                reqDate === ""
-                  ? 0
-                  : reqDate === item.date.substring(0, 10)
-                  ? 0
-                  : 1;
-              compareMinDate =
-                reqMinDate === ""
-                  ? 0
-                  : new Date(reqMinDate).getTime() <=
-                    new Date(item.date.substring(0, 10)).getTime()
-                  ? 0
-                  : 1;
-              compareMaxDate =
-                reqMaxDate === ""
-                  ? 0
-                  : new Date(reqMaxDate).getTime() >=
-                    new Date(item.date.substring(0, 10)).getTime()
-                  ? 0
-                  : 1;
+              compareId = reqId === "" ? 0 : item._id.toLowerCase().includes(reqId.toLowerCase()) ? 0 : 1;
+              comparePostUsrId = reqPostUsrId === "" ? 0 : item.userid.toLowerCase().includes(reqPostUsrId.toLowerCase()) ? 0 : 1;
+              compareTitle = reqTitle === "" ? 0 : item.title.toLowerCase().includes(reqTitle.toLowerCase()) ? 0 : 1;
+              compareDate = reqDate === "" ? 0 : reqDate === item.date.substring(0, 10) ? 0 : 1;
+              compareMinDate = reqMinDate === "" ? 0 : new Date(reqMinDate).getTime() <= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
+              compareMaxDate = reqMaxDate === "" ? 0 : new Date(reqMaxDate).getTime() >= new Date(item.date.substring(0, 10)).getTime() ? 0 : 1;
               compareType = reqType === "" ? 0 : reqType === item.type ? 0 : 1;
-              compareKeyWord =
-                reqKeyWord === ""
-                  ? 0
-                  : item.title.toLowerCase().includes(reqKeyWord.toLowerCase())
-                  ? 0
-                  : item.description
-                      .toLowerCase()
-                      .includes(reqKeyWord.toLowerCase())
-                  ? 0
-                  : 1;
+              compareKeyWord = reqKeyWord === "" ? 0 : item.title.toLowerCase().includes(reqKeyWord.toLowerCase())? 0 : item.description.toLowerCase().includes(reqKeyWord.toLowerCase()) ? 0 : 1;
               // key word nei commenti
-              if (
-                item.comments !== undefined &&
-                item.comments.length > 0 &&
-                compareKeyWord != 0
-              ) {
+              if ( item.comments !== undefined && item.comments.length > 0 && compareKeyWord != 0) {
                 item.comments.map((comment, i) => {
-                  if (
-                    comment.content
-                      .toLowerCase()
-                      .includes(reqKeyWord.toLowerCase())
-                  ) {
+                  if (comment.content.toLowerCase().includes(reqKeyWord.toLowerCase())) {
                     compareKeyWord = 0;
                   }
                 });
               }
 
-              if (
-                compareId +
-                  comparePostUsrId +
-                  compareTitle +
-                  compareType +
-                  compareDate +
-                  compareMinDate +
-                  compareMaxDate +
-                  compareKeyWord ===
-                0
-              ) {
+              if ( compareId + comparePostUsrId + compareTitle + compareType + compareDate + compareMinDate + compareMaxDate + compareKeyWord === 0) {
                 tmp += makeItemPost(
                   index,
                   item._id,
@@ -191,92 +148,57 @@
 						<div class="flex flex-col">
 							<div><span class="font-semibold">Post id: </span>
 								<button class="btn" onclick="copy(this)">` +
-          id +
-          `
+                  id +`
 									<i class="fa fa-copy"></i>
 								</button>
 							</div>
 							<div><span class="font-semibold">Forum: </span>` +
-          printType(type) +
-          `
+                printType(type) +`
 							</div>
 							<div><span class="font-semibold">User id: </span>
 								<button class="btn" onclick="copy(this)">` +
-          user +
-          `
+                  user +`
 									<i class="fa fa-copy"></i>
 								</button>
 							</div>
 							<div><span class="font-semibold">Publication date: </span>` +
-          date.substring(0, 10) +
-          `
+                date.substring(0, 10) +`
 							</div>
 							<div><span class="font-semibold">Title: </span>` +
-          title +
-          `
+                title +`
 							</div>
-							<button id="showMore` +
-          index +
-          `"
-											onclick="{$('#card` +
-          index +
-          `').removeClass('hidden');
-																$('#comments` +
-          index +
-          `').removeClass('hidden');
-																$('#showMore` +
-          index +
-          `').addClass('hidden');
-																$('#showLess` +
-          index +
-          `').removeClass('hidden')}" 
+							<button id="showMore` + index +`"
+											onclick="{$('#card` + index + `').removeClass('hidden');
+																$('#comments` + index + `').removeClass('hidden');
+																$('#showMore` + index + `').addClass('hidden');
+																$('#showLess` + index + `').removeClass('hidden')}" 
 											class="flex gray text-xs m-1">
 								<u>Show more</u>
 							</button>
-								<div id="card` +
-          index +
-          `" class="hidden flex flex-col">
+								<div id="card` + index + `" class="hidden flex flex-col">
 									<div><span class="font-semibold">Text: </span>` +
-          description +
-          `
+                    description +`
 									</div>
 								</div>
-							<button id="showLess` +
-          index +
-          `"
-											onclick="{$('#card` +
-          index +
-          `').addClass('hidden');
-																$('#comments` +
-          index +
-          `').addClass('hidden');
-																$('#showMore` +
-          index +
-          `').removeClass('hidden');
-																$('#showLess` +
-          index +
-          `').addClass('hidden')}"
+							<button id="showLess` + index +`"
+											onclick="{$('#card` + index + `').addClass('hidden');
+																$('#comments` + index + `').addClass('hidden');
+																$('#showMore` + index + `').removeClass('hidden');
+																$('#showLess` + index + `').addClass('hidden')}"
 											class="flex hidden gray text-xs m-1">
 								<u>Show less</u>
 							</button>
 						</div>
-						<div class="flex flex-col self-center">
-							<button class="tohidden` +
-          index +
-          ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-											onclick="deletePost('` +
-          id +
-          `')">
+					</div>
+          <div class="flex flex-col self-center">
+							<button class="tohidden` + index + ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+											onclick="deletePost('` + id + `')">
 								Delete
 							</button>
 						</div>
-					</div>
 				</div>
-				<div id="comments` +
-          index +
-          `" class="hidden flex flex-col mb-3 ml-6">` +
-          printComments(comments, index) +
-          `
+				<div id="comments` + index + `" class="hidden flex flex-col mb-3 ml-6">` +
+          printComments(comments, index, id) +`
 				</div>
 			</div >`
         );
@@ -286,45 +208,46 @@
         return `<div class="flex flex-1 font-semibold">Post's comments</div>`;
       };
 
-      const makeItemComment = (index, postIndex, id, user, date, content) => {
+      const makeItemComment = (index, postIndex, postId, id, user, date, content, comments) => {
+        comments != undefined ? currentComments[postIndex] = comments : currentComments[postIndex] = "";
+        console.log("currentComments["+postIndex+"]: " + currentComments[postIndex])
         return (
           `
-			<div class="flex flex-row my-3">
-				<span class="mr-1">` +
-          (postIndex + 1) +
-          `.` +
-          (index + 1) +
-          `.
-				</span>
-				<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
-					<div class="flex flex-col">
-						<div><span class="font-semibold">Comment id: </span>
-							<button class="btn" onclick="copy(this)">` +
-          id +
-          `
-								<i class="fa fa-copy"></i>
+          <div class="flex flex-row my-3">
+            <span class="mr-1">` +
+              (postIndex + 1) + `.` + (index + 1) + `.
+            </span>
+            <div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
+              <div class="flex flex-col">
+                <div><span class="font-semibold">Comment id: </span>
+                  <button class="btn" onclick="copy(this)">` +
+                    id +`
+                    <i class="fa fa-copy"></i>
+                  </button>
+                </div>
+                <div><span class="font-semibold">Comment's user id: </span>
+                  <button class="btn" onclick="copy(this)">` +
+                    user +`
+                    <i class="fa fa-copy"></i>
+                  </button>
+                </div>
+                <div>
+                  <span class="font-semibold">Publication date: </span>` +
+                    date.substring(0, 10) +`
+                </div>	
+                <div>
+                  <span class="font-semibold">Content: </span>` +
+                    content +`
+                </div>				
+              </div>
+            </div>
+            <div class="flex flex-col self-center">
+							<button class="btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+											onclick="deleteComment('` + postId + `','` + postIndex + `','` + id + `')">
+								Delete
 							</button>
 						</div>
-						<div><span class="font-semibold">Comment's user id: </span>
-							<button class="btn" onclick="copy(this)">` +
-          user +
-          `
-								<i class="fa fa-copy"></i>
-							</button>
-						</div>
-						<div>
-							<span class="font-semibold">Publication date: </span>` +
-          date.substring(0, 10) +
-          `
-						</div>	
-						<div>
-							<span class="font-semibold">Content: </span>` +
-          content +
-          `
-						</div>				
-					</div>
-				</div>
-			</div >`
+          </div>`
         );
       };
 
@@ -352,7 +275,7 @@
         });
       };
 
-      const printComments = (comments, postIndex) => {
+      const printComments = (comments, postIndex, postId) => {
         let cmt = "";
         $(document).ready(function () {
           cmt += makeCommentsTitle();
@@ -361,10 +284,12 @@
               cmt += makeItemComment(
                 i,
                 postIndex,
+                postId,
                 comment._id,
                 comment.user,
                 comment.date,
-                comment.content
+                comment.content,
+                comments,
               );
             });
           } else cmt += "This post has no comments.";
