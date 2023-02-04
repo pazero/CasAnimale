@@ -40,8 +40,8 @@
           body: JSON.stringify({ email: mail, password: pass }),
         });
         ret = await ret.json();
-        alert(ret.message);
         if (ret.success) window.location.href = "home.html";
+        else alert("Something went wrong");
       };
     </script>
   </head>
