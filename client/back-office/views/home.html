@@ -80,7 +80,7 @@
         }
         $(document).ready(function () {
           services.map((item) => {
-            if((item.company && user.admin) || user.admin)
+            if((item.company && !user.admin) || user.admin)
             tmp +=
               `<div class="card flex justify-center">
               <button
