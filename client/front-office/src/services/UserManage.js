@@ -35,7 +35,7 @@ const Authentication = {
       });
   },
   restore(mail) {
-    return Api().put("restore/new", mail);
+    return Api().put("emailrestore/new", mail);
   },
   enableVip() {
     return Api().post(BASE + "enableVip");

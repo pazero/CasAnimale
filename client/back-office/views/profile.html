@@ -17,6 +17,7 @@
       let user;
       let data;
       let adminsList;
+      let pwRestoreList = [];
       let listLen = {
           study_info: -1,
           professional_experience: -1,
@@ -29,6 +30,7 @@
         if (user.admin) {
           $("#title").html("PERSONAL PROFILE");
           getAdminInfo(user.id);
+          getPwToRestore();
         } else {
           $("#companyInfo").removeClass("hidden");
           $("#title").html("COMPANY PROFILE");
@@ -53,18 +55,25 @@
         fillCompany();
       };
 
-      const getAdminsList = async (id) => {
+      const getPwToRestore  = async () => {
+        let ret = await fetch("http://localhost:5000/api/emailrestore", {
+          credentials: "include",
+        });
+        pwRestoreList = await ret.json();
+        console.log(pwRestoreList)
+        fillPwRestoreList();
+      };
+
+      const getAdminsList = async () => {
         let ret = await fetch("http://localhost:5000/api/admin", {
-          method: "GET",
           credentials: "include",
         });
         adminsList = await ret.json();
         fillAdminsList();
-      };
+      }
 
       const getAdminInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
-          method: "GET",
           credentials: "include",
         });
         data = await ret.json();
@@ -95,6 +104,39 @@
         });
         $("#otherAdmins").append(tmp);
       };
+  
+      const fillPwRestoreList = () => {
+        let tmp = "Password to restore:";
+        if(pwRestoreList.length > 0){
+          pwRestoreList.map((item) => {
+            console.log(item)
+              tmp +=
+                `<div class="primary font-bold my-8">` +
+                item.mail +
+                ` ` +
+                item.timestamp +
+                `
+                <button class="btn primary" onclick="delPwRestore('`+item._id+`')"> Delete </button>
+                </div>
+
+              `;
+          });
+        } else {
+          tmp += "<br>No email to restore"
+        }
+        $("#restorePw").append(tmp);
+      }
+
+      const delPwRestore = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/emailrestore/" + id, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message)
+        window.location.reload()
+      }
+
 
       const fillAdmin = () => {
         $(".adminOnly").removeClass("hidden");
@@ -647,6 +689,13 @@
                   >
                     Other admins
                   </button>
+                  <button
+                    id="restorePwBtn"
+                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                    onclick="showTab('restorePw')"
+                  >
+                    Restore passwords
+                  </button>
                 </div>
                 <div
                   class="flex flex-1 text-xl border-t-solid border-t-[1px] border-t-[#59114d]"
@@ -825,6 +874,13 @@
                       class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
                     >
                       OTHER ADMINS
+                    </div>
+                  </div>
+                  <div id="restorePw" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
+                    >
+                      RESTORE PASSWORDS
                     </div>
                   </div>
                   <div id="places" class="tab hidden flex flex-1 flex-col">
