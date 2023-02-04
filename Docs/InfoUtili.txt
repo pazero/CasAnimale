@@ -112,5 +112,5 @@ TO DO:
 			[x] Le aziende accedono alle info solo della loro azienda
 		[x] Registrazione nuova azienda
 		[x] Registrazione nuovo admin
-		[ ] Sezione password da rifare
+		[x] Sezione password da rifare
 		[x] Se elimini una azienda o un utente eliminare tutte le cose collegate oppure fare in modo che l'app non si rompa
