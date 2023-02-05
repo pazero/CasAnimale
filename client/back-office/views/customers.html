@@ -24,14 +24,7 @@
       let toEditData = [];
       let prenotationList = [];
       let user;
-      const setUser = async () => {
-        user = await isUserLogged();
-        if (user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html";
-        if (user.admin) {
-          $(".forAdmin").removeClass("hidden");
-        }
-      };
+
       const sendData = async (index) => {
         console.log(toEditData[index]);
         var ret = await fetch("http://localhost:5000/api/user/update/", {
@@ -74,7 +67,6 @@
           }
         );
         prenotationList = await ret.json();
-        console.log(prenotationList);
       };
 
       const getCusts = async () => {
@@ -84,21 +76,25 @@
         });
         ret = await ret.json();
 
-        await setUser();
-        await getPts(user.id);
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html";
+        if (user.admin) {
+          $(".forAdmin").removeClass("hidden");
+          cstmrs = ret;
+        } else {
+          await getPts(user.id);
 
-        ret.map((customer) => {
-          prenotationList.map((prenotation) => {
-            console.log(customer._id);
-            console.log(prenotation.user);
-            console.log(customer);
-            console.log(prenotation);
-            if (customer._id === prenotation.user) {
-              if (!cstmrs.includes(customer)) cstmrs.push(customer);
-            }
+          ret.map((customer) => {
+            prenotationList.map((prenotation) => {
+              if (customer._id === prenotation.user) {
+                if (!cstmrs.includes(customer)) cstmrs.push(customer);
+              }
+            });
           });
-        });
+        }
         toEditData = cstmrs;
+
         await loadList();
       };
       const deleteCstmr = async (id) => {
