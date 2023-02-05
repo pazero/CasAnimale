@@ -8,6 +8,9 @@
       } else logout();
     });
 
+    const createCompany = () => {
+      window.location.href = "companies.html"
+    }
     const logout = () => {
       document.cookie =
         "tokenback=;path=/;domain=localhost;expires=Thu, 01 Jan 1970 00:00:01 GMT";
@@ -47,6 +50,7 @@
 
     <button
       class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:text-[#E1DEE3] hover:bg-[#826C7F] "
+      onclick="createCompany()"
     >
       <!-- HeroIcon - Chart Bar -->
     <svg 
@@ -66,6 +70,7 @@
     </button>
     <button
       class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:text-[#E1DEE3] hover:bg-[#826C7F] "
+      onclick="profile()"
     >
       <!-- HeroIcon - Chart Bar -->
       <svg
