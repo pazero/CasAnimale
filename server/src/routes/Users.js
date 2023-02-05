@@ -190,6 +190,7 @@ router.post("/update", async (req, res) => {
     jwt.authenticateToken(req, res, cont);
 
     async function cont() {
+      console.log(req.body);
       if (req.admin) {
         await User.findOneAndUpdate(
           { _id: req.body._id },

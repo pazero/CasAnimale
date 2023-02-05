@@ -57,8 +57,7 @@ const NotificationItem = ({ user, notifications }) => {
           if (i.from && i.from !== "admin") {
             var ret = await CompanyManage.getCompany(i.from);
             if (ret.status === 200) i.from = ret.data;
-            else return { name: "admin" };
-          } else return { name: "admin" };
+          }
           return i;
         })
       );
