@@ -561,7 +561,7 @@ const SpecialistPage = () => {
                       <Textarea id="problemTextarea" placeholder="My cat Toby has a ..." onChange={(e) => setTextArea(e.target.value)}/>
                     </div>
 
-                    {user?.vip && company.online !== undefined ? (
+                    {user?.vip && company?.online ? (
                       <Checkbox
                         className="mb-2"
                         size="lg"

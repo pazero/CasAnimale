@@ -231,7 +231,7 @@ router.post("/update", async (req, res) => {
       usr.notification.push({
         content: msg,
         timestamp: new Date(),
-        from: req.admin || req.userid,
+        from: req.admin ? "admin" : req.userid,
         read: false,
       });
 
