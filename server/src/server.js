@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs/promises");
 const mongoose = require("mongoose");
 // imports the .env file
-require("dotenv").config();
+require("dotenv").config({ path: path.join(__dirname, "../", ".env") });
 
 const app = express();
 
@@ -19,23 +19,23 @@ app.use(express.json());
 
 /* Route to static frontend apps, uncomment on producion */
 app.use("/b", express.static(path.join(__dirname, "../../client/back-office")));
-//app.use(
-//  "/f/",
-//  express.static(path.join(__dirname, "../../client/front-office/build"))
-//);
-//app.get("/f/*", async (_, res) =>
-//  res.end(
-//    await fs.readFile(
-//      path.join(__dirname, "../../client/front-office/build/index.html")
-//    )
-//  )
-//);
-//app.use("/g/", express.static(path.join(__dirname, "../../client/game/dist")));
-//app.get("/g/*", async (_, res) =>
-//  res.end(
-//    await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
-//  )
-//);
+app.use(
+  "/f/",
+  express.static(path.join(__dirname, "../../client/front-office/build"))
+);
+app.get("/f/*", async (_, res) =>
+  res.end(
+    await fs.readFile(
+      path.join(__dirname, "../../client/front-office/build/index.html")
+    )
+  )
+);
+app.use("/g/", express.static(path.join(__dirname, "../../client/game/dist")));
+app.get("/g/*", async (_, res) =>
+  res.end(
+    await fs.readFile(path.join(__dirname, "../../client/game/dist/index.html"))
+  )
+);
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_CONNECTION);
