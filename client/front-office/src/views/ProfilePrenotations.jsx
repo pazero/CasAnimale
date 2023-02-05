@@ -2,30 +2,47 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/SidebarProfile";
+import UserManage from "../services/UserManage";
+import { useToast } from "@chakra-ui/react";
 import PrenotationsList from "../components/PrenotationsList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProfilePrenotations = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   const [showList, setShowList] = useState(false);
+  const toast = useToast();
   const specialists = [
     {
       job: "Veterinary",
       onclick: "/vet",
+      forvip: true,
     },
     {
       job: "Pet Sitting",
       onclick: "/petsitter",
+      forvip: false,
     },
     {
       job: "Psychologists",
       onclick: "/psychologist",
+      forvip: true,
     },
     {
       job: "Grooming",
       onclick: "/grooming",
+      forvip: false,
     },
   ];
+  const fetchUser = async () => {
+    try {
+      const { data: userData } = await UserManage.getUser();
+      setUser(userData);
+    } catch {
+      setUser(null);
+    }
+  };
+  fetchUser();
   return (
     <div
       data-theme="lemonade"
@@ -51,8 +68,28 @@ const ProfilePrenotations = () => {
                 {/*body*/}
                 <div className="flex relative p-6 flex-col flex-auto justify-center" style={{flex: "0 1 auto"}}>
                   {specialists.map((item) => {
-                    return <button className="flex my-2 items-center btn border-0 text-black bg-gray-200 hover:bg-gray-300" onClick={() => {navigate(item.onclick)}}>
+                    return <button className="flex my-2 items-center btn border-0 text-black bg-gray-200 hover:bg-gray-300" onClick={() => {if(user.vip || !item.forvip) {navigate(item.onclick)} else toast({
+                      title: "Ops it looks like you're not a VIP user!",
+                      description: "Subscribe to VIP in you profile aerea.",
+                      status: "error",
+                      duration: 3000,
+                      variant: "subtle",
+                    });}}>
                       {item.job}
+                      {item.forvip ?
+                      <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      aria-label="vip icon"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        d="M2 19h20v2H2v-2zM2 5l5 3 5-6 5 6 5-3v12H2V5z"
+                        fill="rgba(244,212,6,1)"
+                      />
+                    </svg> : ""}
                     </button>;
                   })}
                 </div>

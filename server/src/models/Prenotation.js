@@ -8,6 +8,7 @@ const prenotationSchema = new Schema({
   start: Date,
   claimed: Boolean,
   duration: Number, // ore di prenotazione
+  text: String,
   user: String, // id dell'utente che lo prenota
 });
 

@@ -1,11 +1,10 @@
 <template>
   <div id="hangman">
-    <div class="bg-white h-screen" data-theme="lemonade">
-      <NavBar />
+    <div class="bg-white" data-theme="lemonade">
       <!-- end play popup-->
       <div
         v-if="end"
-        class="popup flex flex-1 flex-auto flex-col h-full w-full"
+        class="popup h-full w-full"
       >
         <div class="popup-inner rounded-md">
           <p v-if="gameOver" class="font-semibold normal-case text-md m-3">
@@ -48,7 +47,7 @@
       </div>
 
       <!-- page title -->
-      <div class="font-semibold normal-case text-xl m-4 pt-4">HANGMAN</div>
+      <div class="font-semibold normal-case text-xl pt-4">HANGMAN</div>
 
       <!-- hangman draw -->
       <div class="flex items-center justify-center mb-3">
@@ -162,7 +161,8 @@
       </div>
       <template v-if="initialized">
         <div>
-          <div
+          <button
+            tabindex="0"
             @click="tryLetter(letter)"
             class="possibleLetter"
             :class="getStrikethroughClass(letter)"
@@ -170,10 +170,11 @@
             v-bind:key="index"
           >
             {{ letter }}
-          </div>
+          </button>
         </div>
         <div>
-          <div
+          <button
+            tabindex="0"
             @click="tryLetter(letter)"
             class="possibleLetter"
             :class="getStrikethroughClass(letter)"
@@ -181,10 +182,11 @@
             v-bind:key="index"
           >
             {{ letter }}
-          </div>
+          </button>
         </div>
         <div>
-          <div
+          <button
+            tabindex="0"
             @click="tryLetter(letter)"
             class="possibleLetter"
             :class="getStrikethroughClass(letter)"
@@ -192,7 +194,7 @@
             v-bind:key="index"
           >
             {{ letter }}
-          </div>
+          </button>
         </div>
       </template>
 
@@ -203,6 +205,7 @@
           >Name</label
         >
         <input
+          aria-label="Player name"
           @change="(event) => (playerName = event.target.value)"
           type="text"
           id="name"
@@ -223,7 +226,6 @@
 </template>
 
 <script scoped>
-import NavBar from "./NavBar.vue";
 import Const from "../router/utils";
 
 export default {

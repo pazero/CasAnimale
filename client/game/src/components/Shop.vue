@@ -1,7 +1,11 @@
 <template>
   <div class="bg-white h-[calc(100vh-4rem)]">
     <div class="flex">
-      <div class="place-self-center flex-none justify-left" @click="prev">
+      <button
+        tabindex="0"
+        class="place-self-center flex-none justify-left"
+        @click="prev"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -13,7 +17,7 @@
             d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"
           />
         </svg>
-      </div>
+      </button>
 
       <div
         class="place-self-center flex justify-center flex-auto text-black mt-16"
@@ -35,7 +39,11 @@
           </div>
         </div>
       </div>
-      <div class="place-self-center flex-none justify-end" @click="next">
+      <button
+        tabindex="0"
+        class="place-self-center flex-none justify-end"
+        @click="next"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -47,12 +55,13 @@
             d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
           />
         </svg>
-      </div>
+      </button>
     </div>
 
     <div class="flex justify-center">
       <a
-        class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-auto"
+        tabindex="0"
+        class="mt-4 bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-auto"
         :href="c.FOURL + '/compra'"
       >
         Visit out shop

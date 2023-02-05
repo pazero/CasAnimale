@@ -1,483 +1,791 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="text/javascript" src="../script/index.js"></script>
+    <title>CasAnimale - Back Office</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      $(document).ready(function () {
+        $("#sidebar").load("../tabs/sidebar.html");
+      });
+    </script>
+    <script>
+      let cstmrs = [];
+      let totCustomers = 0;
+      let toEditData = [];
+      let prenotationList = [];
+      let user;
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="../css/style.css" />
-	<script type="text/javascript" src="../script/index.js"></script>
-	<title>CasAnimale - Back Office</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script>
-		$(document).ready(function () {
-			$("#sidebar").load("../tabs/sidebar.html");
-		});
-	</script>
-	<script>
-		let cstmrs = [];
-		let totCustomers = 0;
-		let toEditData = [];
+      const sendData = async (index) => {
+        console.log(toEditData[index]);
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user/update/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(toEditData[index]),
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
 
-		const setUser = async () => {
-			user = await isUserLogged()
-			if(user === undefined)
-			window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html"
-		}
-		const sendData = async (index) => {
-			console.log(toEditData[index])
-			var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user/update/", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(toEditData[index]),
-				credentials: "include",
-			});
-			ret = await ret.json()
-			alert(ret.message)
-			window.location.reload();
-		}
-		
-		const updateData = (index) => {
-			if($("#newName"+index).val() !== "")
-            	toEditData[index].name = $("#newName"+index).val()
-			if($("#newSurname"+index).val() !== "")
-				toEditData[index].surname = $("#newSurname"+index).val()
-			if($("#newEmail"+index).val() !== "")
-				toEditData[index].email = $("#newEmail"+index).val()
-			if($("#newPassword"+index).val() !== "")
-				toEditData[index].password = $("#newPassword"+index).val()
-			if($("#newFavanimal"+index).val() !== "")
-				toEditData[index].favanimal = $("#newFavanimal"+index).val()
-			console.log(toEditData)
-			
-			toEditData[index].vip = $("#newVip" + index).val() === 'true' ? true : false
-			
-			sendData(index);
-		}
-		const getCusts = async () => {
-			var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user", {
-				method: "GET",
-				credentials: "include",
-			});
-			cstmrs = await ret.json();
-			toEditData = cstmrs;
-			await loadList();
-		};
-		const deleteCstmr = async (id) => {
-			var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user/" + id, {
-				method: "DELETE",
-				credentials: "include",
-			});
-			ret = await ret.json()
-			alert(ret.message)
-			window.location.reload();
-		};
-		const filterStartTime = (time) => {
-			let hours = +time.substring(11, 13) + 1;
-			if( hours === 0) time = "12am"
-			else {
-				if( hours === 12) time ="12pm"
-				else {
-					time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
-				}
-			}
-			return time;
-		};
-		var toUTC = function (date) {
-			var newDate = new Date();
-			newDate.setTime(date.getTime() + (date.getTimezoneOffset() * 60 * 1000));
-			return newDate;
-		};
-		const filterList = () => {
-			let reqId = $("#filterCustomerId").val();
-			let reqEmail = $("#filterCustomerEmail").val();
-			let reqBirthDate = $("#filterCustomerBirthDate").val();
-			let reqMinBirthDate = $("#filterMinDate").val();
-			let reqMaxBirthDate = $("#filterMaxDate").val();
-			let reqFavAnimal = $("#filterFavAnimal").val();
-			let reqVIP = $("#filterVIP").val();
-			let compareId = 0;
-			let compareEmail = 0;
-			let compareBirthDate = 0;
-			let compareMinBirthDate = 0;
-			let compareMaxBirthDate = 0;
-			let compareFavAnimal = 0;
-			let compareVIP = 0;
-			let tmp = "";
-			$(document).ready(function () {
-				if (cstmrs !== undefined) {
-					let index = 0;
-					cstmrs.map((item) => {
-						compareId = reqId === "" ? 0 : item._id.toLowerCase().includes(reqId.toLowerCase()) ? 0 : 1;
-						compareEmail = reqEmail === "" ? 0 : item.email.toLowerCase().includes(reqEmail.toLowerCase()) ? 0 : 1;
-						compareBirthDate = reqBirthDate === "" ? 0 : reqBirthDate === item.birth.substring(0, 10) ? 0 : 1;
-						compareMinBirthDate = reqMinBirthDate === "" ? 0 : new Date(reqMinBirthDate).getTime() <= new Date(item.birth).getTime() ? 0 : 1;
-						compareMaxBirthDate = reqMaxBirthDate === "" ? 0 : new Date(reqMaxBirthDate).getTime() >= new Date(item.birth).getTime() ? 0 : 1;
-						compareFavAnimal = reqFavAnimal === "" ? 0 : item.favanimal.toLowerCase().includes(reqFavAnimal.toLowerCase()) ? 0 : 1;
-						compareVIP = reqVIP === "" ? 0 : reqVIP === 'true' ? (item.vip === true ? 0 : 1) : (item.vip === false || item.vip === undefined ? 0 : 1);
-						if (
-						compareId + compareEmail + compareBirthDate + compareMinBirthDate + compareMaxBirthDate + compareFavAnimal + compareVIP === 0
-						) {
-							tmp += makeItemCustomer(
-							index,
-							item._id,
-							item.name,
-							item.surname,
-							item.birth,
-							item.email,
-							item.password,
-							item.favanimal,
-							item.cart,
-							item.vip
-							);
-							index++;
-							totCustomers = index;
-						}
-					});
-				}
-				tmp !== ""
-				? $("#cstmrsList").html(tmp)
-				: $("#cstmrsList").html("No customer found with these filters");
-				$("#totCustomers").html("TOTAL RESULTS: " + totCustomers);
-				totCustomers = 0;
-			});
-		};
-		const setNewVip = (index, vip) => {        
-			$(document).ready(function (){
-			(vip === true) ? $("#newVip"+index).val("true") : $("#newVip"+ index).val("false");
-			})
-		}
-		const makeItemCustomer = (index, id, name, surname, birth, email, password, favanimal, cart, vip) => {
-			return (
-			`
+      const updateData = (index) => {
+        if ($("#newName" + index).val() !== "")
+          toEditData[index].name = $("#newName" + index).val();
+        if ($("#newSurname" + index).val() !== "")
+          toEditData[index].surname = $("#newSurname" + index).val();
+        if ($("#newEmail" + index).val() !== "")
+          toEditData[index].email = $("#newEmail" + index).val();
+        if ($("#newPassword" + index).val() !== "")
+          toEditData[index].password = $("#newPassword" + index).val();
+        if ($("#newFavanimal" + index).val() !== "")
+          toEditData[index].favanimal = $("#newFavanimal" + index).val();
+        console.log(toEditData);
+
+        toEditData[index].vip =
+          $("#newVip" + index).val() === "true" ? true : false;
+
+        sendData(index);
+      };
+
+      const getPts = async (id) => {
+        var ret;
+        ret = await fetch(
+          "http://site212247.tw.cs.unibo.it/api/prenotation?company=" + id,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        prenotationList = await ret.json();
+      };
+
+      const getCusts = async () => {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user", {
+          method: "GET",
+          credentials: "include",
+        });
+        ret = await ret.json();
+
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html";
+        if (user.admin) {
+          $(".forAdmin").removeClass("hidden");
+          cstmrs = ret;
+        } else {
+          await getPts(user.id);
+
+          ret.map((customer) => {
+            prenotationList.map((prenotation) => {
+              if (customer._id === prenotation.user) {
+                if (!cstmrs.includes(customer)) cstmrs.push(customer);
+              }
+            });
+          });
+        }
+        toEditData = cstmrs;
+
+        await loadList();
+      };
+      const deleteCstmr = async (id) => {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/user/" + id, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message);
+        window.location.reload();
+      };
+      const filterStartTime = (time) => {
+        let hours = +time.substring(11, 13) + 1;
+        if (hours === 0) time = "12am";
+        else {
+          if (hours === 12) time = "12pm";
+          else {
+            time = hours > 12 ? (hours % 12) + "pm" : hours + "am";
+          }
+        }
+        return time;
+      };
+      var toUTC = function (date) {
+        var newDate = new Date();
+        newDate.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+        return newDate;
+      };
+      const filterList = () => {
+        let reqId = $("#filterCustomerId").val();
+        let reqEmail = $("#filterCustomerEmail").val();
+        let reqBirthDate = $("#filterCustomerBirthDate").val();
+        let reqMinBirthDate = $("#filterMinDate").val();
+        let reqMaxBirthDate = $("#filterMaxDate").val();
+        let reqFavAnimal = $("#filterFavAnimal").val();
+        let reqVIP = $("#filterVIP").val();
+        let compareId = 0;
+        let compareEmail = 0;
+        let compareBirthDate = 0;
+        let compareMinBirthDate = 0;
+        let compareMaxBirthDate = 0;
+        let compareFavAnimal = 0;
+        let compareVIP = 0;
+        let tmp = "";
+        $(document).ready(function () {
+          if (cstmrs !== undefined) {
+            let index = 0;
+            cstmrs.map((item) => {
+              compareId =
+                reqId === ""
+                  ? 0
+                  : item._id.toLowerCase().includes(reqId.toLowerCase())
+                  ? 0
+                  : 1;
+              compareEmail =
+                reqEmail === ""
+                  ? 0
+                  : item.email.toLowerCase().includes(reqEmail.toLowerCase())
+                  ? 0
+                  : 1;
+              compareBirthDate =
+                reqBirthDate === ""
+                  ? 0
+                  : reqBirthDate === item.birth.substring(0, 10)
+                  ? 0
+                  : 1;
+              compareMinBirthDate =
+                reqMinBirthDate === ""
+                  ? 0
+                  : new Date(reqMinBirthDate).getTime() <=
+                    new Date(item.birth).getTime()
+                  ? 0
+                  : 1;
+              compareMaxBirthDate =
+                reqMaxBirthDate === ""
+                  ? 0
+                  : new Date(reqMaxBirthDate).getTime() >=
+                    new Date(item.birth).getTime()
+                  ? 0
+                  : 1;
+              compareFavAnimal =
+                reqFavAnimal === ""
+                  ? 0
+                  : item.favanimal
+                      .toLowerCase()
+                      .includes(reqFavAnimal.toLowerCase())
+                  ? 0
+                  : 1;
+              compareVIP =
+                reqVIP === ""
+                  ? 0
+                  : reqVIP === "true"
+                  ? item.vip === true
+                    ? 0
+                    : 1
+                  : item.vip === false || item.vip === undefined
+                  ? 0
+                  : 1;
+              if (
+                compareId +
+                  compareEmail +
+                  compareBirthDate +
+                  compareMinBirthDate +
+                  compareMaxBirthDate +
+                  compareFavAnimal +
+                  compareVIP ===
+                0
+              ) {
+                tmp += makeItemCustomer(
+                  index,
+                  item._id,
+                  item.name,
+                  item.surname,
+                  item.birth,
+                  item.email,
+                  item.password,
+                  item.favanimal,
+                  item.cart,
+                  item.vip
+                );
+                index++;
+                totCustomers = index;
+              }
+            });
+          }
+          tmp !== ""
+            ? $("#cstmrsList").html(tmp)
+            : $("#cstmrsList").html("No customer found with these filters");
+          $("#totCustomers").html("TOTAL RESULTS: " + totCustomers);
+          totCustomers = 0;
+        });
+      };
+      const setNewVip = (index, vip) => {
+        $(document).ready(function () {
+          vip === true
+            ? $("#newVip" + index).val("true")
+            : $("#newVip" + index).val("false");
+        });
+      };
+      const makeItemCustomer = (
+        index,
+        id,
+        name,
+        surname,
+        birth,
+        email,
+        password,
+        favanimal,
+        cart,
+        vip
+      ) => {
+        return (
+          `
 			<div class="flex flex-row my-3">
-				<span class="mr-1">`
-					+ (index + 1) + `.
+				<span class="mr-1">` +
+          (index + 1) +
+          `.
 				</span>
 				<div class="flex flex-row flex-1 bg-white/50 p-2 rounded">
 					<div class="flex flex-col">
 						<div><span class="font-semibold">Customer id: </span>
-							<button class="btn" onclick="copy(this)">`
-								+ id + `
+							<button class="btn" onclick="copy(this)">` +
+          id +
+          `
 								<i class="fa fa-copy"></i>
 							</button>
-							<span class="tohidden` + index + ` font-semibold">`
-								+ isVIP(vip) + `
+							<span class="tohidden` +
+          index +
+          ` font-semibold">` +
+          isVIP(vip) +
+          `
 							</span>
-							<div class="toshow` + index + `">
-								<span class="toshow` + index + ` hidden font-semibold">Vip: </span>
+							<div class="toshow` +
+          index +
+          `">
+								<span class="toshow` +
+          index +
+          ` hidden font-semibold">Vip: </span>
 								<select
-									id="newVip` + index + `"
-									name="newVip` + index + `"
+									id="newVip` +
+          index +
+          `"
+									name="newVip` +
+          index +
+          `"
 									type="text"
-									class="toshow` + index +` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+									class="toshow` +
+          index +
+          ` hidden change px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 								>
 								<option value="true">Yes</option>
 								<option value="false">No</option>
 								</select>
 							</div>
 						</div>
-						<div><span class="font-semibold">Name: </span><span class="tohidden` + index + `">`
-							+ name + `
+						<div><span class="font-semibold">Name: </span><span class="tohidden` +
+          index +
+          `">` +
+          name +
+          `
 						</span>
 						<input
 							type="text"
-							name="newName` + index +`"
-							id="newName` + index + `"
-							value="` + name + `"
+							name="newName` +
+          index +
+          `"
+							id="newName` +
+          index +
+          `"
+							value="` +
+          name +
+          `"
 							placeholder="Type new name"
-							class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+							class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 						/>
 						</div>
-						<div><span class="font-semibold">Surname: </span><span class="tohidden` + index + `">`
-							+ surname + `
+						<div><span class="font-semibold">Surname: </span><span class="tohidden` +
+          index +
+          `">` +
+          surname +
+          `
 						</span>
 						<input
 							type="text"
-							name="newSurname` + index +`"
-							id="newSurname` + index + `"
-							value="` + surname + `"
+							name="newSurname` +
+          index +
+          `"
+							id="newSurname` +
+          index +
+          `"
+							value="` +
+          surname +
+          `"
 							placeholder="Type new surname"
-							class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+							class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 						/>
 						</div>
-						<div><span class="font-semibold">Birth date: </span>`
-							+ birth.substring(0, 10) + `
+						<div><span class="font-semibold">Birth date: </span>` +
+          birth.substring(0, 10) +
+          `
 						</div>
 						<div><span class="font-semibold">Email: </span>
-							<button class="btn tohidden` + index + `" onclick="copy(this)">`
-								+ email + `
+							<button class="btn tohidden` +
+          index +
+          `" onclick="copy(this)">` +
+          email +
+          `
 								<i class="fa fa-copy"></i>
 							</button>
 							<input
 								type="text"
-								name="newEmail` + index +`"
-								id="newEmail` + index + `"
-								value="` + email + `"
+								name="newEmail` +
+          index +
+          `"
+								id="newEmail` +
+          index +
+          `"
+								value="` +
+          email +
+          `"
 								placeholder="Type new email"
-								class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+								class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 							/>
 						</div>
-						<button id="showMore` + index + `"
-										onclick="{$('#expandCard` + index + `').removeClass('hidden');
-															$('#showMore` + index + `').addClass('hidden');
-															$('#showLess` + index + `').removeClass('hidden')}" 
+						<button id="showMore` +
+          index +
+          `"
+										onclick="{$('#expandCard` +
+          index +
+          `').removeClass('hidden');
+															$('#showMore` +
+          index +
+          `').addClass('hidden');
+															$('#showLess` +
+          index +
+          `').removeClass('hidden')}" 
 										class="flex gray text-xs m-1">
 							<u>Show more</u>
 						</button>
-							<div id="expandCard` + index + `" class="hidden flex flex-col">
-								<div><span class="font-semibold">Password: </span><span class="tohidden` + index +`">`
-									+ password + `
+							<div id="expandCard` +
+          index +
+          `" class="hidden flex flex-col">
+								<div><span class="font-semibold">Password: </span><span class="tohidden` +
+          index +
+          `">` +
+          password +
+          `
 								</span>
 								<input
 									type="text"
-									name="newPassword` + index +`"
-									id="newPassword` + index + `"
-									value="` + password + `"
+									name="newPassword` +
+          index +
+          `"
+									id="newPassword` +
+          index +
+          `"
+									value="` +
+          password +
+          `"
 									placeholder="Type new password"
-									class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+									class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 								/>
 								</div>
-								<div><span class="font-semibold">Favorite animal: </span><span class="tohidden` + index + `">`
-									+ favanimal + `
+								<div><span class="font-semibold">Favorite animal: </span><span class="tohidden` +
+          index +
+          `">` +
+          favanimal +
+          `
 								</span>
 								<input
 									type="text"
-									name="newFavanimal` + index +`"
-									id="newFavanimal` + index + `"
-									value="` + favanimal + `"
+									name="newFavanimal` +
+          index +
+          `"
+									id="newFavanimal` +
+          index +
+          `"
+									value="` +
+          favanimal +
+          `"
 									placeholder="Type new favorite animal"
-									class="toshow` + index + ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
+									class="toshow` +
+          index +
+          ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 								/>
 								</div>
-								<div><span class="font-semibold">Cart: </span>`
-									+ showCart(cart) + `
+								<div><span class="font-semibold">Cart: </span>` +
+          showCart(cart) +
+          `
 								</div>
 							</div>
-						<button id="showLess` + index + `"
-										onclick="{$('#expandCard` + index + `').addClass('hidden');
-															$('#showMore` + index + `').removeClass('hidden');
-															$('#showLess` + index + `').addClass('hidden')}"
-										class="tohidden` + index + ` flex hidden gray text-xs m-1">
+						<button id="showLess` +
+          index +
+          `"
+										onclick="{$('#expandCard` +
+          index +
+          `').addClass('hidden');
+															$('#showMore` +
+          index +
+          `').removeClass('hidden');
+															$('#showLess` +
+          index +
+          `').addClass('hidden')}"
+										class="tohidden` +
+          index +
+          ` flex hidden gray text-xs m-1">
 							<u>Show less</u>
 						</button>
 					</div>
 					</div>
 					<div class="flex flex-col self-center">
-						<button class="tohidden`+index+` btn bg-update p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-								onclick="{$('.tohidden`+index+`').addClass('hidden'); $('.toshow`+index+`').removeClass('hidden'); $('#expandCard` + index + `').removeClass('hidden'); $('#showMore` + index + `').addClass('hidden');setNewVip(` + index + `, ` + vip + `)}">
+						<button class="tohidden` +
+          index +
+          ` btn bg-update p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+								onclick="{$('.tohidden` +
+          index +
+          `').addClass('hidden'); $('.toshow` +
+          index +
+          `').removeClass('hidden'); $('#expandCard` +
+          index +
+          `').removeClass('hidden'); $('#showMore` +
+          index +
+          `').addClass('hidden');setNewVip(` +
+          index +
+          `, ` +
+          vip +
+          `)}">
 							Update
 						</button>
-						<button class="toshow`+index+` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
-								onclick="{updateData(` + index + `); $('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden')}">
+						<button class="toshow` +
+          index +
+          ` hidden btn bg-save border-save border-2 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+								onclick="{updateData(` +
+          index +
+          `); $('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden')}">
 							SAVE
 						</button>
-						<button class="toshow`+index+` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center"
-								onclick="{$('.tohidden`+index+`').removeClass('hidden'); $('.toshow`+index+`').addClass('hidden');}">
+						<button class="toshow` +
+          index +
+          ` hidden btn bg-transparent primary border-2 border-primary p-1 m-2 hover:opacity-80 font-bold rounded-lg self-center"
+								onclick="{$('.tohidden` +
+          index +
+          `').removeClass('hidden'); $('.toshow` +
+          index +
+          `').addClass('hidden');}">
 							CANCEL
 						</button>
-						<button class="tohidden`+ index + ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
-								onclick="deleteCstmr('` + id + `')">
+						<button class="tohidden` +
+          index +
+          ` btn bg-danger p-1 m-2 hover:opacity-80 text-white font-bold rounded-xl self-center"
+								onclick="deleteCstmr('` +
+          id +
+          `')">
 							Delete
 						</button>
 					</div>
 			</div>`
-		)};
+        );
+      };
 
-		const loadList = () => {
-			let tmp = "";
-			$(document).ready(function () {
-				if (cstmrs !== undefined) {
-					cstmrs.map((item, index) => {
-						tmp += makeItemCustomer(
-						index,
-						item._id,
-						item.name,
-						item.surname,
-						item.birth,
-						item.email,
-						item.password,
-						item.favanimal,
-						item.cart,
-						item.vip
-						);
-						totCustomers = index + 1;
-					});
-				}
-				$("#cstmrsList").html(tmp);
-				$("#totCustomers").html("TOTAL RESULTS: " + totCustomers);
-				totCustomers = 0;
-			});
-		};
+      const loadList = () => {
+        let tmp = "";
+        $(document).ready(function () {
+          if (cstmrs !== undefined) {
+            cstmrs.map((item, index) => {
+              tmp += makeItemCustomer(
+                index,
+                item._id,
+                item.name,
+                item.surname,
+                item.birth,
+                item.email,
+                item.password,
+                item.favanimal,
+                item.cart,
+                item.vip
+              );
+              totCustomers = index + 1;
+            });
+          }
+          $("#cstmrsList").html(tmp);
+          $("#totCustomers").html("TOTAL RESULTS: " + totCustomers);
+          totCustomers = 0;
+        });
+      };
 
-		const copy = (that) => {
-			var inp = document.createElement("input");
-			document.body.appendChild(inp);
-			inp.value = that.textContent.trim();
-			inp.select();
-			document.execCommand("copy", false);
-			inp.remove();
-		};
+      const copy = (that) => {
+        var inp = document.createElement("input");
+        document.body.appendChild(inp);
+        inp.value = that.textContent.trim();
+        inp.select();
+        document.execCommand("copy", false);
+        inp.remove();
+      };
 
-		const isVIP = (vip) => {
-			if (vip === true)
-			return `<span class="font-semibold text-white bg-yellow-500 ml-3 p-1 rounded">VIP</span>`;
-			else
-			return "";
-		};
-		const showCart = (array) => {
-			let ret = "";
-			if (array.length > 0) {
-				array.map((item) => {
-					ret += item.id + ", ";
-				})
-				return ret.substring(0, ret.length - 2);   // tolgo gli utili due caratteri ", "
-			}
-			else
-			return "-";
-		};
+      const isVIP = (vip) => {
+        if (vip === true)
+          return `<span class="font-semibold text-white bg-yellow-500 ml-3 p-1 rounded">VIP</span>`;
+        else return "";
+      };
+      const showCart = (array) => {
+        let ret = "";
+        if (array.length > 0) {
+          array.map((item) => {
+            ret += item.id + ", ";
+          });
+          return ret.substring(0, ret.length - 2); // tolgo gli utili due caratteri ", "
+        } else return "-";
+      };
 
-		const showFilters = () => {
-			$("#customersFilters").removeClass("hidden");
-			$("#showBtn").addClass("hidden");
-			$("#hideBtn").removeClass("hidden");
-			$("#resetBtn").removeClass("hidden");
-		};
+      const showFilters = () => {
+        $("#customersFilters").removeClass("hidden");
+        $("#showBtn").addClass("hidden");
+        $("#hideBtn").removeClass("hidden");
+        $("#resetBtn").removeClass("hidden");
+      };
 
-		const hideFilters = () => {
-			$("#customersFilters").addClass("hidden");
-			$("#showBtn").removeClass("hidden");
-			$("#hideBtn").addClass("hidden");
-			$("#resetBtn").addClass("hidden");
-		};
+      const hideFilters = () => {
+        $("#customersFilters").addClass("hidden");
+        $("#showBtn").removeClass("hidden");
+        $("#hideBtn").addClass("hidden");
+        $("#resetBtn").addClass("hidden");
+      };
 
-		const resetFilters = () => {
-			$("#filterPrenotationId").val("");
-			$("#filterCustomerId").val("");
-			$("#filterCustomerEmail").val("");
-			$("#filterCustomerBirthDate").val("");
-			$("#filterMinDate").val("");
-			$("#filterMaxDate").val("");
-			$("#filterFavAnimal").val("");
-			$("#filterVIP").val("");
-			filterList();
-		};
+      const resetFilters = () => {
+        $("#filterPrenotationId").val("");
+        $("#filterCustomerId").val("");
+        $("#filterCustomerEmail").val("");
+        $("#filterCustomerBirthDate").val("");
+        $("#filterMinDate").val("");
+        $("#filterMaxDate").val("");
+        $("#filterFavAnimal").val("");
+        $("#filterVIP").val("");
+        filterList();
+      };
 
-		getCusts();
-	</script>
-</head>
+      getCusts();
+    </script>
+  </head>
 
-<body>
-	<div class="flex flex-col md:flex-row flex-1 h-full">
-		<div class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center" id="sidebar"></div>
-		<div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-			<div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
-				CUSTOMERS
-			</div>
-			<div class="gray m-2 mb-1 self-center">
-				Click on a customer id to copy it!
-				<i class="fa fa-copy"></i>
-			</div>
-			<div class="flex flex-row mt-2 mx-4 mb-1">
-				<button id="showBtn" class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-				onclick="showFilters()">
-				Show filters
-			</button>
-			<button id="hideBtn" class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2" onclick="hideFilters()">
-				Hide filters
-			</button>
-			<button id="resetBtn" class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded" onclick="resetFilters()">
-				Reset filters
-			</button>
-		</div>
-		<div id="list" class="flex flex-1 m-4 mt-2">
-			<div class="flex flex-col flex-1">
-				<div id="customersFilters" class="flex flex-col">
-					<!-- primo filtro-->
-					<div class="flex flex-col sm:flex-row">
-						<span class="flex">
-							<label for="filterCustomerId" class="flex self-center primary font-semibold">Filter by customer id:</label>
-						</span>
-						<span>
-							<input id="filterCustomerId" name="filterCustomerId" type="text"
-							placeholder="ex. 63cecdc93b2ad296f8ed3989" class="px-1 m-1 rounded w-[15rem]"
-							oninput="filterList()" />
-						</span>
-					</div>
-					<!-- secondo e terzo filtro-->
-					<div class="flex flex-col lg:flex-row">
-						<div class="flex flex-col sm:flex-row lg:mr-4">
-							<span class="flex">
-								<label for="filterCustomerEmail" class="flex self-center primary font-semibold">Filter by email:</label>
-							</span>
-							<span>
-								<input id="filterCustomerEmail" name="filterCustomerEmail" type="email" placeholder="ex. rossi@gmail.com" class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
-							</span>
-						</div>
-						<div class="flex flex-col sm:flex-row lg:mr-4">
-							<span class="flex">
-								<label for="filterCustomerBirthDate" class="flex self-center primary font-semibold">Filter by birth date:</label>
-							</span>
-							<span>
-								<input id="filterCustomerBirthDate" name="filterCustomerBirthDate" type="text" placeholder="ex. yyyy-mm-dd" class="px-1 m-1 rounded w-[15rem]" oninput="filterList()" />
-							</span>
-						</div>
-					</div>
-					<!-- quarto e quinto filtro-->
-					<div class="flex flex-col lg:flex-row">
-						<div class="flex flex-col sm:flex-row lg:mr-4">
-							<span class="flex">
-								<label for="filterMinDate" class="flex self-center primary font-semibold">Filter by min birth date:</label>
-							</span>
-							<span>
-								<input id="filterMinDate" name="filterMinDate" type="text" placeholder="ex. yyyy-mm-dd" class="px-1 m-1 rounded w-[12rem]" oninput="filterList()" />
-							</span>
-						</div>
-			
-						<div class="flex flex-col sm:flex-row lg:mr-4">
-							<span class="flex">
-								<label for="filterMaxDate" class="flex self-center primary font-semibold">Filter by max birth date:</label>
-							</span>
-							<span>
-								<input id="filterMaxDate" name="filterMaxDate" type="text" placeholder="ex. yyyy-mm-dd" class="px-1 m-1 rounded w-[12rem]" oninput="filterList()" />
-							</span>
-						</div>
-					</div>
-					<!-- sesto e settimo filtro-->
-					<div class="flex flex-col lg:flex-row">
-						<div class="flex flex-col sm:flex-row lg:mr-4">
-							<span class="flex">
-								<label for="filterFavAnimal" class="flex self-center primary font-semibold">Filter by favorite animal:</label>
-							</span>
-							<span>
-								<input id="filterFavAnimal" name="filterFavAnimal" type="text" placeholder="ex. dog" class="px-1 m-1 rounded w-[12rem]" oninput="filterList()" />
-							</span>
-						</div>
-										
-						<div class="flex flex-col sm:flex-row lg:mr-4">
-							<span class="flex">
-								<label for="filterVIP" class="flex self-center primary font-semibold">VIP option:</label>
-							</span>
-							<span class="flex justify-start">
-								<select id="filterVIP" name="filterVIP" type="text" placeholder="ex. psychologist" class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]" oninput="filterList()">
-									<option value="" class="text-[#939798]">
-										--Chose an option--
-									</option>
-									<option value="true">VIP</option>
-									<option value="false">Not VIP</option>
-								</select>
-							</span>
-						</div>
-					</div>
-				</div>
-				<div id="totCustomers" class="flex flex-col flex primary font-semibold my-4"></div>
-					<div id="cstmrsList" class="flex flex-col flex-1 mb-4"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
+  <body>
+    <div class="flex flex-col md:flex-row flex-1 h-full text-xl">
+      <div
+        class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
+        id="sidebar"
+      ></div>
+      <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
+        <div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+          CUSTOMERS
+        </div>
+        <div class="gray m-2 mb-1 self-center">
+          Click on something followed by
+          <i class="fa fa-copy"></i> to copy it!
+        </div>
+        <div class="flex flex-row mt-2 mx-4 mb-1">
+          <button
+            id="showBtn"
+            class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+            onclick="showFilters()"
+          >
+            Show filters
+          </button>
+          <button
+            id="hideBtn"
+            class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+            onclick="hideFilters()"
+          >
+            Hide filters
+          </button>
+          <button
+            id="resetBtn"
+            class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+            onclick="resetFilters()"
+          >
+            Reset filters
+          </button>
+        </div>
+        <div id="list" class="flex flex-1 m-4 mt-2">
+          <div class="flex flex-col flex-1">
+            <div id="customersFilters" class="flex flex-col">
+              <!-- primo filtro-->
+              <div class="flex flex-col sm:flex-row">
+                <span class="flex">
+                  <label
+                    for="filterCustomerId"
+                    class="flex self-center primary font-semibold"
+                    >Filter by customer id:</label
+                  >
+                </span>
+                <span>
+                  <input
+                    id="filterCustomerId"
+                    name="filterCustomerId"
+                    type="text"
+                    placeholder="ex. 63cecdc93b2ad296f8ed3989"
+                    class="px-1 m-1 rounded w-[15rem]"
+                    oninput="filterList()"
+                  />
+                </span>
+              </div>
+              <!-- secondo e terzo filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterCustomerEmail"
+                      class="flex self-center primary font-semibold"
+                      >Filter by email:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterCustomerEmail"
+                      name="filterCustomerEmail"
+                      type="email"
+                      placeholder="ex. rossi@gmail.com"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterList()"
+                    />
+                  </span>
+                </div>
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterCustomerBirthDate"
+                      class="flex self-center primary font-semibold"
+                      >Filter by birth date:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterCustomerBirthDate"
+                      name="filterCustomerBirthDate"
+                      type="text"
+                      placeholder="ex. yyyy-mm-dd"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- quarto e quinto filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterMinDate"
+                      class="flex self-center primary font-semibold"
+                      >Filter by min birth date:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterMinDate"
+                      name="filterMinDate"
+                      type="text"
+                      placeholder="ex. yyyy-mm-dd"
+                      class="px-1 m-1 rounded w-[12rem]"
+                      oninput="filterList()"
+                    />
+                  </span>
+                </div>
 
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterMaxDate"
+                      class="flex self-center primary font-semibold"
+                      >Filter by max birth date:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterMaxDate"
+                      name="filterMaxDate"
+                      type="text"
+                      placeholder="ex. yyyy-mm-dd"
+                      class="px-1 m-1 rounded w-[12rem]"
+                      oninput="filterList()"
+                    />
+                  </span>
+                </div>
+              </div>
+              <!-- sesto e settimo filtro-->
+              <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterFavAnimal"
+                      class="flex self-center primary font-semibold"
+                      >Filter by favorite animal:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterFavAnimal"
+                      name="filterFavAnimal"
+                      type="text"
+                      placeholder="ex. dog"
+                      class="px-1 m-1 rounded w-[12rem]"
+                      oninput="filterList()"
+                    />
+                  </span>
+                </div>
+
+                <div class="flex flex-col sm:flex-row lg:mr-4">
+                  <span class="flex">
+                    <label
+                      for="filterVIP"
+                      class="flex self-center primary font-semibold"
+                      >VIP option:</label
+                    >
+                  </span>
+                  <span class="flex justify-start">
+                    <select
+                      id="filterVIP"
+                      name="filterVIP"
+                      type="text"
+                      placeholder="ex. psychologist"
+                      class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+                      oninput="filterList()"
+                    >
+                      <option value="" class="text-[#939798]">
+                        --Chose an option--
+                      </option>
+                      <option value="true">VIP</option>
+                      <option value="false">Not VIP</option>
+                    </select>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              id="totCustomers"
+              class="flex flex-col flex primary font-semibold my-4"
+            ></div>
+            <div id="cstmrsList" class="flex flex-col flex-1 mb-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

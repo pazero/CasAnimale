@@ -11,6 +11,7 @@
             >Name</label
           >
           <input
+            aria-label="Player name input field"
             @change="(event) => (playerName = event.target.value)"
             type="text"
             id="name"
@@ -24,6 +25,7 @@
             >Number of questions</label
           >
           <input
+            aria-label="Number of questions input field field"
             @input="(event) => (count = event.target.value)"
             type="number"
             min="1"

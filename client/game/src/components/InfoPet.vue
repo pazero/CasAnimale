@@ -1,5 +1,5 @@
 <script setup>
-import { onActivated, onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 const actual = ref(0);
 const pages = ref([
   {
@@ -33,7 +33,6 @@ const pages = ref([
     text: `If you've just welcomed a new puppy into your household (or are planning to), it is an exciting time.
             We recognise you may want some care advice -
             not just about your puppy's health but also about behaviour and environment.`,
-
   },
   {
     title: `Routine Health Care of Dogs`,
@@ -70,18 +69,18 @@ const pages = ref([
 
 function updateVideo() {
   document.getElementById("title").innerHTML = pages.value[actual.value]?.title;
-  document.getElementById("link").setAttribute('href', pages.value[actual.value]?.link);
+  document
+    .getElementById("link")
+    .setAttribute("href", pages.value[actual.value]?.link);
   document.getElementById("text").innerHTML = pages.value[actual.value]?.text;
-
 }
 function next() {
-  (actual.value < pages.value.length-1 ) ? (actual.value++) : (actual.value = 0)
+  actual.value < pages.value.length - 1 ? actual.value++ : (actual.value = 0);
   updateVideo();
 }
 function prev() {
-
-    (actual.value > 0 ) ? (actual.value--) : (actual.value = pages.value.length - 1)
-    updateVideo();
+  actual.value > 0 ? actual.value-- : (actual.value = pages.value.length - 1);
+  updateVideo();
 }
 onMounted(updateVideo);
 </script>
@@ -90,7 +89,11 @@ onMounted(updateVideo);
   <div id="useful-info" class="my-auto">
     <!-- left arrow -->
     <div class="flex">
-      <div class="btn place-self-center p-0 center flex-none justify-left bg-transparent border-none hover:bg-transparent" @click="prev">
+      <button
+        tabindex="0"
+        class="btn place-self-center p-0 center flex-none justify-left bg-transparent border-none hover:bg-transparent"
+        @click="prev"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -102,16 +105,30 @@ onMounted(updateVideo);
             d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"
           />
         </svg>
-      </div>
+      </button>
       <!-- main -->
-      <div id="page" class="flex flex-col place-self-center" style="flex: 1 1 auto;">
-        <div id="title" class="mb-2 sm:mb-10 text-center font-bold text-2xl sm:text-5xl" style="color: #570DF8;"></div>
+      <div
+        id="page"
+        class="flex flex-col place-self-center"
+        style="flex: 1 1 auto"
+      >
+        <div
+          id="title"
+          class="mb-2 sm:mb-10 text-center font-bold text-2xl sm:text-5xl"
+          style="color: #570df8"
+        ></div>
         <div class="flex flex-row mb-4 sm:mb-10">
-            <div class="flex flex-col" style="flex:1 1 auto"></div>
-            <div id="text" class="text-center sm:w-3/6" style="flex:1 1 auto;"></div>
-            <div class="flex flex-col" style="flex:1 1 auto"></div>
+          <div class="flex flex-col" style="flex: 1 1 auto"></div>
+          <div
+            id="text"
+            class="text-center sm:w-3/6"
+            style="flex: 1 1 auto"
+          ></div>
+          <div class="flex flex-col" style="flex: 1 1 auto"></div>
         </div>
-        <a id="link"
+        <a
+          tabindex="0"
+          id="link"
           class="btn btn-primary mx-auto place-self-center flex justify-center"
           href="#"
           target="_blank"
@@ -120,7 +137,11 @@ onMounted(updateVideo);
         </a>
       </div>
       <!-- rigth arrow -->
-      <div class="btn place-self-center p-0  flex-none justify-end bg-transparent border-none hover:bg-transparent" @click="next()">
+      <button
+        tabindex="0"
+        class="btn place-self-center p-0 flex-none justify-end bg-transparent border-none hover:bg-transparent"
+        @click="next()"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -132,7 +153,7 @@ onMounted(updateVideo);
             d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
           />
         </svg>
-      </div>
+      </button>
     </div>
   </div>
 </template>

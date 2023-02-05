@@ -62,12 +62,17 @@
             </button>
           </div>
         </div>
-        <div class="flex justify-center font-bold mb-2">or...</div>
+        <div
+          v-show="pptes.length > 0"
+          class="flex justify-center font-bold mb-2"
+        >
+          or...
+        </div>
         <input
           class="shadow appearance-none border border-blue-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           v-model="selectedPet"
-          placeholder="Insert the spiecie of an animal here"
+          placeholder="Write a species here"
         />
         <div class="flex justify-center">
           <button
@@ -123,16 +128,18 @@ export default {
 
   methods: {
     async getPets() {
-      var user = await fetch(Const.BEURL + "/api/user/getInfo", {
-        credentials: "include",
-      });
+      try {
+        var user = await fetch(Const.BEURL + "/api/user/getInfo", {
+          credentials: "include",
+        });
 
-      user = await user.json();
+        user = await user.json();
 
-      var ret = await fetch(Const.BEURL + "/api/pets?owner=" + user._id, {
-        credentials: "include",
-      });
-      this.ppets = await ret.json();
+        var ret = await fetch(Const.BEURL + "/api/pets?owner=" + user._id, {
+          credentials: "include",
+        });
+        this.ppets = await ret.json();
+      } catch {}
       // console.log(this.ppets);
       this.showInput = !this.showInput;
     },
@@ -202,11 +209,11 @@ export default {
             : ""
         }
         ${charact.prey !== undefined ? `Its prey are ${charact.prey}.` : ""}`;
-      // var ret = await fetch("https://meme-api.com/gimme/AnimalsBeingDerps", {
-      //   responseType: "application/json",
-      // });
-      // ret = await ret.json(); //TODO CONTROLLARE
-      this.fact.image = "leone.jpg";
+      var ret = await fetch("https://meme-api.com/gimme/AnimalsBeingDerps", {
+        responseType: "application/json",
+      });
+      ret = await ret.json();
+      this.fact.image = ret.url;
       this.animal_fact = animal;
       this.fetchDone = true;
       this.showLoader = false;

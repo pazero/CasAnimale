@@ -1,7 +1,11 @@
 <template>
   <div id="funny-video" class="my-auto">
     <div class="pt-2 flex">
-      <div class="place-self-center flex-none justify-left" @click="prev">
+      <button
+        tabindex="0"
+        class="place-self-center flex-none justify-left"
+        @click="prev"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -13,7 +17,7 @@
             d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"
           />
         </svg>
-      </div>
+      </button>
 
       <div id="video" class="place-self-center flex-auto">
         <button
@@ -23,7 +27,11 @@
           Watch a video!
         </button>
       </div>
-      <div class="place-self-center flex-none justify-end" @click="next">
+      <button
+        tabindex="0"
+        class="place-self-center flex-none justify-end"
+        @click="next"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -35,7 +43,7 @@
             d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
           />
         </svg>
-      </div>
+      </button>
     </div>
   </div>
 </template>

@@ -17,6 +17,7 @@
       let user;
       let data;
       let adminsList;
+      let pwRestoreList = [];
       let listLen = {
           study_info: -1,
           professional_experience: -1,
@@ -29,12 +30,13 @@
         if (user.admin) {
           $("#title").html("PERSONAL PROFILE");
           getAdminInfo(user.id);
+          getPwToRestore();
         } else {
           $("#companyInfo").removeClass("hidden");
           $("#title").html("COMPANY PROFILE");
           getAccountInfo(user.id);
         }
-        $(".tab").addClass("ml-10");
+        $(".tab").addClass("items-center");
       });
 
       const showTab = (divId) => {
@@ -53,14 +55,22 @@
         fillCompany();
       };
 
-      const getAdminsList = async (id) => {
+      const getPwToRestore  = async () => {
+        let ret = await fetch("http://site212247.tw.cs.unibo.it/api/emailrestore", {
+          credentials: "include",
+        });
+        pwRestoreList = await ret.json();
+        console.log(pwRestoreList)
+        fillPwRestoreList();
+      };
+
+      const getAdminsList = async () => {
         let ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin", {
-          method: "GET",
           credentials: "include",
         });
         adminsList = await ret.json();
         fillAdminsList();
-      };
+      }
 
       const getAdminInfo = async (id) => {
         let ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin?_id=" + id, {
@@ -95,6 +105,48 @@
         });
         $("#otherAdmins").append(tmp);
       };
+  
+      const fillPwRestoreList = () => {
+        let tmp = "Password to restore:";
+        if(pwRestoreList.length > 0){
+          pwRestoreList.map((item, index) => {
+            let date = new Date(item.timestamp).toISOString().split('T')[0]
+            let time = (new Date(item.timestamp)).toString().substring(16,21)
+              tmp +=
+                `<div class="flex flex-row my-4">`+
+                  (index+1) + `.
+                  <div class="flex flex-col bg-white ml-2 p-2 rounded-lg">
+                    <div><span class="font-bold">Email: </span> <span class="font-bold primary">` +
+                  item.mail +
+                  `</span>
+                  </div>
+                  <div><span class="font-bold">Request date: </span>` +
+                  date +
+                  `</div>
+                  <div><span class="font-bold">Request time: </span>` +
+                  time +
+                  `</div>
+                  <button class="flex self-center btn bg-danger rounded lg my-1 mt-2 px-2 py-1 font-semibold text-white" onclick="delPwRestore('`+item._id+`')"> Delete </button>
+                  </div>
+                </div>
+              `;
+          });
+        } else {
+          tmp += "<br>No email to restore"
+        }
+        $("#restorePw").append(tmp);
+      }
+
+      const delPwRestore = async (id) => {
+        let ret = await fetch("http://localhost:5000/api/emailrestore/" + id, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        ret = await ret.json();
+        alert(ret.message)
+        window.location.reload()
+      }
+
 
       const fillAdmin = () => {
         $(".adminOnly").removeClass("hidden");
@@ -253,7 +305,7 @@
           data[0].cities.monday +
           `"
                 placeholder="Type new monday city"
-                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+                class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
             <div class="my-4"><span class="primary font-semibold">Tuesday:</span>
@@ -265,7 +317,7 @@
           data[0].cities.tuesday +
           `"
                 placeholder="Type new tuesday city"
-                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+                class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
             <div class="my-4"><span class="primary font-semibold">Wednesday:</span>
@@ -277,7 +329,7 @@
           data[0].cities.wednesday +
           `"
                 placeholder="Type new wednesday city"
-                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+                class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
             <div class="my-4"><span class="primary font-semibold">Thursday:</span>
@@ -289,7 +341,7 @@
           data[0].cities.thursday +
           `"
                 placeholder="Type new thursday city"
-                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+                class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
             <div class="my-4"><span class="primary font-semibold">Friday:</span>
@@ -301,7 +353,7 @@
           data[0].cities.friday +
           `"
                 placeholder="Type new friday city"
-                class="change px-1 rounded shadow-sm border-primary my-2 ml-3 bg-transparent"
+                class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div> 
           </div>
@@ -648,13 +700,20 @@
                   >
                     Other admins
                   </button>
+                  <button
+                    id="restorePwBtn"
+                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+                    onclick="showTab('restorePw')"
+                  >
+                    Restore passwords
+                  </button>
                 </div>
                 <div
-                  class="flex flex-1 text-xl ml-4 border-t-solid border-t-[1px] border-t-[#59114d]"
+                  class="flex flex-1 text-xl border-t-solid border-t-[1px] border-t-[#59114d]"
                 >
                   <div id="publicInfo" class="tab flex flex-1 flex-col">
                     <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4"
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-10"
                     >
                       PUBLIC INFORMATION
                     </div>
@@ -669,7 +728,7 @@
                         id="newName"
                         name="newName"
                         placeholder="Type new name"
-                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />
                     </div>
                     <div class="adminOnly hidden my-8">
@@ -678,7 +737,7 @@
                         id="newSurname"
                         name="newSurname"
                         placeholder="Type new surname"
-                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />
                     </div>
                     <div class="companyOnly hidden my-8">
@@ -687,14 +746,14 @@
                         id="newOwner"
                         name="newOwner"
                         placeholder="Type new owner"
-                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
                       />
                     </div>
                     <div class="companyOnly hidden mt-8">
                       <span class="primary font-semibold">Profession:</span>
                       <span
                         id="newProfession"
-                        class="change px-1 ml-3 bg-transparent"
+                        class="change px-1 bg-transparent"
                       ></span>
                     </div>
                     <button
@@ -716,7 +775,7 @@
                         id="newEmail"
                         name="newEmail"
                         placeholder="Type new email"
-                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                        class="change px-1 rounded shadow-sm border-primary  bg-transparent"
                       />
                     </div>
                     <div class="my-8">
@@ -725,12 +784,12 @@
                         id="newPassword"
                         name="newPassword"
                         placeholder="Type new password"
-                        class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                        class="change px-1 rounded shadow-sm border-primary  bg-transparent"
                       />
                     </div>
                     <div class="mt-8">
                       <span class="primary font-semibold">Id:</span>
-                      <span id="adminId" class="ml-3"></span>
+                      <span id="adminId"></span>
                     </div>
                     <button
                       class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
@@ -745,62 +804,62 @@
                     >
                       CREATE ADMIN ACCOUNT
                     </div>
-                    <div class="adminOnly hidden my-8">
-                      <div class="primary font-semibold">
+                    <div class="adminOnly hidden my-8 self-center">
+                      <div class="primary font-semibold text-center">
                         These credentials will create a new admin account.
                       </div>
-                      <div class="primary font-semibold mb-16">
+                      <div class="flex primary font-semibold mb-16 text-center" style="overflow-wrap: break-word; max-width: 40rem;">
                         They will be able to access back office and modify every
                         data and information about customers, companies and
                         prenotations.
                       </div>
-                      <div class="flex flex-col" id="createNewAdminTab">
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin name:</span>
+                      <div class="flex flex-col flex-1 self-center items-center" id="createNewAdminTab">
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin name:</span>
                           <input
                             id="createAdminName"
                             name="createAdminName"
                             placeholder="Type new admin name"
-                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
                           />
                         </div>
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin surname:</span>
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin surname:</span>
                           <input
                             id="createAdminSurname"
                             name="createAdminSurname"
                             placeholder="Type new admin surname"
-                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
                           />
                         </div>
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin email:</span>
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin email:</span>
                           <input
                             id="createAdminEmail"
                             name="createAdminEmail"
                             placeholder="Type new admin email"
-                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
                           />
                         </div>
-                        <div class="primary my-8">
-                          <span class="font-semibold">New admin password:</span>
+                        <div class="my-8">
+                          <span class="primary font-semibold">New admin password:</span>
                           <input
                             id="createAdminPassword"
                             name="createAdminPassword"
                             placeholder="Type new admin password"
-                            class="change px-1 rounded shadow-sm border-primary ml-3 bg-transparent"
+                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
                           />
                         </div>
-                      </div>
-                      <button
+                        <button
                         class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
                         onclick="createAdmin()"
-                      >
+                        >
                         CREATE NEW ADMIN
+                      </div>
                       </button>
                       <span
                         id="newProfession"
-                        class="change px-1 ml-3 bg-transparent"
+                        class="change px-1 bg-transparent"
                       ></span>
                     </div>
                   </div>
@@ -826,6 +885,13 @@
                       class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
                     >
                       OTHER ADMINS
+                    </div>
+                  </div>
+                  <div id="restorePw" class="tab hidden flex flex-1 flex-col">
+                    <div
+                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
+                    >
+                      RESTORE PASSWORDS
                     </div>
                   </div>
                   <div id="places" class="tab hidden flex flex-1 flex-col">

@@ -29,14 +29,13 @@ TO DO:
 - GENERALI
 	[/] Convertire gli alert con dei toast
 	[/] Controllare accessibilità, stile e responsive di tutto
-	[/] Portare il progetto su gocker (creato docker)
-	[ ] far funzionare tutto senza errori
-	[ ] Documentazione API con swagger
+	[x] Portare il progetto su gocker
+	[/] far funzionare tutto senza errori
 
 TO DO:
 - MainComponents
 	[x] Header
-	[/] Carosello (inserire utleriori schede: vip, giochi, bacheche...)
+	[x] Carosello
 	[x] Footer
 - Pagine
 	- GAME
@@ -67,7 +66,8 @@ TO DO:
 		[x] Bacheca "aiutami"    			| migliorare stile dei commenti
 		[x] Bacheca "cerco partner"			|
 		[x] Leadboard
-		[ ] Gestione degli animali nei servizi
+		[x] Gestione degli animali nei servizi
+		[ ] Notifiche di vendita
 		[x] Filtro dei servizi per luogo
 		[x] Recensioni (facoltativo)		| migliorare stile
 		[x] Veterinario
@@ -80,44 +80,38 @@ TO DO:
  	
 	- BACK OFFICE
 		[x] Login
+			[x] fix tasto invio (adesso sei costretto a premere il tasto login con il mouse o fare tab e poi invio)
 		[x] Home page
 		[/] Gestione info clienti (anagrafica clienti)	[ CUSTOMERS ]
-			[ ] Form crea nuovo
 			[x] Update
 			[x] Delete
 			[x] Filtri
-			[ ] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
-		[/] Gestione delle bacheche [ FORUM ]
-			[ ] Form crea nuovo
-			[ ] Update
+			[/] Le aziende vedono solo i loro clienti, e non possono modificare o eliminare clienti
+		[x] Gestione delle bacheche [ FORUM ]
+			[x] Eliminare commento
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende non accedono a questa sezione
 		[/] Gestione dei prodotti [ E-COMMERCE ]
-			[ ] Form crea nuovo
-			[ ] Update
 			[x] Delete
 			[/] Filtri
 			[x] Le aziende non accedono a questa sezione
-		[/] Gestione delle prenotazioni [ PRENOTATIONS ]
-			[ ] Form crea nuovo
+		[x] Gestione delle prenotazioni [ PRENOTATIONS ]
 			[x] Update
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende vedono solo le loro prenotazioni 
-		[/] Gestione delle ricevute [ BILLING ]
-			[ ] Form crea nuovo
-			[ ] Update
+		[x] Gestione delle ricevute [ BILLING ]
 			[x] Delete
 			[x] Filtri
 			[x] Differenziare
-		[/] Gestione servizi presenza e online [ COMPANIES ]
-			[ ] Form crea nuovo
+		[x] Gestione servizi presenza e online [ COMPANIES ]
+			[x] Form crea nuovo
 			[x] Update
 			[x] Delete
 			[x] Filtri
 			[x] Le aziende accedono alle info solo della loro azienda
-		[ ] Registrazione nuova azienda
-		[ ] Registrazione nuovo admin
-		[ ] Sezione password da rifare
+		[x] Registrazione nuova azienda
+		[x] Registrazione nuovo admin
+		[x] Sezione password da rifare
 		[x] Se elimini una azienda o un utente eliminare tutte le cose collegate oppure fare in modo che l'app non si rompa

@@ -15,11 +15,15 @@
       var user;
 
       const setUser = async () => {
-        user = await isUserLogged()
-        if(user === undefined)
-          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html"
-        fillCards()
-      }
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://http://site212247.tw.cs.unibo.it/b/views/login.html";
+        fillCards();
+        if (user.admin) {
+          $("#cards").addClass("md:grid-cols-3");
+          $(".forAdmin").removeClass("hidden");
+        }
+      };
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
       });
@@ -32,80 +36,81 @@
           img: "../public/customers.png",
           alt: "customers icon",
           href: "customers.html",
-          diff: false
+          company: true,
         },
         {
           text: "forum",
           img: "../public/forum.png",
           alt: "forum icon",
           href: "forum.html",
-          diff: false
+          company: false,
         },
         {
           text: "e-commerce",
           img: "../public/shop.png",
           alt: "shop icon",
           href: "ecommerce.html",
-          diff: false
+          company: false,
         },
         {
           text: "prenotations",
           img: "../public/schedule.png",
           alt: "prenotation icon",
           href: "prenotations.html",
-          diff: false
+          company: true,
         },
         {
           text: "Billing",
           img: "../public/billing.png",
           alt: "billing icon",
           href: "billing.html",
-          diff: false
+          company: true,
         },
         {
           text: "profile",
           img: "../public/companies.png",
           alt: "companies icon",
           href: "profile.html",
-          diff: true
+          company: true,
         },
       ];
       const fillCards = () => {
         let tmp = "";
-        console.log(user)
-        if(user.admin) {
-          services[5].text = "companies"
-          services[5].href = "companies.html"
+        console.log(user);
+        if (user.admin) {
+          services[5].text = "companies";
+          services[5].href = "companies.html";
         }
         $(document).ready(function () {
           services.map((item) => {
-            tmp +=
-              `<div class="card flex justify-center">
+            if ((item.company && !user.admin) || user.admin)
+              tmp +=
+                `<div class="card flex justify-center">
               <button
               class="card-body hover:bg-opacity-50"
               style="padding-left: 3rem; padding-right: 3rem; padding-top:3rem; max-height: 18rem; max-width: 18rem; margin:0.5rem"
               onclick=gotologin("` +
-              item.href +
-              `")
+                item.href +
+                `")
               >
           <img
           src=` +
-              item.img +
-              `
+                item.img +
+                `
           alt=` +
-              item.alt +
-              `
+                item.alt +
+                `
           class="h-auto w-full object-cover object-center group-hover:opacity-75"
           />
           <p class="card-title py-4 font-bold text-center align-center">` +
-            item.text.toLocaleUpperCase() +
-          `</p>
+                item.text.toLocaleUpperCase() +
+                `</p>
           </div>
           </button>`;
             $("#cards").html(tmp);
           });
         });
-      }
+      };
     </script>
   </head>
   <body onload="setUser()">
@@ -127,7 +132,7 @@
           </div>
           <div
             id="cards"
-            class="grid grid-cols-1 mx-10 sm:mx-0 sm:grid-cols-2 md:grid-cols-3 gap-4"
+            class="grid grid-cols-1 mx-10 sm:mx-0 sm:grid-cols-2 gap-4"
             style="grid-auto-rows: 1fr"
           ></div>
         </div>

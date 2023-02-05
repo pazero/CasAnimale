@@ -3,7 +3,7 @@
     let products = [];
     let filteredProducts = [];
     let totProducts = 0;
-
+    setUser();
     const getProducts = async () => {
       var ret = await fetch("http://site212247.tw.cs.unibo.it/api/product", {
         method: "GET",

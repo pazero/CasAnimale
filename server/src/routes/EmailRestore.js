@@ -35,8 +35,8 @@ router.delete("/:id", async (req, res) => {
   try {
     jwt.authenticateToken(req, res, cont);
 
-    function cont() {
-      EmailRestore.deleteOne({ _id: req.params.id });
+    async function cont() {
+      await EmailRestore.findByIdAndDelete(req.params.id);
       res.json({ message: "Mail deleted succesfully!" });
     }
   } catch (e) {

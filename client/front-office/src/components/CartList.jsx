@@ -413,7 +413,7 @@ const CartItem = () => {
             It seems like there are no items available for purchase here{" "}
             <span>&#9785;</span>
           </Text>
-          <Text>Go check our eCommerce!</Text>
+          <Text>Check out the store service!</Text>
         </Box>
       ) : (
         <Box className="flex font-semibold justify-center sm:justify-end sm:mr-10">

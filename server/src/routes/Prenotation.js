@@ -3,6 +3,7 @@ const Prenotation = require("../models/Prenotation");
 const Company = require("../models/Company");
 const jwt = require("../services/jwtUtils");
 const User = require("../models/User");
+const { text } = require("express");
 const router = express.Router();
 
 function addHours(numOfHours, str) {
@@ -161,6 +162,7 @@ router.put("/new", async (req, res) => {
         start: req.body.start,
         claimed: false,
         duration: req.body.duration,
+        text: req.body.text,
         user: req.userid,
       });
       await prenotation.save();
@@ -243,6 +245,7 @@ router.post("/update", async (req, res) => {
           start: req.body.start,
           claimed: req.body.claimed,
           duration: req.body.duration,
+          text: req.body.text,
           user: req.body.user,
         }
       );

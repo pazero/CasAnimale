@@ -144,6 +144,7 @@ const CompanyList = (props) => {
         >
           {filteredCompany.map((comp, i) => (
             <div
+              tabIndex={0}
               key={i}
               id={comp._id}
               className="flex flex-col flex-wrap p-2 sm:p-3 m-4 bg-white border border-gray-300 rounded-lg shadow-md hover:bg-gray-100"
@@ -156,7 +157,7 @@ const CompanyList = (props) => {
               }}
             >
               <div>
-                <div className="mb-2 mt-3 font-semibold text-2xl text-center text-blue-800 ">
+                <div as="h2" className="mb-2 mt-3 font-semibold text-2xl text-center text-blue-800 ">
                   {comp.name}
                 </div>
 

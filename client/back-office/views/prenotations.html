@@ -18,16 +18,26 @@
       let totPrenotations = 0;
       var user;
       var companies = [];
+      const none = "-";
 
       $(document).ready(async () => {
-        user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
-
-        if (user.admin) getPts("");
-        else getPts(user.id);
+        await setUser()
+        if (user.admin) {
+          getPts("");
+        } else getPts(user.id);
       });
+
+      const setUser = async () => {
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html";
+        if (user.admin) {
+          $(".forAdmin").removeClass("hidden");
+        }
+      };
       const getDateString = (s) => {
-        var d = new Date(s);
+        let d = new Date(s);
         return (
           d.getFullYear().toString() +
           "-" +
@@ -77,8 +87,7 @@
       };
 
       const getCompany = async (id, index) => {
-        var ret;
-        ret = await fetch("http://site212247.tw.cs.unibo.it/api/company?_id=" + id, {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
@@ -88,7 +97,7 @@
       };
 
       const getPts = async (id) => {
-        var ret;
+        let ret;
         id === ""
           ? (ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation", {
               method: "GET",
@@ -288,6 +297,7 @@
                 tmp += makeItemPrenotation(
                   index,
                   item._id,
+                  item.text,
                   item.place,
                   item.start,
                   item.user,
@@ -335,6 +345,7 @@
       const makeItemPrenotation = (
         index,
         id,
+        text,
         place,
         start,
         user,
@@ -432,7 +443,7 @@
           </div>
           <div class="tohidden` +
           index +
-          `"><span class="font-semibold">Is claimed </span>` +
+          `"><span class="font-semibold">Is claimed: </span>` +
           isClaimed +
           `</div>
           <div class="toshow` +
@@ -459,6 +470,9 @@
                   <button class="btn" onclick="copy(this)">` +
           user +
           `       <i class="fa fa-copy"></i></button>
+                </div>
+                <div><span class="font-semibold">Text: </span>` +
+                  ((text !== undefined) ? text : none) +`
                 </div>
               </div>
               </div>
@@ -512,6 +526,7 @@
               tmp += makeItemPrenotation(
                 index,
                 item._id,
+                item.text,
                 item.place,
                 item.start,
                 item.user,
@@ -519,7 +534,7 @@
                 item.claimed
               );
               totPrenotations = index + 1;
-              var cmp = await getCompany(item.company, index);
+              let cmp = await getCompany(item.company, index);
 
               fillDaysChange(index, cmp);
               setWorkingCities(index, cmp);
@@ -535,7 +550,7 @@
       };
 
       const copy = (that) => {
-        var inp = document.createElement("input");
+        let inp = document.createElement("input");
         document.body.appendChild(inp);
         inp.value = that.textContent.trim();
         inp.select();
@@ -569,7 +584,7 @@
     </script>
   </head>
   <body>
-    <div class="flex flex-col md:flex-row flex-1 h-full">
+    <div class="flex flex-col md:flex-row flex-1 h-full text-xl">
       <div
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
@@ -706,7 +721,7 @@
                       id="filterCity"
                       name="filterCity"
                       type="text"
-                      placeholder="ex. Torino"
+                      placeholder="ex. Torino or online"
                       class="px-1 m-1 rounded w-[15rem]"
                       oninput="filterList()"
                     />
