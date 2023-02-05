@@ -19,7 +19,10 @@
         if (user === undefined)
           window.location.href = "http://localhost:5000/b/views/login.html";
         fillCards();
-        if (user.admin) $("#cards").addClass("md:grid-cols-3");
+        if (user.admin) {
+          $("#cards").addClass("md:grid-cols-3");
+          $(".forAdmin").removeClass("hidden");
+        }
       };
       $(document).ready(function () {
         $("#sidebar").load("../tabs/sidebar.html");
@@ -80,28 +83,28 @@
         }
         $(document).ready(function () {
           services.map((item) => {
-            if((item.company && !user.admin) || user.admin)
-            tmp +=
-              `<div class="card flex justify-center">
+            if ((item.company && !user.admin) || user.admin)
+              tmp +=
+                `<div class="card flex justify-center">
               <button
               class="card-body hover:bg-opacity-50"
               style="padding-left: 3rem; padding-right: 3rem; padding-top:3rem; max-height: 18rem; max-width: 18rem; margin:0.5rem"
               onclick=gotologin("` +
-              item.href +
-              `")
+                item.href +
+                `")
               >
           <img
           src=` +
-              item.img +
-              `
+                item.img +
+                `
           alt=` +
-              item.alt +
-              `
+                item.alt +
+                `
           class="h-auto w-full object-cover object-center group-hover:opacity-75"
           />
           <p class="card-title py-4 font-bold text-center align-center">` +
-              item.text.toLocaleUpperCase() +
-              `</p>
+                item.text.toLocaleUpperCase() +
+                `</p>
           </div>
           </button>`;
             $("#cards").html(tmp);
