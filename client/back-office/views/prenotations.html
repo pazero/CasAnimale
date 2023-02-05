@@ -16,18 +16,27 @@
     <script>
       let pts = [];
       let totPrenotations = 0;
-      var user;
-      var companies = [];
+      let user;
+      let companies = [];
 
       $(document).ready(async () => {
-        user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
-
-        if (user.admin) getPts("");
-        else getPts(user.id);
+        await setUser()
+        if (user.admin) {
+          getPts("");
+        } else getPts(user.id);
       });
+
+      const setUser = async () => {
+        user = await isUserLogged();
+        if (user === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html";
+        if (user.admin) {
+          $(".forAdmin").removeClass("hidden");
+        }
+      };
       const getDateString = (s) => {
-        var d = new Date(s);
+        let d = new Date(s);
         return (
           d.getFullYear().toString() +
           "-" +
@@ -66,7 +75,7 @@
 
       const sendUpdatePt = async (index) => {
         // console.log(pts[index]);
-        var ret = await fetch("http://localhost:5000/api/prenotation/update", {
+        let ret = await fetch("http://localhost:5000/api/prenotation/update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(pts[index]),
@@ -77,7 +86,7 @@
       };
 
       const getCompany = async (id, index) => {
-        var ret;
+        let ret;
         ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
@@ -88,7 +97,7 @@
       };
 
       const getPts = async (id) => {
-        var ret;
+        let ret;
         id === ""
           ? (ret = await fetch("http://localhost:5000/api/prenotation", {
               method: "GET",
@@ -106,7 +115,7 @@
       };
 
       const deletePt = async (id) => {
-        var ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
+        let ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
           method: "DELETE",
           credentials: "include",
         });
@@ -432,7 +441,7 @@
           </div>
           <div class="tohidden` +
           index +
-          `"><span class="font-semibold">Is claimed </span>` +
+          `"><span class="font-semibold">Is claimed: </span>` +
           isClaimed +
           `</div>
           <div class="toshow` +
@@ -519,7 +528,7 @@
                 item.claimed
               );
               totPrenotations = index + 1;
-              var cmp = await getCompany(item.company, index);
+              let cmp = await getCompany(item.company, index);
 
               fillDaysChange(index, cmp);
               setWorkingCities(index, cmp);
@@ -535,7 +544,7 @@
       };
 
       const copy = (that) => {
-        var inp = document.createElement("input");
+        let inp = document.createElement("input");
         document.body.appendChild(inp);
         inp.value = that.textContent.trim();
         inp.select();

@@ -190,6 +190,7 @@ const SpecialistPage = () => {
         duration: 3000,
         variant: "subtle",
       });
+      window.location.reload()
     } else
       toast({
         title: "Ops something went wrong!",

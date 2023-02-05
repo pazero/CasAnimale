@@ -54,7 +54,10 @@
         companies = await ret.json();
         toEditData = companies;
         await loadCompanyList();
-        if (user.admin) $(".adminOnly").removeClass("hidden");
+        if (user.admin) {
+          $(".adminOnly").removeClass("hidden");
+          $(".forAdmin").removeClass("hidden");
+        }
       };
 
       const sendData = async (index) => {
@@ -379,6 +382,7 @@
       };
 
       const createCp = () => {
+        console.log($("#createOnline").val());
         let newCompany = {
           name: $("#createName").val(),
           photo:
@@ -408,6 +412,7 @@
           actual_jobs: [],
           online: $("#createOnline").val() === "true" ? true : false,
         };
+
         for (let i = 0; i <= toCreateLen.main_pets; i++) {
           if ($("#createPet" + i).val() !== "")
             newCompany.main_pets.push($("#createPet" + i).val());
@@ -1140,10 +1145,10 @@
             <div class="my-1">
               <label for="createOnline" class="font-semibold">Online: </label>
               <select
-              id="createOnline"
-              name="createOnline"
-              type="text"
-              class="px-1 rounded shadow-sm border-primary bg-transparent"
+                id="createOnline"
+                name="createOnline"
+                type="text"
+                class="px-1 rounded shadow-sm border-primary bg-transparent"
               >
               <option value="false">No</option>
               <option value="true">Yes</option>

@@ -98,6 +98,7 @@ router.put("/new", async (req, res) => {
       professional_experience: req.body.professional_experience,
       actual_jobs: req.body.actual_jobs,
       photo: req.body.photo,
+      online: req.body.online,
       review: [],
     });
     await c.save();

@@ -16,10 +16,20 @@
     <!--script src="../../node_modules/jquery/dist/jquery.min.js"></script-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      $(document).ready(function () {
+      let user_tmp;
+      $(document).ready(async () => {
         $("#sidebar").load("../tabs/sidebar.html");
         $("#billingInfo").load("../tabs/billing-info.html");
+        await setUser();
       });
+      const setUser = async () => {
+        user_tmp = await isUserLogged();
+        if (user_tmp === undefined)
+          window.location.href = "http://localhost:5000/b/views/login.html";
+        if (user_tmp.admin) {
+          $(".forAdmin").removeClass("hidden");
+        }
+      };
     </script>
   </head>
   <body>

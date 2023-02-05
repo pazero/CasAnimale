@@ -22,11 +22,15 @@
       let cstmrs = [];
       let totCustomers = 0;
       let toEditData = [];
-	  let prenotationList = [];
+      let prenotationList = [];
+      let user;
       const setUser = async () => {
         user = await isUserLogged();
         if (user === undefined)
           window.location.href = "http://localhost:5000/b/views/login.html";
+        if (user.admin) {
+          $(".forAdmin").removeClass("hidden");
+        }
       };
       const sendData = async (index) => {
         console.log(toEditData[index]);
@@ -70,6 +74,7 @@
           }
         );
         prenotationList = await ret.json();
+        console.log(prenotationList);
       };
 
       const getCusts = async () => {
@@ -77,7 +82,22 @@
           method: "GET",
           credentials: "include",
         });
-        cstmrs = await ret.json();
+        ret = await ret.json();
+
+        await setUser();
+        await getPts(user.id);
+
+        ret.map((customer) => {
+          prenotationList.map((prenotation) => {
+            console.log(customer._id);
+            console.log(prenotation.user);
+            console.log(customer);
+            console.log(prenotation);
+            if (customer._id === prenotation.user) {
+              if (!cstmrs.includes(customer)) cstmrs.push(customer);
+            }
+          });
+        });
         toEditData = cstmrs;
         await loadList();
       };
@@ -495,7 +515,6 @@
         $(document).ready(function () {
           if (cstmrs !== undefined) {
             cstmrs.map((item, index) => {
-			  //aggiungere controllo se il customer ha fatto almeno una prenotazione
               tmp += makeItemCustomer(
                 index,
                 item._id,
