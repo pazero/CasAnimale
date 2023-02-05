@@ -16,8 +16,9 @@
     <script>
       let pts = [];
       let totPrenotations = 0;
-      let user;
-      let companies = [];
+      var user;
+      var companies = [];
+      const none = "-";
 
       $(document).ready(async () => {
         $("#sidebar").load("../tabs/sidebar.html");
@@ -297,6 +298,7 @@
                 tmp += makeItemPrenotation(
                   index,
                   item._id,
+                  item.text,
                   item.place,
                   item.start,
                   item.user,
@@ -344,6 +346,7 @@
       const makeItemPrenotation = (
         index,
         id,
+        text,
         place,
         start,
         user,
@@ -469,6 +472,9 @@
           user +
           `       <i class="fa fa-copy"></i></button>
                 </div>
+                <div><span class="font-semibold">Text: </span>` +
+                  ((text !== undefined) ? text : none) +`
+                </div>
               </div>
               </div>
               <div class="flex flex-col self-center">
@@ -521,6 +527,7 @@
               tmp += makeItemPrenotation(
                 index,
                 item._id,
+                item.text,
                 item.place,
                 item.start,
                 item.user,

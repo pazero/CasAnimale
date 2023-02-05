@@ -66,7 +66,7 @@ TO DO:
 		[x] Bacheca "aiutami"    			| migliorare stile dei commenti
 		[x] Bacheca "cerco partner"			|
 		[x] Leadboard
-		[ ] Gestione degli animali nei servizi
+		[x] Gestione degli animali nei servizi
 		[ ] Notifiche di vendita
 		[x] Filtro dei servizi per luogo
 		[x] Recensioni (facoltativo)		| migliorare stile
@@ -79,7 +79,8 @@ TO DO:
 		[x] Implementare sistema di fatturazione dei servizi e del vip
  	
 	- BACK OFFICE
-		[x] Login
+		[/] Login
+			[ ] fix tasto invio (adesso sei costretto a premere il tasto login con il mouse o fare tab e poi invio)
 		[x] Home page
 		[/] Gestione info clienti (anagrafica clienti)	[ CUSTOMERS ]
 			[x] Update
