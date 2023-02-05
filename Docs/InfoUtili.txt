@@ -80,7 +80,6 @@ TO DO:
  	
 	- BACK OFFICE
 		[x] Login
-			[x] fix tasto invio (adesso sei costretto a premere il tasto login con il mouse o fare tab e poi invio)
 		[x] Home page
 		[/] Gestione info clienti (anagrafica clienti)	[ CUSTOMERS ]
 			[x] Update

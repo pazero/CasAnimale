@@ -69,7 +69,7 @@
                         CasAnimale - Back Office
                       </h4>
                     </div>
-                    <form onSubmit={login()}>
+                    <form>
                       <p class="mb-4">Please login to your account</p>
                       <div class="mb-4">
                         <input
@@ -91,7 +91,7 @@
                         <button
                           id="loginButton"
                           class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
-                          type="submit"
+                          type="button"
                           data-mdb-ripple="true"
                           data-mdb-ripple-color="light"
                           style="
@@ -102,12 +102,16 @@
                               #c4a9b4,
                               #c798a4
                             );
-                          ">
+                          "
+                          onclick="login()"
+                        >
                           Log in
                         </button>
-                        <a class="text-gray-500" href="http://localhost:3000/f/restore">
-                          Forgot password?
-                        </a>
+                        <a
+                          class="text-gray-500"
+                          href="http://localhost:3000/f/restore"
+                          >Forgot password?</a
+                        >
                       </div>
                     </form>
                   </div>
