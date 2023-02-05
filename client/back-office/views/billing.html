@@ -25,7 +25,7 @@
       const setUser = async () => {
         user_tmp = await isUserLogged();
         if (user_tmp === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html";
+          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html";
         if (user_tmp.admin) {
           $(".forAdmin").removeClass("hidden");
         }

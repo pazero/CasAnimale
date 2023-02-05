@@ -75,7 +75,7 @@
         window.location.reload();
       };
       const sendCreateCp = async (data) => {
-        var ret = await fetch("http://localhost:5000/api/company/new/", {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/company/new/", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),

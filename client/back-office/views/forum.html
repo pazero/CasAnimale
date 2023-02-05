@@ -29,7 +29,7 @@
       const setUser = async () => {
         user = await isUserLogged();
         if (user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html";
+          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html";
         if (user.admin) {
           $(".forAdmin").removeClass("hidden");
         }
@@ -61,7 +61,7 @@
         let comments = currentComments[postIndex];
 
         var ret = await fetch(
-          "http://localhost:5000/api/post/update/" + postId,
+          "http://site212247.tw.cs.unibo.it/api/post/update/" + postId,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
