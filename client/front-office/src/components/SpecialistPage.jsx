@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import Select from "react-select";
 import {
   Checkbox,
+  Textarea,
   Table,
   Thead,
   Tbody,
@@ -36,6 +37,7 @@ const SpecialistPage = () => {
   const [cities, setCities] = useState([]);
   const [rcities, setRCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState();
+  const [text, setTextAerea] = useState("");
   const [user, setUser] = useState([]);
   const token = Cookies.get("token");
   const toast = useToast();
@@ -166,7 +168,7 @@ const SpecialistPage = () => {
     });
   }, [companyPrenotation]);
 
-  const bookSlot = async (isOnline, companyId, start) => {
+  const bookSlot = async (isOnline, companyId, textArea, start) => {
     var res;
     if (isOnline) {
       res = await PrenotationManage.newPrenotation({
@@ -174,6 +176,7 @@ const SpecialistPage = () => {
         company: companyId,
         start: start,
         duration: 1,
+        text: textArea,
       });
     } else {
       res = await PrenotationManage.newPrenotation({
@@ -181,6 +184,7 @@ const SpecialistPage = () => {
         company: companyId,
         start: start,
         duration: 1,
+        text: textArea,
       });
     }
     if (res.status.toString() === "200") {
@@ -550,6 +554,11 @@ const SpecialistPage = () => {
                   </div>
                   {/*body*/}
                   <form className="relative p-6 flex-auto">
+                    <div className="mt-1 mb-2">
+                      <span for="problemTextarea" className="font-semibold">Describe here the animal and it's problem:</span>
+                      <Textarea id="problemTextarea" placeholder="My cat Toby has a ..." onChange={(e) => setTextAerea(e.value)} />
+                    </div>
+
                     {user?.vip && company.online !== undefined ? (
                       <Checkbox
                         className="mb-2"
@@ -605,9 +614,9 @@ const SpecialistPage = () => {
                         }}
                       />
                     </div>
-                    <div className="font-semibold my-1">
-                      Schedule
-                      <div id="slotSelect" className="font-normal">
+                    <div className="my-1">
+                      <span for="slotSelect" className="font-semibold">Schedule</span>
+                      <div id="slotSelect">
                         <Select
                           options={availableSlots}
                           onChange={chooseTime}
@@ -634,6 +643,7 @@ const SpecialistPage = () => {
                           bookSlot(
                             isOnline,
                             params.id,
+                            text,
                             new Date(
                               document.getElementById("slotDay").value +
                                 " " +
@@ -661,6 +671,7 @@ const SpecialistPage = () => {
                         setStartDate();
                         setSelectedCity();
                         setStartTime();
+                        setTextAerea();
                       }}
                     >
                       Close
