@@ -37,7 +37,7 @@ const SpecialistPage = () => {
   const [cities, setCities] = useState([]);
   const [rcities, setRCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState();
-  const [text, setTextAerea] = useState("");
+  const [textArea, setTextArea] = useState();
   const [user, setUser] = useState([]);
   const token = Cookies.get("token");
   const toast = useToast();
@@ -168,7 +168,8 @@ const SpecialistPage = () => {
     });
   }, [companyPrenotation]);
 
-  const bookSlot = async (isOnline, companyId, textArea, start) => {
+  const bookSlot = async (isOnline, companyId, start) => {
+    console.log("text: " + textArea);
     var res;
     if (isOnline) {
       res = await PrenotationManage.newPrenotation({
@@ -556,7 +557,7 @@ const SpecialistPage = () => {
                   <form className="relative p-6 flex-auto">
                     <div className="mt-1 mb-2">
                       <span for="problemTextarea" className="font-semibold">Describe here the animal and it's problem:</span>
-                      <Textarea id="problemTextarea" placeholder="My cat Toby has a ..." onChange={(e) => setTextAerea(e.value)} />
+                      <Textarea id="problemTextarea" placeholder="My cat Toby has a ..." onChange={(e) => setTextArea(e.target.value)}/>
                     </div>
 
                     {user?.vip && company.online !== undefined ? (
@@ -643,12 +644,7 @@ const SpecialistPage = () => {
                           bookSlot(
                             isOnline,
                             params.id,
-                            text,
-                            new Date(
-                              document.getElementById("slotDay").value +
-                                " " +
-                                startTime
-                            )
+                            new Date(document.getElementById("slotDay").value + " " + startTime)
                           );
                           setShowModal(false);
                         } else
@@ -671,7 +667,7 @@ const SpecialistPage = () => {
                         setStartDate();
                         setSelectedCity();
                         setStartTime();
-                        setTextAerea();
+                        setTextArea();
                       }}
                     >
                       Close

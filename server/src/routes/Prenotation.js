@@ -156,8 +156,6 @@ router.put("/new", async (req, res) => {
         return;
       }
 
-      console.log("req.body: " + req.body);
-
       const prenotation = new Prenotation({
         company: req.body.company,
         place: req.body.place,
