@@ -16,7 +16,7 @@
         const authHeader = document.cookie;
         const tokenback = authHeader && authHeader.split("=");
         if (tokenback[0] === "token") {
-          alert("Log out from frotoffice first");
+          alert("Log out from front office first");
           window.location.href = "http://localhost:3000/f";
           return;
         }
