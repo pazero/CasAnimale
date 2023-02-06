@@ -37,6 +37,10 @@ html {
 .bg-danger {
   background-color: #952a83;
 }
+.bg-update {
+  background-color: #11591D;
+}
+
 
 .noticeBorder{
   border: #B5229C solid 3px;
@@ -59,10 +63,6 @@ html {
 .border-danger {
   border-color: #952a83;
   border-width: 1px;
-}
-
-.bg-update {
-  background-color: #11591D;
 }
 
 .border-b-light {

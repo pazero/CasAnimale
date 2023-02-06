@@ -374,7 +374,7 @@
           index +
           `"><span class="font-bold">Working cities:</span>
                 </div>
-                <div><span class="font-semibold">Place: </span>` +
+                <div><label for="possiblePlaces` + index + `" class="font-semibold">Place: </label>` +
           place +
           `
           <select
@@ -421,7 +421,7 @@
           `</div>
           <div class="toshow` +
           index +
-          ` hidden"><span class="font-semibold">Start at: </span>
+          ` hidden"><label for="newStart` + index + `" class="font-semibold">Start at: </label>
             <input
                 type="text"
                 name="newStart` +
@@ -447,9 +447,9 @@
           `"><span class="font-semibold">Is claimed: </span>` +
           isClaimed +
           `</div>
-          <div class="toshow` +
+          <div class="flex flex-row toshow` +
           index +
-          ` hidden"><span class="font-semibold">Is claimed: </span>
+          ` hidden"><form class="flex flex-row"><fieldset class="flex flex-row"><div><legend class="font-semibold mr-2 ">Invoice: </legend></div><div>
             <input
                 type="checkbox"
                 name="newIsClaimed"
@@ -460,7 +460,9 @@
                   ` +
           (isClaimed ? "checked" : "") +
           `
-              >
+              />
+              <label for="newIsClaimed` + index + `">claimed</label></div>
+              </fieldset></form>
           </div>
                 <div><span class="font-semibold">Company id: </span>
                   <button class="btn" onclick="copy(this)">` +
@@ -591,9 +593,9 @@
         id="sidebar"
       ></div>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+        <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
           PRENOTATIONS
-        </div>
+        </h1>
         <div class="flex flex-col mx-4 mb-1 flex-0">
           <div class="gray self-center">
             Click on something followed by
