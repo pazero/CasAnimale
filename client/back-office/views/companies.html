@@ -596,9 +596,9 @@
                   <div class="toshow` +
           index +
           `">
-                    <span class="toshow` +
+                    <label for="newOnline` + index +`" class="toshow` +
           index +
-          ` hidden font-semibold">Online: </span>
+          ` hidden font-semibold">Online: </label>
                     <select
                       id="newOnline` +
           index +
@@ -622,7 +622,7 @@
           `<i class="fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <span class="font-semibold">Company name: </span><span class="tohidden` +
+                    <label for="newName` + index + `" class="font-semibold">Company name: </label><span class="tohidden` +
           index +
           `">` +
           name +
@@ -645,7 +645,7 @@
                     />
                   </div>
                   <div>
-                    <span class="font-semibold">Email: </span>
+                    <label for="newEmail` + index + `" class="font-semibold">Email: </label>
                     <input
                       type="text"
                       name="newEmail` +
@@ -671,7 +671,7 @@
           ` fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <span class="font-semibold">Password: </span>
+                    <label for="newPassword` + index + `" class="font-semibold">Password: </span>
                     <input
                       type="text"
                       name="newPassword` +
@@ -697,7 +697,7 @@
           ` fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <span class="font-semibold">Company owner: </span><span class="tohidden` +
+                    <label for="newOwner` + index + `" class="font-semibold">Company owner: </label><span class="tohidden` +
           index +
           `">` +
           owner +
@@ -736,7 +736,7 @@
           `').removeClass('hidden')}"
                     class="flex gray text-xs m-1"
                   >
-                    <u>Show more</u>
+                  <p class="border-b-solid border-b-2 border-slate-400 gray">Show more</p>
                   </button>
                   <div class="hidden expandCard` +
           index +
@@ -836,7 +836,7 @@
           index +
           ` ml-8">
                     <div class="mb-1">
-                      <span class="font-semibold">Monday: </span>
+                      <label for="newMonday` + index + `"class="font-semibold">Monday: </label>
                       <input
                         type="text"
                         name="newMonday` +
@@ -853,7 +853,7 @@
                       />  
                     </div>
                     <div class="mb-1">
-                      <span class="font-semibold">Tuesday: </span>
+                      <label for="newTuesday` + index + `" class="font-semibold">Tuesday: </label>
                       <input
                         type="text"
                         name="newTuesday` +
@@ -870,7 +870,7 @@
                       />  
                     </div>
                     <div class="mb-1">
-                      <span class="font-semibold">Wednesday: </span>
+                      <label for="newWednesday` + index + `" class="font-semibold">Wednesday: </label>
                       <input
                         type="text"
                         name="newWednesday` +
@@ -887,7 +887,7 @@
                       />  
                     </div>
                     <div class="mb-1">
-                      <span class="font-semibold">Thursday: </span>
+                      <label for="newThursday` + index + `" class="font-semibold">Thursday: </label>
                       <input
                         type="text"
                         name="newThursday` +
@@ -904,7 +904,7 @@
                       />
                     </div>
                     <div class="mb-1">
-                      <span class="font-semibold">Friday: </span>
+                      <label for="newFriday` + index + `" class="font-semibold">Friday: </label>
                       <input
                         type="text"
                         name="newFriday` +
@@ -922,7 +922,7 @@
                     </div>
                   </div>
                   <div>
-                    <span class="font-semibold align-top">Description: </span><span class="tohidden` +
+                    <label for="newDescription` + index + `"class="font-semibold align-top">Description: </label><span class="tohidden` +
           index +
           `">` +
           description +
@@ -956,7 +956,7 @@
                   <div class="toshow` +
           index +
           ` hidden">
-                    <span class="font-semibold">Start at: </span>
+                    <label for="newStart` + index + `" class="font-semibold">Start at: </label>
                     <input
                       type="text"
                       name="newStart` +
@@ -975,7 +975,7 @@
                   <div class="toshow` +
           index +
           ` hidden">
-                    <span class="font-semibold">End at: </span>
+                    <label for="newEnd` + index + `" class="font-semibold">End at: </label>
                     <input
                       type="text"
                       name="newEnd` +
@@ -992,7 +992,7 @@
                     />
                   </div>
                   <div>
-                    <span class="font-semibold">Cost per hour: </span><span class="tohidden` +
+                    <label for="newCost` + index + `" class="font-semibold">Cost per hour: </label><span class="tohidden` +
           index +
           `">` +
           cost_per_hour +
@@ -1016,7 +1016,7 @@
                     €/h
                   </div>
                   <div>
-                    <span class="font-semibold">Photo URL: </span><span class="tohidden` +
+                    <label for="newPhoto` + index + `" class="font-semibold">Photo URL: </label><span class="tohidden` +
           index +
           `">` +
           (photo !== "undefined"
@@ -1058,7 +1058,7 @@
           index +
           ` flex hidden gray text-xs m-1"
                 >
-                  <u>Show less</u>
+                <p class="border-b-solid border-b-2 border-slate-400 gray">Show less</p>
                 </button>
               </div>
               <div class="flex flex-col self-center">
@@ -1222,7 +1222,7 @@
               </select>
             </div>
             <div class="my-1">
-              <label class="font-semibold align-top">Description: </span><span class="tohidden"></label>
+              <label for="createDescription" class="font-semibold align-top">Description: </span><span class="tohidden"></label>
             </div>
             <div class="flex my-1">
               <textarea
@@ -1529,9 +1529,9 @@
         id="sidebar"
       ></div>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <div id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+        <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
           COMPANIES
-        </div>
+        </h1>
         <div class="flex flex-col mx-4 mb-1 flex-0">
           <div class="gray self-center">
             Click on something followed by
