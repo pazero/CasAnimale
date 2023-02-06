@@ -351,13 +351,13 @@ const Navbar = () => {
         </div>
         <div class="flex flex-row">
           <img src="/f/CasAnimale.png" alt="CasAnimale logo" class="hidden sm:flex h-12 w-12"/>
-        <a
-          href={Const.FOURL}
-          className="btn btn-ghost normal-case text-xl px-1"
-          aria-label="CasAnimale home button"
-        >
-          <img src="/f/CasAnimaleScritta.png" alt="CasAnimale title" class="h-12"/>
-        </a>
+          <a
+            href={Const.FOURL}
+            className="btn btn-ghost normal-case text-xl px-1"
+            aria-label="CasAnimale home button"
+          >
+            <img src="/f/CasAnimaleScritta.png" alt="CasAnimale title" class="h-12"/>
+          </a>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
