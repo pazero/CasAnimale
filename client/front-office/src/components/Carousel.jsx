@@ -42,17 +42,17 @@ export default function CaptionCarousel() {
   const cards = [
     {
       title: "Veterinary service",
-      text: "Look at our associated vets, choose the one you prefer and book an appointment! Are you a freelancer vet or an agencie? Contact us if you want to collaborate!",
+      text: "Look at our associated vets, choose the one you prefer and book an appointment! Are you a freelancer vet or an agency? Contact us if you want to collaborate!",
       image: "/f/carousel/vet.jpg",
     },
     {
       title: "Psychologist service",
-      text: "Your pet looks sad and needs a shoulder to cry on? We have a pool of psychologists from witch you can choose. Book an appointment! Are you a freelancer pet psychologist or an agencie? Contact us if you want to collaborate!",
+      text: "Your pet looks sad and needs a shoulder to cry on? We have a pool of psychologists from which you can choose. Book an appointment! Are you a freelancer pet psychologist or an agency? Contact us if you want to collaborate!",
       image: "/f/carousel/psychologist.jpg",
     },
     {
       title: "Pet sitting service",
-      text: "You have to go on vacation with your soulmate, or alone, and you don't know where to leave your pet? Book an appointment with one of our pet sitter! Are you a freelancer pet sitter or an agencie? Contact us if you want to collaborate!",
+      text: "You have to go on vacation with your soulmate, or alone, and you don't know where to leave your pet? Book an appointment with one of our pet sitter! Are you a freelancer pet sitter or an agency? Contact us if you want to collaborate!",
       image: "/f/carousel/petsitting.jpeg",
     },
     {
@@ -62,7 +62,7 @@ export default function CaptionCarousel() {
     },
     {
       title: "Grooming service",
-      text: "Your bunny is a little stinky? That's not good! Bring it to one of our goomers, but remember to book an appointment first! Are you a freelancer groomer or an agencie? Contact us if you want to collaborate!",
+      text: "Your bunny is a little stinky? That's not good! Bring it to one of our goomers, but remember to book an appointment first! Are you a freelancer groomer or an agency? Contact us if you want to collaborate!",
       image: "/f/carousel/grooming.jpg",
     },
     {
