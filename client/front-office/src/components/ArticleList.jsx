@@ -58,7 +58,7 @@ const ArticleList = ({ name, description, type }) => {
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-4 rounded-t dark:border-gray-600">
+                <div className="flex items-start justify-between p-4 rounded-t">
                   <button
                     type="button"
                     className="z-30 absolute top-3 right-2.5 text-red-500 bg-transparent hover:text-red-700 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
