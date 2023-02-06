@@ -54,6 +54,7 @@ const NewProduct = () => {
         duration: 3000,
         variant: "subtle",
       });
+      window.location.reload();
     } else {
       toast({
         title: "Ops something went wrong!",
@@ -252,7 +253,11 @@ const NewProduct = () => {
                   </NumberInput>
                 </div>
                 <div>
-                  <button type="submit" className="btn btn-secondary mt-1" aria-pressed="submitted">
+                  <button
+                    type="submit"
+                    className="btn btn-secondary mt-1"
+                    aria-pressed="submitted"
+                  >
                     Submit
                   </button>
                 </div>
