@@ -52,15 +52,16 @@ const logout = () => {
         <div
           class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
         >
-          <div class="flex flex-shrink-0 items-center">
+          <div class="flex flex-row flex-shrink-0 items-center">
+            <img src="/CasAnimale.png" alt="CasAnimale logo" class="hidden sm:flex h-12 w-12" />
             <a
               :href="Const.GAMEURL"
-              className="place-content-center align-center block h-8 w-auto lg:hidden btn btn-ghost"
+              className="place-content-center align-center block h-8 w-auto lg:hidden btn btn-ghost" aria-label="CasAnimale game button"
               ><img src="/CasAnimaleGame.png" alt="CasAnimale game logo" class="h-12 self-center ml-2 sm:ml-0" /></a
             >
             <a
               :href="Const.GAMEURL"
-              className="place-content-center align-center hidden h-8 w-auto lg:block btn btn-ghost"
+              className="place-content-center align-center hidden h-8 w-auto lg:block btn btn-ghost" aria-label="CasAnimale game button"
               ><img src="/CasAnimaleGame.png" alt="CasAnimale game logo" class="h-12 self-center ml-2 sm:ml-0" /></a
             >
           </div>
