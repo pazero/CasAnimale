@@ -21,7 +21,7 @@ export default function Sidebar() {
         <div className="flex flex-col  p-3 bg-white shadow w-60">
           <div className="space-y-3 m-2">
             <div className="flex items-center justify-center">
-              <h2 className="text-xl font-bold">Menu</h2>
+              <h1 className="text-xl font-bold">Menu</h1>
             </div>
             <div className="flex flex-1">
               <ul className="pt-2 pb-4 space-y-1">

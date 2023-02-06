@@ -82,7 +82,8 @@ const Navbar = () => {
               <a href={Const.GAMEURL}>Game Area</a>
             </li>
             <li>
-              <div
+              <button
+                aria-expanded="false"
                 tabIndex={0}
                 className="justify-between"
                 aria-label="Press enter to view community"
@@ -113,8 +114,12 @@ const Navbar = () => {
                 >
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
-              </div>
-              <ul id="communitysmall" className="p-2 border bg-base-100 z-10">
+              </button>
+              <ul
+                id="communitysmall"
+                aria-expanded="false"
+                className="p-2 border bg-base-100 z-10"
+              >
                 <li>
                   <button
                     onClick={() => {
@@ -186,7 +191,8 @@ const Navbar = () => {
               </ul>
             </li>
             <li aria-label="Services dropdown menu">
-              <div
+              <button
+                aria-expanded="false"
                 tabIndex={0}
                 className="justify-between"
                 aria-label="Press enter to view servicies"
@@ -217,8 +223,12 @@ const Navbar = () => {
                 >
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
-              </div>
-              <ul id="servicesmall" className="p-2 border bg-base-100 z-10">
+              </button>
+              <ul
+                id="servicesmall"
+                aria-expanded="false"
+                className="p-2 border bg-base-100 z-10"
+              >
                 <li>
                   <button
                     onClick={() => {
@@ -353,11 +363,10 @@ const Navbar = () => {
             <a href={Const.GAMEURL}>Game Area</a>
           </li>
           <li className="has-submenu">
-            <a
-              aria-expanded="false"
+            <button
               tabIndex={0}
               className="justify-between"
-                aria-label="Press enter to view community"
+              aria-label="Press enter to view community"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   var tmp = document.getElementById("communitylarge");
@@ -384,7 +393,7 @@ const Navbar = () => {
               >
                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
               </svg>
-            </a>
+            </button>
             <ul
               id="communitylarge"
               aria-expanded="false"
@@ -461,8 +470,8 @@ const Navbar = () => {
             <button
               tabIndex={0}
               className="justify-between"
-                aria-label="Press enter to view servicies"
-                onKeyUp={(e) => {
+              aria-label="Press enter to view servicies"
+              onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   var tmp = document.getElementById("servicelarge");
                   if (
@@ -489,7 +498,11 @@ const Navbar = () => {
                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
               </svg>
             </button>
-            <ul id="servicelarge" className="p-2 border bg-base-100 z-10">
+            <ul
+              id="servicelarge"
+              aria-expanded="false"
+              className="p-2 border bg-base-100 z-10"
+            >
               <li>
                 <button
                   onClick={() => {
