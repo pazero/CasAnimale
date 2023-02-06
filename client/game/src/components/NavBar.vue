@@ -36,7 +36,7 @@ const logout = () => {
 </script>
 
 <template>
-  <Disclosure as="nav" class="bg-blue-200" v-slot="{ open }">
+  <Disclosure as="nav" class="bg-blue-50" v-slot="{ open }">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -55,13 +55,13 @@ const logout = () => {
           <div class="flex flex-shrink-0 items-center">
             <a
               :href="Const.GAMEURL"
-              className="place-content-center py-2 block h-8 w-auto lg:hidden btn btn-ghost normal-case text-xl text-black"
-              >CasAnimale - Games</a
+              className="place-content-center align-center block h-8 w-auto lg:hidden btn btn-ghost"
+              ><img src="/CasAnimaleGame.png" alt="CasAnimale game logo" class="h-12 self-center ml-2 sm:ml-0" /></a
             >
             <a
               :href="Const.GAMEURL"
-              className="place-content-center py-2 hidden h-8 w-auto lg:block btn btn-ghost normal-case text-xl text-black"
-              >CasAnimale - Games</a
+              className="place-content-center align-center hidden h-8 w-auto lg:block btn btn-ghost"
+              ><img src="/CasAnimaleGame.png" alt="CasAnimale game logo" class="h-12 self-center ml-2 sm:ml-0" /></a
             >
           </div>
           <div class="hidden sm:ml-6 sm:block py-2">
