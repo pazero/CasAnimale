@@ -271,11 +271,22 @@
         return hours > 12 ? (hours % 12) + "pm" : hours + "am";
       };
       const listArray = (array, index, type) => {
+        toLabel = "";
+        if(type === "Exp") toLabel = "experience"
+        if(type === "Job") toLabel = "job"
+        if(type === "Study") toLabel = "study info"
+        if(type === "Pet") toLabel = "pet"
+
         if (array !== undefined) {
           let tmp = "";
           array.map((item, count) => {
             tmp +=
-              `<div>
+              `<div class="flex flex-row">
+                <label class="flex mr-1 self-center" for="new` +
+              type +
+              index +
+              count +
+              `">` + toLabel + ` ` +  (count+1) +`:</label>
               <input
                 type="text"
                 name="new` +
@@ -302,22 +313,32 @@
       };
       const createField = (space, type, aux) => {
         let count = -1;
+        let toLabel = "";
         if (aux === "professional_experience") {
           count = ++toCreateLen.professional_experience;
+          toLabel = "experience";
         }
         if (aux === "main_pets") {
           count = ++toCreateLen.main_pets;
+          toLabel = "pet";
         }
         if (aux === "study_info") {
           count = ++toCreateLen.study_info;
+          toLabel = "study info";
         }
         if (aux === "actual_jobs") {
           count = ++toCreateLen.actual_jobs;
+          toLabel = "job";
         }
         if (count != -1) {
           $("#" + space + type).append(
             `
-            <div>
+            <div class="flex flex-row">
+              <label class="flex mr-1 self-center" for="` +
+              space +
+              type +
+              count +
+              `">` + toLabel + ` ` + (count+1) + `:</label>
               <input
                 type="text"
                 placeholder="Type new field"
@@ -339,27 +360,37 @@
         }
       };
       const addField = (space, type, index, aux) => {
+        let toLabel = "";
         let count = -1;
         if (aux === "expLen") {
           toUpdateLen[index].expLen++;
           count = toUpdateLen[index].expLen - 1;
+          toLabel = "experience"
         }
         if (aux === "petLen") {
           toUpdateLen[index].petLen++;
           count = toUpdateLen[index].petLen - 1;
+          toLabel = "pet"
         }
         if (aux === "studyLen") {
           toUpdateLen[index].studyLen++;
           count = toUpdateLen[index].studyLen - 1;
+          toLabel = "study info"
         }
         if (aux === "jobLen") {
           toUpdateLen[index].jobLen++;
           count = toUpdateLen[index].jobLen - 1;
+          toLabel = "job"
         }
         if (count != -1) {
           $("#" + space + type + index).append(
             `
-            <div>
+            <div class="flex flex-row">
+              <label class="flex mr-1 self-center" for="new` +
+              type +
+              index +
+              count +
+              `">` + toLabel+ ` ` + (count+1)+ `:</label>
               <input
                 type="text"
                 placeholder="Type new field"
@@ -596,7 +627,9 @@
                   <div class="toshow` +
           index +
           `">
-                    <label for="newOnline` + index +`" class="toshow` +
+                    <label for="newOnline` +
+          index +
+          `" class="toshow` +
           index +
           ` hidden font-semibold">Online: </label>
                     <select
@@ -622,7 +655,9 @@
           `<i class="fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <label for="newName` + index + `" class="font-semibold">Company name: </label><span class="tohidden` +
+                    <label for="newName` +
+          index +
+          `" class="font-semibold">Company name: </label><span class="tohidden` +
           index +
           `">` +
           name +
@@ -645,7 +680,9 @@
                     />
                   </div>
                   <div>
-                    <label for="newEmail` + index + `" class="font-semibold">Email: </label>
+                    <label for="newEmail` +
+          index +
+          `" class="font-semibold">Email: </label>
                     <input
                       type="text"
                       name="newEmail` +
@@ -671,7 +708,9 @@
           ` fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <label for="newPassword` + index + `" class="font-semibold">Password: </span>
+                    <label for="newPassword` +
+          index +
+          `" class="font-semibold">Password: </span>
                     <input
                       type="text"
                       name="newPassword` +
@@ -697,7 +736,9 @@
           ` fa fa-copy"></i></button>
                   </div>
                   <div>
-                    <label for="newOwner` + index + `" class="font-semibold">Company owner: </label><span class="tohidden` +
+                    <label for="newOwner` +
+          index +
+          `" class="font-semibold">Company owner: </label><span class="tohidden` +
           index +
           `">` +
           owner +
@@ -836,7 +877,9 @@
           index +
           ` ml-8">
                     <div class="mb-1">
-                      <label for="newMonday` + index + `"class="font-semibold">Monday: </label>
+                      <label for="newMonday` +
+          index +
+          `"class="font-semibold">Monday: </label>
                       <input
                         type="text"
                         name="newMonday` +
@@ -853,7 +896,9 @@
                       />  
                     </div>
                     <div class="mb-1">
-                      <label for="newTuesday` + index + `" class="font-semibold">Tuesday: </label>
+                      <label for="newTuesday` +
+          index +
+          `" class="font-semibold">Tuesday: </label>
                       <input
                         type="text"
                         name="newTuesday` +
@@ -870,7 +915,9 @@
                       />  
                     </div>
                     <div class="mb-1">
-                      <label for="newWednesday` + index + `" class="font-semibold">Wednesday: </label>
+                      <label for="newWednesday` +
+          index +
+          `" class="font-semibold">Wednesday: </label>
                       <input
                         type="text"
                         name="newWednesday` +
@@ -887,7 +934,9 @@
                       />  
                     </div>
                     <div class="mb-1">
-                      <label for="newThursday` + index + `" class="font-semibold">Thursday: </label>
+                      <label for="newThursday` +
+          index +
+          `" class="font-semibold">Thursday: </label>
                       <input
                         type="text"
                         name="newThursday` +
@@ -904,7 +953,9 @@
                       />
                     </div>
                     <div class="mb-1">
-                      <label for="newFriday` + index + `" class="font-semibold">Friday: </label>
+                      <label for="newFriday` +
+          index +
+          `" class="font-semibold">Friday: </label>
                       <input
                         type="text"
                         name="newFriday` +
@@ -922,7 +973,9 @@
                     </div>
                   </div>
                   <div>
-                    <label for="newDescription` + index + `"class="font-semibold align-top">Description: </label><span class="tohidden` +
+                    <label for="newDescription` +
+          index +
+          `"class="font-semibold align-top">Description: </label><span class="tohidden` +
           index +
           `">` +
           description +
@@ -956,7 +1009,9 @@
                   <div class="toshow` +
           index +
           ` hidden">
-                    <label for="newStart` + index + `" class="font-semibold">Start at: </label>
+                    <label for="newStart` +
+          index +
+          `" class="font-semibold">Start at: </label>
                     <input
                       type="text"
                       name="newStart` +
@@ -975,7 +1030,9 @@
                   <div class="toshow` +
           index +
           ` hidden">
-                    <label for="newEnd` + index + `" class="font-semibold">End at: </label>
+                    <label for="newEnd` +
+          index +
+          `" class="font-semibold">End at: </label>
                     <input
                       type="text"
                       name="newEnd` +
@@ -992,7 +1049,9 @@
                     />
                   </div>
                   <div>
-                    <label for="newCost` + index + `" class="font-semibold">Cost per hour: </label><span class="tohidden` +
+                    <label for="newCost` +
+          index +
+          `" class="font-semibold">Cost per hour: </label><span class="tohidden` +
           index +
           `">` +
           cost_per_hour +
@@ -1016,7 +1075,9 @@
                     €/h
                   </div>
                   <div>
-                    <label for="newPhoto` + index + `" class="font-semibold">Photo URL: </label><span class="tohidden` +
+                    <label for="newPhoto` +
+          index +
+          `" class="font-semibold">Photo URL: </label><span class="tohidden` +
           index +
           `">` +
           (photo !== "undefined"
@@ -1318,6 +1379,7 @@
                 <span class="font-semibold mr-1">Main pets of interest: </span>
               </div>
               <div class="ml-7 my-1">
+                <label for="createPet0">pet 1:</label>
                 <input
                   type="text"
                   name="createPet0"
@@ -1386,6 +1448,7 @@
                 <span class="font-semibold mr-1">Professional experience: </span>
               </div>
               <div class="ml-7 my-1">
+                <label for="createExp0">experience 1:</label>
                 <input
                   type="text"
                   name="createExp0"
@@ -1402,6 +1465,7 @@
                 <span class="font-semibold mr-1">Actual jobs: </span>
               </div>
               <div class="ml-7 my-1">
+                <label for="createJob0">job 1:</label>
                 <input
                   type="text"
                   name="createJob0"
@@ -1418,6 +1482,7 @@
                 <span class="font-semibold mr-1">Study information: </span>
               </div>
               <div class="ml-7 my-1">
+                <label for="createStudy0">study info 1:</label>
                 <input
                   type="text"
                   name="createStudy0"
