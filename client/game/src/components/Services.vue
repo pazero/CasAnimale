@@ -19,7 +19,7 @@
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
-              <h2 class="mb-2 tracking-tight text-gray-900">Vet&emsp;</h2>
+              <h1 class="mb-2 tracking-tight text-gray-900">Vet&emsp;</h1>
               <p class="font-normal text-gray-700">
                 Here you can find all the vets we work with. You can book a
                 visit with a vet or just read info about it. Take a look!
@@ -40,7 +40,7 @@
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
-              <h2 class="mb-2 tracking-tight text-gray-900">Forum&emsp;</h2>
+              <h1 class="mb-2 tracking-tight text-gray-900">Forum&emsp;</h1>
               <p class="font-normal text-gray-700">
                 Read here some other users' posts. Maybe you can find some
                 useful tips and tricks. Take a look!
@@ -61,7 +61,7 @@
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
-              <h2 class="mb-2 tracking-tight text-gray-900">Petsitter&emsp;</h2>
+              <h1 class="mb-2 tracking-tight text-gray-900">Petsitter&emsp;</h1>
               <p class="font-normal text-gray-700">
                 Here you can find all the petsitters we work with. You can
                 reserve a prenotation with a pet-sitter or just read info about
@@ -83,9 +83,9 @@
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
-              <h2 class="mb-2 tracking-tight text-gray-900">
+              <h1 class="mb-2 tracking-tight text-gray-900">
                 Psychologist&emsp;
-              </h2>
+              </h1>
               <p class="font-normal text-gray-700">
                 Here you can find all the psychologists we work with. You can
                 reserve a prenotation with one of them or just read info about
@@ -107,7 +107,7 @@
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
-              <h2 class="mb-2 tracking-tight text-gray-900">Shop&emsp;</h2>
+              <h1 class="mb-2 tracking-tight text-gray-900">Shop&emsp;</h1>
               <p class="font-normal text-gray-700">
                 Do you need any supplies for your pets? Here you can find
                 everything you may need! Take a look!
@@ -128,7 +128,7 @@
               class="self-center w-20 h-20 mr-4 object-center group-hover:opacity-75"
             />
             <div class="flex flex-col md:flex-row ml-2">
-              <h2 class="mb-2 tracking-tight text-gray-900">Grooming&emsp;</h2>
+              <h1 class="mb-2 tracking-tight text-gray-900">Grooming&emsp;</h1>
               <p class="font-normal text-gray-700">
                 Here you can find all the groomers we work with. You can reserve
                 a prenotation with one of them or just read info about it. Take

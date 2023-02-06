@@ -195,7 +195,7 @@ const SpecialistPage = () => {
         duration: 3000,
         variant: "subtle",
       });
-      window.location.reload()
+      window.location.reload();
     } else
       toast({
         title: "Ops something went wrong!",
@@ -557,8 +557,14 @@ const SpecialistPage = () => {
                   {/*body*/}
                   <form className="relative p-6 flex-auto">
                     <div className="mt-1 mb-2">
-                      <span for="problemTextarea" className="font-semibold">Describe here the animal and it's problem:</span>
-                      <Textarea id="problemTextarea" placeholder="My cat Toby has a ..." onChange={(e) => setTextArea(e.target.value)}/>
+                      <span for="problemTextarea" className="font-semibold">
+                        Describe here the animal and it's problem:
+                      </span>
+                      <Textarea
+                        id="problemTextarea"
+                        placeholder="My cat Toby has a ..."
+                        onChange={(e) => setTextArea(e.target.value)}
+                      />
                     </div>
 
                     {user?.vip && company?.online ? (
@@ -617,7 +623,9 @@ const SpecialistPage = () => {
                       />
                     </div>
                     <div className="my-1">
-                      <span for="slotSelect" className="font-semibold">Schedule</span>
+                      <span for="slotSelect" className="font-semibold">
+                        Schedule
+                      </span>
                       <div id="slotSelect">
                         <Select
                           options={availableSlots}
@@ -645,7 +653,11 @@ const SpecialistPage = () => {
                           bookSlot(
                             isOnline,
                             params.id,
-                            new Date(document.getElementById("slotDay").value + " " + startTime)
+                            new Date(
+                              document.getElementById("slotDay").value +
+                                " " +
+                                startTime
+                            )
                           );
                           setShowModal(false);
                         } else

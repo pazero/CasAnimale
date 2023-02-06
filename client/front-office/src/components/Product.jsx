@@ -134,7 +134,11 @@ const Product = (props) => {
           <Box className="mx-1.5">
             {props.data.quantity === 0 ? (
               <Image
-                src={props.data?.photo === "" || props.data?.photo === undefined ? "/f/compra.png" : props.data.photo}
+                src={
+                  props.data?.photo === "" || props.data?.photo === undefined
+                    ? "/f/compra.png"
+                    : props.data.photo
+                }
                 borderRadius="lg"
                 className="w-full object-cover justify-self-center"
                 opacity="0.5"
@@ -142,7 +146,11 @@ const Product = (props) => {
               />
             ) : (
               <Image
-                src={props.data?.photo === "" || props.data?.photo === undefined ? "/f/compra.png" : props.data.photo}
+                src={
+                  props.data?.photo === "" || props.data?.photo === undefined
+                    ? "/f/compra.png"
+                    : props.data.photo
+                }
                 borderRadius="lg"
                 className="w-full justify-self-center"
                 alt={props.data.name + "product image"}
@@ -243,7 +251,9 @@ const Product = (props) => {
             </Box>
           ) : (
             <Box className="flex justify-evenly w-full">
-              <label for={"Number" + props.data._id} className="hidden">alter quantity </label>
+              <label for={"Number" + props.data._id} className="hidden">
+                alter quantity{" "}
+              </label>
               <NumberInput
                 id={"Number" + props.data._id}
                 className="mr-2 rounded grow-0"
@@ -268,7 +278,13 @@ const Product = (props) => {
                 bg={"blue.100"}
                 _hover={{ bg: "blue.200", color: "black" }}
                 onClick={() => {
-                  if (!token) alert("You must first login");
+                  if (!token)
+                    toast({
+                      title: "You must first login",
+                      status: "warning",
+                      duration: 3000,
+                      variant: "subtle",
+                    });
                   else AddCart();
                 }}
                 disabled={outOfStock(props.data.quantity)}

@@ -97,7 +97,7 @@
             </div>
           </div>
           <div v-else>
-            <h2 class="text-bold text-3xl">Results</h2>
+            <h1 class="text-bold text-3xl">Results</h1>
             <div class="flex justify-start space-x-4 mt-6">
               <p>
                 Correct Answers:

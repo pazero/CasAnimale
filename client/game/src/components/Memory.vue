@@ -64,7 +64,7 @@
         class="justify-center items-center bg-white p-12 rounded-lg shadow-lg w-64 mt-8"
         v-show="showResult"
       >
-        <h2 class="text-bold text-black text-3xl">Results</h2>
+        <h1 class="text-bold text-black text-3xl">Results</h1>
         <div class="flex justify-start space-x-4 mt-6">
           <p>
             Points:

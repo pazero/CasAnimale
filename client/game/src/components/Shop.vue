@@ -29,7 +29,7 @@
             v-bind:src="
               selectedProd.photo === '' ? '/compra.png' : selectedProd.photo
             "
-            alt="Sunset in the mountains"
+            alt=""
           />
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{ selectedProd.name }}</div>
