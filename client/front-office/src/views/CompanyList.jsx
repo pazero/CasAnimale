@@ -162,7 +162,7 @@ const CompanyList = (props) => {
                 </div>
 
                 <div className="mb-2 mx-2">
-                  <p className=" font-semibold">Doctor: </p>
+                  <p className=" font-semibold">Owner: </p>
                   <p
                     className="ml-4"
                     style={{ overflowWrap: "break-word", inlineSize: "20rem" }}
