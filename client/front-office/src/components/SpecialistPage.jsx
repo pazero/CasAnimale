@@ -309,7 +309,7 @@ const SpecialistPage = () => {
             <img
               src={
                 company.photo === "" || company.photo === undefined
-                  ? "/f/company.png"
+                  ? ""
                   : company.photo
               }
               alt={company.name + " company logo"}
