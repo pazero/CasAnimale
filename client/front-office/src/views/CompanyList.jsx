@@ -143,7 +143,7 @@ const CompanyList = (props) => {
           style={{ flex: "0 1 auto" }}
         >
           {filteredCompany.map((comp, i) => (
-            <div
+            <button
               tabIndex={0}
               key={i}
               id={comp._id}
@@ -210,7 +210,7 @@ const CompanyList = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

@@ -22,12 +22,21 @@ import {
   TableContainer,
   Divider,
   useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 
 const SpecialistPage = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const [showModal, setShowModal] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [startDate, setStartDate] = useState();
   const [startTime, setStartTime] = useState();
   const [companyPrenotation, setCompanyPrenotation] = useState([]);
@@ -521,12 +530,7 @@ const SpecialistPage = () => {
 
         {token ? (
           <div className="flex flex-1 justify-center py-6 md:pt-10">
-            <button
-              onClick={() => {
-                setShowModal(true);
-              }}
-              className="btn btn-secondary mt-2 mb-4"
-            >
+            <button onClick={onOpen} className="btn btn-secondary mt-2 mb-4">
               Book an appointment
             </button>
           </div>
@@ -542,156 +546,142 @@ const SpecialistPage = () => {
             </button>
           </div>
         )}
-        {showModal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-              <div className="relative w-full my-6 mx-auto max-w-3xl">
-                {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  {/*header*/}
-                  <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h1 className="text-3xl font-semibold">
-                      Book an appointment!
-                    </h1>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Book an appointment!</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={2}>
+              <form className="relative p-6 flex-auto">
+                <div className="mt-1 mb-2">
+                  <span for="problemTextarea" className="font-semibold">
+                    Describe here the animal and it's problem:
+                  </span>
+                  <Textarea
+                    id="problemTextarea"
+                    placeholder="My cat Toby has a ..."
+                    onChange={(e) => setTextArea(e.target.value)}
+                  />
+                </div>
+
+                {user?.vip && company?.online ? (
+                  <Checkbox
+                    className="mb-2"
+                    size="lg"
+                    colorScheme="orange"
+                    onChange={() => {
+                      setIsOnline(!isOnline);
+                    }}
+                  >
+                    Online
+                  </Checkbox>
+                ) : (
+                  ""
+                )}
+
+                {!isOnline && (
+                  <div className="mb-2">
+                    <span className="font-semibold" for="place">
+                      Place:
+                    </span>
+                    <Select
+                      id="place"
+                      options={rcities}
+                      onChange={(e) => setSelectedCity(e.value)}
+                    />
                   </div>
-                  {/*body*/}
-                  <form className="relative p-6 flex-auto">
-                    <div className="mt-1 mb-2">
-                      <span for="problemTextarea" className="font-semibold">
-                        Describe here the animal and it's problem:
-                      </span>
-                      <Textarea
-                        id="problemTextarea"
-                        placeholder="My cat Toby has a ..."
-                        onChange={(e) => setTextArea(e.target.value)}
-                      />
-                    </div>
+                )}
 
-                    {user?.vip && company?.online ? (
-                      <Checkbox
-                        className="mb-2"
-                        size="lg"
-                        colorScheme="orange"
-                        onChange={() => {
-                          setIsOnline(!isOnline);
-                        }}
-                      >
-                        Online
-                      </Checkbox>
-                    ) : (
-                      ""
-                    )}
-
-                    {!isOnline && (
-                      <div className="mb-2">
-                        <span className="font-semibold" for="place">
-                          Place:
-                        </span>
-                        <Select
-                          id="place"
-                          options={rcities}
-                          onChange={(e) => setSelectedCity(e.value)}
-                        />
-                      </div>
-                    )}
-
-                    {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
-                    <div className="font-semibold" for="date">
-                      Date
-                    </div>
-                    <div id="date">
-                      <DatePicker
-                        id="slotDay"
-                        className="text-center border-solid border-4 rounded-lg px-1"
-                        selected={startDate}
-                        placeholderText="Select a day"
-                        onChange={(date) => {
-                          setStartDate(date);
-                          calcSlot(getDateString(date));
-                        }}
-                        minDate={new Date()}
-                        filterDate={(date) => {
-                          if (!isOnline)
-                            return (
-                              setFilter(date.getDay()) &&
-                              date.getDay() !== 0 &&
-                              date.getDay() !== 6
-                            );
-                          else
-                            return date.getDay() !== 0 && date.getDay() !== 6;
-                        }}
-                      />
-                    </div>
-                    <div className="my-1">
-                      <span for="slotSelect" className="font-semibold">
-                        Schedule
-                      </span>
-                      <div id="slotSelect">
-                        <Select
-                          options={availableSlots}
-                          onChange={chooseTime}
-                        />
-                      </div>
-                    </div>
-                    <div className="font-semibold my-1">
-                      Duration <span className="font-normal">1 hour</span>
-                    </div>
-                    <div className="font-semibold my-1">
-                      Total price{" "}
-                      <span className="font-normal">
-                        €{company.cost_per_hour}
-                      </span>
-                    </div>
-                  </form>
-                  {/*footer*/}
-                  <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                    <button
-                      className="btn-primary rounded-lg font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => {
-                        if (startTime) {
-                          bookSlot(
-                            isOnline,
-                            params.id,
-                            new Date(
-                              document.getElementById("slotDay").value +
-                                " " +
-                                startTime
-                            )
-                          );
-                          setShowModal(false);
-                        } else
-                          toast({
-                            title: "You must book your appointment!",
-                            status: "warning",
-                            duration: 3000,
-                            variant: "subtle",
-                          });
-                      }}
-                    >
-                      Confirm
-                    </button>
-                    <button
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => {
-                        setShowModal(false);
-                        setIsOnline(false);
-                        setStartDate();
-                        setSelectedCity();
-                        setStartTime();
-                        setTextArea();
-                      }}
-                    >
-                      Close
-                    </button>
+                {/*<BookVetVisit style={{ display: "flex", height: "100%" }} />*/}
+                <div className="font-semibold" for="date">
+                  Date
+                </div>
+                <div id="date">
+                  <DatePicker
+                    id="slotDay"
+                    className="text-center border-solid border-4 rounded-lg px-1"
+                    selected={startDate}
+                    placeholderText="Select a day"
+                    onChange={(date) => {
+                      setStartDate(date);
+                      calcSlot(getDateString(date));
+                    }}
+                    minDate={new Date()}
+                    filterDate={(date) => {
+                      if (!isOnline)
+                        return (
+                          setFilter(date.getDay()) &&
+                          date.getDay() !== 0 &&
+                          date.getDay() !== 6
+                        );
+                      else return date.getDay() !== 0 && date.getDay() !== 6;
+                    }}
+                  />
+                </div>
+                <div className="my-1">
+                  <span for="slotSelect" className="font-semibold">
+                    Schedule
+                  </span>
+                  <div id="slotSelect">
+                    <Select options={availableSlots} onChange={chooseTime} />
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="opacity-10 fixed inset-0 z-40 bg-black"></div>
-          </>
-        ) : null}
+                <div className="font-semibold my-1">
+                  Duration <span className="font-normal">1 hour</span>
+                </div>
+                <div className="font-semibold my-1">
+                  Total price{" "}
+                  <span className="font-normal">€{company.cost_per_hour}</span>
+                </div>
+              </form>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                className="mr-2"
+                colorScheme={"blue"}
+                onClick={() => {
+                  if (startTime) {
+                    bookSlot(
+                      isOnline,
+                      params.id,
+                      new Date(
+                        document.getElementById("slotDay").value +
+                          " " +
+                          startTime
+                      )
+                    );
+                    onClose();
+                  } else
+                    toast({
+                      title: "You must book your appointment!",
+                      status: "warning",
+                      duration: 3000,
+                      variant: "subtle",
+                    });
+                }}
+              >
+                Confirm
+              </Button>
+              <Button
+                colorScheme={"red"}
+                type="button"
+                onClick={() => {
+                  onClose();
+                  setIsOnline(false);
+                  setStartDate();
+                  setSelectedCity();
+                  setStartTime();
+                  setTextArea();
+                }}
+              >
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
         <div className="flex justify-center my-1 md:my-4">
           <Divider
             orientation="horizontal"

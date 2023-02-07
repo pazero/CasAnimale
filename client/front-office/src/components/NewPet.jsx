@@ -169,8 +169,8 @@ const NewPet = () => {
                       }
                     }}
                   >
-                    {({ onClick }) =>
-                      checkPhoto() ? (
+                    {({ onClick }) => {
+                      return checkPhoto() ? (
                         <>
                           <div className="rounded-lg pt-1 flex items-center justify-center border-dashed border-2 border-gray-300">
                             <button
@@ -182,7 +182,7 @@ const NewPet = () => {
                                 src={photo}
                                 className="input input-bordered"
                                 boxSize="fill"
-                                alt="UPLOAD A PHOTO"
+                                alt="Upload a photo"
                               />
                             </button>
                           </div>
@@ -201,8 +201,8 @@ const NewPet = () => {
                             </button>
                           </div>
                         </>
-                      )
-                    }
+                      );
+                    }}
                   </UploadButton>
                 </div>
                 <div>

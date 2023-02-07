@@ -43,5 +43,7 @@ mongoose.connect(process.env.DB_CONNECTION);
 /* Api routes */
 require("./api")(app);
 
+app.get("/", (_, res) => res.redirect('http://localhost:3000/f')) // todo test
+
 /* Starting point */
 app.listen(process.env.PORT, console.log("Serving on port", process.env.PORT));
