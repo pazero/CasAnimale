@@ -3,7 +3,6 @@
     let products = [];
     let filteredProducts = [];
     let totProducts = 0;
-    setUser();
     const getProducts = async () => {
       var ret = await fetch("http://localhost:5000/api/product", {
         method: "GET",

@@ -69,7 +69,7 @@ router.delete("/:id", async (req, res) => {
           }
         );
       };
-      res.json({ message: "Removed item, also in every cart, succesfully" });
+      res.json({ message: "Removed item from ecommerce and every cart succesfully" });
     }
   } catch (e) {
     res.json({ message: e });

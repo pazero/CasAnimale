@@ -21,15 +21,6 @@
         $("#sidebar").load("../tabs/sidebar.html");
         $("#ecommerceInfo").load("../tabs/ecommerce-info.html");
       });
-      let user;
-      const setUser = async () => {
-        user = await isUserLogged();
-        if (user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html";
-        if (user.admin) {
-          $(".forAdmin").removeClass("hidden");
-        }
-      };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>

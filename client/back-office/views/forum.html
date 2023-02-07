@@ -19,21 +19,11 @@
         if (!user.admin)
           window.location.href = "http://localhost:5000/b/views/home.html";
         $("#sidebar").load("../tabs/sidebar.html");
-        setUser();
       });
 
       let posts = [];
       let totPosts = 0;
       let currentComments = [];
-      let user;
-      const setUser = async () => {
-        user = await isUserLogged();
-        if (user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html";
-        if (user.admin) {
-          $(".forAdmin").removeClass("hidden");
-        }
-      };
       const getPosts = async () => {
         var ret = await fetch("http://localhost:5000/api/post", {
           method: "GET",
@@ -328,9 +318,6 @@
         comments != undefined
           ? (currentComments[postIndex] = comments)
           : (currentComments[postIndex] = "");
-        console.log(
-          "currentComments[" + postIndex + "]: " + currentComments[postIndex]
-        );
         return (
           `
           <div class="flex flex-row my-3">
