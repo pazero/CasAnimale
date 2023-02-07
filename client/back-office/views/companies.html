@@ -56,7 +56,6 @@
         await loadCompanyList();
         if (user.admin) {
           $(".adminOnly").removeClass("hidden");
-          $(".forAdmin").removeClass("hidden");
         }
       };
 
@@ -710,7 +709,7 @@
                   <div>
                     <label for="newPassword` +
           index +
-          `" class="font-semibold">Password: </span>
+          `" class="font-semibold">Password: </label>
                     <input
                       type="text"
                       name="newPassword` +

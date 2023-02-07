@@ -1,6 +1,7 @@
 <head>
   <script>
     $(document).ready(() => {
+      adjustBar();
       const authHeader = document.cookie;
       const tokenback = authHeader && authHeader.split("=");
       if (tokenback) {
@@ -21,6 +22,12 @@
     };
     const profile = () => {
       window.location.href = "profile.html";
+    };
+    const adjustBar = async () => {
+      user = await isUserLogged();
+      if (user === undefined)
+        window.location.href = "http://localhost:5000/b/views/login.html";
+      else if (user.admin) $(".forAdmin").removeClass("hidden");
     };
   </script>
 </head>

@@ -80,7 +80,6 @@
         if (user === undefined)
           window.location.href = "http://localhost:5000/b/views/login.html";
         if (user.admin) {
-          $(".forAdmin").removeClass("hidden");
           cstmrs = ret;
         } else {
           await getPts(user.id);
