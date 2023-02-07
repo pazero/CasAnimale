@@ -7,14 +7,14 @@
         <div v-show="!isLoggedIn()">
           <label
             for="questions"
-            class="block mb-3 text-sm font-medium text-gray-900 dark:text-white"
+            class="block mb-3 text-sm font-medium text-gray-900"
             >Name</label
           >
           <input
             @change="(event) => (playerName = event.target.value)"
             type="text"
             id="name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
         <button
@@ -31,13 +31,14 @@
     <div v-show="start" class="flex pt-2 w-full justify-center items-center">
       <div
         v-show="start && !showResult"
-        class="p-4 grid lg:grid-rows-3 md:grid-rows-6 sm:grid-rows-9 grid-flow-col gap-4"
+        class="grid grid-rows-9 lg:grid-rows-3 md:grid-rows-6 sm:grid-rows-9 grid-flow-col gap-4"
       >
         <div v-for="data in animal_img">
           <img
             tabindex="0"
+            role="button"
             v-show="!data.revealed"
-            class="box-content h-64 w-64 p-1 border-4"
+            class="box-content h-64 w-64 border-4"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Color_icon_green.svg/800px-Color_icon_green.svg.png"
             @click="reveal(data)"
             @keydown="
@@ -46,14 +47,13 @@
               }
             "
             alt="face-down card"
-            aria-roledescription="flipping
-          card"
+            aria-roledescription="flipping card"
           />
           <img
             tabindex="0"
             v-show="data.revealed"
             v-bind:id="'img' + data.id"
-            class="box-content h-64 w-64 p-1 border-4"
+            class="box-content h-64 w-64 border-4"
             v-bind:src="data.img"
             :alt="`animal ` + data.id"
             aria-roledescription="flipped card"

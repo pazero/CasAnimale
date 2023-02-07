@@ -50,9 +50,6 @@ const UpdateProduct = (props) => {
             <form onSubmit={updateItem} className="flex justify-center w-full">
               <div className="mx-3 mt-0 card justify-center w-full ">
                 <div className="card-body text-center py-0">
-                  <div className="card-title justify-center uppercase">
-                    Update product quantity!
-                  </div>
                   <div className="form-control justify-center inline-block space-x-4">
                     <label className="label">
                       <span className="label-text">

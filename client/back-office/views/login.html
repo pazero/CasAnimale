@@ -16,7 +16,7 @@
         const authHeader = document.cookie;
         const tokenback = authHeader && authHeader.split("=");
         if (tokenback[0] === "token") {
-          alert("Log out from frotoffice first");
+          alert("Log out from front office first");
           window.location.href = "http://site212247.tw.cs.unibo.it/f";
           return;
         }
@@ -34,11 +34,14 @@
       const login = async () => {
         const mail = $("#emailTab").val();
         const pass = $("#passwordTab").val();
-        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: mail, password: pass }),
-        });
+        var ret = await fetch(
+          "http://site212247.tw.cs.unibo.it/api/admin/login",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: mail, password: pass }),
+          }
+        );
         ret = await ret.json();
         if (ret.success) window.location.href = "home.html";
         else alert("Something went wrong");
@@ -65,12 +68,18 @@
                         src="../public/CasAnimaleBO.png"
                         alt="logo CasAnimale backoffice"
                       />
-                      <h1 class="text-xl font-semibold primary mt-8 mb-7 pb-1 uppercase">
+                      <h1
+                        class="text-xl font-semibold primary mt-8 mb-7 pb-1 uppercase"
+                      >
                         Login
                       </h1>
                     </div>
                     <form>
-                      <p class="mb-4">Please login to your account with <label for="emailTab">email</label> and <label for="passwordTab">password</label></p>
+                      <p class="mb-4">
+                        Please login to your account with
+                        <label for="emailTab">email</label> and
+                        <label for="passwordTab">password</label>
+                      </p>
                       <div class="mb-4">
                         <input
                           type="text"

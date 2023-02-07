@@ -7,7 +7,7 @@
         <div v-if="!isLoggedIn()">
           <label
             for="questions"
-            class="block mb-3 text-sm font-medium text-gray-900 dark:text-white"
+            class="block mb-3 text-sm font-medium text-gray-900"
             >Name</label
           >
           <input
@@ -15,13 +15,13 @@
             @change="(event) => (playerName = event.target.value)"
             type="text"
             id="name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
         <div>
           <label
             for="questions"
-            class="block mt-3 text-sm font-medium text-gray-900 dark:text-white"
+            class="block mt-3 text-sm font-medium text-gray-900"
             >Number of questions</label
           >
           <input
@@ -31,7 +31,7 @@
             min="1"
             max="20"
             id="question"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="5"
             default="5"
           />

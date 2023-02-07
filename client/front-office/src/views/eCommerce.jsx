@@ -12,6 +12,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
+  ModalFooter,
   ModalCloseButton,
   useDisclosure,
   Checkbox,
@@ -25,9 +26,13 @@ const ECommerce = () => {
   const [filters, setFilters] = useState({});
   const [liveFilters, setLiveFilters] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenNewProd,
+    onOpen: onOpenNewProd,
+    onClose: onCloseNewProd,
+  } = useDisclosure();
   const [user, setUser] = useState([]);
   const token = Cookies.get("token");
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -114,18 +119,8 @@ const ECommerce = () => {
         <Navbar />
       </div>
 
-      
-
       <div className="flex m-2">
-        {token ? (
-          <Button
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            Sell an object
-          </Button>
-        ) : null}
+        {token ? <Button onClick={onOpenNewProd}>Sell an object</Button> : null}
 
         <Button className="ml-2" onClick={onOpen}>
           Filters
@@ -137,7 +132,7 @@ const ECommerce = () => {
         <ModalContent>
           <ModalHeader>Filters</ModalHeader>
           <ModalCloseButton />
-          <ModalBody className="flex flex-col mb-2">
+          <ModalBody className="flex flex-col">
             Group every product by checking the thing that you want!
             {Object.entries(filters).map((key, i) => {
               return (
@@ -154,52 +149,34 @@ const ECommerce = () => {
               );
             })}
           </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme={"red"} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
 
-      {showModal ? (
-        <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-full my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-4 rounded-t dark:border-gray-600">
-                  <button
-                    type="button"
-                    className="z-30 absolute top-3 right-2.5 text-red-500 bg-transparent hover:text-red-700 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                  </button>
-                </div>
-                {/*body*/}
-                <div className="relative sm:px-5 flex-auto">
-                  <NewProduct style={{ display: "flex", height: "100%" }} />
-                </div>
-                {/*footer*/}
-                <div className="flex p-4 justify-end rounded-b text-sm text-gray-400">
-                  * required field
-                </div>
-              </div>
+      <Modal isOpen={isOpenNewProd} onClose={onCloseNewProd}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Sell a new product!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={2}>
+            <NewProduct style={{ display: "flex", height: "100%" }} />
+          </ModalBody>
+
+          <ModalFooter>
+            <div className="flex p-4 justify-end rounded-b text-sm text-gray-400">
+              * required field
             </div>
-          </div>
-          <div className="opacity-10 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
+            <Button colorScheme={"red"} onClick={onCloseNewProd}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       <Box className="flex justify-evenly grow-0 w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">

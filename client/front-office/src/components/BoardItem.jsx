@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from "react";
 import BoardManage from "../services/BoardManage";
 import UserManage from "../services/UserManage";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Heading, Container, Card, Image, Stack, Text, CardBody } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Heading,
+  Container,
+  Card,
+  Image,
+  Stack,
+  Text,
+  CardBody,
+} from "@chakra-ui/react";
 
 function compare(a, b) {
   if (a.points < b.points) {
@@ -59,7 +72,11 @@ const Board = () => {
                     "https://cdn1.iconfinder.com/data/icons/basic-ui-set-v5-user-outline/64/Account_profile_user_avatar_questions-128.png";
                   var name = score.name;
                   if (score.userid !== "") {
-                    imgsrc = score.user?.photo === "" || score.user?.photo === undefined ? "/f/userIcon.svg" : score.user?.photo;
+                    imgsrc =
+                      score.user?.photo === "" ||
+                      score.user?.photo === undefined
+                        ? "/f/userIcon.svg"
+                        : score.user?.photo;
                     name = score.user?.name + " " + score.user?.surname;
                   }
                   return (
