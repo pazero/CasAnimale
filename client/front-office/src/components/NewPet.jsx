@@ -105,19 +105,48 @@ const NewPet = () => {
                     <option disabled={true} defaultValue="">
                       --Choose and option--
                     </option>
-                    <option value="dog">dog</option>
-                    <option value="cat">cat</option>
-                    <option value="rodent">rodent</option>
-                    <option value="turtle">turtle</option>
-                    <option value="fish">fish</option>
-                    <option value="snake">snake</option>
-                    <option value="insect">insect</option>
-                    <option value="bat">bat</option>
-                    <option value="spider">spider</option>
                     <option value="amphibian">amphibian</option>
-                    <option value="monkey">monkey</option>
-                    <option value="crustacean">crustacean</option>
+                    <option value="bat">bat</option>
+                    <option value="bear">bear</option>
+                    <option value="bee">bee</option>
                     <option value="bird">bird</option>
+                    <option value="bull">bull</option>
+                    <option value="butterly">butterly</option>
+                    <option value="camel">camel</option>
+                    <option value="capybara">capybara</option>
+                    <option value="cat">cat</option>
+                    <option value="chiken">chiken</option>
+                    <option value="cow">cow</option>
+                    <option value="crustacean">crustacean</option>
+                    <option value="dog">dog</option>
+                    <option value="elephant">elephant</option>
+                    <option value="fish">fish</option>
+                    <option value="flamingo">flamingo</option>
+                    <option value="fox">fox</option>
+                    <option value="goat">goat</option>
+                    <option value="hamster">hamster</option>
+                    <option value="hedgehog">hedgehog</option>
+                    <option value="horse">horse</option>
+                    <option value="iguana">iguana</option>
+                    <option value="insect">insect</option>
+                    <option value="jellyfish">jellyfish</option>
+                    <option value="koala">koala</option>
+                    <option value="lama">lama</option>
+                    <option value="lion">lion</option>
+                    <option value="monkey">monkey</option>
+                    <option value="panda">panda</option>
+                    <option value="panther">panther</option>
+                    <option value="pig">pig</option>
+                    <option value="rabbit">rabbit</option>
+                    <option value="rodent">rodent</option>
+                    <option value="snake">snake</option>
+                    <option value="spider">spider</option>
+                    <option value="squirrel">squirrel</option>
+                    <option value="glider">sugar glider</option>
+                    <option value="tiger">tiger</option>
+                    <option value="turtle">turtle</option>
+                    <option value="wolf">wolf</option>
+                    <option value="zebra">zebra</option>
                   </select>
                 </div>
                 <div className="form-control">
