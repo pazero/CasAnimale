@@ -34,7 +34,7 @@
       const setUser = async () => {
         user = await isUserLogged();
         if (user === undefined)
-          window.location.href = "http://localhost:5000/b/views/login.html";
+          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html";
 
         if (user.admin) getCompanies("");
         else getCompanies(user.id);
@@ -43,11 +43,11 @@
       const getCompanies = async (id) => {
         var ret;
         id === ""
-          ? (ret = await fetch("http://localhost:5000/api/company", {
+          ? (ret = await fetch("http://site212247.tw.cs.unibo.it/api/company", {
               method: "GET",
               credentials: "include",
             }))
-          : (ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
+          : (ret = await fetch("http://site212247.tw.cs.unibo.it/api/company?_id=" + id, {
               method: "GET",
               credentials: "include",
             }));
@@ -61,7 +61,7 @@
 
       const sendData = async (index) => {
         var ret = await fetch(
-          "http://localhost:5000/api/company/update/" + toEditData[index]._id,
+          "http://site212247.tw.cs.unibo.it/api/company/update/" + toEditData[index]._id,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@
         window.location.reload();
       };
       const sendCreateCp = async (data) => {
-        var ret = await fetch("http://localhost:5000/api/company/new/", {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/company/new/", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -85,7 +85,7 @@
         window.location.reload();
       };
       const deleteCp = async (id) => {
-        var ret = await fetch("http://localhost:5000/api/company/" + id, {
+        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/company/" + id, {
           method: "DELETE",
           credentials: "include",
         });

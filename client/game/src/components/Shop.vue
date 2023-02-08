@@ -27,7 +27,7 @@
           <img
             class="w-full"
             v-bind:src="
-              selectedProd.photo === '' ? '/compra.png' : selectedProd.photo
+              selectedProd.photo === '' ? '/g/compra.png' : selectedProd.photo
             "
             alt=""
           />
