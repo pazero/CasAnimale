@@ -47,7 +47,7 @@
       };
 
       const getAccountInfo = async (id) => {
-        let ret = await fetch("http://site212247.tw.cs.unibo.it/api/company?_id=" + id, {
+        let ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
@@ -55,8 +55,8 @@
         fillCompany();
       };
 
-      const getPwToRestore  = async () => {
-        let ret = await fetch("http://site212247.tw.cs.unibo.it/api/emailrestore", {
+      const getPwToRestore = async () => {
+        let ret = await fetch("http://localhost:5000/api/emailrestore", {
           credentials: "include",
         });
         pwRestoreList = await ret.json();
@@ -65,7 +65,7 @@
       };
 
       const getAdminsList = async () => {
-        let ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin", {
+        let ret = await fetch("http://localhost:5000/api/admin", {
           credentials: "include",
         });
         adminsList = await ret.json();
@@ -73,8 +73,7 @@
       };
 
       const getAdminInfo = async (id) => {
-        let ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin?_id=" + id, {
-          method: "GET",
+        let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
           credentials: "include",
         });
         data = await ret.json();
@@ -141,7 +140,7 @@
       };
 
       const delPwRestore = async (id) => {
-        let ret = await fetch("http://site212247.tw.cs.unibo.it/api/emailrestore/" + id, {
+        let ret = await fetch("http://localhost:5000/api/emailrestore/" + id, {
           method: "DELETE",
           credentials: "include",
         });
@@ -514,8 +513,8 @@
       const sendUpdateData = async () => {
         console.log(data[0]);
         let url = user.admin
-          ? "http://site212247.tw.cs.unibo.it/api/admin/update/"
-          : "http://site212247.tw.cs.unibo.it/api/company/update/" + data[0]._id;
+          ? "http://localhost:5000/api/admin/update/"
+          : "http://localhost:5000/api/company/update/" + data[0]._id;
         var ret = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -546,8 +545,7 @@
       };
 
       const sendNewAdmin = async (newData) => {
-        console.log(newData);
-        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin/new/", {
+        var ret = await fetch("http://localhost:5000/api/admin/new/", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newData),

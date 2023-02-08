@@ -31,7 +31,7 @@
       const setUser = async () => {
         user = await isUserLogged();
         if (user === undefined)
-          window.location.href = "http://site212247.tw.cs.unibo.it/b/views/login.html";
+          window.location.href = "http://localhost:5000/b/views/login.html";
       };
       const getDateString = (s) => {
         let d = new Date(s);
@@ -73,7 +73,7 @@
 
       const sendUpdatePt = async (index) => {
         // console.log(pts[index]);
-        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation/update", {
+        let ret = await fetch("http://localhost:5000/api/prenotation/update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(pts[index]),
@@ -84,7 +84,8 @@
       };
 
       const getCompany = async (id, index) => {
-        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/company?_id=" + id, {
+        let ret;
+        ret = await fetch("http://localhost:5000/api/company?_id=" + id, {
           method: "GET",
           credentials: "include",
         });
@@ -96,12 +97,12 @@
       const getPts = async (id) => {
         let ret;
         id === ""
-          ? (ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation", {
+          ? (ret = await fetch("http://localhost:5000/api/prenotation", {
               method: "GET",
               credentials: "include",
             }))
           : (ret = await fetch(
-              "http://site212247.tw.cs.unibo.it/api/prenotation?company=" + id,
+              "http://localhost:5000/api/prenotation?company=" + id,
               {
                 method: "GET",
                 credentials: "include",
@@ -112,7 +113,7 @@
       };
 
       const deletePt = async (id) => {
-        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/prenotation/" + id, {
+        let ret = await fetch("http://localhost:5000/api/prenotation/" + id, {
           method: "DELETE",
           credentials: "include",
         });

@@ -141,7 +141,7 @@ const advs = [
       style="
         flex: 1 1 auto;
         min-width: 10rem;
-        background-image: url('/g/bgGame.jpg');
+        /* background-image: url('/g/bgGame.jpg'); */
       "
     >
       <a
@@ -191,7 +191,7 @@ const advs = [
       style="
         flex: 1 1 auto;
         min-width: 10rem;
-        background-image: url('/g/bgGame.jpg');
+        /* background-image: url('/g/bgGame.jpg'); */
       "
     >
       <a

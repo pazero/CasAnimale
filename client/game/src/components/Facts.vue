@@ -234,18 +234,17 @@ export default {
           }
         })
         .then((response) => {
-          this.getCatImage();
+          this.fact.image = this.getCatImage();
           this.fact.body = response.data[0];
           this.fact.title = "Did you know?";
           this.fetchDone = true;
         });
     },
     getCatImage() {
-      fetch("https://meme-api.com/gimme/AnimalsBeingDerps")
-        .then(async (response) => {
+      fetch("https://cataas.com/cat?json=true")
+        .then((response) => {
           if (response.ok) {
-            response = await response.json();
-            return response.url;
+            return response.json();
           } else {
             alert(
               "Server returned " + response.status + " : " + response.statusText
@@ -253,7 +252,7 @@ export default {
           }
         })
         .then((response) => {
-          this.fact.image = response;
+          this.fact.image = "https://cataas.com" + response.url;
         });
     },
   },

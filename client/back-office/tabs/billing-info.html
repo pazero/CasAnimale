@@ -19,7 +19,7 @@
 
     const getUser = async () => {
       try {
-        var ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin/getId", {
+        var ret = await fetch("http://localhost:5000/api/admin/getId", {
           method: "POST",
           credentials: "include",
         });
@@ -34,13 +34,13 @@
       var ret;
       id
         ? (ret = await fetch(
-            "http://site212247.tw.cs.unibo.it/api/receipt?receiver=" + id,
+            "http://localhost:5000/api/receipt?receiver=" + id,
             {
               method: "GET",
               credentials: "include",
             }
           ))
-        : (ret = await fetch("http://site212247.tw.cs.unibo.it/api/receipt", {
+        : (ret = await fetch("http://localhost:5000/api/receipt", {
             method: "GET",
             credentials: "include",
           }));
@@ -52,7 +52,7 @@
     };
 
     const delRcp = async (id) => {
-      var ret = await fetch("http://site212247.tw.cs.unibo.it/api/receipt/" + id, {
+      var ret = await fetch("http://localhost:5000/api/receipt/" + id, {
         method: "DELETE",
         credentials: "include",
       });
@@ -62,7 +62,7 @@
     };
 
     const claimCompanyIncomes = async () => {
-      var ret = await fetch("http://site212247.tw.cs.unibo.it/api/company/claimMoney", {
+      var ret = await fetch("http://localhost:5000/api/company/claimMoney", {
         method: "POST",
         credentials: "include",
       });
@@ -73,7 +73,7 @@
 
     const getVipIncomes = async () => {
       var ret = await fetch(
-        "http://site212247.tw.cs.unibo.it/api/receipt/claimVipIncomes",
+        "http://localhost:5000/api/receipt/claimVipIncomes",
         {
           method: "POST",
           credentials: "include",

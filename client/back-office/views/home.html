@@ -17,7 +17,7 @@
       const setUser = async () => {
         user = await isUserLogged();
         if (user === undefined)
-          window.location.href = "http://http://site212247.tw.cs.unibo.it/b/views/login.html";
+          window.location.href = "http://localhost:5000/b/views/login.html";
         fillCards();
         if (user.admin) {
           $("#cards").addClass("md:grid-cols-3");

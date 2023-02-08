@@ -1,6 +1,6 @@
 const isUserLogged = async () => {
   try {
-    var ret = await fetch("http://site212247.tw.cs.unibo.it/api/admin/getId", {
+    var ret = await fetch("http://localhost:5000/api/admin/getId", {
       method: "POST",
       credentials: "include",
     });
