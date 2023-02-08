@@ -22,7 +22,7 @@
 
       $(document).ready(async () => {
         $("#sidebar").load("../tabs/sidebar.html");
-        await setUser()
+        await setUser();
         if (user.admin) {
           getPts("");
         } else getPts(user.id);
@@ -371,7 +371,9 @@
           index +
           `"><span class="font-bold">Working cities:</span>
                 </div>
-                <div><label for="possiblePlaces` + index + `" class="font-semibold">Place: </label>` +
+                <div><label for="possiblePlaces` +
+          index +
+          `" class="font-semibold">Place: </label>` +
           place +
           `
           <select
@@ -418,7 +420,9 @@
           `</div>
           <div class="toshow` +
           index +
-          ` hidden"><label for="newStart` + index + `" class="font-semibold">Start at: </label>
+          ` hidden"><label for="newStart` +
+          index +
+          `" class="font-semibold">Start at: </label>
             <input
                 type="text"
                 name="newStart` +
@@ -458,7 +462,9 @@
           (isClaimed ? "checked" : "") +
           `
               />
-              <label for="newIsClaimed` + index + `">claimed</label></div>
+              <label for="newIsClaimed` +
+          index +
+          `">claimed</label></div>
               </fieldset></form>
           </div>
                 <div><span class="font-semibold">Company id: </span>
@@ -472,7 +478,8 @@
           `       <i class="fa fa-copy"></i></button>
                 </div>
                 <div><span class="font-semibold">Text: </span>` +
-                  ((text !== undefined) ? text : none) +`
+          (text !== undefined ? text : none) +
+          `
                 </div>
               </div>
               </div>
@@ -585,157 +592,163 @@
   </head>
   <body>
     <div class="flex flex-col md:flex-row flex-1 h-full text-xl">
-      <div
+      <aside
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
-      ></div>
+      ></aside>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
-          PRENOTATIONS
-        </h1>
-        <div class="flex flex-col mx-4 mb-1 flex-0">
+        <header class="flex flex-center flex-col">
+          <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+            PRENOTATIONS
+          </h1>
           <div class="gray self-center">
             Click on something followed by
             <i class="fa fa-copy"></i> to copy it!
           </div>
-          <div class="flex flex-row mt-2">
-            <button
-              id="showBtn"
-              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-              onclick="showFilters()"
-            >
-              Show filters
-            </button>
-            <button
-              id="hideBtn"
-              class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-              onclick="hideFilters()"
-            >
-              Hide filters
-            </button>
-            <button
-              id="resetBtn"
-              class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
-              onclick="resetFilters()"
-            >
-              Reset filters
-            </button>
+        </header>
+        <main>
+          <div class="flex flex-col mx-4 mb-1 flex-0">
+            <div class="flex flex-row mt-2">
+              <button
+                id="showBtn"
+                class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+                onclick="showFilters()"
+              >
+                Show filters
+              </button>
+              <button
+                id="hideBtn"
+                class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+                onclick="hideFilters()"
+              >
+                Hide filters
+              </button>
+              <button
+                id="resetBtn"
+                class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+                onclick="resetFilters()"
+              >
+                Reset filters
+              </button>
+            </div>
           </div>
-        </div>
-        <div id="list" class="flex flex-1 m-4 mt-2">
-          <div class="flex flex-col flex-1">
-            <div id="prenotationsFilter" class="flex flex-col">
-              <!-- primo filtro-->
-              <div class="flex flex-col sm:flex-row">
-                <span class="flex">
-                  <label
-                    for="filterPrenotationId"
-                    class="flex self-center primary font-semibold"
-                    >Filter by prenotation id:</label
-                  >
-                </span>
-                <span>
-                  <input
-                    id="filterPrenotationId"
-                    name="filterPrenotationId"
-                    type="text"
-                    placeholder="ex. 63cecdc93b2ad296f8ed3989"
-                    class="px-1 m-1 rounded w-[15rem]"
-                    oninput="filterList()"
-                  />
-                </span>
-              </div>
-              <!-- secondo e terzo filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4 adminOnly hidden">
-                  <span class="flex">
-                    <label
-                      for="filterCompanyId"
-                      class="flex self-center primary font-semibold"
-                      >Filter by company id:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterCompanyId"
-                      name="filterCompanyId"
-                      type="text"
-                      placeholder="ex. 63c810b7a6a58c3116769cf9"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterUserId"
-                      class="flex self-center primary font-semibold"
-                      >Filter by customer id:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterUserId"
-                      name="filterUserId"
-                      type="text"
-                      placeholder="ex. 635d00fdc77f11a1f22d313d"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-              </div>
-              <!-- quarto e quinto filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterSchedule"
-                      class="flex self-center primary font-semibold"
-                      >Filter by start time:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterSchedule"
-                      name="filterSchedule"
-                      type="text"
-                      placeholder="ex. 9am"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-
+          <div id="list" class="flex flex-1 m-4 mt-2">
+            <div class="flex flex-col flex-1">
+              <div id="prenotationsFilter" class="flex flex-col">
+                <!-- primo filtro-->
                 <div class="flex flex-col sm:flex-row">
                   <span class="flex">
                     <label
-                      for="filterCity"
+                      for="filterPrenotationId"
                       class="flex self-center primary font-semibold"
-                      >Filter by city:
-                    </label>
+                      >Filter by prenotation id:</label
+                    >
                   </span>
                   <span>
                     <input
-                      id="filterCity"
-                      name="filterCity"
+                      id="filterPrenotationId"
+                      name="filterPrenotationId"
                       type="text"
-                      placeholder="ex. Torino or online"
+                      placeholder="ex. 63cecdc93b2ad296f8ed3989"
                       class="px-1 m-1 rounded w-[15rem]"
                       oninput="filterList()"
                     />
                   </span>
                 </div>
+                <!-- secondo e terzo filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div
+                    class="flex flex-col sm:flex-row lg:mr-4 adminOnly hidden"
+                  >
+                    <span class="flex">
+                      <label
+                        for="filterCompanyId"
+                        class="flex self-center primary font-semibold"
+                        >Filter by company id:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterCompanyId"
+                        name="filterCompanyId"
+                        type="text"
+                        placeholder="ex. 63c810b7a6a58c3116769cf9"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterUserId"
+                        class="flex self-center primary font-semibold"
+                        >Filter by customer id:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterUserId"
+                        name="filterUserId"
+                        type="text"
+                        placeholder="ex. 635d00fdc77f11a1f22d313d"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- quarto e quinto filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterSchedule"
+                        class="flex self-center primary font-semibold"
+                        >Filter by start time:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterSchedule"
+                        name="filterSchedule"
+                        type="text"
+                        placeholder="ex. 9am"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row">
+                    <span class="flex">
+                      <label
+                        for="filterCity"
+                        class="flex self-center primary font-semibold"
+                        >Filter by city:
+                      </label>
+                    </span>
+                    <span>
+                      <input
+                        id="filterCity"
+                        name="filterCity"
+                        type="text"
+                        placeholder="ex. Torino or online"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+                </div>
               </div>
+              <div
+                id="totPrenotations"
+                class="flex flex-col flex primary font-semibold mt-4 my-2"
+              ></div>
+              <div id="ptsList" class="flex flex-col flex-1"></div>
             </div>
-            <div
-              id="totPrenotations"
-              class="flex flex-col flex primary font-semibold mt-4 my-2"
-            ></div>
-            <div id="ptsList" class="flex flex-col flex-1"></div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   </body>
