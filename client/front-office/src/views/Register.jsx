@@ -47,7 +47,6 @@ const Register = () => {
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  // const [photo, setPhoto] = useState("");
   const [birth, setBirth] = useState(new Date());
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +59,7 @@ const Register = () => {
       style={{ height: "100%" }}
     >
       <div
-        className=" hidden sm:flex flex-1 justify-start flex-direction-column"
+        className="hidden sm:flex flex-1 justify-start flex-direction-column"
         style={{
           height: "100%",
           backgroundImage: "url('register-bg.jpg')",
@@ -84,7 +83,7 @@ const Register = () => {
             onSubmit={sendData}
           >
             <div className="card flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
-              <div className="card-body text-center hidden sm:flex">
+              <main className="card-body text-center hidden sm:flex">
                 <h1 className="card-title font-semibold text-md justify-center">
                   Sign up to CasAnimale!
                 </h1>
@@ -185,17 +184,17 @@ const Register = () => {
                     sign up
                   </button>
                 </div>
-                <label className="label justify-center">
+                <div className="justify-center">
                   <button
                     onClick={() => {
                       navigate("/login");
                     }}
-                    className="label-text-alt link link-hover"
+                    className="link link-hover"
                   >
                     If you already have an account SIGN IN
                   </button>
-                </label>
-              </div>
+                </div>
+              </main>
             </div>
           </form>
         </div>
@@ -221,7 +220,7 @@ const Register = () => {
             onSubmit={sendData}
           >
             <div className="flex flex-shrink-0 justify-center w-full shadow-2xl bg-base-100">
-              <div className="card-body text-center">
+              <main className="card-body text-center">
                 <h1 className="card-title text-md font-semibold justify-center">
                   Sign up to CasAnimale!
                 </h1>
@@ -303,17 +302,17 @@ const Register = () => {
                     sign up
                   </button>
                 </div>
-                <label className="label justify-center">
+                <div className="justify-center">
                   <button
                     onClick={() => {
                       navigate("/login");
                     }}
-                    className="label-text-alt link link-hover"
+                    className="link link-hover"
                   >
                     If you already have an account SIGN IN
                   </button>
-                </label>
-              </div>
+                </div>
+              </main>
             </div>
           </form>
         </div>
