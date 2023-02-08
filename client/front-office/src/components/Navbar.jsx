@@ -92,6 +92,9 @@ const Navbar = () => {
                 aria-label="Press enter to view community"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
+                    var tmp = document.getElementById("servicesmall");
+                    tmp.style.display = "none";
+                    tmp.setAttribute("aria-expanded", false);
                     var tmp = document.getElementById("communitysmall");
                     if (
                       tmp.style.display === "" ||
@@ -201,7 +204,10 @@ const Navbar = () => {
                 aria-label="Press enter to view servicies"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
-                    var tmp = document.getElementById("servicesmall");
+                    var tmp = document.getElementById("communitysmall");
+                    tmp.style.display = "none";
+                    tmp.setAttribute("aria-expanded", false);
+                    tmp = document.getElementById("servicesmall");
                     if (
                       tmp.style.display === "" ||
                       tmp.style.display === "none"
@@ -383,6 +389,9 @@ const Navbar = () => {
               aria-label="Press enter to view community"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
+                  var tmp = document.getElementById("servicelarge");
+                  tmp.style.display = "none";
+                  tmp.setAttribute("aria-expanded", false);
                   var tmp = document.getElementById("communitylarge");
                   if (
                     tmp.style.display === "" ||
@@ -487,6 +496,9 @@ const Navbar = () => {
               aria-label="Press enter to view servicies"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
+                  var tmp = document.getElementById("communitylarge");
+                  tmp.style.display = "none";
+                  tmp.setAttribute("aria-expanded", false);
                   var tmp = document.getElementById("servicelarge");
                   if (
                     tmp.style.display === "" ||
