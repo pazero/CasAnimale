@@ -366,7 +366,7 @@ const Navbar = () => {
             <img
               src="/f/CasAnimaleScritta.png"
               alt="CasAnimale title"
-              class="h-12"
+              class="h-10 sm:h-12"
             />
           </a>
         </div>
