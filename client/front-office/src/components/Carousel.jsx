@@ -149,6 +149,7 @@ export default function CaptionCarousel() {
                 className="p-3 bg-gray-100 bg-opacity-50 rounded-lg"
               >
                 <Heading
+                  as = 'h1'
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                   className="text-black pb-6 uppercase"
                 >

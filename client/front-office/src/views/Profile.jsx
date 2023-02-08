@@ -250,9 +250,9 @@ const Profile = () => {
                   <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
                     <dt className="text-lg font-semibold">Name</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
-                      <span hidden={false} className="actualInfo ml-1">
+                      <label for="newName" hidden={false} className="actualInfo ml-1">
                         {user?.name}
-                      </span>
+                      </label>
                       <input
                         hidden={true}
                         id="newName"
@@ -268,9 +268,9 @@ const Profile = () => {
                   <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
                     <dt className="text-lg font-semibold">Surname</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
-                      <span hidden={false} className="actualInfo ml-1">
+                      <label for="newSurname" hidden={false} className="actualInfo ml-1">
                         {user?.surname}
-                      </span>
+                      </label>
                       <input
                         hidden={true}
                         type="text"
@@ -286,7 +286,7 @@ const Profile = () => {
                   <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
                     <dt className="text-lg font-semibold">Birthday</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
-                      <span hidden={false} className="actualInfo ml-1">
+                      <label for="newBirth" hidden={false} className="actualInfo ml-1">
                         {user?.birth
                           ? user?.birth.substring(5, 7) +
                             "/" +
@@ -294,7 +294,7 @@ const Profile = () => {
                             "/" +
                             user?.birth.substring(0, 4)
                           : user?.birth}
-                      </span>
+                      </label>
                       <input
                         hidden={true}
                         type="date"
@@ -315,9 +315,9 @@ const Profile = () => {
                   <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
                     <dt className="text-lg font-semibold">Email</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
-                      <span hidden={false} className="actualInfo ml-1">
+                      <label for="newEmail" hidden={false} className="actualInfo ml-1">
                         {user?.email}
-                      </span>
+                      </label>
                       <input
                         hidden={true}
                         type="text"
@@ -333,11 +333,11 @@ const Profile = () => {
                   <div className="my-1 bg-gray-50 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
                     <dt className="text-lg font-semibold">Password</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
-                      <span hidden={false} className="actualInfo ml-1">
+                      <label for="newPassword" hidden={false} className="actualInfo ml-1">
                         {user?.password
                           ? "*".repeat(user?.password.length)
                           : user?.password}
-                      </span>
+                      </label>
                       <input
                         hidden={true}
                         type="text"
@@ -353,9 +353,9 @@ const Profile = () => {
                   <div className="my-1 bg-gray-100 rounded-lg px-4 py-5 grid grid-cols-3 gap-4">
                     <dt className="text-lg font-semibold">Favourite Animal</dt>
                     <dd className="text-lg text-gray-900 col-span-2 mt-0">
-                      <span hidden={false} className="actualInfo ml-1">
+                      <label for="newFavanimal" hidden={false} className="actualInfo ml-1">
                         {user?.favanimal}
-                      </span>
+                      </label>
                       <input
                         hidden={true}
                         type="text"
