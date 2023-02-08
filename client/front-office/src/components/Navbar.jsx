@@ -55,7 +55,7 @@ const Navbar = () => {
     >
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
-          <label
+          <div
             tabIndex={0}
             className="btn btn-ghost"
             aria-label="Dropdown menu"
@@ -67,7 +67,7 @@ const Navbar = () => {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              aria-label="hamburger icon"
+              aria-label="Menu is opened"
             >
               <path
                 strokeLinecap="round"
@@ -76,8 +76,11 @@ const Navbar = () => {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </label>
-          <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          </div>
+          <ul
+            aria-expanded={true}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
             <li>
               <a href={Const.GAMEURL}>Game Area</a>
             </li>
@@ -350,13 +353,21 @@ const Navbar = () => {
           </ul>
         </div>
         <div class="flex flex-row">
-          <img src="/f/CasAnimale.png" alt="CasAnimale logo" class="hidden sm:flex h-12 w-12"/>
+          <img
+            src="/f/CasAnimale.png"
+            alt="CasAnimale logo"
+            class="hidden sm:flex h-12 w-12"
+          />
           <a
             href={Const.FOURL}
             className="btn btn-ghost normal-case text-xl px-1"
             aria-label="CasAnimale home button"
           >
-            <img src="/f/CasAnimaleScritta.png" alt="CasAnimale title" class="h-12"/>
+            <img
+              src="/f/CasAnimaleScritta.png"
+              alt="CasAnimale title"
+              class="h-12"
+            />
           </a>
         </div>
       </div>
@@ -687,14 +698,15 @@ const Navbar = () => {
       ) : (
         <div className="navbar-end">
           <div className="dropdown">
-            <label
+            <button
               tabIndex={0}
               className="btn mr-2 font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900"
               for="dropdown"
             >
               <span>login</span>
-            </label>
+            </button>
             <ul
+              aria-expanded={true}
               id="dropdown"
               className="menu menu-compact dropdown-content mt-3 shadow bg-gray-100 focus:indigo-200 p-0 rounded-box w-full"
             >
