@@ -123,7 +123,7 @@ export default function CaptionCarousel() {
         <BiRightArrowAlt size="40px" />
       </IconButton>
       {/* Slider */}
-      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+      <Slider aria-live="polite" {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((card, index) => (
           <Box
             key={index}
