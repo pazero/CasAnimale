@@ -268,7 +268,9 @@
 							<div class="toshow` +
           index +
           `">
-								<label for="newVip` + index + `"class="toshow` +
+								<label for="newVip` +
+          index +
+          `"class="toshow` +
           index +
           ` hidden font-semibold">Vip: </label>
 								<select
@@ -288,7 +290,9 @@
 								</select>
 							</div>
 						</div>
-						<div><label for="newName` + index + `" class="font-semibold">Name: </label><span class="tohidden` +
+						<div><label for="newName` +
+          index +
+          `" class="font-semibold">Name: </label><span class="tohidden` +
           index +
           `">` +
           name +
@@ -311,7 +315,9 @@
           ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 						/>
 						</div>
-						<div><label for="newSurname` + index + `" class="font-semibold">Surname: </label><span class="tohidden` +
+						<div><label for="newSurname` +
+          index +
+          `" class="font-semibold">Surname: </label><span class="tohidden` +
           index +
           `">` +
           surname +
@@ -338,7 +344,9 @@
           birth.substring(0, 10) +
           `
 						</div>
-						<div><label for="newEmail` + index + `" class="font-semibold">Email: </label>
+						<div><label for="newEmail` +
+          index +
+          `" class="font-semibold">Email: </label>
 							<button class="btn tohidden` +
           index +
           `" onclick="copy(this)">` +
@@ -381,7 +389,9 @@
 							<div id="expandCard` +
           index +
           `" class="hidden flex flex-col">
-								<div><label for="newPassword` + index + `" class="font-semibold">Password: </label><span class="tohidden` +
+								<div><label for="newPassword` +
+          index +
+          `" class="font-semibold">Password: </label><span class="tohidden` +
           index +
           `">` +
           password +
@@ -404,7 +414,9 @@
           ` change hidden px-1 rounded shadow-sm border-primary mb-1 bg-transparent"
 								/>
 								</div>
-								<div><label for="newFavanimal` + index +`" class="font-semibold">Favorite animal: </label><span class="tohidden` +
+								<div><label for="newFavanimal` +
+          index +
+          `" class="font-semibold">Favorite animal: </label><span class="tohidden` +
           index +
           `">` +
           favanimal +
@@ -587,203 +599,207 @@
 
   <body>
     <div class="flex flex-col md:flex-row flex-1 h-full text-xl">
-      <div
+      <aside
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
-      ></div>
+      ></aside>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
-          CUSTOMERS
-        </h1>
-        <div class="gray m-2 mb-1 self-center">
-          Click on something followed by
-          <i class="fa fa-copy"></i> to copy it!
-        </div>
-        <div class="flex flex-row mt-2 mx-4 mb-1">
-          <button
-            id="showBtn"
-            class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-            onclick="showFilters()"
-          >
-            Show filters
-          </button>
-          <button
-            id="hideBtn"
-            class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-            onclick="hideFilters()"
-          >
-            Hide filters
-          </button>
-          <button
-            id="resetBtn"
-            class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
-            onclick="resetFilters()"
-          >
-            Reset filters
-          </button>
-        </div>
-        <div id="list" class="flex flex-1 m-4 mt-2">
-          <div class="flex flex-col flex-1">
-            <div id="customersFilters" class="flex flex-col">
-              <!-- primo filtro-->
-              <div class="flex flex-col sm:flex-row">
-                <span class="flex">
-                  <label
-                    for="filterCustomerId"
-                    class="flex self-center primary font-semibold"
-                    >Filter by customer id:</label
-                  >
-                </span>
-                <span>
-                  <input
-                    id="filterCustomerId"
-                    name="filterCustomerId"
-                    type="text"
-                    placeholder="ex. 63cecdc93b2ad296f8ed3989"
-                    class="px-1 m-1 rounded w-[15rem]"
-                    oninput="filterList()"
-                  />
-                </span>
-              </div>
-              <!-- secondo e terzo filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterCustomerEmail"
-                      class="flex self-center primary font-semibold"
-                      >Filter by email:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterCustomerEmail"
-                      name="filterCustomerEmail"
-                      type="email"
-                      placeholder="ex. rossi@gmail.com"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterCustomerBirthDate"
-                      class="flex self-center primary font-semibold"
-                      >Filter by birth date:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterCustomerBirthDate"
-                      name="filterCustomerBirthDate"
-                      type="text"
-                      placeholder="ex. yyyy-mm-dd"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-              </div>
-              <!-- quarto e quinto filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterMinDate"
-                      class="flex self-center primary font-semibold"
-                      >Filter by min birth date:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterMinDate"
-                      name="filterMinDate"
-                      type="text"
-                      placeholder="ex. yyyy-mm-dd"
-                      class="px-1 m-1 rounded w-[12rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterMaxDate"
-                      class="flex self-center primary font-semibold"
-                      >Filter by max birth date:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterMaxDate"
-                      name="filterMaxDate"
-                      type="text"
-                      placeholder="ex. yyyy-mm-dd"
-                      class="px-1 m-1 rounded w-[12rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-              </div>
-              <!-- sesto e settimo filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterFavAnimal"
-                      class="flex self-center primary font-semibold"
-                      >Filter by favorite animal:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterFavAnimal"
-                      name="filterFavAnimal"
-                      type="text"
-                      placeholder="ex. dog"
-                      class="px-1 m-1 rounded w-[12rem]"
-                      oninput="filterList()"
-                    />
-                  </span>
-                </div>
-
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterVIP"
-                      class="flex self-center primary font-semibold"
-                      >VIP option:</label
-                    >
-                  </span>
-                  <span class="flex justify-start">
-                    <select
-                      id="filterVIP"
-                      name="filterVIP"
-                      type="text"
-                      placeholder="ex. psychologist"
-                      class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
-                      oninput="filterList()"
-                    >
-                      <option value="" class="text-[#939798]">
-                        --Chose an option--
-                      </option>
-                      <option value="true">VIP</option>
-                      <option value="false">Not VIP</option>
-                    </select>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              id="totCustomers"
-              class="flex flex-col flex primary font-semibold my-4"
-            ></div>
-            <div id="cstmrsList" class="flex flex-col flex-1 mb-4"></div>
+        <header class="flex flex-col flex-center">
+          <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+            CUSTOMERS
+          </h1>
+          <div class="gray m-2 mb-1 self-center">
+            Click on something followed by
+            <i class="fa fa-copy"></i> to copy it!
           </div>
-        </div>
+        </header>
+        <main>
+          <div class="flex flex-row mt-2 mx-4 mb-1">
+            <button
+              id="showBtn"
+              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              onclick="showFilters()"
+            >
+              Show filters
+            </button>
+            <button
+              id="hideBtn"
+              class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+              onclick="hideFilters()"
+            >
+              Hide filters
+            </button>
+            <button
+              id="resetBtn"
+              class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+              onclick="resetFilters()"
+            >
+              Reset filters
+            </button>
+          </div>
+          <div id="list" class="flex flex-1 m-4 mt-2">
+            <div class="flex flex-col flex-1">
+              <div id="customersFilters" class="flex flex-col">
+                <!-- primo filtro-->
+                <div class="flex flex-col sm:flex-row">
+                  <span class="flex">
+                    <label
+                      for="filterCustomerId"
+                      class="flex self-center primary font-semibold"
+                      >Filter by customer id:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterCustomerId"
+                      name="filterCustomerId"
+                      type="text"
+                      placeholder="ex. 63cecdc93b2ad296f8ed3989"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterList()"
+                    />
+                  </span>
+                </div>
+                <!-- secondo e terzo filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterCustomerEmail"
+                        class="flex self-center primary font-semibold"
+                        >Filter by email:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterCustomerEmail"
+                        name="filterCustomerEmail"
+                        type="email"
+                        placeholder="ex. rossi@gmail.com"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterCustomerBirthDate"
+                        class="flex self-center primary font-semibold"
+                        >Filter by birth date:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterCustomerBirthDate"
+                        name="filterCustomerBirthDate"
+                        type="text"
+                        placeholder="ex. yyyy-mm-dd"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- quarto e quinto filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterMinDate"
+                        class="flex self-center primary font-semibold"
+                        >Filter by min birth date:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterMinDate"
+                        name="filterMinDate"
+                        type="text"
+                        placeholder="ex. yyyy-mm-dd"
+                        class="px-1 m-1 rounded w-[12rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterMaxDate"
+                        class="flex self-center primary font-semibold"
+                        >Filter by max birth date:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterMaxDate"
+                        name="filterMaxDate"
+                        type="text"
+                        placeholder="ex. yyyy-mm-dd"
+                        class="px-1 m-1 rounded w-[12rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- sesto e settimo filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterFavAnimal"
+                        class="flex self-center primary font-semibold"
+                        >Filter by favorite animal:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterFavAnimal"
+                        name="filterFavAnimal"
+                        type="text"
+                        placeholder="ex. dog"
+                        class="px-1 m-1 rounded w-[12rem]"
+                        oninput="filterList()"
+                      />
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterVIP"
+                        class="flex self-center primary font-semibold"
+                        >VIP option:</label
+                      >
+                    </span>
+                    <span class="flex justify-start">
+                      <select
+                        id="filterVIP"
+                        name="filterVIP"
+                        type="text"
+                        placeholder="ex. psychologist"
+                        class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+                        oninput="filterList()"
+                      >
+                        <option value="" class="text-[#939798]">
+                          --Chose an option--
+                        </option>
+                        <option value="true">VIP</option>
+                        <option value="false">Not VIP</option>
+                      </select>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                id="totCustomers"
+                class="flex flex-col flex primary font-semibold my-4"
+              ></div>
+              <div id="cstmrsList" class="flex flex-col flex-1 mb-4"></div>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   </body>

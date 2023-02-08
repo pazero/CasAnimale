@@ -25,16 +25,21 @@
   </head>
   <body>
     <div class="flex flex-col md:flex-row flex-1 h-full text-xl">
-      <div
+      <aside
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
-      ></div>
+      ></aside>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">BILLING</h1>
-        <div class="gray m-4 mb-1 self-center">
-          Click on something followed by <i class="fa fa-copy"></i> to copy it!
-        </div>
-        <div id="billingInfo" class="flex m-4 mt-2"></div>
+        <header class="flex flex-center flex-col">
+          <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+            BILLING
+          </h1>
+          <div class="gray m-4 mb-1 self-center">
+            Click on something followed by <i class="fa fa-copy"></i> to copy
+            it!
+          </div>
+        </header>
+        <main id="billingInfo" class="flex m-4 mt-2"></main>
       </div>
     </div>
   </body>

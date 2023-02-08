@@ -114,26 +114,26 @@
   </head>
   <body onload="setUser()">
     <div class="flex flex-col md:flex-row flex-1">
-      <div
+      <aside
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
-      ></div>
+      ></aside>
       <div
         class="flex w-full md:h-screen p-5 pt-0 ml-0 md:p-5 md:ml-[106px]"
         id="presentation"
       >
         <div class="flex self-center flex-col w-full h-auto">
-          <div class="flex flex-col text-center p-3 md:pb-6">
+          <header class="flex flex-col text-center p-3 md:pb-6">
             <!-- TODO mettere if -> se admin Manage all your companies, se no va bene cosi-->
             <h1 class="primary font-bold text-4xl mb-5 md:mb-0 md:text-6xl">
               Administration
             </h1>
-          </div>
-          <div
+          </header>
+          <main
             id="cards"
             class="grid grid-cols-1 mx-10 sm:mx-0 sm:grid-cols-2 gap-4"
             style="grid-auto-rows: 1fr"
-          ></div>
+          ></main>
         </div>
       </div>
     </div>

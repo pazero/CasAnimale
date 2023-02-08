@@ -19,11 +19,11 @@
       let adminsList;
       let pwRestoreList = [];
       let listLen = {
-          study_info: -1,
-          professional_experience: -1,
-          actual_jobs: -1,
-          main_pets: -1,
-        }
+        study_info: -1,
+        professional_experience: -1,
+        actual_jobs: -1,
+        main_pets: -1,
+      };
       $(document).ready(async () => {
         user = await isUserLogged();
         $("#sidebar").load("../tabs/sidebar.html");
@@ -55,12 +55,12 @@
         fillCompany();
       };
 
-      const getPwToRestore  = async () => {
+      const getPwToRestore = async () => {
         let ret = await fetch("http://localhost:5000/api/emailrestore", {
           credentials: "include",
         });
         pwRestoreList = await ret.json();
-        console.log(pwRestoreList)
+        console.log(pwRestoreList);
         fillPwRestoreList();
       };
 
@@ -70,7 +70,7 @@
         });
         adminsList = await ret.json();
         fillAdminsList();
-      }
+      };
 
       const getAdminInfo = async (id) => {
         let ret = await fetch("http://localhost:5000/api/admin?_id=" + id, {
@@ -104,37 +104,40 @@
         });
         $("#otherAdmins").append(tmp);
       };
-  
+
       const fillPwRestoreList = () => {
         let tmp = "Password to restore:";
-        if(pwRestoreList.length > 0){
+        if (pwRestoreList.length > 0) {
           pwRestoreList.map((item, index) => {
-            let date = new Date(item.timestamp).toISOString().split('T')[0]
-            let time = (new Date(item.timestamp)).toString().substring(16,21)
-              tmp +=
-                `<div class="flex flex-row my-4">`+
-                  (index+1) + `.
+            let date = new Date(item.timestamp).toISOString().split("T")[0];
+            let time = new Date(item.timestamp).toString().substring(16, 21);
+            tmp +=
+              `<div class="flex flex-row my-4">` +
+              (index + 1) +
+              `.
                   <div class="flex flex-col bg-white ml-2 p-2 rounded-lg">
                     <div><span class="font-bold">Email: </span> <span class="font-bold primary">` +
-                  item.mail +
-                  `</span>
+              item.mail +
+              `</span>
                   </div>
                   <div><span class="font-bold">Request date: </span>` +
-                  date +
-                  `</div>
+              date +
+              `</div>
                   <div><span class="font-bold">Request time: </span>` +
-                  time +
-                  `</div>
-                  <button class="flex self-center btn bg-danger rounded lg my-1 mt-2 px-2 py-1 font-semibold text-white" onclick="delPwRestore('`+item._id+`')"> Delete </button>
+              time +
+              `</div>
+                  <button class="flex self-center btn bg-danger rounded lg my-1 mt-2 px-2 py-1 font-semibold text-white" onclick="delPwRestore('` +
+              item._id +
+              `')"> Delete </button>
                   </div>
                 </div>
               `;
           });
         } else {
-          tmp += "<br>No email to restore"
+          tmp += "<br>No email to restore";
         }
         $("#restorePw").append(tmp);
-      }
+      };
 
       const delPwRestore = async (id) => {
         let ret = await fetch("http://localhost:5000/api/emailrestore/" + id, {
@@ -142,10 +145,9 @@
           credentials: "include",
         });
         ret = await ret.json();
-        alert(ret.message)
-        window.location.reload()
-      }
-
+        alert(ret.message);
+        window.location.reload();
+      };
 
       const fillAdmin = () => {
         $(".adminOnly").removeClass("hidden");
@@ -189,8 +191,8 @@
       };
 
       const formatBusiness = (hours) => {
-        if( hours === 0) return "12am"
-        if( hours === 12) return "12pm"
+        if (hours === 0) return "12am";
+        if (hours === 12) return "12pm";
         return hours > 12 ? (hours % 12) + "pm" : hours + "am";
       };
 
@@ -198,7 +200,7 @@
         return (
           `
           <div class="mb-14 mt-6">
-            <span class="primary font-bold">Opening time:</span>
+            <label for="newOpening" class="primary font-bold">Opening time:</label>
             <span>` +
           formatBusiness(data[0].business_hours.start) +
           `</span>
@@ -237,7 +239,7 @@
           </div>
 
           <div class="mb-14">
-            <span class="primary font-bold">Closing time:</span>
+            <label for="newClosing" class="primary font-bold">Closing time:</label>
             <span>` +
           formatBusiness(data[0].business_hours.end) +
           `</span>
@@ -275,7 +277,7 @@
             </select>
           </div>
 
-          <div><span class="primary font-bold">Cost per hour:</span><span>
+          <div><label for="newCostPerHour" class="primary font-bold">Cost per hour:</label><span>
             <input
                 type="text"
                 name="newCostPerHour"
@@ -295,7 +297,7 @@
           `
           <div class="hidden companyOnly flex flex-col">
             <div class="flex justify-center secondary text-3xl font-bold mt-4 mb-4">WORKING PLACES</div>
-            <div class="my-4"><span class="primary font-semibold">Monday:</span>
+            <div class="my-4"><label for="newMonday" class="primary font-semibold">Monday:</label>
               <input
                 type="text"
                 name="newMonday"
@@ -307,7 +309,7 @@
                 class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
-            <div class="my-4"><span class="primary font-semibold">Tuesday:</span>
+            <div class="my-4"><label for="newTuesday" class="primary font-semibold">Tuesday:</label>
               <input
                 type="text"
                 name="newTuesday"
@@ -319,7 +321,7 @@
                 class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
-            <div class="my-4"><span class="primary font-semibold">Wednesday:</span>
+            <div class="my-4"><label for="newWednesday" class="primary font-semibold">Wednesday:</label>
               <input
                 type="text"
                 name="newWednesday"
@@ -331,7 +333,7 @@
                 class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
-            <div class="my-4"><span class="primary font-semibold">Thursday:</span>
+            <div class="my-4"><label for="newThursday" class="primary font-semibold">Thursday:</label>
               <input
                 type="text"
                 name="newThursday"
@@ -343,7 +345,7 @@
                 class="change px-1 rounded shadow-sm border-primary my-2 bg-transparent"
               />
             </div>
-            <div class="my-4"><span class="primary font-semibold">Friday:</span>
+            <div class="my-4"><label for="newFriday" class="primary font-semibold">Friday:</label>
               <input
                 type="text"
                 name="newFriday"
@@ -412,7 +414,13 @@
         if (array !== undefined) {
           array.map((item, index) => {
             tmp +=
-              `<div>
+              `<div class="ml-16">
+                <label for="new` +
+              type +
+              index +
+              `">` +
+              (index + 1) +
+              `</label>
               <input
                 type="text"
                 name="new` +
@@ -427,7 +435,7 @@
               item +
               `"
                 placeholder="Type new field"
-                class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
+                class="change px-1 rounded shadow-sm border-primary my-2 ml-1 bg-transparent"
               />
             </div>`;
             count = index;
@@ -478,7 +486,13 @@
           default:
         }
         $("#add" + type).append(
-          `<div>
+          `<div class="ml-16">
+            <label for="new` +
+            type +
+            count +
+            `">` +
+            (count + 1) +
+            `</label>
             <input
               type="text"
               name="new` +
@@ -490,7 +504,7 @@
             count +
             `"
               placeholder="Type new field"
-              class="change px-1 rounded shadow-sm border-primary my-2 ml-16 bg-transparent"
+              class="change px-1 rounded shadow-sm border-primary my-2 ml-1 bg-transparent"
             />
           </div>`
         );
@@ -498,7 +512,9 @@
 
       const sendUpdateData = async () => {
         console.log(data[0]);
-        let url = user.admin ? "http://localhost:5000/api/admin/update/" : "http://localhost:5000/api/company/update/" + data[0]._id;
+        let url = user.admin
+          ? "http://localhost:5000/api/admin/update/"
+          : "http://localhost:5000/api/company/update/" + data[0]._id;
         var ret = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -511,10 +527,15 @@
       };
 
       const createAdmin = () => {
-        let newData = {name: "", surname: "", email: "", password: ""}
-        if($("#createAdminName").val() === "" || $("#createAdminSurname").val() === "" || $("#createAdminEmail").val() === "" || $("#createAdminPassword").val() === "" ) {
-          alert("Missing data!")
-        } else { 
+        let newData = { name: "", surname: "", email: "", password: "" };
+        if (
+          $("#createAdminName").val() === "" ||
+          $("#createAdminSurname").val() === "" ||
+          $("#createAdminEmail").val() === "" ||
+          $("#createAdminPassword").val() === ""
+        ) {
+          alert("Missing data!");
+        } else {
           newData.name = $("#createAdminName").val();
           newData.surname = $("#createAdminSurname").val();
           newData.email = $("#createAdminEmail").val();
@@ -537,22 +558,26 @@
 
       const savePublic = () => {
         if (user.admin) {
-          console.log($("#newSurname").val() === "")
-          console.log($("#newName").val() === "")
-          console.log($("#newSurname").val() === "" || $("#newName").val() === "")
-          if($("#newSurname").val() === "" || $("#newName").val() === "") {
-            alert("Missing data!")
+          console.log($("#newSurname").val() === "");
+          console.log($("#newName").val() === "");
+          console.log(
+            $("#newSurname").val() === "" || $("#newName").val() === ""
+          );
+          if ($("#newSurname").val() === "" || $("#newName").val() === "") {
+            alert("Missing data!");
           } else {
             data[0].surname = $("#newSurname").val();
             data[0].name = $("#newName").val();
             sendUpdateData();
           }
         } else {
-          console.log($("#newOwner").val() === "")
-          console.log($("#newName").val() === "")
-          console.log($("#newOwner").val() === "" || $("#newName").val() === "")
+          console.log($("#newOwner").val() === "");
+          console.log($("#newName").val() === "");
+          console.log(
+            $("#newOwner").val() === "" || $("#newName").val() === ""
+          );
           if ($("#newOwner").val() === "" || $("#newName").val() === "")
-            alert("Missing data!")
+            alert("Missing data!");
           else {
             data[0].owner = $("#newOwner").val();
             data[0].name = $("#newName").val();
@@ -561,8 +586,8 @@
         }
       };
       const savePrivate = () => {
-        if($("#newPassword").val() === "" || $("#newEmail").val() === "" ) {
-          alert("Missing data!")
+        if ($("#newPassword").val() === "" || $("#newEmail").val() === "") {
+          alert("Missing data!");
         } else {
           data[0].email = $("#newEmail").val();
           data[0].password = $("#newPassword").val();
@@ -571,66 +596,72 @@
       };
 
       const saveCities = () => {
-        if($("#newMonday").val() === "" || $("#newTuesday").val() === "" || $("#newWednesday").val() === "" || $("#newThursday").val() === "" || $("#newFriday").val() === "") {
-          alert("Missing data!")
+        if (
+          $("#newMonday").val() === "" ||
+          $("#newTuesday").val() === "" ||
+          $("#newWednesday").val() === "" ||
+          $("#newThursday").val() === "" ||
+          $("#newFriday").val() === ""
+        ) {
+          alert("Missing data!");
         } else {
-          data[0].cities.monday = $("#newMonday").val()
-          data[0].cities.tuesday = $("#newTuesday").val()
-          data[0].cities.wednesday = $("#newWednesday").val()
-          data[0].cities.thursday = $("#newThursday").val()
-          data[0].cities.friday = $("#newFriday").val()
-          sendUpdateData()
+          data[0].cities.monday = $("#newMonday").val();
+          data[0].cities.tuesday = $("#newTuesday").val();
+          data[0].cities.wednesday = $("#newWednesday").val();
+          data[0].cities.thursday = $("#newThursday").val();
+          data[0].cities.friday = $("#newFriday").val();
+          sendUpdateData();
         }
-      }
+      };
 
       const saveBusiness = () => {
-        if($("#newCostPerHour").val() === "") {
-          alert("Missing data!")
+        if ($("#newCostPerHour").val() === "") {
+          alert("Missing data!");
         } else {
-          data[0].cost_per_hour=$("#newCostPerHour").val()
-          let checkStart = data[0].business_hours.start
-          let checkEnd = data[0].business_hours.end
-          if($("#newOpening").val() !== ""){
-            data[0].business_hours.start=$("#newOpening").val()
-            checkStart = $("#newOpening").val()
+          data[0].cost_per_hour = $("#newCostPerHour").val();
+          let checkStart = data[0].business_hours.start;
+          let checkEnd = data[0].business_hours.end;
+          if ($("#newOpening").val() !== "") {
+            data[0].business_hours.start = $("#newOpening").val();
+            checkStart = $("#newOpening").val();
           }
-          if($("#newClosing").val() !== ""){
-            data[0].business_hours.end=$("#newClosing").val()
-            checkEnd = $("#newClosing").val()
+          if ($("#newClosing").val() !== "") {
+            data[0].business_hours.end = $("#newClosing").val();
+            checkEnd = $("#newClosing").val();
           }
-          console.log("check da " + checkStart + " a " + checkEnd)
-          console.log(+checkStart >= +checkEnd)
-          if(+checkStart >= +checkEnd)
-            alert("Incorrect data")
-          else sendUpdateData()
-
+          console.log("check da " + checkStart + " a " + checkEnd);
+          console.log(+checkStart >= +checkEnd);
+          if (+checkStart >= +checkEnd) alert("Incorrect data");
+          else sendUpdateData();
         }
-      }
+      };
 
       const saveCareer = () => {
-        console.log(listLen)
-        data[0].actual_jobs = []
-        data[0].main_pets = []
-        data[0].study_info = []
-        data[0].professional_experience = []
-        for(let i = 0; i <= listLen.actual_jobs; i++){
-          if($("#newactual_jobs"+i).val() !== "")
-          data[0].actual_jobs.push($("#newactual_jobs"+i).val())
+        console.log(listLen);
+        data[0].actual_jobs = [];
+        data[0].main_pets = [];
+        data[0].study_info = [];
+        data[0].professional_experience = [];
+        for (let i = 0; i <= listLen.actual_jobs; i++) {
+          if ($("#newactual_jobs" + i).val() !== "")
+            data[0].actual_jobs.push($("#newactual_jobs" + i).val());
         }
-        for(let i = 0; i <= listLen.main_pets; i++){
-          if($("#newmain_pets"+i).val() !== "")
-          data[0].main_pets.push($("#newmain_pets"+i).val())
+        for (let i = 0; i <= listLen.main_pets; i++) {
+          if ($("#newmain_pets" + i).val() !== "")
+            data[0].main_pets.push($("#newmain_pets" + i).val());
         }
-        for(let i = 0; i <= listLen.study_info; i++){
-          if($("#newstudy_info"+i).val() !== "")
-          data[0].study_info.push($("#newstudy_info"+i).val())
+        for (let i = 0; i <= listLen.study_info; i++) {
+          if ($("#newstudy_info" + i).val() !== "")
+            data[0].study_info.push($("#newstudy_info" + i).val());
         }
-        for(let i = 0; i <= listLen.professional_experience; i++){
-          if($("#newprofessional_experience"+i).val() !== "")
-          data[0].professional_experience.push($("#newprofessional_experience"+i).val())
+        for (let i = 0; i <= listLen.professional_experience; i++) {
+          if ($("#newprofessional_experience" + i).val() !== "")
+            data[0].professional_experience.push(
+              $("#newprofessional_experience" + i).val()
+            );
         }
-        sendUpdateData()
-      }
+        sendUpdateData();
+      };
     </script>
   </head>
   <body>
@@ -640,10 +671,12 @@
         id="sidebar"
       ></div>
       <div class="flex flex-col w-full p-5 pb-0 pt-0 ml-0 md:ml-[106px]">
-        <div
-          id="title"
-          class="flex font-bold text-4xl sm:text-6xl m-4 self-center"
-        ></div>
+        <header class="flex flex-col flex-center">
+          <h1
+            id="title"
+            class="flex font-bold text-4xl sm:text-6xl m-4 self-center"
+          ></h1>
+        </header>
         <div id="info" class="flex flex-1 mt-4">
           <div
             id="bar"
@@ -677,246 +710,268 @@
               onclick="showTab('businessTab')"
             >
               Business information
-              <button>
-                <div
-                  id="careerTabBtn"
-                  class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-                  onclick="showTab('careerTab')"
-                >
-                  Career information
-                  <button
-                    id="newAdminBtn"
-                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-                    onclick="showTab('newAdmin')"
-                  >
-                    Create new admin
-                  </button>
-                  <button
-                    id="otherAdminsBtn"
-                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-                    onclick="showTab('otherAdmins')"
-                  >
-                    Other admins
-                  </button>
-                  <button
-                    id="restorePwBtn"
-                    class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
-                    onclick="showTab('restorePw')"
-                  >
-                    Restore passwords
-                  </button>
-                </div>
-                <div
-                  class="flex flex-1 text-xl border-t-solid border-t-[1px] border-t-[#59114d]"
-                >
-                  <div id="publicInfo" class="tab flex flex-1 flex-col">
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-10"
-                    >
-                      PUBLIC INFORMATION
-                    </div>
-                    <div class="my-8">
-                      <span class="adminOnly hidden primary font-semibold"
-                        >Name:</span
-                      >
-                      <span class="companyOnly hidden primary font-semibold"
-                        >Company name:</span
-                      >
-                      <input
-                        id="newName"
-                        name="newName"
-                        placeholder="Type new name"
-                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                      />
-                    </div>
-                    <div class="adminOnly hidden my-8">
-                      <span class="primary font-semibold">Surname:</span>
-                      <input
-                        id="newSurname"
-                        name="newSurname"
-                        placeholder="Type new surname"
-                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                      />
-                    </div>
-                    <div class="companyOnly hidden my-8">
-                      <span class="primary font-semibold">Company owner:</span>
-                      <input
-                        id="newOwner"
-                        name="newOwner"
-                        placeholder="Type new owner"
-                        class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                      />
-                    </div>
-                    <div class="companyOnly hidden mt-8">
-                      <span class="primary font-semibold">Profession:</span>
-                      <span
-                        id="newProfession"
-                        class="change px-1 bg-transparent"
-                      ></span>
-                    </div>
-                    <button
-                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-                      onclick="savePublic()"
-                    >
-                      UPDATE
-                    </button>
-                  </div>
-                  <div id="privateInfo" class="tab hidden flex flex-1 flex-col">
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4"
-                    >
-                      PRIVATE INFORMATION
-                    </div>
-                    <div class="my-8">
-                      <span class="primary font-semibold">Email:</span>
-                      <input
-                        id="newEmail"
-                        name="newEmail"
-                        placeholder="Type new email"
-                        class="change px-1 rounded shadow-sm border-primary  bg-transparent"
-                      />
-                    </div>
-                    <div class="my-8">
-                      <span class="primary font-semibold">Password:</span>
-                      <input
-                        id="newPassword"
-                        name="newPassword"
-                        placeholder="Type new password"
-                        class="change px-1 rounded shadow-sm border-primary  bg-transparent"
-                      />
-                    </div>
-                    <div class="mt-8">
-                      <span class="primary font-semibold">Id:</span>
-                      <span id="adminId"></span>
-                    </div>
-                    <button
-                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-                      onclick="savePrivate()"
-                    >
-                      UPDATE
-                    </button>
-                  </div>
-                  <div id="newAdmin" class="tab hidden flex flex-1 flex-col">
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4"
-                    >
-                      CREATE ADMIN ACCOUNT
-                    </div>
-                    <div class="adminOnly hidden my-8 self-center">
-                      <div class="primary font-semibold text-center">
-                        These credentials will create a new admin account.
-                      </div>
-                      <div class="flex primary font-semibold mb-16 text-center" style="overflow-wrap: break-word; max-width: 40rem;">
-                        They will be able to access back office and modify every
-                        data and information about customers, companies and
-                        prenotations.
-                      </div>
-                      <div class="flex flex-col flex-1 self-center items-center" id="createNewAdminTab">
-                        <div class="my-8">
-                          <span class="primary font-semibold">New admin name:</span>
-                          <input
-                            id="createAdminName"
-                            name="createAdminName"
-                            placeholder="Type new admin name"
-                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                          />
-                        </div>
-                        <div class="my-8">
-                          <span class="primary font-semibold">New admin surname:</span>
-                          <input
-                            id="createAdminSurname"
-                            name="createAdminSurname"
-                            placeholder="Type new admin surname"
-                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                          />
-                        </div>
-                        <div class="my-8">
-                          <span class="primary font-semibold">New admin email:</span>
-                          <input
-                            id="createAdminEmail"
-                            name="createAdminEmail"
-                            placeholder="Type new admin email"
-                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                          />
-                        </div>
-                        <div class="my-8">
-                          <span class="primary font-semibold">New admin password:</span>
-                          <input
-                            id="createAdminPassword"
-                            name="createAdminPassword"
-                            placeholder="Type new admin password"
-                            class="change px-1 rounded shadow-sm border-primary bg-transparent"
-                          />
-                        </div>
-                        <button
-                        class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
-                        onclick="createAdmin()"
-                        >
-                        CREATE NEW ADMIN
-                      </div>
-                      </button>
-                      <span
-                        id="newProfession"
-                        class="change px-1 bg-transparent"
-                      ></span>
-                    </div>
-                  </div>
-                  <div
-                    id="careerTab"
-                    class="tab hidden mb-4 flex flex-1 flex-col"
-                  >
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
-                    >
-                      CAREER INFORMATION
-                    </div>
-                    <div id="careerInfo"></div>
-                    <button
-                      class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
-                      onclick="saveCareer()"
-                    >
-                      UPDATE
-                    </button>
-                  </div>
-                  <div id="otherAdmins" class="tab hidden flex flex-1 flex-col">
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
-                    >
-                      OTHER ADMINS
-                    </div>
-                  </div>
-                  <div id="restorePw" class="tab hidden flex flex-1 flex-col">
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
-                    >
-                      RESTORE PASSWORDS
-                    </div>
-                  </div>
-                  <div id="places" class="tab hidden flex flex-1 flex-col">
-                    <button
-                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-                      onclick="saveCities()"
-                     >
-                      UPDATE
-                    </button>
-                  </div>
-                  <div id="businessTab" class="tab hidden flex flex-1 flex-col">
-                    <div
-                      class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
-                    >
-                      BUSINESS INFORMATION
-                    </div>
-                    <div id="businessInfo"></div>
-                    <button
-                      class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
-                      onclick="saveBusiness()"
-                    >
-                      UPDATE
-                    </button>
-                  </div>
-                </div>
-              </button>
             </button>
+            <button
+              id="careerTabBtn"
+              class="hidden companyOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('careerTab')"
+            >
+              Career information
+            </button>
+            <button
+              id="newAdminBtn"
+              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('newAdmin')"
+            >
+              Create new admin
+            </button>
+            <button
+              id="otherAdminsBtn"
+              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('otherAdmins')"
+            >
+              Other admins
+            </button>
+            <button
+              id="restorePwBtn"
+              class="hidden adminOnly btnInfo border-b-light thirdColor font-bold text-xl py-3 hover:opacity-50"
+              onclick="showTab('restorePw')"
+            >
+              Restore passwords
+            </button>
+          </div>
+          <div
+            class="flex flex-1 text-xl border-t-solid border-t-[1px] border-t-[#59114d]"
+          >
+            <div id="publicInfo" class="tab flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4 mb-10"
+              >
+                PUBLIC INFORMATION
+              </div>
+              <div class="my-8">
+                <span class="adminOnly hidden primary font-semibold"
+                  >Name:</span
+                >
+                <label
+                  for="newName"
+                  class="companyOnly hidden primary font-semibold"
+                  >Company name:</label
+                >
+                <input
+                  id="newName"
+                  name="newName"
+                  placeholder="Type new name"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+              </div>
+              <div class="adminOnly hidden my-8">
+                <label for="newSurname" class="primary font-semibold"
+                  >Surname:</label
+                >
+                <input
+                  id="newSurname"
+                  name="newSurname"
+                  placeholder="Type new surname"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+              </div>
+              <div class="companyOnly hidden my-8">
+                <label for="newOwner" class="primary font-semibold"
+                  >Company owner:</label
+                >
+                <input
+                  id="newOwner"
+                  name="newOwner"
+                  placeholder="Type new owner"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+              </div>
+              <div class="companyOnly hidden mt-8">
+                <span class="primary font-semibold">Profession:</span>
+                <span
+                  id="newProfession"
+                  class="change px-1 bg-transparent"
+                ></span>
+              </div>
+              <button
+                class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                onclick="savePublic()"
+              >
+                UPDATE
+              </button>
+            </div>
+            <div id="privateInfo" class="tab hidden flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4"
+              >
+                PRIVATE INFORMATION
+              </div>
+              <div class="my-8">
+                <label for="newEmail" class="primary font-semibold"
+                  >Email:</label
+                >
+                <input
+                  id="newEmail"
+                  name="newEmail"
+                  placeholder="Type new email"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+              </div>
+              <div class="my-8">
+                <label for="newPassword" class="primary font-semibold"
+                  >Password:</label
+                >
+                <input
+                  id="newPassword"
+                  name="newPassword"
+                  placeholder="Type new password"
+                  class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                />
+              </div>
+              <div class="mt-8">
+                <span class="primary font-semibold">Id:</span>
+                <span id="adminId"></span>
+              </div>
+              <button
+                class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                onclick="savePrivate()"
+              >
+                UPDATE
+              </button>
+            </div>
+            <div id="newAdmin" class="tab hidden flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4"
+              >
+                CREATE ADMIN ACCOUNT
+              </div>
+              <div class="adminOnly hidden my-8 self-center">
+                <div class="primary font-semibold text-center">
+                  These credentials will create a new admin account.
+                </div>
+                <div
+                  class="flex primary font-semibold mb-16 text-center"
+                  style="overflow-wrap: break-word; max-width: 40rem"
+                >
+                  They will be able to access back office and modify every data
+                  and information about customers, companies and prenotations.
+                </div>
+                <div
+                  class="flex flex-col flex-1 self-center items-center"
+                  id="createNewAdminTab"
+                >
+                  <div class="my-8">
+                    <label for="createAdminName" class="primary font-semibold"
+                      >New admin name:</label
+                    >
+                    <input
+                      id="createAdminName"
+                      name="createAdminName"
+                      placeholder="Type new admin name"
+                      class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                    />
+                  </div>
+                  <div class="my-8">
+                    <label
+                      for="createAdminSurname"
+                      class="primary font-semibold"
+                      >New admin surname:</label
+                    >
+                    <input
+                      id="createAdminSurname"
+                      name="createAdminSurname"
+                      placeholder="Type new admin surname"
+                      class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                    />
+                  </div>
+                  <div class="my-8">
+                    <label for="createAdminEmail" class="primary font-semibold"
+                      >New admin email:</label
+                    >
+                    <input
+                      id="createAdminEmail"
+                      name="createAdminEmail"
+                      placeholder="Type new admin email"
+                      class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                    />
+                  </div>
+                  <div class="my-8">
+                    <label
+                      for="createAdminPassword"
+                      class="primary font-semibold"
+                      >New admin password:</label
+                    >
+                    <input
+                      id="createAdminPassword"
+                      name="createAdminPassword"
+                      placeholder="Type new admin password"
+                      class="change px-1 rounded shadow-sm border-primary bg-transparent"
+                    />
+                  </div>
+                  <button
+                    class="flex bg-save px-4 py-3 my-20 rounded self-center font-bold thirdColor hover:opacity-75"
+                    onclick="createAdmin()"
+                  >
+                    CREATE NEW ADMIN
+                  </button>
+                </div>
+                <span
+                  id="newProfession"
+                  class="change px-1 bg-transparent"
+                ></span>
+              </div>
+            </div>
+            <div id="careerTab" class="tab hidden mb-4 flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
+              >
+                CAREER INFORMATION
+              </div>
+              <div id="careerInfo"></div>
+              <button
+                class="flex bg-save px-2 py-2 mb-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                onclick="saveCareer()"
+              >
+                UPDATE
+              </button>
+            </div>
+            <div id="otherAdmins" class="tab hidden flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
+              >
+                OTHER ADMINS
+              </div>
+            </div>
+            <div id="restorePw" class="tab hidden flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4 mb-2"
+              >
+                RESTORE PASSWORDS
+              </div>
+            </div>
+            <div id="places" class="tab hidden flex flex-1 flex-col">
+              <button
+                class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                onclick="saveCities()"
+              >
+                UPDATE
+              </button>
+            </div>
+            <div id="businessTab" class="tab hidden flex flex-1 flex-col">
+              <div
+                class="flex justify-center secondary text-3xl font-bold mt-4 mb-6"
+              >
+                BUSINESS INFORMATION
+              </div>
+              <div id="businessInfo"></div>
+              <button
+                class="flex bg-save px-2 py-2 my-10 rounded self-center font-bold thirdColor hover:opacity-75"
+                onclick="saveBusiness()"
+              >
+                UPDATE
+              </button>
+            </div>
           </div>
         </div>
       </div>
