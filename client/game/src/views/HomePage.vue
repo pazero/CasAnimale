@@ -159,12 +159,12 @@ const advs = [
     <div
       class="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 xl:max-w-7xl xl:px-8"
     >
-      <div
+      <h1
         class="flex justify-center font-semibold normal-case text-6xl md:text-7xl xl:text-8xl md:pb-4"
         style="flex: 0 1 auto"
       >
         GAMES
-      </div>
+      </h1>
 
       <div class="grid grid-cols-2 xl:grid-cols-3">
         <a v-for="game in games" :key="game.id" :href="game.href" class="card">

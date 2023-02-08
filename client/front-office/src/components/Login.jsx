@@ -68,11 +68,11 @@ const Login = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="flex h-screen justify-center"
+            className="flex h-full justify-center"
             style={{ marginRight: "20%" }}
           >
             <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
-              <div className="card-body text-center">
+              <main className="card-body text-center">
                 <h1 className="card-title font-semibold text-md justify-center">
                   Sign in to CasAnimale!
                 </h1>
@@ -102,29 +102,29 @@ const Login = () => {
                   <div>
                     <button className="btn btn-secondary my-2">sign in</button>
                   </div>
-                  <label className="label">
+                  <div>
                     <button
                       onClick={() => {
                         navigate("/restore");
                       }}
-                      className="label-text-alt link link-hover"
+                      className="link link-hover"
                     >
                       Forgot password?
                     </button>
-                  </label>
+                  </div>
                 </div>
-                <label className="label" for="signInButton">
+                <div>
                   <button
                     id="signInButton"
                     onClick={() => {
                       navigate("/register");
                     }}
-                    className="label-text-alt link link-hover"
+                    className="link link-hover"
                   >
                     Or if you don't have an account SIGN UP
                   </button>
-                </label>
-              </div>
+                </div>
+              </main>
             </div>
           </form>
         </div>
@@ -146,10 +146,10 @@ const Login = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="flex h-screen justify-center"
+            className="flex h-full justify-center"
           >
             <div className="m-auto card justify-center w-full max-w-sm shadow-2xl bg-base-100">
-              <div className="card-body text-center">
+              <main className="card-body text-center">
                 <h1 className="card-title text-md font-semibold justify-center">
                   Sign in to CasAnimale!
                 </h1>
@@ -179,29 +179,29 @@ const Login = () => {
                   <div>
                     <button className="btn btn-secondary my-2">sign in</button>
                   </div>
-                  <label className="label">
+                  <div>
                     <button
                       onClick={() => {
                         navigate("/restore");
                       }}
-                      className="label-text-alt link link-hover"
+                      className="link link-hover"
                     >
                       Forgot password?
                     </button>
-                  </label>
+                  </div>
                 </div>
-                <label className="label" for="signInButton">
+                <div>
                   <button
                     id="signInButton"
                     onClick={() => {
                       navigate("/register");
                     }}
-                    className="label-text-alt link link-hover"
+                    className="link link-hover"
                   >
                     Or if you don't have an account SIGN UP
                   </button>
-                </label>
-              </div>
+                </div>
+              </main>
             </div>
           </form>
         </div>

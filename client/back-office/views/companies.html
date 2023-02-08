@@ -56,7 +56,6 @@
         await loadCompanyList();
         if (user.admin) {
           $(".adminOnly").removeClass("hidden");
-          $(".forAdmin").removeClass("hidden");
         }
       };
 
@@ -272,10 +271,10 @@
       };
       const listArray = (array, index, type) => {
         toLabel = "";
-        if(type === "Exp") toLabel = "experience"
-        if(type === "Job") toLabel = "job"
-        if(type === "Study") toLabel = "study info"
-        if(type === "Pet") toLabel = "pet"
+        if (type === "Exp") toLabel = "experience";
+        if (type === "Job") toLabel = "job";
+        if (type === "Study") toLabel = "study info";
+        if (type === "Pet") toLabel = "pet";
 
         if (array !== undefined) {
           let tmp = "";
@@ -286,7 +285,11 @@
               type +
               index +
               count +
-              `">` + toLabel + ` ` +  (count+1) +`:</label>
+              `">` +
+              toLabel +
+              ` ` +
+              (count + 1) +
+              `:</label>
               <input
                 type="text"
                 name="new` +
@@ -338,7 +341,11 @@
               space +
               type +
               count +
-              `">` + toLabel + ` ` + (count+1) + `:</label>
+              `">` +
+              toLabel +
+              ` ` +
+              (count + 1) +
+              `:</label>
               <input
                 type="text"
                 placeholder="Type new field"
@@ -365,22 +372,22 @@
         if (aux === "expLen") {
           toUpdateLen[index].expLen++;
           count = toUpdateLen[index].expLen - 1;
-          toLabel = "experience"
+          toLabel = "experience";
         }
         if (aux === "petLen") {
           toUpdateLen[index].petLen++;
           count = toUpdateLen[index].petLen - 1;
-          toLabel = "pet"
+          toLabel = "pet";
         }
         if (aux === "studyLen") {
           toUpdateLen[index].studyLen++;
           count = toUpdateLen[index].studyLen - 1;
-          toLabel = "study info"
+          toLabel = "study info";
         }
         if (aux === "jobLen") {
           toUpdateLen[index].jobLen++;
           count = toUpdateLen[index].jobLen - 1;
-          toLabel = "job"
+          toLabel = "job";
         }
         if (count != -1) {
           $("#" + space + type + index).append(
@@ -390,7 +397,11 @@
               type +
               index +
               count +
-              `">` + toLabel+ ` ` + (count+1)+ `:</label>
+              `">` +
+              toLabel +
+              ` ` +
+              (count + 1) +
+              `:</label>
               <input
                 type="text"
                 placeholder="Type new field"
@@ -710,7 +721,7 @@
                   <div>
                     <label for="newPassword` +
           index +
-          `" class="font-semibold">Password: </span>
+          `" class="font-semibold">Password: </label>
                     <input
                       type="text"
                       name="newPassword` +
@@ -1589,105 +1600,278 @@
   </head>
   <body>
     <div class="flex flex-col text-xl md:flex-row flex-1 h-full">
-      <div
+      <aside
         class="md:fixed flex justify-center py-5 md:py-0 md:pl-5 self-center"
         id="sidebar"
-      ></div>
+      ></aside>
       <div class="flex flex-col w-full p-5 pt-0 ml-0 md:p-5 md:ml-[106px]">
-        <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
-          COMPANIES
-        </h1>
-        <div class="flex flex-col mx-4 mb-1 flex-0">
+        <header class="flex flex-center flex-col">
+          <h1 id="title" class="font-bold text-4xl sm:text-6xl m-4 self-center">
+            COMPANIES
+          </h1>
           <div class="gray self-center">
             Click on something followed by
             <i class="fa fa-copy"></i> to copy it!
           </div>
-          <button
-            id="showNew"
-            class="hidden adminOnly btn bg-danger mt-4 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
-            onclick="showNewCompany()"
-          >
-            CREATE NEW COMPANY
-          </button>
-          <div id="hideNew" class="hidden flex flex-row self-center my-4">
+        </header>
+        <main>
+          <div class="flex flex-col mx-4 mb-1 flex-0">
             <button
-              class="btn bg-save border-save border-2 p-1 px-4 mx-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
-              onclick="createCp()"
+              id="showNew"
+              class="hidden adminOnly btn bg-danger mt-4 p-1 px-4 m-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+              onclick="showNewCompany()"
             >
-              CREATE
+              CREATE NEW COMPANY
             </button>
-            <button
-              class="btn border-primary primary border-2 primary p-1 px-4 mx-2 hover:opacity-80 font-bold rounded-lg self-center"
-              onclick="hideNewCompany()"
-            >
-              CANCEL
-            </button>
+            <div id="hideNew" class="hidden flex flex-row self-center my-4">
+              <button
+                class="btn bg-save border-save border-2 p-1 px-4 mx-2 hover:opacity-80 text-white font-bold rounded-lg self-center"
+                onclick="createCp()"
+              >
+                CREATE
+              </button>
+              <button
+                class="btn border-primary primary border-2 primary p-1 px-4 mx-2 hover:opacity-80 font-bold rounded-lg self-center"
+                onclick="hideNewCompany()"
+              >
+                CANCEL
+              </button>
+            </div>
+            <div
+              id="tabToNewCompany"
+              class="tocreate hidden p-3 border-danger border-2 mb-4 rounded-lg flex self-center"
+            ></div>
+            <div class="flex flex-row mt-2">
+              <button
+                id="showBtn"
+                class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+                onclick="showFilters()"
+              >
+                Show filters
+              </button>
+              <button
+                id="hideBtn"
+                class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
+                onclick="hideFilters()"
+              >
+                Hide filters
+              </button>
+              <button
+                id="resetBtn"
+                class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
+                onclick="resetFilters()"
+              >
+                Reset filters
+              </button>
+            </div>
           </div>
-          <div
-            id="tabToNewCompany"
-            class="tocreate hidden p-3 border-danger border-2 mb-4 rounded-lg flex self-center"
-          ></div>
-          <div class="flex flex-row mt-2">
-            <button
-              id="showBtn"
-              class="hidden flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-              onclick="showFilters()"
-            >
-              Show filters
-            </button>
-            <button
-              id="hideBtn"
-              class="flex btn bg-save p-1 hover:opacity-80 text-white font-bold rounded mr-2"
-              onclick="hideFilters()"
-            >
-              Hide filters
-            </button>
-            <button
-              id="resetBtn"
-              class="flex btn bg-secondary p-1 hover:opacity-80 text-white font-bold rounded"
-              onclick="resetFilters()"
-            >
-              Reset filters
-            </button>
-          </div>
-        </div>
-        <div id="companyInfo" class="flex m-4 mt-2">
-          <div class="flex flex-col flex-1">
-            <div id="companiesFilters" class="flex flex-col">
-              <!-- primo filtro-->
-              <div class="flex flex-col sm:flex-row">
-                <span class="flex">
-                  <label
-                    for="filterCompanyId"
-                    class="flex self-center primary font-semibold"
-                    >Filter by company id:</label
-                  >
-                </span>
-                <span>
-                  <input
-                    id="filterCompanyId"
-                    name="filterCompanyId"
-                    type="text"
-                    placeholder="ex. 63c282e29db4069ff8c23a76"
-                    class="px-1 m-1 rounded w-[15rem]"
-                    oninput="filterCompanyList()"
-                  />
-                </span>
-              </div>
-              <!-- secondo e terzo filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
+          <div id="companyInfo" class="flex m-4 mt-2">
+            <div class="flex flex-col flex-1">
+              <div id="companiesFilters" class="flex flex-col">
+                <!-- primo filtro-->
+                <div class="flex flex-col sm:flex-row">
                   <span class="flex">
                     <label
-                      for="filterProfession"
+                      for="filterCompanyId"
                       class="flex self-center primary font-semibold"
-                      >Filter by profession:</label
+                      >Filter by company id:</label
+                    >
+                  </span>
+                  <span>
+                    <input
+                      id="filterCompanyId"
+                      name="filterCompanyId"
+                      type="text"
+                      placeholder="ex. 63c282e29db4069ff8c23a76"
+                      class="px-1 m-1 rounded w-[15rem]"
+                      oninput="filterCompanyList()"
+                    />
+                  </span>
+                </div>
+                <!-- secondo e terzo filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterProfession"
+                        class="flex self-center primary font-semibold"
+                        >Filter by profession:</label
+                      >
+                    </span>
+                    <span>
+                      <select
+                        id="filterProfession"
+                        name="filterProfession"
+                        type="text"
+                        class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
+                        oninput="filterCompanyList()"
+                      >
+                        <option value="" class="text-[#939798]">
+                          --Choose an option--
+                        </option>
+                        <option value="psy">Psychologist</option>
+                        <option value="petsitter">Pet Sitter</option>
+                        <option value="vet">Veterinary</option>
+                        <option value="groomer">Groomer</option>
+                      </select>
+                    </span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterOwner"
+                        class="flex self-center primary font-semibold"
+                        >Filter by owner:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterOwner"
+                        name="filterOwner"
+                        type="text"
+                        placeholder="ex. Dott.ssa Giorgia Rossi"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- quarto e quinto filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterEmail"
+                        class="flex self-center primary font-semibold"
+                        >Filter by email:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterEmail"
+                        name="filterEmail"
+                        type="text"
+                        placeholder="ex. name@casanimale.com"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterName"
+                        class="flex self-center primary font-semibold"
+                        >Filter by company name:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterName"
+                        name="filterName"
+                        type="text"
+                        placeholder="ex. Best vet ever"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- sesto e settimo filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterMinCost"
+                        class="flex self-center primary font-semibold"
+                        >Filter by minimum cost:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterMinCost"
+                        name="filterMinCost"
+                        type="text"
+                        placeholder="ex. 34"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row">
+                    <span class="flex">
+                      <label
+                        for="filterMaxCost"
+                        class="flex self-center primary font-semibold"
+                        >Filter by maximum cost:
+                      </label>
+                    </span>
+                    <span>
+                      <input
+                        id="filterMaxCost"
+                        name="filterMaxCost"
+                        type="text"
+                        placeholder="ex. 58"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- ottavo e nono filtro-->
+                <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col sm:flex-row lg:mr-4">
+                    <span class="flex">
+                      <label
+                        for="filterCity"
+                        class="flex self-center primary font-semibold"
+                        >Filter by city:</label
+                      >
+                    </span>
+                    <span>
+                      <input
+                        id="filterCity"
+                        name="filterCity"
+                        type="text"
+                        placeholder="ex. Torino"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                  <div class="flex flex-col sm:flex-row">
+                    <span class="flex">
+                      <label
+                        for="filterPet"
+                        class="flex self-center primary font-semibold"
+                        >Filter by main pet:
+                      </label>
+                    </span>
+                    <span>
+                      <input
+                        id="filterPet"
+                        name="filterPet"
+                        type="text"
+                        placeholder="ex. cats"
+                        class="px-1 m-1 rounded w-[15rem]"
+                        oninput="filterCompanyList()"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <!-- decimo filtro-->
+                <div class="flex flex-col sm:flex-row mb-2">
+                  <span class="flex">
+                    <label
+                      for="filterOnline"
+                      class="flex self-center primary font-semibold"
+                      >Available online:</label
                     >
                   </span>
                   <span>
                     <select
-                      id="filterProfession"
-                      name="filterProfession"
+                      id="filterOnline"
+                      name="filterOnline"
                       type="text"
                       class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
                       oninput="filterCompanyList()"
@@ -1695,189 +1879,20 @@
                       <option value="" class="text-[#939798]">
                         --Choose an option--
                       </option>
-                      <option value="psy">Psychologist</option>
-                      <option value="petsitter">Pet Sitter</option>
-                      <option value="vet">Veterinary</option>
-                      <option value="groomer">Groomer</option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
                     </select>
                   </span>
                 </div>
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterOwner"
-                      class="flex self-center primary font-semibold"
-                      >Filter by owner:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterOwner"
-                      name="filterOwner"
-                      type="text"
-                      placeholder="ex. Dott.ssa Giorgia Rossi"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
               </div>
-              <!-- quarto e quinto filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterEmail"
-                      class="flex self-center primary font-semibold"
-                      >Filter by email:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterEmail"
-                      name="filterEmail"
-                      type="text"
-                      placeholder="ex. name@casanimale.com"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterName"
-                      class="flex self-center primary font-semibold"
-                      >Filter by company name:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterName"
-                      name="filterName"
-                      type="text"
-                      placeholder="ex. Best vet ever"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
-              </div>
-              <!-- sesto e settimo filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterMinCost"
-                      class="flex self-center primary font-semibold"
-                      >Filter by minimum cost:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterMinCost"
-                      name="filterMinCost"
-                      type="text"
-                      placeholder="ex. 34"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
-                <div class="flex flex-col sm:flex-row">
-                  <span class="flex">
-                    <label
-                      for="filterMaxCost"
-                      class="flex self-center primary font-semibold"
-                      >Filter by maximum cost:
-                    </label>
-                  </span>
-                  <span>
-                    <input
-                      id="filterMaxCost"
-                      name="filterMaxCost"
-                      type="text"
-                      placeholder="ex. 58"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
-              </div>
-              <!-- ottavo e nono filtro-->
-              <div class="flex flex-col lg:flex-row">
-                <div class="flex flex-col sm:flex-row lg:mr-4">
-                  <span class="flex">
-                    <label
-                      for="filterCity"
-                      class="flex self-center primary font-semibold"
-                      >Filter by city:</label
-                    >
-                  </span>
-                  <span>
-                    <input
-                      id="filterCity"
-                      name="filterCity"
-                      type="text"
-                      placeholder="ex. Torino"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
-                <div class="flex flex-col sm:flex-row">
-                  <span class="flex">
-                    <label
-                      for="filterPet"
-                      class="flex self-center primary font-semibold"
-                      >Filter by main pet:
-                    </label>
-                  </span>
-                  <span>
-                    <input
-                      id="filterPet"
-                      name="filterPet"
-                      type="text"
-                      placeholder="ex. cats"
-                      class="px-1 m-1 rounded w-[15rem]"
-                      oninput="filterCompanyList()"
-                    />
-                  </span>
-                </div>
-              </div>
-              <!-- decimo filtro-->
-              <div class="flex flex-col sm:flex-row mb-2">
-                <span class="flex">
-                  <label
-                    for="filterOnline"
-                    class="flex self-center primary font-semibold"
-                    >Available online:</label
-                  >
-                </span>
-                <span>
-                  <select
-                    id="filterOnline"
-                    name="filterOnline"
-                    type="text"
-                    class="px-1 m-1 rounded w-[15rem] bg-[#FFFFFF]"
-                    oninput="filterCompanyList()"
-                  >
-                    <option value="" class="text-[#939798]">
-                      --Choose an option--
-                    </option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                  </select>
-                </span>
-              </div>
+              <div
+                id="totCompanies"
+                class="flex flex-col flex primary font-semibold my-2"
+              ></div>
+              <div id="companyList" class="flex flex-col flex-1"></div>
             </div>
-            <div
-              id="totCompanies"
-              class="flex flex-col flex primary font-semibold my-2"
-            ></div>
-            <div id="companyList" class="flex flex-col flex-1"></div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   </body>

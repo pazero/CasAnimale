@@ -92,6 +92,9 @@ const Navbar = () => {
                 aria-label="Press enter to view community"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
+                    var tmp = document.getElementById("servicesmall");
+                    tmp.style.display = "none";
+                    tmp.setAttribute("aria-expanded", false);
                     var tmp = document.getElementById("communitysmall");
                     if (
                       tmp.style.display === "" ||
@@ -201,7 +204,10 @@ const Navbar = () => {
                 aria-label="Press enter to view servicies"
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
-                    var tmp = document.getElementById("servicesmall");
+                    var tmp = document.getElementById("communitysmall");
+                    tmp.style.display = "none";
+                    tmp.setAttribute("aria-expanded", false);
+                    tmp = document.getElementById("servicesmall");
                     if (
                       tmp.style.display === "" ||
                       tmp.style.display === "none"
@@ -366,7 +372,7 @@ const Navbar = () => {
             <img
               src="/f/CasAnimaleScritta.png"
               alt="CasAnimale title"
-              class="h-12"
+              class="h-8 sm:h-12"
             />
           </a>
         </div>
@@ -383,6 +389,9 @@ const Navbar = () => {
               aria-label="Press enter to view community"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
+                  var tmp = document.getElementById("servicelarge");
+                  tmp.style.display = "none";
+                  tmp.setAttribute("aria-expanded", false);
                   var tmp = document.getElementById("communitylarge");
                   if (
                     tmp.style.display === "" ||
@@ -487,6 +496,9 @@ const Navbar = () => {
               aria-label="Press enter to view servicies"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
+                  var tmp = document.getElementById("communitylarge");
+                  tmp.style.display = "none";
+                  tmp.setAttribute("aria-expanded", false);
                   var tmp = document.getElementById("servicelarge");
                   if (
                     tmp.style.display === "" ||
@@ -703,7 +715,7 @@ const Navbar = () => {
               className="btn mr-2 font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900"
               for="dropdown"
             >
-              <span>login</span>
+              login
             </button>
             <ul
               aria-expanded={true}
