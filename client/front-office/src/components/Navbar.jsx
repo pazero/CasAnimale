@@ -703,7 +703,7 @@ const Navbar = () => {
               className="btn mr-2 font-semibold border-indigo-200 bg-indigo-200 text-indigo-900 hover:bg-indigo-200 hover:text-indigo-900"
               for="dropdown"
             >
-              <span>login</span>
+              login
             </button>
             <ul
               aria-expanded={true}
