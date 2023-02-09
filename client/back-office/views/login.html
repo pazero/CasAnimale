@@ -17,7 +17,7 @@
         const tokenback = authHeader && authHeader.split("=");
         if (tokenback[0] === "token") {
           alert("Log out from front office first");
-          window.location.href = "http://localhost:3000/f";
+          window.location.href = "http://localhost:5000/f";
           return;
         }
         if (tokenback) {
@@ -118,7 +118,7 @@
                           </button>
                           <a
                             class="text-gray-500"
-                            href="http://localhost:3000/f/restore"
+                            href="http://localhost:5000/f/restore"
                             >Forgot password?</a
                           >
                         </div>
@@ -146,7 +146,7 @@
                       If you aren't a company or an admin, please go back to the
                       <a
                         class="underline primary"
-                        href="http://localhost:3000/f"
+                        href="http://localhost:5000/f"
                         >front office</a
                       >.
                     </p>
