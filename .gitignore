@@ -5,3 +5,4 @@ server/node_modules
 server/.env
 client/front-office/src/output.css
 client/game/src/output.css
+dbdata
